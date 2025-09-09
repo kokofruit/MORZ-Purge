@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Temp_Character_Controller : MonoBehaviour
 {
+    // Code below is from CharacterController.SimpleMove in Unity Documentation website.
     private float speed = 3.0f;
     private float rotationSpeed = 90.0f; // degrees per second
 
