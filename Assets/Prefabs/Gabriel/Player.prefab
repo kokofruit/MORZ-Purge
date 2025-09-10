@@ -182,8 +182,8 @@ GameObject:
   - component: {fileID: 3263540543505321067}
   - component: {fileID: 18539642092374207}
   - component: {fileID: 3746776137166221323}
-  - component: {fileID: 3031262659255892121}
   - component: {fileID: 4838888864836725775}
+  - component: {fileID: 3031262659255892121}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -313,22 +313,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &3031262659255892121
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7813069223567444817}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3503e7f5669d8df4a8bd24e020d1ddfe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  walkSpeed: 1.5
-  runSpeedMultiplier: 2
-  lookSensX: 0.1
-  lookSensY: 0.1
 --- !u!54 &4838888864836725775
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -356,3 +340,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &3031262659255892121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7813069223567444817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3503e7f5669d8df4a8bd24e020d1ddfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lookSensX: 0.1
+  lookSensY: 0.1
+  _walkSpeed: 3
+  _runSpeedMultiplier: 2
+  _jumpForce: 25
