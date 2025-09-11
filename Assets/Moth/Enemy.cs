@@ -1,63 +1,20 @@
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+[CreateAssetMenu(fileName = "Enemy", menuName = "Scriptable Objects/Enemy")]
+public class Enemy : ScriptableObject
 {
-    // Enemy Stats variables
-    [SerializeField] protected string _species;
-    [SerializeField] protected int _health;
-    [SerializeField] protected int _damage;
-    [SerializeField] protected int _attackCooldown;
-    [SerializeField] protected int _moveSpeed;
-    [SerializeField] protected int _wanderingRange;
+    // The health of the enemy
+    [SerializeField] public float health;
 
-    // State Machine variables
-    protected enum EnemyState { idle, roaming, chasing, attacking, }
-    protected EnemyState _enemyState = EnemyState.idle;
+    // The base damage of the enemy
+    [SerializeField] public float baseDamage;
 
-    protected int _idleTimer;
-    protected Vector3 _roamingDestination;
+    // The amount of time before it can attack again
+    [SerializeField] public float attackCooldown;
 
+    // The movement speed of the enemy
+    [SerializeField] public float moveSpeed;
 
-    // Update Function
-    protected virtual void Update()
-    {
-        switch (_enemyState)
-        {
-            case EnemyState.idle:
-                DoIdle();
-                break;
-            case EnemyState.roaming:
-                DoRoaming();
-                break;
-            case EnemyState.chasing:
-                DoChasing();
-                break;
-            case EnemyState.attacking:
-                DoAttacking();
-                break;
-            default:
-                break;
-        }
-    }
-
-    // State Machine Functions
-    protected virtual void DoIdle()
-    {
-
-    }
-
-    protected virtual void DoRoaming()
-    {
-
-    }
-
-    protected virtual void DoChasing()
-    {
-
-    }
-
-    protected virtual void DoAttacking()
-    {
-        
-    }
+    // The maximum distance the enemy can roam to at once
+    [SerializeField] public float roamingRange;
 }
