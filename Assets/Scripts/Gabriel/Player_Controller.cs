@@ -10,12 +10,16 @@ using UnityEngine.InputSystem;
 public class Player_Controller : MonoBehaviour
 {
     //////////////////// Public Variables /////////////////////
+    // Static reference to this player
+    public static Player_Controller instance;
     // Player horizontal look sensitivity
     public float lookSensX = 0.1f;
     // Player vertical look sensitivity
     public float lookSensY = 0.1f;
     // Player's starting health
     public float _health { get; private set; } = 100;
+    // Head object that contains the first person camera
+    public Transform head;
     
     //////////////////// Private Variables /////////////////////
     // Default movement speed
@@ -26,8 +30,6 @@ public class Player_Controller : MonoBehaviour
     [SerializeField] private float _jumpForce = 5;
     // Player rigidbody
     private Rigidbody _rb;
-    // Head object that contains the first person camera
-    private Transform _head;
     // Store the players height for runtime calculations
     private float _playerHeight;
     // Raw input vector from move function
@@ -46,13 +48,20 @@ public class Player_Controller : MonoBehaviour
     private int MAX_HEALTH = 100;
 
     ///////////////////////////////// Monobehvaior Methods ////////////////////////////////
+    void Awake()
+    {
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(gameObject);
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         // Find unnassigned runtime objects and variables
+        head = transform.Find("Head");
         _rb = GetComponent<Rigidbody>();
-        _head = transform.Find("Head");
         _playerHeight = transform.localScale.y * 2;
 
         // Lock the cursor to the center of the screen during gameplay
@@ -73,7 +82,7 @@ public class Player_Controller : MonoBehaviour
         // Change player's horizontal rotation to reflect player input
         transform.rotation = Quaternion.Euler(0, _lookX, 0);
         // Change head's vertical rotation to reflect player input
-        _head.localRotation = Quaternion.Euler(-_lookY, 0, 0);
+        head.localRotation = Quaternion.Euler(-_lookY, 0, 0);
 
         ///////////////// Move update /////////////////
         // If the player is on the ground
@@ -136,7 +145,8 @@ public class Player_Controller : MonoBehaviour
         {
             _health = MAX_HEALTH;
         }
-        else if (_health < 0) {
+        else if (_health < 0)
+        {
             // DIE!!!!!
         }
     }
