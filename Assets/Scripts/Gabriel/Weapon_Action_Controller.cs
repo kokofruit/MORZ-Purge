@@ -10,12 +10,7 @@ using UnityEngine.UI;
 
 public class Weapon_Action_Controller : MonoBehaviour
 {
-    // Test weapon attributes
-    public int range = 20;
-    public int magSize = 16;
-    public Weapon.FireSelect fireSelect = Weapon.FireSelect.auto;
-    public float fireRate = 1;
-    public float cooldown = 1;
+    public WeaponTemplate starterGun;
     public Image hitMarker;
 
     // Weapon controller runtime variables
@@ -31,7 +26,7 @@ public class Weapon_Action_Controller : MonoBehaviour
         player = GetComponent<Player_Controller>();
 
         // Build the test weapon and fill its mag
-        currentWeapon = new Weapon(magSize, range, fireSelect, fireRate, cooldown);
+        currentWeapon = new Weapon(starterGun);
         currentWeapon.Reload();
     }
 
@@ -47,7 +42,7 @@ public class Weapon_Action_Controller : MonoBehaviour
         {
             RaycastHit hit;
             // Fire a "Bullet" (Raycast) in the direction the player is looking and get out the first object hit
-            Physics.Raycast(player.head.position, player.head.forward, out hit, currentWeapon.range);
+            Physics.Raycast(player.head.position, player.head.forward, out hit, currentWeapon.RANGE);
             // Check to make sure the bullet hit something
             if (hit.collider != null)
             {
@@ -60,10 +55,10 @@ public class Weapon_Action_Controller : MonoBehaviour
             Debug.Log("Ammo remaining: " + currentWeapon.ammo);
 
             // Determine the time when the next bullet will be avaible to fire
-            _nextShotTime = Time.time + (1f / currentWeapon.fireRate);
+            _nextShotTime = Time.time + (1f / currentWeapon.FIRE_RATE);
         }
         // If the gun is single fire and the player is attacking but cannot fire, set attacking to false to avoid weapon misfire
-        else if (currentWeapon.fireSelect == Weapon.FireSelect.single)
+        else if (currentWeapon.FIRE_SELECT == WeaponTemplate.FireSelect.Single)
             _isAttacking = false;
     }
 

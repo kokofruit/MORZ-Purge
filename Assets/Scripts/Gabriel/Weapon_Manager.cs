@@ -22,7 +22,7 @@ public class Weapon_Manager : MonoBehaviour
     {
         weapon.SetCoolingStatus(true);
         Debug.Log("Cooldown Started");
-        yield return new WaitForSecondsRealtime(weapon.cooldown);
+        yield return new WaitForSecondsRealtime(weapon.COOLDOWN);
         weapon.Reload();
         weapon.SetCoolingStatus(false);
         Debug.Log("Cooldown Ended");
@@ -31,22 +31,21 @@ public class Weapon_Manager : MonoBehaviour
 
 public class Weapon
 {
-    public Weapon(int magSize, int range, FireSelect fireSelect, float fireRate, float cooldown)
+    public Weapon(WeaponTemplate weapon)
     {
-        this.magSize = magSize;
-        this.range = range;
-        this.fireSelect = fireSelect;
-        this.fireRate = fireRate;
-        this.cooldown = cooldown;
+        MAG_SIZE = weapon.MAG_SIZE;
+        RANGE = weapon.RANGE;
+        FIRE_SELECT = weapon.FIRE_SELECT;
+        FIRE_RATE = weapon.FIRE_RATE;
+        COOLDOWN = weapon.COOLDOWN;
     }
 
-    public int magSize { get; private set; }
+    public int MAG_SIZE { get; private set; }
     public int ammo { get; private set; }
-    public int range { get; private set; }
-    public enum FireSelect { single, burst, auto }
-    public FireSelect fireSelect { get; private set; }
-    public float fireRate { get; private set; }
-    public float cooldown { get; private set; }
+    public int RANGE { get; private set; }
+    public WeaponTemplate.FireSelect FIRE_SELECT { get; private set; }
+    public float FIRE_RATE { get; private set; }
+    public float COOLDOWN { get; private set; }
     public bool _isCooling;
 
     public void SubtractAmmo()
@@ -63,7 +62,17 @@ public class Weapon
     }
     public void Reload()
     {
-        ammo = magSize;
+        ammo = MAG_SIZE;
+        // //reload cooldown here
+        // if (playerAmmo < )
+        // {
+        //     ammo = playerAmmo;
+        // }
+        // else
+        // {
+        //     ammo = MagSize;
+        // }
+        // take MagSize ammo away from player
     }
     public void BeginCooldown()
     {

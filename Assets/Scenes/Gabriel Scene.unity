@@ -1366,11 +1366,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6cc58e1feaa64549a68385354dc523a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 20
-  magSize: 16
-  fireSelect: 0
-  fireRate: 3
-  cooldown: 5
+  starterGun: {fileID: 11400000, guid: 2345def786dca794c8762f3aadd7138c, type: 2}
   hitMarker: {fileID: 560108160}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
