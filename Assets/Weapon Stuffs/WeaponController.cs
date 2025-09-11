@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -29,37 +30,36 @@ public class WeaponController : MonoBehaviour
 
 
     //still needs implementation for full auto
-    private class Weapon {
-        private int ammo;
-        private int mag;
-        private int MagSize;
-        private WeaponTemplate Stats;
+    // private class Weapon {
+    //     private int ammo;
+    //     private int MAG_SIZE;
+    //     private WeaponTemplate STATS;
 
-        Weapon(WeaponTemplate S) {
-            Stats = S;//might be best to transfer all the stats over intead of keeping the template but for now it stays like this
-            ammo = S.AmmoCap;
-            mag = S.MagSize;
-            MagSize = S.MagSize;
-        }
+    //     Weapon(WeaponTemplate S) {
+    //         Stats = S;//might be best to transfer all the stats over intead of keeping the template but for now it stays like this
+    //         ammo = S.MagSize;
+    //         MagSize = S.MagSize;
+    //     }
 
-        public void Fire() {
-            mag--;
-            //shooty stuff here
-        }
+    //     public void Fire() {
+    //         ammo--;
+    //         //shooty stuff here
+    //     }
 
-        //discards unused rounds right now
-        //change later if we want to
-        public void Reload() {
-            //reload cooldown here
-            if (ammo < MagSize)
-            {
-                mag = ammo;
-                ammo = 0;
-            }
-            else {
-                mag = MagSize;
-                ammo -= MagSize;
-            }
-        }
-    }
+    //     //discards unused rounds right now
+    //     //change later if we want to
+    //     public void Reload()
+    //     {
+    //         //reload cooldown here
+    //         if (playerAmmo < MagSize)
+    //         {
+    //             ammo = playerAmmo;
+    //         }
+    //         else
+    //         {
+    //             ammo = MagSize;
+    //         }
+    //         // take MagSize ammo away from player
+    //     }
+    // }
 }

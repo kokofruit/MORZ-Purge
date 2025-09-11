@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Pistol
   m_EditorClassIdentifier: 
   Image: {fileID: 0}
-  ReloadCooldown: 2
-  FireRate: 2
-  AmmoType: 1
-  AmmoCap: 0
-  MagSize: 12
+  COOLDOWN: 5
+  RANGE: 20
+  FIRE_RATE: 1
+  AMMO_TYPE: 0
+  FIRE_SELECT: 0
+  MAG_SIZE: 20
