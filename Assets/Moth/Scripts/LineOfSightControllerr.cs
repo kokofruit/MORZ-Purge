@@ -2,29 +2,35 @@ using UnityEngine;
 
 public class LineOfSightControllerr : EnemyController
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] Transform _eyeLevel;
+
+    protected override void DoIdle()
     {
-        
+        base.DoIdle();
+        if (LineOfSight(_eyeLevel.position, Camera.main.transform.position, out RaycastHit _hitPoint))
+        {
+            print(_hitPoint.collider.gameObject.CompareTag("Player"));
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    bool LineOfSight(Vector3 start, Vector3 end, out RaycastHit hitPoint)
     {
-        LineOfSight(this.transform.position, Camera.main.transform.position);
-    }
-
-    bool LineOfSight(Vector3 start, Vector3 end)
-    {
+        // find the direction to the target
         Vector3 _direction = end - start;
+        // find the distance to the target
+        float _distance = _direction.magnitude;
 
-        //if (Physics.Raycast(start, _direction, ))
-        //{
-        //    return true;
-        //}
+        // raycast towards the target
+        if (Physics.Raycast(start, _direction, out RaycastHit _hit, _distance + 1f))
+        {
+            // if successful, return true and output a hitpoint
+            Debug.DrawRay(start, _direction);
+            hitPoint = _hit;
+            return true;
+        }
 
-        Debug.DrawRay(start, _direction);
-
+        // if not successful, output an empty raycasthit and return false
+        hitPoint = new RaycastHit();
         return false;
     }
 }
