@@ -1,16 +1,26 @@
+// Moth Harper
+// 9/11/2025
+// This script is meant for sprites, to make them always face the player's camera.
+// This script should be applied to a sprite's parent, not the sprite itself.
+
 using UnityEngine;
 
-public class BillboardEffectController : MonoBehaviour
+public class BillboardController : MonoBehaviour
 {
+    // cache the transform of this object
     Transform _thisTransform;
+    
+    // store the initial rotation
     Vector3 _initialRotation;
+
+    // cache the player's camera's transform
     Transform _cameraTransform;
 
     void Start()
     {
+        // cache transforms and rotation
         _thisTransform = transform;
         _initialRotation = _thisTransform.rotation.eulerAngles;
-        print(_initialRotation);
         _cameraTransform = Camera.main.transform;
     }
 
