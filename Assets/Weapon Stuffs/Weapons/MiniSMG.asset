@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d9026bc7339770f4d8cc619eeb750f2e, type: 3}
-  m_Name: Semi Rifle
+  m_Name: MiniSMG
   m_EditorClassIdentifier: 
   Image: {fileID: 0}
-  ReloadCooldown: 4
-  FireRate: 1.5
-  AmmoType: 2
+  ReloadCooldown: 2
+  FireRate: 5
+  AmmoType: 1
   AmmoCap: 0
-  MagSize: 10
+  MagSize: 18

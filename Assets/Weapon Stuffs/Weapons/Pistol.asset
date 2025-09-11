@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9026bc7339770f4d8cc619eeb750f2e, type: 3}
   m_Name: Pistol
   m_EditorClassIdentifier: 
-  image: {fileID: 0}
-  cooldown: 2
-  ammoType: 1
-  ammoCap: 0
-  magSize: 12
+  Image: {fileID: 0}
+  ReloadCooldown: 2
+  FireRate: 2
+  AmmoType: 1
+  AmmoCap: 0
+  MagSize: 12
