@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: MiniSMG
   m_EditorClassIdentifier: 
   Image: {fileID: 0}
-  COOLDOWN: 5
+  COOLDOWN: 2
   RANGE: 20
-  FIRE_RATE: 8
+  FIRE_RATE: 10
   AMMO_TYPE: 0
   FIRE_SELECT: 2
-  MAG_SIZE: 20
+  MAG_SIZE: 30

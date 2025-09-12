@@ -44,6 +44,7 @@ public class Weapon
     public int ammo { get; private set; }
     public int RANGE { get; private set; }
     public WeaponTemplate.FireSelect FIRE_SELECT { get; private set; }
+    public WeaponTemplate.AmmoType AMMO_TYPE { get; private set; }
     public float FIRE_RATE { get; private set; }
     public float COOLDOWN { get; private set; }
     public bool _isCooling;
@@ -62,17 +63,19 @@ public class Weapon
     }
     public void Reload()
     {
-        ammo = MAG_SIZE;
-        // //reload cooldown here
-        // if (playerAmmo < )
-        // {
-        //     ammo = playerAmmo;
-        // }
-        // else
-        // {
-        //     ammo = MagSize;
-        // }
-        // take MagSize ammo away from player
+        if (Inventory_Manager.instance.GetAmmo(AMMO_TYPE) == 0)
+        {
+            ammo = 0;
+        }
+        else if (Inventory_Manager.instance.GetAmmo(AMMO_TYPE) < MAG_SIZE)
+        {
+            ammo = Inventory_Manager.instance.GetAmmo(AMMO_TYPE);
+        }
+        else
+        {
+            ammo = MAG_SIZE;
+        }
+        Inventory_Manager.instance.SubtractAmmo(AMMO_TYPE, MAG_SIZE);
     }
     public void BeginCooldown()
     {

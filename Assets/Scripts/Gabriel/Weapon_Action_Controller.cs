@@ -34,9 +34,10 @@ public class Weapon_Action_Controller : MonoBehaviour
     void Update()
     {
         // Start the weapon's cooldown if it is out of ammo
-        if (currentWeapon.ammo <= 0 && !currentWeapon.GetCooldownStatus())
-            currentWeapon.BeginCooldown();
-
+        if (currentWeapon.ammo <= 0 && !currentWeapon.GetCooldownStatus()) {
+            if (Inventory_Manager.instance.GetAmmo(currentWeapon.AMMO_TYPE) > 0)
+                currentWeapon.BeginCooldown();
+        }
         // Check if the player is attacking, if the next shot it ready to fire, and the gun is not cooling down.
         else if (_isAttacking && Time.time >= _nextShotTime && !currentWeapon.GetCooldownStatus())
         {
@@ -65,7 +66,7 @@ public class Weapon_Action_Controller : MonoBehaviour
     public IEnumerator DisplayHit()
     {
         hitMarker.enabled = true;
-        yield return new WaitForSecondsRealtime(.1f);
+        yield return new WaitForSecondsRealtime(.05f);
         hitMarker.enabled = false;
     }
 
