@@ -1,5 +1,10 @@
+// Main Contributor: Gabriel Heiser
+// Secondary Contributor: 
+// Reviewer: 
+// Description: Manages the player's inventory during runtime.
 
 using UnityEngine;
+using System.Collections.Generic;
 
 public class Inventory_Manager : MonoBehaviour
 {
@@ -35,15 +40,15 @@ public class Inventory_Manager : MonoBehaviour
         return ammo[(int)type];
     }
 
-    public void AddAmmo(WeaponTemplate.AmmoType type, int Amount)
+    public void AddAmmo(WeaponTemplate.AmmoType type, int amount)
     {
-        ammo[(int)type] += Amount;
-        ammo[(int)type] =Mathf.Clamp(ammo[(int)type], 0, AMMO_CAPS[(int)type]);
+        ammo[(int)type] += amount;
+        ammo[(int)type] = Mathf.Clamp(ammo[(int)type], 0, AMMO_CAPS[(int)type]);
     }
 
-    public void SubtractAmmo(WeaponTemplate.AmmoType type, int Amount)
+    public void SubtractAmmo(WeaponTemplate.AmmoType type, int amount)
     {
-        ammo[(int)type] -= Amount;
+        ammo[(int)type] -= amount;
         ammo[(int)type] = Mathf.Clamp(ammo[(int)type], 0, AMMO_CAPS[(int)type]);
         Debug.Log(ammo[(int)type]);
     }
