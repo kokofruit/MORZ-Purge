@@ -1,4 +1,5 @@
 // Moth Harper and Kris Herbert
+// Controls the basic enemy behavior via a state machine
 
 using UnityEngine;
 using UnityEngine.AI;

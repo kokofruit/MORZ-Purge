@@ -294,6 +294,9 @@ MonoBehaviour:
   _maxRoamingTime: 0
   _pathfindingAttempts: 0
   _eyeLevel: {fileID: 0}
+  _lineOfSight: 0
+  _alive: 0
+  _sightCheckingInterval: 0
 --- !u!1 &1004003779
 GameObject:
   m_ObjectHideFlags: 0
@@ -370,6 +373,9 @@ MonoBehaviour:
   _maxRoamingTime: 10
   _pathfindingAttempts: 30
   _eyeLevel: {fileID: 536574227}
+  _lineOfSight: 0
+  _alive: 1
+  _sightCheckingInterval: 1
 --- !u!114 &1004003785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -593,7 +599,7 @@ Transform:
   m_GameObject: {fileID: 1841018474}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.2791, y: 2.5623, z: -4.85}
+  m_LocalPosition: {x: -9.39, y: 2.5623, z: -4.85}
   m_LocalScale: {x: 7.553398, y: 6.1469, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -753,6 +759,7 @@ GameObject:
   - component: {fileID: 1995814872}
   - component: {fileID: 1995814871}
   - component: {fileID: 1995814874}
+  - component: {fileID: 1995814875}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -878,6 +885,29 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!136 &1995814875
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1995814870}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &4527903045781942902
 PrefabInstance:
   m_ObjectHideFlags: 0
