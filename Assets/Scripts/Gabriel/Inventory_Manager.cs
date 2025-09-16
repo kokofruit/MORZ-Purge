@@ -5,6 +5,7 @@
 
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
 
 public class Inventory_Manager : MonoBehaviour
 {
@@ -59,5 +60,15 @@ public class Inventory_Manager : MonoBehaviour
             ammo[(int)type] -= amount;
             return amount;
         }
+    }
+
+    public Weapon ChangeWeapon(int inc, int start) {
+        start += inc;
+        while (Weapons[start]==null) { 
+            start++;
+            Mathf.Repeat(start, 2);
+            Debug.Log(start);
+        }
+        return Weapons[start];
     }
 }
