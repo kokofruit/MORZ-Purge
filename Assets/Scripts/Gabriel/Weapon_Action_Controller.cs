@@ -35,7 +35,8 @@ public class Weapon_Action_Controller : MonoBehaviour
     void Update()
     {
         // Start the weapon's cooldown if it is out of ammo
-        if (currentWeapon.ammo <= 0 && !currentWeapon.GetCooldownStatus()) {
+        if (currentWeapon.ammo <= 0 && !currentWeapon.GetCooldownStatus())
+        {
             if (Inventory_Manager.instance.GetAmmo(currentWeapon.AMMO_TYPE) > 0)
                 currentWeapon.BeginCooldown();
         }
@@ -81,5 +82,10 @@ public class Weapon_Action_Controller : MonoBehaviour
             _isAttacking = true;
         else
             _isAttacking = false;
+    }
+
+    public void OnScroll(InputValue input)
+    {
+        Debug.Log("" + input.Get<float>());
     }
 }

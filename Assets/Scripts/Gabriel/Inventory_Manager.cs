@@ -15,6 +15,7 @@ public class Inventory_Manager : MonoBehaviour
 
     private int[] ammo = new int[3];
     private int[] AMMO_CAPS = new int[3];
+    private Weapon[] Weapons = new Weapon[3];
 
     void Awake()
     {
@@ -42,14 +43,21 @@ public class Inventory_Manager : MonoBehaviour
 
     public void AddAmmo(WeaponTemplate.AmmoType type, int amount)
     {
-        ammo[(int)type] += amount;
-        ammo[(int)type] = Mathf.Clamp(ammo[(int)type], 0, AMMO_CAPS[(int)type]);
+        if (ammo[(int)type] > AMMO_CAPS[(int)type])
+            ammo[(int)type] = AMMO_CAPS[(int)type];
+        else 
+            ammo[(int)type] += amount;
     }
 
-    public void SubtractAmmo(WeaponTemplate.AmmoType type, int amount)
+    public int SubtractAmmo(WeaponTemplate.AmmoType type, int amount)
     {
-        ammo[(int)type] -= amount;
-        ammo[(int)type] = Mathf.Clamp(ammo[(int)type], 0, AMMO_CAPS[(int)type]);
-        Debug.Log(ammo[(int)type]);
+        if (ammo[(int)type] < amount) {
+            ammo[(int)type] = 0;
+            return ammo[(int)type];
+        }
+        else {
+            ammo[(int)type] -= amount;
+            return amount;
+        }
     }
 }
