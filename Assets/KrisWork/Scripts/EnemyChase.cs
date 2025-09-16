@@ -1,20 +1,34 @@
+// Kris Herbert
 using UnityEngine;
 
 public class EnemyChase : EnemyController
 {
-    private int playerDistance = 0;
+    // Temporary variables to test if the enemy will chase the player.
+    public bool _lineOfSight;
+    public Transform playerLocation;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    protected override void Start()
     {
-        
+        base.Start();
+        _enemyState = EnemyState.chasing;
     }
 
-    // Update is called once per frame
-    void Update()
+    protected override void DoChasing()
     {
-        if (this.transform.position  (playerDistance + 10))
+        /**
+        * _lineOfSight uses a raycast to check if it can see the player
+        * if true than it will change EnemyState to start chasing the player
+        * if it's flase then it will return to the idle EnemyState.
+        */
+
+        if (_lineOfSight == true)
         {
-            _enemyState = EnemyState.chasing;
+            this._navMeshAgent.SetDestination(playerLocation.position);
+        }
+        else
+        {
+            _enemyState = EnemyState.idle;
         }
     }
 }

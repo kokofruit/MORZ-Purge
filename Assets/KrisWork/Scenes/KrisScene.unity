@@ -266,8 +266,35 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7585522840629459446, guid: ff4354a789dd68a4e9223d7611b5d147, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1142929698}
   m_SourcePrefab: {fileID: 100100000, guid: ff4354a789dd68a4e9223d7611b5d147, type: 3}
+--- !u!1 &1142929697 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7585522840629459446, guid: ff4354a789dd68a4e9223d7611b5d147, type: 3}
+  m_PrefabInstance: {fileID: 1142929696}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1142929698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1142929697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 614bdbf968207464ab60476a253c8b44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DEBUG_MODE: 0
+  _enemyObject: {fileID: 11400000, guid: 1dae85abc40c5294a8b6324adf9569d9, type: 2}
+  _idleTime: 6
+  _maxRoamingTime: 10
+  _pathfindingAttempts: 30
+  _lineOfSight: 1
+  playerLocation: {fileID: 973257216508718156}
 --- !u!1 &1655237695
 GameObject:
   m_ObjectHideFlags: 0
@@ -592,6 +619,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f07cea4c06cc3ae41a34daa236c9cf48, type: 3}
+--- !u!4 &973257216508718156 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4519540641764926956, guid: f07cea4c06cc3ae41a34daa236c9cf48, type: 3}
+  m_PrefabInstance: {fileID: 973257216508718155}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
