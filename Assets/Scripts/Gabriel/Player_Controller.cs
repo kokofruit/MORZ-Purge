@@ -21,7 +21,9 @@ public class Player_Controller : MonoBehaviour
     public float _health { get; private set; } = 100;
     // Head object that contains the first person camera
     public Transform head;
-    
+    // Connection to HealthBar
+    public HealthController healthBar;
+
     //////////////////// Private Variables /////////////////////
     // Default movement speed
     [SerializeField] private float _walkSpeed = 1.5f;
@@ -69,6 +71,9 @@ public class Player_Controller : MonoBehaviour
 
         // Lock the cursor to the center of the screen during gameplay
         Cursor.lockState = CursorLockMode.Locked;
+
+        // Set MAX_HEALTH on start
+        healthBar.SetMaxHealth(MAX_HEALTH);
     }
 
     // Update is called once per frame
@@ -149,6 +154,9 @@ public class Player_Controller : MonoBehaviour
         {
             _health = MAX_HEALTH;
         }
+
+        // Update healthBar with new health amount
+        healthBar.SetHealth(_health);
     }
 
     public void SubtractHealth(float amount)
