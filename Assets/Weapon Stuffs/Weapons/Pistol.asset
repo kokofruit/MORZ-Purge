@@ -15,7 +15,7 @@ MonoBehaviour:
   Image: {fileID: 0}
   COOLDOWN: 5
   RANGE: 20
-  FIRE_RATE: 1
+  FIRE_RATE: 10
   AMMO_TYPE: 0
   FIRE_SELECT: 0
   MAG_SIZE: 20

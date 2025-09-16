@@ -1,7 +1,7 @@
 // Main Contributor: Gabriel Heiser
 // Secondary Contributor: 
 // Reviewer: 
-// Description: Testing for weapon firing, reloading, and fire modes.
+// Description: Handles the player input for weapon behaviors and translates them into gameplay actions.
 
 using System.Collections;
 using UnityEngine;
@@ -12,6 +12,7 @@ public class Weapon_Action_Controller : MonoBehaviour
 {
     public WeaponTemplate starterGun;
     public Image hitMarker;
+    public float hitMarkerDisplayTime = .05f;
 
     // Weapon controller runtime variables
     private Player_Controller player;
@@ -35,8 +36,10 @@ public class Weapon_Action_Controller : MonoBehaviour
     {
         // Start the weapon's cooldown if it is out of ammo
         if (currentWeapon.ammo <= 0 && !currentWeapon.GetCooldownStatus())
-            currentWeapon.BeginCooldown();
-
+        {
+            if (Inventory_Manager.instance.GetAmmo(currentWeapon.AMMO_TYPE) > 0)
+                currentWeapon.BeginCooldown();
+        }
         // Check if the player is attacking, if the next shot it ready to fire, and the gun is not cooling down.
         else if (_isAttacking && Time.time >= _nextShotTime && !currentWeapon.GetCooldownStatus())
         {
@@ -62,13 +65,15 @@ public class Weapon_Action_Controller : MonoBehaviour
             _isAttacking = false;
     }
 
+    // Displays the hitmarker
     public IEnumerator DisplayHit()
     {
         hitMarker.enabled = true;
-        yield return new WaitForSecondsRealtime(.1f);
+        yield return new WaitForSecondsRealtime(hitMarkerDisplayTime);
         hitMarker.enabled = false;
     }
 
+    // Handles player attack input action
     public void OnAttack(InputValue input)
     {
         float attackState = input.Get<float>();
@@ -77,5 +82,10 @@ public class Weapon_Action_Controller : MonoBehaviour
             _isAttacking = true;
         else
             _isAttacking = false;
+    }
+
+    public void OnScroll(InputValue input)
+    {
+        Debug.Log("" + input.Get<float>());
     }
 }

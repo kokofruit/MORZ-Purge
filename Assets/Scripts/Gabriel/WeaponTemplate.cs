@@ -1,3 +1,8 @@
+// Main Contributor: Phillip Cano
+// Secondary Contributor: Gabriel heiser
+// Reviewer: 
+// Description: Scriptable object that stores the attributes for in game weapons.
+
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "WeaponTemplate", menuName = "Scriptable Objects/Weapon")]

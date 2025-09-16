@@ -6,6 +6,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.InputSystem;
+using UnityEditor.Callbacks;
 
 public class Player_Controller : MonoBehaviour
 {
@@ -46,6 +47,8 @@ public class Player_Controller : MonoBehaviour
     private float _lookY;
     // Maximum allowed player health
     private int MAX_HEALTH = 100;
+    // Maximum allowed player speed
+    private int MAX_SPEED = 10;
 
     ///////////////////////////////// Monobehvaior Methods ////////////////////////////////
     void Awake()
@@ -138,16 +141,24 @@ public class Player_Controller : MonoBehaviour
 
     ///////////////////////////////// Player Specific Methods ////////////////////////////////
 
-    public void ChangeHealth(float healthDelta)
+    // Takes a signed float as the desired change in the player's health
+    public void AddHealth(float amount)
     {
-        _health += healthDelta;
+        _health += amount;
         if (_health > MAX_HEALTH)
         {
             _health = MAX_HEALTH;
         }
-        else if (_health < 0)
+    }
+
+    public void SubtractHealth(float amount)
+    {
+        _health -= amount;
+
+        if (_health < 0)
         {
             // DIE!!!!!
+            Debug.Log("Player has died");
         }
     }
 
