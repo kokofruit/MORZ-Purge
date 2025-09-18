@@ -10,19 +10,20 @@ public class EnemyAttackController : LineOfSightControllerr
     protected override void Start()
     {
         base.Start();
-        // _enemyState = EnemyState.chasing;
+         _enemyState = EnemyState.chasing;
     }
 
-    // protected override void DoChasing()
-    // {
-    //     base.DoChasing();
+    protected override void DoChasing()
+    {
+        base.DoChasing();
 
-    //     if (Vector3.Distance(transform.position, Camera.main.transform.position) <= _attackDistance)
-    //     {
-    //         _stateTimer = _attackTime;
-    //         _enemyState = EnemyState.attacking;
-    //     }
-    // }
+        if (Vector3.Distance(transform.position, Camera.main.transform.position) <= _attackDistance)
+        {
+            print("attack mode!");
+            _enemyState = EnemyState.attacking;
+            return;
+        }
+    }
 
     // protected override void DoAttacking()
     // {
@@ -37,9 +38,9 @@ public class EnemyAttackController : LineOfSightControllerr
     //     {
     //         Attack();
     //     }
-        
+
     //     _stateTimer -= Time.deltaTime;
-        
+
     // }
 
     // // TODO: Replace with player damage

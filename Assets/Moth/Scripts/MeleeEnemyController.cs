@@ -19,13 +19,18 @@ public class MeleeEnemyContoller : LineOfSightControllerr
         _stateTimer -= Time.deltaTime;
     }
 
-    void OnCollisionEnter(Collision collision)
+    //void OnCollisionEnter(Collision collision)
+    //{
+    //    print("PLEASE");
+    //    if ((_enemyState == EnemyState.chasing) && collision.collider.CompareTag("Player") && (_stateTimer <= 0))
+    //    {
+    //        print("attack!"); // TODO: CHANGE TO DAMAGE PLAYER
+    //        _stateTimer = _attackCooldown;
+    //    }
+    //}
+
+    protected override void DoAttacking()
     {
-        print("PLEASE");
-        if ((_enemyState == EnemyState.chasing) && collision.collider.CompareTag("Player") && (_stateTimer <= 0))
-        {
-            print("attack!"); // TODO: CHANGE TO DAMAGE PLAYER
-            _stateTimer = _attackCooldown;
-        }
+        
     }
 }
