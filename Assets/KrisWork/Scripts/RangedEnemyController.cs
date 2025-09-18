@@ -1,5 +1,5 @@
-// Kris Herbert
-// 9/18/25-
+//// Kris Herbert
+//// 9/18/25-
 using UnityEngine;
 
 public class RangedEnemyController : EnemyController
@@ -13,19 +13,6 @@ public class RangedEnemyController : EnemyController
 
     protected override void DoAttacking()
     {
-        // check to see if the player is within a set distance for the enemy to attack
-        if(playerLocation.position <= _attackDistance)
-        {
-            // have the enemy attack the player
-            _enemyState = EnemyState.attacking;
-        }
-
-        //create a cool down for the enemy so it does not continously shoot the player
+        // TODO: Have enemy shoot the player and trigger cooldown, then have them move to idle if player leaves range
     }
-
-    /** 
-     *
-     *
-     *
-     */
 }
