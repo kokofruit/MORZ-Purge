@@ -100,6 +100,24 @@ public class Inventory_Manager : MonoBehaviour
 
     public void AddUpgrade(UpgradeTemplate upgrade)
     {
+        int upgradeIndex = (int)upgrade.AMMO_TYPE * 3 + (int)upgrade.STAGE;
         
+        if (upgrade.STAGE == WeaponTemplate.Stage.all) {
+            for (int i = (int)upgrade.AMMO_TYPE * 3; i < upgradeIndex; i++)
+            {
+                upgrades[i].upgradeValues[(int)upgrade.UPGRADE_TYPE] += upgrade.AMOUNT;
+            }
+        }
+        else {
+            upgrades[upgradeIndex].upgradeValues[(int)upgrade.UPGRADE_TYPE] += upgrade.AMOUNT;
+        }
+
+        foreach (Weapon weapon in Weapons)
+        {
+            if (weapon.AMMO_TYPE == upgrade.AMMO_TYPE)
+            {
+                weapon.AddUpgrades(upgrades[upgradeIndex].upgradeValues);
+            }
+        }
     }
 }

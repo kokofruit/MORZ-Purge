@@ -13,13 +13,25 @@ public class Weapon
 
     public void ChangeWeapon(WeaponTemplate weapon, float[] upgradeValues)
     {
-        damage = weapon.DAMAGE + upgradeValues[0];
-        magSize = weapon.MAG_SIZE + (int)upgradeValues[2];
         RANGE = weapon.RANGE;
         FIRE_SELECT = weapon.FIRE_SELECT;
-        fireRate = weapon.FIRE_RATE + upgradeValues[1];
-        cooldown = weapon.COOLDOWN - upgradeValues[3];
+        STAGE = weapon.STAGE;
+
+        damage = weapon.DAMAGE;
+        fireRate = weapon.FIRE_RATE;
+        magSize = weapon.MAG_SIZE;
+        cooldown = weapon.COOLDOWN;
+
         ammo = magSize;
+        AddUpgrades(upgradeValues);
+    }
+
+    public void AddUpgrades(float[] upgradeValues)
+    {
+        damage += upgradeValues[0];
+        fireRate += upgradeValues[1];
+        magSize += (int)upgradeValues[2];
+        cooldown -= upgradeValues[3];
     }
 
     // The maximum number of bullets the weapon can hold in its magazine
@@ -33,6 +45,8 @@ public class Weapon
     public WeaponTemplate.FireSelect FIRE_SELECT { get; private set; }
     // The type of ammo the weapon accepts
     public WeaponTemplate.AmmoType AMMO_TYPE { get; private set; }
+    // 
+    public WeaponTemplate.Stage STAGE { get; private set; }
     // The number of bullets the weapon will fire in a second
     public float fireRate { get; private set; }
     // The length of the reload cooldown in seconds
