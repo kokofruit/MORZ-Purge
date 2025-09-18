@@ -4,7 +4,7 @@ using UnityEngine;
 public class Enemy : ScriptableObject
 {
     // The health of the enemy
-    [SerializeField] public float health;
+    [SerializeField] public int baseHealth;
 
     // The base damage of the enemy
     [SerializeField] public float baseDamage;
