@@ -1,23 +1,23 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class MeleeEnemyContoller : EnemyController
+public class MeleeEnemyContoller : LineOfSightControllerr
 {
-    //[SerializeField] float _attackTimer;
-    //[SerializeField] float _attackCooldown;
+    [SerializeField] float _attackTimer;
+    [SerializeField] float _attackCooldown;
 
-    //protected override void Start()
-    //{
-    //    base.Start();
-    //    _stateTimer = 0;
-    //    _enemyState = EnemyState.chasing;
-    //}
+    protected override void Start()
+    {
+        base.Start();
+        _stateTimer = 0;
+        _enemyState = EnemyState.chasing;
+    }
 
-    //protected override void DoChasing()
-    //{
-    //    base.DoChasing();
-    //    _stateTimer -= Time.deltaTime;
-    //}
+    protected override void DoChasing()
+    {
+        base.DoChasing();
+        _stateTimer -= Time.deltaTime;
+    }
 
     //void OnCollisionEnter(Collision collision)
     //{
@@ -29,8 +29,8 @@ public class MeleeEnemyContoller : EnemyController
     //    }
     //}
 
-    //protected override void DoAttacking()
-    //{
+    protected override void DoAttacking()
+    {
         
-    //}
+    }
 }
