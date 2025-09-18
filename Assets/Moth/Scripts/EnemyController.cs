@@ -1,4 +1,5 @@
 // Moth Harper and Kris Herbert
+// Controls the basic enemy behavior via a state machine
 
 using UnityEngine;
 using UnityEngine.AI;
@@ -25,7 +26,7 @@ public class EnemyController : MonoBehaviour
     protected enum EnemyState { idle, roaming, chasing, attacking, }
 
     // The current state of the enemy
-    protected EnemyState _enemyState = EnemyState.idle;
+    [SerializeField] protected EnemyState _enemyState = EnemyState.idle;
     #endregion
 
     #region INTERNAL VARIABLES
