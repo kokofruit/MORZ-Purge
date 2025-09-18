@@ -86,9 +86,9 @@ public class Weapon_Action_Controller : MonoBehaviour
 
     public void OnScroll(InputValue input)
     {
-        if (input.Get<int>() == 0)
+        if (input.Get<float>() == 0)
             return;
 
-        currentWeapon = Inventory_Manager.instance.ChangeWeapon(input.Get<int>(), (int)currentWeapon.AMMO_TYPE);
+        currentWeapon = Inventory_Manager.instance.ChangeWeapon((int)input.Get<float>(), (int)currentWeapon.AMMO_TYPE);
     }
     }

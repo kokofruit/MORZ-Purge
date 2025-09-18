@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9026bc7339770f4d8cc619eeb750f2e, type: 3}
   m_Name: AssaultRifle
   m_EditorClassIdentifier: 
-  Image: {fileID: 0}
-  ReloadCooldown: 3
-  FireRate: 4
-  AmmoType: 2
-  AmmoCap: 0
-  MagSize: 22
+  Image: {fileID: 21300000, guid: c324649b69912af49afa62ce56757d74, type: 3}
+  COOLDOWN: 0
+  RANGE: 0
+  FIRE_RATE: 0
+  AMMO_TYPE: 1
+  FIRE_SELECT: 0
+  MAG_SIZE: 0
