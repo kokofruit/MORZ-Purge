@@ -11,9 +11,21 @@ public class RangedEnemyController : EnemyController
         
     }
 
-    // Update is called once per frame
-    void Update()
+    protected override void DoAttacking()
     {
-        
+        // check to see if the player is within a set distance for the enemy to attack
+        if(playerLocation.position <= _attackDistance)
+        {
+            // have the enemy attack the player
+            _enemyState = EnemyState.attacking;
+        }
+
+        //create a cool down for the enemy so it does not continously shoot the player
     }
+
+    /** 
+     *
+     *
+     *
+     */
 }

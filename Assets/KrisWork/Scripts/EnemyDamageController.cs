@@ -23,6 +23,6 @@ public class EnemyDamageController : EnemyController
     // Function to deal damage to the player when an enemy hits the player.
     protected void PlayerDamage(int damage)
     {
-
+        playerHeath -= damage;
     }
 }
