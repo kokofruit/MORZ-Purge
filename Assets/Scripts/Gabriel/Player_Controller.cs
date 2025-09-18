@@ -6,13 +6,10 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.InputSystem;
-using UnityEditor.Callbacks;
 
 public class Player_Controller : MonoBehaviour
 {
     //////////////////// Public Variables /////////////////////
-    // Static reference to this player
-    public static Player_Controller instance;
     // Player horizontal look sensitivity
     public float lookSensX = 0.1f;
     // Player vertical look sensitivity
@@ -49,17 +46,8 @@ public class Player_Controller : MonoBehaviour
     private float _lookY;
     // Maximum allowed player health
     private int MAX_HEALTH = 100;
-    // Maximum allowed player speed
-    private int MAX_SPEED = 10;
 
     ///////////////////////////////// Monobehvaior Methods ////////////////////////////////
-    void Awake()
-    {
-        if (instance == null)
-            instance = this;
-        else
-            Destroy(gameObject);
-    }
 
     // Start is called before the first frame update
     void Start()
@@ -143,7 +131,6 @@ public class Player_Controller : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
     }
 
-
     ///////////////////////////////// Player Specific Methods ////////////////////////////////
 
     // Takes a signed float as the desired change in the player's health
@@ -165,9 +152,11 @@ public class Player_Controller : MonoBehaviour
 
         if (_health < 0)
         {
-            // DIE!!!!!
-            Debug.Log("Player has died");
+            Game_Manager.instance.PlayerDied();
         }
+
+        // Update healthBar with new health amount
+        healthBar.SetHealth(_health);
     }
 
     ///////////////////////////////// Input  Management ////////////////////////////////

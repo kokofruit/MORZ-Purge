@@ -7,23 +7,14 @@ using UnityEngine;
 // Reviewer: 
 // Description: Parent script for pickups (health, ammo, etc.)
 
-/*
- * TODO:
- * Trigger Event - child ?
- *      Deletion - on trigger
- * Spawning
- */
-
 public class PickupController : MonoBehaviour
 {
-
     // Private Variables
     private float movementSpeed = 3f;
     private bool DEBUG = true;
-    private bool isGrounded;
+    private float yPosition;
 
     // Public Variables
-    public float yPosition;
     public float addHeight;
     public float raycastDistance;
 
@@ -46,7 +37,7 @@ public class PickupController : MonoBehaviour
         // Debug to make sure it reads the ground
         if (hit.collider != null)
         {
-            Debug.Log("Ground");
+            if(DEBUG) Debug.Log("Ground");
         }
     }
 
@@ -59,19 +50,18 @@ public class PickupController : MonoBehaviour
         Vector3 pos = transform.position;
         float newY = (Mathf.Sin(Time.time * movementSpeed) / 4) + yPosition;    // add new yPosition to spawn above ground
         transform.position = new Vector3(pos.x, newY, pos.z);
-
         
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        //TODO:
-        // trigger event
+        // Make sure only the player can trigger pickups (no bugz allowed!)
+        if (other.gameObject.CompareTag("Player"))
+        {
+            // Trigger event in child script
 
-        // Debug to check if triggered
-        if (DEBUG) Debug.Log("Triggered");
-
-        // Destroy this game object
-        Destroy(gameObject);
+            // Destroy this game object on collision with player
+            Destroy(gameObject);
+        }
     }
 }
