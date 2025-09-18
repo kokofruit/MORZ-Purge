@@ -4,14 +4,47 @@ public class EnemyAttackController : LineOfSightControllerr
 {
     // the minimum distance the enemy needs to be from the player in order to attack it
     [SerializeField] float _attackDistance;
+    // [SerializeField] float _timeToDamage;
+    // [SerializeField] float _attackTime;
 
-    protected override void DoChasing()
+    protected override void Start()
     {
-        base.DoChasing();
+        base.Start();
+        // _enemyState = EnemyState.chasing;
     }
 
-    protected override void DoAttacking()
-    {
-        base.DoAttacking();
-    }
+    // protected override void DoChasing()
+    // {
+    //     base.DoChasing();
+
+    //     if (Vector3.Distance(transform.position, Camera.main.transform.position) <= _attackDistance)
+    //     {
+    //         _stateTimer = _attackTime;
+    //         _enemyState = EnemyState.attacking;
+    //     }
+    // }
+
+    // protected override void DoAttacking()
+    // {
+    //     // if the attack cooldown is done, return to cooldown
+    //     if (_stateTimer <= 0)
+    //     {
+    //         _enemyState = EnemyState.chasing;
+    //         return;
+    //     }
+    //     // if the attack cooldown is d
+    //     else if (_stateTimer == _attackTime)
+    //     {
+    //         Attack();
+    //     }
+        
+    //     _stateTimer -= Time.deltaTime;
+        
+    // }
+
+    // // TODO: Replace with player damage
+    // protected void Attack()
+    // {
+    //     print("attack");
+    // }
 }
