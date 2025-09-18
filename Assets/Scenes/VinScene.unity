@@ -1002,7 +1002,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: -0.000015258789}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &772744730
@@ -1626,7 +1626,7 @@ Transform:
   m_GameObject: {fileID: 1649711176}
   serializedVersion: 2
   m_LocalRotation: {x: -0.30943495, y: 0.28998354, z: -0.124427445, w: 0.8970381}
-  m_LocalPosition: {x: 3.16, y: 0.66, z: 3.3}
+  m_LocalPosition: {x: 2, y: 2, z: 2}
   m_LocalScale: {x: 0.43431, y: 0.43431, z: 0.43431}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1644,6 +1644,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ed747d0c650c144ab7b88d5c5fb1f1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  yPosition: 0
+  addHeight: 0.75
+  raycastDistance: 0
 --- !u!1 &1791521129
 GameObject:
   m_ObjectHideFlags: 0
