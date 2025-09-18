@@ -28,7 +28,7 @@ public class Weapon_Manager : MonoBehaviour
     {
         weapon.SetCoolingStatus(true);
         Debug.Log("Cooldown Started");
-        yield return new WaitForSecondsRealtime(weapon.COOLDOWN);
+        yield return new WaitForSecondsRealtime(weapon.cooldown);
         weapon.Reload();
         weapon.SetCoolingStatus(false);
         Debug.Log("Cooldown Ended");

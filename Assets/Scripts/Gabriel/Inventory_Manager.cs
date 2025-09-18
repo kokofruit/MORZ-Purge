@@ -4,7 +4,6 @@
 // Description: Manages the player's inventory during runtime.
 
 using UnityEngine;
-using System.Collections.Generic;
 
 public class Inventory_Manager : MonoBehaviour
 {
@@ -12,10 +11,13 @@ public class Inventory_Manager : MonoBehaviour
     public int LIGHT_AMMO_CAP;
     public int MEDIUM_AMMO_CAP;
     public int HEAVY_AMMO_CAP;
+    public WeaponTemplate starterGun;
+    public class upVal { public float[] upgradeValues = { 0, 0, 0, 0 }; };
 
     private int[] ammo = new int[3];
     private int[] AMMO_CAPS = new int[3];
     private Weapon[] Weapons = new Weapon[3];
+    private upVal[] upgrades = new upVal[9];
 
     void Awake()
     {
@@ -34,6 +36,24 @@ public class Inventory_Manager : MonoBehaviour
         ammo[(int)WeaponTemplate.AmmoType.Light] = AMMO_CAPS[(int)WeaponTemplate.AmmoType.Light];
         ammo[(int)WeaponTemplate.AmmoType.Medium] = AMMO_CAPS[(int)WeaponTemplate.AmmoType.Medium];
         ammo[(int)WeaponTemplate.AmmoType.Heavy] = AMMO_CAPS[(int)WeaponTemplate.AmmoType.Heavy];
+
+        for (int i = 0; i < upgrades.Length; i++)
+        {
+            upgrades[i] = new upVal();
+        }
+
+        AddWeapon(starterGun);
+        Weapon_Action_Controller.instance.currentWeapon = Weapons[0];
+    }
+
+    public Weapon[] GetLoadout()
+    {
+        return Weapons;
+    }
+
+    public int[] GetAmmo()
+    {
+        return ammo;
     }
 
     public int GetAmmo(WeaponTemplate.AmmoType type)
@@ -45,19 +65,59 @@ public class Inventory_Manager : MonoBehaviour
     {
         if (ammo[(int)type] > AMMO_CAPS[(int)type])
             ammo[(int)type] = AMMO_CAPS[(int)type];
-        else 
+        else
             ammo[(int)type] += amount;
     }
 
     public int SubtractAmmo(WeaponTemplate.AmmoType type, int amount)
     {
-        if (ammo[(int)type] < amount) {
+        if (ammo[(int)type] < amount)
+        {
             ammo[(int)type] = 0;
             return ammo[(int)type];
         }
-        else {
+        else
+        {
             ammo[(int)type] -= amount;
             return amount;
+        }
+    }
+
+    public void AddWeapon(WeaponTemplate weapon)
+    {
+        Weapons[(int)weapon.AMMO_TYPE] = new Weapon(weapon, GetUpgrades(weapon));
+    }
+
+    public float[] GetUpgrades(WeaponTemplate weapon)
+    {
+        return upgrades[3 * (int)weapon.AMMO_TYPE + (int)weapon.STAGE].upgradeValues;
+    }
+
+    public Weapon GetWeapon(int index)
+    {
+        return Weapons[index];
+    }
+
+    public void AddUpgrade(UpgradeTemplate upgrade)
+    {
+        int upgradeIndex = (int)upgrade.AMMO_TYPE * 3 + (int)upgrade.STAGE;
+        
+        if (upgrade.STAGE == WeaponTemplate.Stage.all) {
+            for (int i = (int)upgrade.AMMO_TYPE * 3; i < upgradeIndex; i++)
+            {
+                upgrades[i].upgradeValues[(int)upgrade.UPGRADE_TYPE] += upgrade.AMOUNT;
+            }
+        }
+        else {
+            upgrades[upgradeIndex].upgradeValues[(int)upgrade.UPGRADE_TYPE] += upgrade.AMOUNT;
+        }
+
+        foreach (Weapon weapon in Weapons)
+        {
+            if (weapon.AMMO_TYPE == upgrade.AMMO_TYPE)
+            {
+                weapon.AddUpgrades(upgrades[upgradeIndex].upgradeValues);
+            }
         }
     }
 }
