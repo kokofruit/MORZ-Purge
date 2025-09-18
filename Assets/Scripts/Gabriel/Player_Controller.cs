@@ -168,6 +168,9 @@ public class Player_Controller : MonoBehaviour
             // DIE!!!!!
             Debug.Log("Player has died");
         }
+
+        // Update healthBar with new health amount
+        healthBar.SetHealth(_health);
     }
 
     ///////////////////////////////// Input  Management ////////////////////////////////
