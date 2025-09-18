@@ -913,6 +913,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 7813069223567444817, guid: f540abf0223495047a1dc9d7593c6684, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 8004580342787964712, guid: f540abf0223495047a1dc9d7593c6684, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -961,13 +965,17 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.8
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3031262659255892121, guid: f540abf0223495047a1dc9d7593c6684, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 7813069223567444817, guid: f540abf0223495047a1dc9d7593c6684, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1228277574}
+    - targetCorrespondingSourceObject: {fileID: 7813069223567444817, guid: f540abf0223495047a1dc9d7593c6684, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1228277582}
   m_SourcePrefab: {fileID: 100100000, guid: f540abf0223495047a1dc9d7593c6684, type: 3}
 --- !u!1 &772744728
 GameObject:
@@ -1387,6 +1395,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitMarker: {fileID: 60925396}
   hitMarkerDisplayTime: 0.05
+--- !u!114 &1228277582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228277573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3503e7f5669d8df4a8bd24e020d1ddfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lookSensX: 0.1
+  lookSensY: 0.1
+  head: {fileID: 0}
+  healthBar: {fileID: 1993258903}
+  _walkSpeed: 1.5
+  _runSpeedMultiplier: 2
+  _jumpForce: 5
 --- !u!1 &1410908290
 GameObject:
   m_ObjectHideFlags: 0
