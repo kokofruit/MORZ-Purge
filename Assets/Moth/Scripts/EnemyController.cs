@@ -42,7 +42,7 @@ public class EnemyController : MonoBehaviour
     // LINE OF SIGHT
     [Header("Line of Sight Variables")]
     // the eye level for the enemy to "see" from
-    [SerializeField] protected Transform _eyeLevel;
+    [SerializeField] protected Transform _eyeTransform;
     // how often the enemy checks if it can see the player
     [SerializeField, Min(0.001f)] float _sightCheckingInterval;
     // tracks whether the enemy can currently see the player
@@ -59,6 +59,7 @@ public class EnemyController : MonoBehaviour
     // The timers keeping track of how long the enemy is in it's current state
     protected float _idleTimer;
     protected float _roamingTimer;
+    protected float _attackingTimer;
     // The enum of possible states
     protected enum EnemyState { idle, roaming, chasing, attacking, }
     // The current state of the enemy
@@ -120,6 +121,7 @@ public class EnemyController : MonoBehaviour
         if (_lineOfSight)
         {
             _enemyState = EnemyState.chasing;
+            _navMeshAgent.stoppingDistance = _attackDistance;
             return;
         }
         // if the idle timer is over, roam or restart idling
@@ -161,20 +163,19 @@ public class EnemyController : MonoBehaviour
         while (_alive)
         {
             // find the direction to the target
-            Vector3 direction = _playerTransform.position - transform.position;
+            Vector3 direction = _playerTransform.position - _eyeTransform.position;
             // find the distance to the target
             float distance = direction.magnitude;
 
             // set lineOfSight to false by default
             _lineOfSight = false;
 
-            // raycast towards the target
-            if (Physics.Raycast(transform.position, direction, out RaycastHit hit, distance + 1f))
-            {
-                print(hit.collider.gameObject.name);
-                // debug ray
-                if (DEBUG_MODE) Debug.DrawRay(transform.position, direction);
+            // debug ray
+            if (DEBUG_MODE) Debug.DrawRay(_eyeTransform.position, direction);
 
+            // raycast towards the target
+            if (Physics.Raycast(_eyeTransform.position, direction, out RaycastHit hit, distance + 1f))
+            {
                 // if raycast hits something, see if it's the player
                 if (hit.collider.CompareTag("Player"))
                 {
@@ -217,6 +218,13 @@ public class EnemyController : MonoBehaviour
      * Behavior for roaming state */
     protected virtual void DoRoaming()
     {
+        // if the player is visible, set the state to chasing
+        if (_lineOfSight)
+        {
+            _enemyState = EnemyState.chasing;
+            _navMeshAgent.stoppingDistance = _attackDistance;
+            return;
+        }
         // If done navigating or if navigating for too long (in case of being stuck), return to idle mode
         if ((_navMeshAgent.remainingDistance <= _navMeshAgent.stoppingDistance) | (_roamingTimer <= 0))
         {
@@ -240,10 +248,11 @@ public class EnemyController : MonoBehaviour
     protected virtual void DoChasing()
     {
         /** Moth Harper and Kris Herbert
-         * if close enough to player, attack them */
-        if (Vector3.Distance(transform.position, _playerTransform.position) <= _attackDistance)
+         * if close enough to player and not on cooldown, attack them */
+        if ((Vector3.Distance(transform.position, _playerTransform.position) <= _attackDistance) && (_attackingTimer <= 0))
         {
             print("attack mode!");
+            _attackingTimer = _attackCooldown;
             _enemyState = EnemyState.attacking;
             return;
         }
@@ -252,7 +261,7 @@ public class EnemyController : MonoBehaviour
         * Kris Herbert
         * _lineOfSight uses a raycast to check if it can see the player
         * if true than it will change EnemyState to start chasing the player
-        * if it's flase then it will return to the idle EnemyState.
+        * if it's false then it will return to the idle EnemyState.
         */
 
         if (_lineOfSight == true)
@@ -261,11 +270,14 @@ public class EnemyController : MonoBehaviour
         }
         else
         {
+            _idleTimer = _idleDuration;
+            _navMeshAgent.stoppingDistance = 0;
             _enemyState = EnemyState.idle;
         }
     }
 
     // behavior for attacking state
+    // Specified in subclasses
     protected virtual void DoAttacking()
     {
 

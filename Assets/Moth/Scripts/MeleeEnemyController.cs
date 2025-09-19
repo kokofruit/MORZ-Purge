@@ -3,34 +3,22 @@ using UnityEngine.AI;
 
 public class MeleeEnemyContoller : EnemyController
 {
-    //[SerializeField] float _attackTimer;
-    //[SerializeField] float _attackCooldown;
-
-    //protected override void Start()
-    //{
-    //    base.Start();
-    //    _stateTimer = 0;
-    //    _enemyState = EnemyState.chasing;
-    //}
-
-    //protected override void DoChasing()
-    //{
-    //    base.DoChasing();
-    //    _stateTimer -= Time.deltaTime;
-    //}
-
-    //void OnCollisionEnter(Collision collision)
-    //{
-    //    print("PLEASE");
-    //    if ((_enemyState == EnemyState.chasing) && collision.collider.CompareTag("Player") && (_stateTimer <= 0))
-    //    {
-    //        print("attack!"); // TODO: CHANGE TO DAMAGE PLAYER
-    //        _stateTimer = _attackCooldown;
-    //    }
-    //}
-
-    //protected override void DoAttacking()
-    //{
-        
-    //}
+    protected override void DoAttacking()
+    {
+        // if attack state was just initiated, attack the player
+        if (_attackingTimer == _attackCooldown)
+        {
+            PlayerDamage();
+            print("attack");
+        }
+        // if the cooldown is up, return to chasing
+        else if (_attackingTimer <= 0)
+        {
+            _enemyState = EnemyState.chasing;
+            return;
+        }
+        // decrease the attacking timer
+        _attackingTimer -= Time.deltaTime;
+    }
+    
 }
