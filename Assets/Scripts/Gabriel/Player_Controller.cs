@@ -16,6 +16,8 @@ public class Player_Controller : MonoBehaviour
     public float lookSensY = 0.1f;
     // Player's starting health
     public float _health { get; private set; } = 100;
+    // Head object that contains the first person camera
+    public Transform head;
     
     //////////////////// Private Variables /////////////////////
     // Default movement speed
@@ -26,8 +28,6 @@ public class Player_Controller : MonoBehaviour
     [SerializeField] private float _jumpForce = 5;
     // Player rigidbody
     private Rigidbody _rb;
-    // Head object that contains the first person camera
-    private Transform _head;
     // Store the players height for runtime calculations
     private float _playerHeight;
     // Raw input vector from move function
@@ -51,8 +51,8 @@ public class Player_Controller : MonoBehaviour
     void Start()
     {
         // Find unnassigned runtime objects and variables
+        head = transform.Find("Head");
         _rb = GetComponent<Rigidbody>();
-        _head = transform.Find("Head");
         _playerHeight = transform.localScale.y * 2;
 
         // Lock the cursor to the center of the screen during gameplay
@@ -73,7 +73,7 @@ public class Player_Controller : MonoBehaviour
         // Change player's horizontal rotation to reflect player input
         transform.rotation = Quaternion.Euler(0, _lookX, 0);
         // Change head's vertical rotation to reflect player input
-        _head.localRotation = Quaternion.Euler(-_lookY, 0, 0);
+        head.localRotation = Quaternion.Euler(-_lookY, 0, 0);
 
         ///////////////// Move update /////////////////
         // If the player is on the ground
@@ -126,18 +126,25 @@ public class Player_Controller : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
     }
 
-
     ///////////////////////////////// Player Specific Methods ////////////////////////////////
 
-    public void ChangeHealth(float healthDelta)
+    // Takes a signed float as the desired change in the player's health
+    public void AddHealth(float amount)
     {
-        _health += healthDelta;
+        _health += amount;
         if (_health > MAX_HEALTH)
         {
             _health = MAX_HEALTH;
         }
-        else if (_health < 0) {
-            // DIE!!!!!
+    }
+
+    public void SubtractHealth(float amount)
+    {
+        _health -= amount;
+
+        if (_health < 0)
+        {
+            Game_Manager.instance.PlayerDied();
         }
     }
 
