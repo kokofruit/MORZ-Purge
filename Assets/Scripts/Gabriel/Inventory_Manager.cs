@@ -90,13 +90,17 @@ public class Inventory_Manager : MonoBehaviour
     public Weapon ChangeWeapon(int inc, int start) {
         //theres alot here that is temperary and will break later so shushy
         gunImages[start].enabled = false;
-        start += inc;
-        while (Weapons[start]==null) { 
-            start++;
-            Mathf.Repeat(start, 2);
-            Debug.Log(start);
-        }
-        gunImages[start].enabled = true;
-        return Weapons[start];
+        Debug.Log(start);
+        int val =start;
+        val+=inc;
+        if (val > 2)
+            val = 0;
+        else if (val < 0)
+            val = 2;
+        Debug.Log(val);
+        if(Weapons[val] ==null)
+                return ChangeWeapon(inc, val);
+        gunImages[val].enabled = true;
+        return Weapons[val];
     }
 }
