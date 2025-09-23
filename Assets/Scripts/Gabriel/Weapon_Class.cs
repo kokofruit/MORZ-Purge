@@ -54,6 +54,7 @@ public class Weapon
     // Stores the cooling state of the weapon
     private bool _isCooling;
 
+
     // Method to remove 1 bullet from the current magazine
     public void SubtractAmmo()
     {

@@ -4,6 +4,10 @@
 // Description: Manages the player's inventory during runtime.
 
 using UnityEngine;
+using System.Collections.Generic;
+using UnityEngine.InputSystem;
+using UnityEngine.UI;
+
 
 public class Inventory_Manager : MonoBehaviour
 {
@@ -19,6 +23,11 @@ public class Inventory_Manager : MonoBehaviour
     private Weapon[] Weapons = new Weapon[3];
     private upVal[] upgrades = new upVal[9];
 
+    // stuff
+    public Image[] gunImages;
+
+    //delete later
+    public WeaponTemplate[] gunTemplates=new WeaponTemplate[3];
     void Awake()
     {
         if (instance == null)
@@ -29,6 +38,15 @@ public class Inventory_Manager : MonoBehaviour
 
     void Start()
     {
+        //delete later
+        foreach(WeaponTemplate e in gunTemplates) {
+            if (e != null)
+            {
+                temp(e);
+                gunImages[(int)e.AMMO_TYPE].enabled = false;
+            }
+        }
+
         AMMO_CAPS[(int)WeaponTemplate.AmmoType.Light] = LIGHT_AMMO_CAP;
         AMMO_CAPS[(int)WeaponTemplate.AmmoType.Medium] = MEDIUM_AMMO_CAP;
         AMMO_CAPS[(int)WeaponTemplate.AmmoType.Heavy] = HEAVY_AMMO_CAP;
@@ -36,6 +54,7 @@ public class Inventory_Manager : MonoBehaviour
         ammo[(int)WeaponTemplate.AmmoType.Light] = AMMO_CAPS[(int)WeaponTemplate.AmmoType.Light];
         ammo[(int)WeaponTemplate.AmmoType.Medium] = AMMO_CAPS[(int)WeaponTemplate.AmmoType.Medium];
         ammo[(int)WeaponTemplate.AmmoType.Heavy] = AMMO_CAPS[(int)WeaponTemplate.AmmoType.Heavy];
+
 
         for (int i = 0; i < upgrades.Length; i++)
         {
@@ -54,6 +73,7 @@ public class Inventory_Manager : MonoBehaviour
     public int[] GetAmmo()
     {
         return ammo;
+
     }
 
     public int GetAmmo(WeaponTemplate.AmmoType type)
@@ -82,6 +102,7 @@ public class Inventory_Manager : MonoBehaviour
             return amount;
         }
     }
+
 
     public void AddWeapon(WeaponTemplate weapon)
     {
@@ -119,5 +140,30 @@ public class Inventory_Manager : MonoBehaviour
                 weapon.AddUpgrades(upgrades[upgradeIndex].upgradeValues);
             }
         }
+
+    //temp add gun method
+    public void temp(WeaponTemplate w) {
+
+            Weapons[(int)w.AMMO_TYPE] = new Weapon(w);
+            gunImages[(int)w.AMMO_TYPE].sprite=w.Image;
+        
+        //add chnge weapon stuff here stuff
+    }
+    public Weapon ChangeWeapon(int inc, int start) {
+        //theres alot here that is temperary and will break later so shushy
+        gunImages[start].enabled = false;
+        Debug.Log(start);
+        int val =start;
+        val+=inc;
+        if (val > 2)
+            val = 0;
+        else if (val < 0)
+            val = 2;
+        Debug.Log(val);
+        if(Weapons[val] ==null)
+                return ChangeWeapon(inc, val);
+        gunImages[val].enabled = true;
+        return Weapons[val];
+
     }
 }
