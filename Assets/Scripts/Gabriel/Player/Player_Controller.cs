@@ -6,14 +6,12 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.InputSystem;
+using System.Data.Common;
 
 public class Player_Controller : MonoBehaviour
 {
     //////////////////// Public Variables /////////////////////
-    // Player horizontal look sensitivity
-    public float lookSensX = 0.1f;
-    // Player vertical look sensitivity
-    public float lookSensY = 0.1f;
+
     // Player's starting health
     public float _health { get; private set; } = 100;
     // Head object that contains the first person camera
@@ -22,12 +20,18 @@ public class Player_Controller : MonoBehaviour
     public HealthController healthBar;
 
     //////////////////// Private Variables /////////////////////
+    ///     // Player horizontal look sensitivity
+    [SerializeField] private float _lookSensX = 0.1f;
+    // Player vertical look sensitivity
+    [SerializeField] private float _lookSensY = 0.1f;
     // Default movement speed
     [SerializeField] private float _walkSpeed = 1.5f;
     // Default speed multiplier for when the player is running
     [SerializeField] private float _runSpeedMultiplier = 2;
     // Amount of force added to the player when jumping
     [SerializeField] private float _jumpForce = 5;
+    // Maximum distance within which the player can interact with other objects
+    [SerializeField] private float _interactDistance = 5;
     // Player rigidbody
     private Rigidbody _rb;
     // Store the players height for runtime calculations
@@ -61,7 +65,7 @@ public class Player_Controller : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
 
         // Set MAX_HEALTH on start
-        healthBar.SetMaxHealth(MAX_HEALTH);
+        // healthBar.SetMaxHealth(MAX_HEALTH);
     }
 
     // Update is called once per frame
@@ -69,8 +73,8 @@ public class Player_Controller : MonoBehaviour
     {
         ///////////////// Look update /////////////////
         // Apply the players look sensitivity preferences to the raw input vectors
-        _lookX += _lookVector.x * lookSensX;
-        _lookY += _lookVector.y * lookSensY;
+        _lookX += _lookVector.x * _lookSensX;
+        _lookY += _lookVector.y * _lookSensY;
 
         // Clamp the players looking range to straight up and down
         _lookY = Mathf.Clamp(_lookY, -90, 90);
@@ -159,6 +163,24 @@ public class Player_Controller : MonoBehaviour
         healthBar.SetHealth(_health);
     }
 
+    private void PickUpObject(GameObject pickup)
+    {
+        if (pickup.GetComponent<PickupController>() != null)
+        {
+            PickupController pickupController = pickup.GetComponent<PickupController>();
+
+            // if (pickupController is HealthPickup health)
+            // {
+            //     AddHealth(health.amount);
+            // }
+
+            // else if (pickupController is WeaponPickup weapon)
+            // {
+            //     Inventory_Manager.instance.AddWeapon(weapon.template);
+            // }
+        }
+    }
+
     ///////////////////////////////// Input  Management ////////////////////////////////
 
     // Movement input from the input manager
@@ -194,5 +216,17 @@ public class Player_Controller : MonoBehaviour
             // Add an sudden upwards force
             _rb.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
         }
+    }
+
+    public void OnInteract()
+    {
+        RaycastHit hit;
+        Physics.Raycast(head.position, head.forward, out hit, _interactDistance);
+
+        if (hit.collider == null)
+            if (hit.collider.CompareTag("Pickup"))
+            {
+                PickUpObject(hit.collider.gameObject);
+            }
     }
 }

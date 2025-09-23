@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 1811583333219153225}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.79999995, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.4285713, y: 1, z: 1.4285713}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -162,7 +162,7 @@ Transform:
   m_GameObject: {fileID: 6608924473417738388}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -184,9 +184,10 @@ GameObject:
   - component: {fileID: 3746776137166221323}
   - component: {fileID: 4838888864836725775}
   - component: {fileID: 3031262659255892121}
+  - component: {fileID: 6476566804834447122}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -321,7 +322,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7813069223567444817}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 5
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -352,8 +353,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3503e7f5669d8df4a8bd24e020d1ddfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lookSensX: 0.1
-  lookSensY: 0.1
+  head: {fileID: 0}
+  healthBar: {fileID: 0}
+  _lookSensX: 0.1
+  _lookSensY: 0.1
   _walkSpeed: 3
-  _runSpeedMultiplier: 2
+  _runSpeedMultiplier: 3
   _jumpForce: 25
+  _interactDistance: 5
+--- !u!114 &6476566804834447122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7813069223567444817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6cc58e1feaa64549a68385354dc523a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitMarker: {fileID: 0}
+  hitMarkerDisplayTime: 0.05

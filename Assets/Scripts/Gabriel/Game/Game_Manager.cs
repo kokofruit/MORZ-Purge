@@ -10,7 +10,8 @@ using System.Runtime.Serialization.Formatters.Binary;
 public class Game_Manager : MonoBehaviour
 {
     public static Game_Manager instance;
-    private int playerLives;
+    private int _playerLives;
+    private int _currentLevel;
 
     void Awake()
     {
@@ -18,14 +19,15 @@ public class Game_Manager : MonoBehaviour
             instance = this;
         else
             Destroy(gameObject);
-        
+
         DontDestroyOnLoad(instance);
     }
 
     void Start()
     {
         // Load();
-        playerLives = 3;
+        _playerLives = 3;
+        _currentLevel = 1;
     }
 
     // void Load() {
@@ -71,17 +73,23 @@ public class Game_Manager : MonoBehaviour
 
     public void PlayerDied()
     {
-        playerLives--;
-        if (playerLives <= 0)
+        _playerLives--;
+        if (_playerLives <= 0)
         {
             // TODO Clear out player's data file
         }
-        else
-            Scene_Manager.instance.LoadDeathScene();
+
+        Cursor.lockState = CursorLockMode.None;
+        Scene_Manager.instance.LoadDeathScreen();
     }
 
     public void RestartLevel()
     {
         Scene_Manager.instance.RestartScene();
+    }
+
+    public int GetCurrentLevel()
+    {
+        return _currentLevel;
     }
 }

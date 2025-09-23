@@ -13,9 +13,24 @@ public class Scene_Manager : MonoBehaviour
             Destroy(gameObject);
     }
 
-    public void LoadDeathScene()
+    public void LoadDeathScreen()
     {
-        SceneManager.LoadScene("DeathScene");
+        SceneManager.LoadScene("DeathScreen");
+    }
+
+    public void LoadWinScreen()
+    {
+        SceneManager.LoadScene("WinScreen");
+    }
+
+    public void LoadTitleScreen()
+    {
+        SceneManager.LoadScene("TitleScreen");
+    }
+
+    public void LoadLevel(int level)
+    {
+        SceneManager.LoadScene(level);
     }
 
     public void RestartScene()

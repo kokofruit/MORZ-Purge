@@ -5,7 +5,7 @@
 
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "WeaponTemplate", menuName = "Scriptable Objects/Weapon")]
+[CreateAssetMenu(fileName = "WeaponTemplate", menuName = "Scriptable Objects/WeaponTemplate")]
 public class WeaponTemplate : ScriptableObject
 {
     public Sprite Image;
