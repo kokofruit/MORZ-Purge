@@ -780,7 +780,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!195 &603302164
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -884,6 +884,8 @@ MonoBehaviour:
   _idleDuration: 5
   _maxRoamingDuration: 10
   _pathfindingAttempts: 10
+  _attackingTimer: 0
+  _enemyState: 0
 --- !u!4 &603302169
 Transform:
   m_ObjectHideFlags: 0
@@ -910,7 +912,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 802400734}
-  - component: {fileID: 802400733}
+  - component: {fileID: 802400735}
   - component: {fileID: 802400732}
   - component: {fileID: 802400731}
   - component: {fileID: 802400730}
@@ -920,7 +922,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!136 &802400730
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -963,7 +965,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: 2
+  m_BaseOffset: 0
   m_WalkableMask: 1
   m_ObstacleAvoidanceType: 4
 --- !u!114 &802400732
@@ -978,30 +980,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c80f4fe29776d346b890cb0aa55776d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &802400733
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 802400729}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61781e5c28dd95d4a925fd041486ab6f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DEBUG_MODE: 0
-  _baseHealth: 100
-  _baseDamage: 8
-  _attackDistance: 3
-  _attackCooldown: 3
-  _moveSpeed: 7
-  _roamingRange: 5
-  _eyeTransform: {fileID: 260308450}
-  _sightCheckingInterval: 2
-  _idleDuration: 5
-  _maxRoamingDuration: 10
-  _pathfindingAttempts: 30
 --- !u!4 &802400734
 Transform:
   m_ObjectHideFlags: 0
@@ -1011,7 +989,7 @@ Transform:
   m_GameObject: {fileID: 802400729}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5, y: 2, z: 12.5}
+  m_LocalPosition: {x: -5, y: 0, z: 12.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1019,6 +997,35 @@ Transform:
   - {fileID: 260308450}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &802400735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 802400729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63b8acf692649f74a85ef9a2919bed49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DEBUG_MODE: 1
+  _baseHealth: 100
+  _baseDamage: 0
+  _attackDistance: 3
+  _attackCooldown: 3
+  _moveSpeed: 4
+  _roamingRange: 5
+  _eyeTransform: {fileID: 260308450}
+  _sightCheckingInterval: 2
+  _idleDuration: 10
+  _maxRoamingDuration: 10
+  _pathfindingAttempts: 30
+  _attackingTimer: 0
+  _enemyState: 0
+  _flyingHeight: 2
+  _swoopDistance: 6
+  _swoopSpeed: 2
 --- !u!1 &1004003779
 GameObject:
   m_ObjectHideFlags: 0
@@ -1138,6 +1145,8 @@ MonoBehaviour:
   _idleDuration: 5
   _maxRoamingDuration: 10
   _pathfindingAttempts: 30
+  _attackingTimer: 0
+  _enemyState: 0
 --- !u!95 &1004003791
 Animator:
   serializedVersion: 7
@@ -1795,7 +1804,7 @@ Transform:
   m_GameObject: {fileID: 1974390501}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.008, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 1
   m_Children: []

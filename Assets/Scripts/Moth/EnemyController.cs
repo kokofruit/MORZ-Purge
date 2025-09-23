@@ -28,7 +28,7 @@ public class EnemyController : MonoBehaviour
         get { return _baseDamage * 1; } // TODO: REPLACE WITH GLOBAL MODIFIER
     }
     // How close the enemy needs to be to the player to attack
-    [SerializeField] float _attackDistance;
+    [SerializeField] protected float _attackDistance;
     // The amount of time before it can attack again
     [SerializeField] protected int _attackCooldown;
 
@@ -59,11 +59,11 @@ public class EnemyController : MonoBehaviour
     // The timers keeping track of how long the enemy is in it's current state
     protected float _idleTimer;
     protected float _roamingTimer;
-    protected float _attackingTimer;
+    [SerializeField] protected float _attackingTimer;
     // The enum of possible states
-    protected enum EnemyState { idle, roaming, chasing, attacking, }
+    protected enum EnemyState { idle, roaming, chasing, attacking }
     // The current state of the enemy
-    protected EnemyState _enemyState = EnemyState.idle;
+    [SerializeField] protected EnemyState _enemyState = EnemyState.idle;
     // tracks whether the enemy is currently alive
     protected bool _alive = true;
 
@@ -128,7 +128,7 @@ public class EnemyController : MonoBehaviour
         if (_idleTimer <= 0)
         {
             // if a random spot is found, get ready to roam towards it
-            if (RandomSpot(out Vector3 _destination))
+            if (RandomSpot(transform.position, _roamingRange, out Vector3 _destination))
             {
                 // set navmeshagent's destination
                 _navMeshAgent.SetDestination(_destination);
@@ -193,7 +193,7 @@ public class EnemyController : MonoBehaviour
     /** Moth Harper
      * Find a random spot to navigate to
      * Based on Unity documentation */
-    bool RandomSpot(out Vector3 result)
+    protected bool RandomSpot(Vector3 sphereCenter, float sphereSize, out Vector3 result)
     {
         // attempt to sample a random spot on the navmesh
         for (int i = 0; i < _pathfindingAttempts; i++)
