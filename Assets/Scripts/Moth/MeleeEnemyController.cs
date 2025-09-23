@@ -1,3 +1,7 @@
+// Main Contributors: Moth Harper
+// Reviewer: 
+// Description: Controls melee enemy behavior by defining how they attack
+
 using UnityEngine;
 using UnityEngine.AI;
 
