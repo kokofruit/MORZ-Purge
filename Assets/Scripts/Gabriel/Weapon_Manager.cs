@@ -27,6 +27,8 @@ public class Weapon_Manager : MonoBehaviour
     public static IEnumerator Cooldown(Weapon weapon)
     {
         weapon.SetCoolingStatus(true);
+        Debug.Log("Cooldown Started");
+        yield return new WaitForSecondsRealtime(weapon.cooldown);
         yield return new WaitForSecondsRealtime(weapon.COOLDOWN);
         weapon.Reload();
         weapon.SetCoolingStatus(false);
