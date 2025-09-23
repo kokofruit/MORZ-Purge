@@ -30,7 +30,6 @@ public class RangedEnemyController : EnemyController
     // Function to shot the enemy projectile
     protected void ShootProjectile()
     {
-        
         PlayerDamage();
     }
 }
