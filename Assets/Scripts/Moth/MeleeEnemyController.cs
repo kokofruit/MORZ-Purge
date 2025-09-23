@@ -9,7 +9,7 @@ public class MeleeEnemyContoller : EnemyController
         if (_attackingTimer == _attackCooldown)
         {
             PlayerDamage();
-            print("attack");
+            if (DEBUG_MODE) print(gameObject.name + ": Attack!");
         }
         // if the cooldown is up, return to chasing
         else if (_attackingTimer <= 0)
