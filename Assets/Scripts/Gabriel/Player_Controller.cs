@@ -19,7 +19,7 @@ public class Player_Controller : MonoBehaviour
     // Head object that contains the first person camera
     public Transform head;
     // Connection to HealthBar
-    public HealthController healthBar;
+    public HUDController healthBar;
 
     //////////////////// Private Variables /////////////////////
     // Default movement speed

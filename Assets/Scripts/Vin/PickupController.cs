@@ -17,6 +17,7 @@ public class PickupController : MonoBehaviour
     // Public Variables
     public float addHeight;
     public float raycastDistance;
+    public Player_Controller playerController;
 
     void Start()
     {
@@ -28,17 +29,10 @@ public class PickupController : MonoBehaviour
         Physics.Raycast(gameObject.transform.position, Vector3.down, out hit, raycastDistance);
         // Save the hitPoint (ground)
         Vector3 hitPoint = hit.point;
-        if (DEBUG) Debug.Log(hitPoint.y);
         // Calculate new yPosition
         yPosition = hitPoint.y + addHeight;
         // Set new object position above ground (addHeight)
         transform.position = new Vector3(pos.x, yPosition, pos.z);
-
-        // Debug to make sure it reads the ground
-        if (hit.collider != null)
-        {
-            if(DEBUG) Debug.Log("Ground");
-        }
     }
 
     void Update()
@@ -53,6 +47,7 @@ public class PickupController : MonoBehaviour
         
     }
 
+    // This should be 'E' but im just doing this for testing purposes
     private void OnTriggerEnter(Collider other)
     {
         // Make sure only the player can trigger pickups (no bugz allowed!)
@@ -60,7 +55,7 @@ public class PickupController : MonoBehaviour
         {
             // Trigger event in child script
 
-            // Destroy this game object on collision with player
+            // Destroy this game object on collision with player for testing purposes
             Destroy(gameObject);
         }
     }
