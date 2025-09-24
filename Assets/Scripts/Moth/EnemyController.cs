@@ -121,7 +121,6 @@ public class EnemyController : MonoBehaviour
         if (_lineOfSight)
         {
             _enemyState = EnemyState.chasing;
-            _navMeshAgent.stoppingDistance = _attackDistance;
             return;
         }
         // if the idle timer is over, roam or restart idling
@@ -222,12 +221,13 @@ public class EnemyController : MonoBehaviour
         if (_lineOfSight)
         {
             _enemyState = EnemyState.chasing;
-            _navMeshAgent.stoppingDistance = _attackDistance;
             return;
         }
         // If done navigating or if navigating for too long (in case of being stuck), return to idle mode
-        if ((_navMeshAgent.remainingDistance <= _navMeshAgent.stoppingDistance) | (_roamingTimer <= 0))
+        if ((_navMeshAgent.remainingDistance <= 0) | (_roamingTimer <= 0))
         {
+            // clear the navmeshagent's path
+            _navMeshAgent.ResetPath();
             // set the state timer to idling time with some random variation
             _idleTimer = _idleDuration * Random.Range(0.75f, 1.25f);
             // set the state
@@ -251,8 +251,11 @@ public class EnemyController : MonoBehaviour
          * if close enough to player and not on cooldown, attack them */
         if ((Vector3.Distance(transform.position, _playerTransform.position) <= _attackDistance) && (_attackingTimer <= 0))
         {
-            print("attack mode!");
+            // clear path
+            _navMeshAgent.ResetPath();
+            // set attack timer
             _attackingTimer = _attackCooldown;
+            // change state
             _enemyState = EnemyState.attacking;
             return;
         }
@@ -271,7 +274,6 @@ public class EnemyController : MonoBehaviour
         else
         {
             _idleTimer = _idleDuration;
-            _navMeshAgent.stoppingDistance = 0;
             _enemyState = EnemyState.idle;
         }
     }
@@ -300,7 +302,7 @@ public class EnemyController : MonoBehaviour
      * Function to deal damage to the player when an enemy hits the player. */
     protected void PlayerDamage()
     {
-        print(_calculatedDamage);
+        if (DEBUG_MODE) print(gameObject.name + "Damaged player by: " + _calculatedDamage);
         // TODO: call function in player
     }
 

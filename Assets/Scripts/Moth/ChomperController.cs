@@ -10,9 +10,13 @@ public class ChomperController : MeleeEnemyContoller
     protected override void DoAttacking()
     {
         base.DoAttacking();
-        if (_lineOfSight)
+        if (_lineOfSight && (Vector3.Distance(transform.position, _playerTransform.position) > _attackDistance))
         {
             _navMeshAgent.SetDestination(_playerTransform.position);
+        }
+        else
+        {
+            _navMeshAgent.ResetPath();
         }
     }
 }

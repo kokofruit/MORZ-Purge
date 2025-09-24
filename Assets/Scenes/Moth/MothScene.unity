@@ -1055,7 +1055,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63b8acf692649f74a85ef9a2919bed49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DEBUG_MODE: 1
+  DEBUG_MODE: 0
   _baseHealth: 100
   _baseDamage: 0
   _attackDistance: 3
@@ -1069,6 +1069,7 @@ MonoBehaviour:
   _pathfindingAttempts: 30
   _attackingTimer: 0
   _enemyState: 0
+  _testSound: {fileID: 8300000, guid: a8654d95f20c87c49b40eda0ed26792d, type: 3}
   _flyingHeight: 2
   _swoopDistance: 6
   _swoopSpeed: 2

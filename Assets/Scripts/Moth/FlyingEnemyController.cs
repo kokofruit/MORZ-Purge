@@ -1,3 +1,8 @@
+// Main Contributor: Moth Harper
+// Secondary Contributor: Kris Herbert 
+// Reviewer: 
+// Description: Controls the flying enemies by modifying chasing and attacking behavior
+
 using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.AI;
@@ -5,9 +10,15 @@ using UnityEngine.AI;
 public class FlyingEnemyController : EnemyController
 {
     [Header("Flying Enemy Variables")]
+    // the normal height the enemy flies at, controls the base offset
     [SerializeField] protected float _flyingHeight;
+    // how close the enemy needs to be before it swoops
     [SerializeField] protected float _swoopDistance;
+    // how quickly the enemy descends/ascends
     [SerializeField] protected float _swoopSpeed;
+
+    // Temporary testing audio for the sound
+    [SerializeField] AudioClip _testSound;
 
     protected override void Start()
     {
@@ -34,7 +45,6 @@ public class FlyingEnemyController : EnemyController
             * if close enough to player and not on cooldown, attack them */
             if ((playerDistance <= _attackDistance) && (_attackingTimer <= 0))
             {
-                _navMeshAgent.stoppingDistance = 0;
                 _attackingTimer = _attackCooldown;
                 _enemyState = EnemyState.attacking;
                 return;
@@ -55,7 +65,6 @@ public class FlyingEnemyController : EnemyController
         else
         {
             _idleTimer = _idleDuration;
-            _navMeshAgent.stoppingDistance = 0;
             _enemyState = EnemyState.idle;
         }
     }
@@ -66,18 +75,18 @@ public class FlyingEnemyController : EnemyController
         if (_attackingTimer == _attackCooldown)
         {
             PlayerDamage();
+            SoundManager.instance.PlayFXAudio(_testSound, transform);
             if (DEBUG_MODE) print(gameObject.name + ": Attack!");
             Flee();
         }
         // if the cooldown is up, return to chasing
         else if (_attackingTimer <= 0)
         {
-            _navMeshAgent.stoppingDistance = _attackDistance;
             _enemyState = EnemyState.chasing;
             return;
         }
         // rise back up
-        //_navMeshAgent.baseOffset = Mathf.MoveTowards(_navMeshAgent.baseOffset, _flyingHeight, _swoopSpeed * Time.deltaTime);
+        _navMeshAgent.baseOffset = Mathf.MoveTowards(_navMeshAgent.baseOffset, _flyingHeight, _swoopSpeed * Time.deltaTime);
         
         // decrease the attacking timer
         _attackingTimer -= Time.deltaTime;
@@ -87,7 +96,7 @@ public class FlyingEnemyController : EnemyController
     {
         Vector3 direction = _eyeTransform.position - _playerTransform.position;
         // run away from player
-        if (RandomSpot(transform.position + direction * 3, 0.5f, out Vector3 hit))
+        if (RandomSpot(_playerTransform.position, _swoopDistance, out Vector3 hit))
         {
             _navMeshAgent.SetDestination(hit);
         }
