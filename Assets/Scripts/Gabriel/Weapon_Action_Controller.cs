@@ -7,6 +7,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngine.Windows;
 
 public class Weapon_Action_Controller : MonoBehaviour
 {
@@ -41,6 +42,7 @@ public class Weapon_Action_Controller : MonoBehaviour
     {
         if (currentWeapon != null)
         {
+           Debug.Log(currentWeapon.AMMO_TYPE);
             // Start the weapon's cooldown if it is out of ammo
             if (currentWeapon.ammo <= 0 && !currentWeapon.GetCooldownStatus())
             {
@@ -96,7 +98,6 @@ public class Weapon_Action_Controller : MonoBehaviour
     {
         if (input.Get<float>() == 0)
             return;
-
-        currentWeapon = Inventory_Manager.instance.ChangeWeapon((int)input.Get<float>(), (int)currentWeapon.AMMO_TYPE);
+        Inventory_Manager.instance.ChangeWeapon((int)input.Get<float>(), (int)currentWeapon.AMMO_TYPE,ref currentWeapon);
     }
-    }
+}

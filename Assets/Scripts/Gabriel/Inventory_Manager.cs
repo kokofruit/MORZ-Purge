@@ -7,6 +7,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using NUnit.Framework;
 
 
 public class Inventory_Manager : MonoBehaviour
@@ -16,6 +17,8 @@ public class Inventory_Manager : MonoBehaviour
     public int MEDIUM_AMMO_CAP;
     public int HEAVY_AMMO_CAP;
     public WeaponTemplate starterGun;
+    public WeaponTemplate starterGun2;
+
     public class upVal { public float[] upgradeValues = { 0, 0, 0, 0 }; };
 
     private int[] ammo = new int[3];
@@ -23,11 +26,9 @@ public class Inventory_Manager : MonoBehaviour
     private Weapon[] Weapons = new Weapon[3];
     private upVal[] upgrades = new upVal[9];
 
-    // stuff
+    // stuff to make better mayhaps
     public Image[] gunImages;
 
-    //delete later
-    public WeaponTemplate[] gunTemplates=new WeaponTemplate[3];
     void Awake()
     {
         if (instance == null)
@@ -38,14 +39,6 @@ public class Inventory_Manager : MonoBehaviour
 
     void Start()
     {
-        //delete later
-        foreach(WeaponTemplate e in gunTemplates) {
-            if (e != null)
-            {
-                temp(e);
-                gunImages[(int)e.AMMO_TYPE].enabled = false;
-            }
-        }
 
         AMMO_CAPS[(int)WeaponTemplate.AmmoType.Light] = LIGHT_AMMO_CAP;
         AMMO_CAPS[(int)WeaponTemplate.AmmoType.Medium] = MEDIUM_AMMO_CAP;
@@ -62,8 +55,10 @@ public class Inventory_Manager : MonoBehaviour
         }
 
         AddWeapon(starterGun);
+        AddWeapon(starterGun2);
         Weapon_Action_Controller.instance.currentWeapon = Weapons[0];
     }
+ 
 
     public Weapon[] GetLoadout()
     {
@@ -107,6 +102,8 @@ public class Inventory_Manager : MonoBehaviour
     public void AddWeapon(WeaponTemplate weapon)
     {
         Weapons[(int)weapon.AMMO_TYPE] = new Weapon(weapon, GetUpgrades(weapon));
+        gunImages[(int)weapon.AMMO_TYPE].sprite = weapon.Image;
+
     }
 
     public float[] GetUpgrades(WeaponTemplate weapon)
@@ -122,14 +119,16 @@ public class Inventory_Manager : MonoBehaviour
     public void AddUpgrade(UpgradeTemplate upgrade)
     {
         int upgradeIndex = (int)upgrade.AMMO_TYPE * 3 + (int)upgrade.STAGE;
-        
-        if (upgrade.STAGE == WeaponTemplate.Stage.all) {
+
+        if (upgrade.STAGE == WeaponTemplate.Stage.all)
+        {
             for (int i = (int)upgrade.AMMO_TYPE * 3; i < upgradeIndex; i++)
             {
                 upgrades[i].upgradeValues[(int)upgrade.UPGRADE_TYPE] += upgrade.AMOUNT;
             }
         }
-        else {
+        else
+        {
             upgrades[upgradeIndex].upgradeValues[(int)upgrade.UPGRADE_TYPE] += upgrade.AMOUNT;
         }
 
@@ -140,30 +139,22 @@ public class Inventory_Manager : MonoBehaviour
                 weapon.AddUpgrades(upgrades[upgradeIndex].upgradeValues);
             }
         }
-
-    //temp add gun method
-    public void temp(WeaponTemplate w) {
-
-            Weapons[(int)w.AMMO_TYPE] = new Weapon(w);
-            gunImages[(int)w.AMMO_TYPE].sprite=w.Image;
-        
-        //add chnge weapon stuff here stuff
     }
-    public Weapon ChangeWeapon(int inc, int start) {
-        //theres alot here that is temperary and will break later so shushy
+    public void ChangeWeapon(int inc, int start , ref Weapon penis)
+    {
         gunImages[start].enabled = false;
-        Debug.Log(start);
-        int val =start;
-        val+=inc;
+        int val = start;
+        val += inc;
         if (val > 2)
             val = 0;
         else if (val < 0)
             val = 2;
-        Debug.Log(val);
-        if(Weapons[val] ==null)
-                return ChangeWeapon(inc, val);
-        gunImages[val].enabled = true;
-        return Weapons[val];
-
+        if (Weapons[val] == null)
+            ChangeWeapon(inc, val, ref penis);
+        else
+        {
+            gunImages[val].enabled = true;
+            penis = Weapons[val];
+        }
     }
 }

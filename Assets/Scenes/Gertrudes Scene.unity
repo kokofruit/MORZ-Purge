@@ -889,7 +889,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6cc58e1feaa64549a68385354dc523a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  starterGun: {fileID: 11400000, guid: 506470b813ae8674abecc9bf4451b3b4, type: 2}
   hitMarker: {fileID: 0}
   hitMarkerDisplayTime: 0.05
 --- !u!1 &1852412752
@@ -924,14 +923,12 @@ MonoBehaviour:
   LIGHT_AMMO_CAP: 60
   MEDIUM_AMMO_CAP: 260
   HEAVY_AMMO_CAP: 40
+  starterGun: {fileID: 11400000, guid: 506470b813ae8674abecc9bf4451b3b4, type: 2}
+  starterGun2: {fileID: 11400000, guid: d764d7c37796a984fbc157706003e3fb, type: 2}
   gunImages:
   - {fileID: 410327527}
   - {fileID: 1268609481}
   - {fileID: 495076897}
-  gunTemplates:
-  - {fileID: 11400000, guid: 506470b813ae8674abecc9bf4451b3b4, type: 2}
-  - {fileID: 11400000, guid: d764d7c37796a984fbc157706003e3fb, type: 2}
-  - {fileID: 0}
 --- !u!4 &1852412754
 Transform:
   m_ObjectHideFlags: 0

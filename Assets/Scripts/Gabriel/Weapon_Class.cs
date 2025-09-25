@@ -16,6 +16,7 @@ public class Weapon
         RANGE = weapon.RANGE;
         FIRE_SELECT = weapon.FIRE_SELECT;
         STAGE = weapon.STAGE;
+        AMMO_TYPE = weapon.AMMO_TYPE;
 
         damage = weapon.DAMAGE;
         fireRate = weapon.FIRE_RATE;
