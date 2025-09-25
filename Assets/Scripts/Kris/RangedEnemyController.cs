@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class RangedEnemyController : EnemyController
 {
+    [SerializeField] protected GameObject _projectilePrefab;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected override void Start()
     {
@@ -27,9 +28,9 @@ public class RangedEnemyController : EnemyController
         }
     }
 
-    // Function to shot the enemy projectile
+    // Function to shoot the enemy projectile
     protected void ShootProjectile()
     {
-        PlayerDamage();
+        //TODO: Instantiate projectile; link projectile to parent; apply force;
     }
 }
