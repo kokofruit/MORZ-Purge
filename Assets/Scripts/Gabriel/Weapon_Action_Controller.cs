@@ -35,6 +35,7 @@ public class Weapon_Action_Controller : MonoBehaviour
     {
         // Store a reference to the player controller script
         player = GetComponent<Player_Controller>();
+
     }
 
     // Update is called once per frame
@@ -42,7 +43,6 @@ public class Weapon_Action_Controller : MonoBehaviour
     {
         if (currentWeapon != null)
         {
-           Debug.Log(currentWeapon.AMMO_TYPE);
             // Start the weapon's cooldown if it is out of ammo
             if (currentWeapon.ammo <= 0 && !currentWeapon.GetCooldownStatus())
             {
@@ -98,6 +98,10 @@ public class Weapon_Action_Controller : MonoBehaviour
     {
         if (input.Get<float>() == 0)
             return;
-        Inventory_Manager.instance.ChangeWeapon((int)input.Get<float>(), (int)currentWeapon.AMMO_TYPE,ref currentWeapon);
+        GetWeapon((int)input.Get<float>(), (int)currentWeapon.AMMO_TYPE);
+    }
+
+    public void GetWeapon(int inc, int start) {
+        Inventory_Manager.instance.ChangeWeapon(inc,start , ref currentWeapon);
     }
 }

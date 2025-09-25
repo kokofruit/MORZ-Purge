@@ -57,6 +57,7 @@ public class Inventory_Manager : MonoBehaviour
         AddWeapon(starterGun);
         AddWeapon(starterGun2);
         Weapon_Action_Controller.instance.currentWeapon = Weapons[0];
+        Weapon_Action_Controller.instance.GetWeapon(0,0);
     }
  
 
@@ -140,7 +141,7 @@ public class Inventory_Manager : MonoBehaviour
             }
         }
     }
-    public void ChangeWeapon(int inc, int start , ref Weapon penis)
+    public void ChangeWeapon(int inc, int start , ref Weapon w)
     {
         gunImages[start].enabled = false;
         int val = start;
@@ -150,11 +151,11 @@ public class Inventory_Manager : MonoBehaviour
         else if (val < 0)
             val = 2;
         if (Weapons[val] == null)
-            ChangeWeapon(inc, val, ref penis);
+            ChangeWeapon(inc, val, ref w);
         else
         {
             gunImages[val].enabled = true;
-            penis = Weapons[val];
+            w =Weapons[val];
         }
     }
 }
