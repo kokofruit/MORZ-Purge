@@ -13,6 +13,7 @@ public class Weapon_Action_Controller : MonoBehaviour
     public static Weapon_Action_Controller instance;
     public Image hitMarker;
     public float hitMarkerDisplayTime = .05f;
+    public HUDController HUDcontroller;
 
     // Weapon controller runtime variables
     private Player_Controller player;
@@ -62,7 +63,7 @@ public class Weapon_Action_Controller : MonoBehaviour
                 }
                 // Remove a bullet from the weapons magazine
                 currentWeapon.SubtractAmmo();
-                Debug.Log("Ammo remaining: " + currentWeapon.ammo);
+                HUDController.instance.SetMagAmmo(currentWeapon.ammo);
 
                 // Determine the time when the next bullet will be avaible to fire
                 _nextShotTime = Time.time + (1f / currentWeapon.fireRate);

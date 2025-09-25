@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: Pistol
   m_EditorClassIdentifier: 
   Image: {fileID: 0}
+  DAMAGE: 0
   COOLDOWN: 5
   RANGE: 20
   FIRE_RATE: 10
-  AMMO_TYPE: 0
+  AMMO_TYPE: 1
+  STAGE: 0
   FIRE_SELECT: 0
   MAG_SIZE: 20

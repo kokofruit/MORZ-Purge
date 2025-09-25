@@ -16,7 +16,7 @@ public class Inventory_Manager : MonoBehaviour
 
     private int[] ammo = new int[3];
     private int[] AMMO_CAPS = new int[3];
-    private Weapon[] Weapons = new Weapon[3];
+    public Weapon[] Weapons = new Weapon[3];
     private upVal[] upgrades = new upVal[9];
 
     void Awake()
@@ -43,7 +43,7 @@ public class Inventory_Manager : MonoBehaviour
         }
 
         AddWeapon(starterGun);
-        Weapon_Action_Controller.instance.currentWeapon = Weapons[0];
+        Weapon_Action_Controller.instance.currentWeapon = Weapons[1];
     }
 
     public Weapon[] GetLoadout()

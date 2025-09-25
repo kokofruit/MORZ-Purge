@@ -53,10 +53,7 @@ public class PickupController : MonoBehaviour
         // Make sure only the player can trigger pickups (no bugz allowed!)
         if (other.gameObject.CompareTag("Player"))
         {
-            // Trigger event in child script
-
-            // Destroy this game object on collision with player for testing purposes
-            Destroy(gameObject);
+            //Do stuff in child objects
         }
     }
 }

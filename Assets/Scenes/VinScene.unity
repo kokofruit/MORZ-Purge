@@ -151,7 +151,7 @@ MonoBehaviour:
   LIGHT_AMMO_CAP: 60
   MEDIUM_AMMO_CAP: 260
   HEAVY_AMMO_CAP: 40
-  starterGun: {fileID: 0}
+  starterGun: {fileID: 11400000, guid: 506470b813ae8674abecc9bf4451b3b4, type: 2}
 --- !u!4 &3128725
 Transform:
   m_ObjectHideFlags: 0
@@ -554,7 +554,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Medium\t0/100"
+  m_text: Medium Ammo
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -581,14 +581,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 16
-  m_fontSizeBase: 16
+  m_fontSize: 14
+  m_fontSizeBase: 14
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -798,7 +798,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 10s Shield
+  m_text: none
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1109,7 +1109,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Heavy\t0/100"
+  m_text: Heavy Ammo
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1136,14 +1136,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 16
-  m_fontSizeBase: 16
+  m_fontSize: 14
+  m_fontSizeBase: 14
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -1320,11 +1320,13 @@ MonoBehaviour:
   Height: 0
   healthBar: {fileID: 1926087244}
   ammoTxt: {fileID: 1410908292}
-  lightAmmoTxt: {fileID: 2101749234}
-  medAmmoTxt: {fileID: 569616247}
-  hevAmmoTxt: {fileID: 870170471}
+  inventoryAmmo:
+  - {fileID: 2101749234}
+  - {fileID: 569616247}
+  - {fileID: 870170471}
   Ammo: 
   MaxAmmo: 
+  ammo: 0
   inventoryManager: {fileID: 3128724}
   healthBarWidth: 100
 --- !u!1 &1164251953
@@ -1421,6 +1423,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitMarker: {fileID: 60925396}
   hitMarkerDisplayTime: 0.05
+  HUDcontroller: {fileID: 978979545}
 --- !u!114 &1228277582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2079,11 +2082,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b56b95843adf7440bcbdf2e7437a032, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 0
-  MaxHealth: 0
-  Width: 110
-  Height: 105
-  healthBar: {fileID: 1926087243}
 --- !u!1 &2101749232
 GameObject:
   m_ObjectHideFlags: 0
@@ -2141,7 +2139,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Light\t\t0/100"
+  m_text: Light Ammo
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2168,14 +2166,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 16
-  m_fontSizeBase: 16
+  m_fontSize: 14
+  m_fontSizeBase: 14
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
