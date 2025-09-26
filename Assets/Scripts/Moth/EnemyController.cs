@@ -64,8 +64,6 @@ public class EnemyController : MonoBehaviour
     protected enum EnemyState { idle, roaming, chasing, attacking }
     // The current state of the enemy
     [SerializeField] protected EnemyState _enemyState = EnemyState.idle;
-    // tracks whether the enemy is currently alive
-    protected bool _alive = true;
 
     // COMPONENTS
     protected NavMeshAgent _navMeshAgent;
@@ -159,7 +157,7 @@ public class EnemyController : MonoBehaviour
      * Check if enemy can see player */
     IEnumerator LineOfSight()
     {
-        while (_alive)
+        while (true)
         {
             // find the direction to the target
             Vector3 direction = _playerTransform.position - _eyeTransform.position;
@@ -293,9 +291,17 @@ public class EnemyController : MonoBehaviour
         _health -= damage;
         if (_health < 0)
         {
-            _alive = false;
             // TODO: TRIGGER DEATH SEQUENCE
         }
+    }
+
+    // Moth Harper
+    // In event of enemy death
+    public void Die()
+    {
+        // TODO: PLACE A DEAD GUY
+        StopAllCoroutines();
+        Destroy(gameObject);
     }
 
     /** Kris Herbert
