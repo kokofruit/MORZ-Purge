@@ -45,6 +45,8 @@ public class EnemyController : MonoBehaviour
     [SerializeField] protected Transform _eyeTransform;
     // how often the enemy checks if it can see the player
     [SerializeField, Min(0.001f)] float _sightCheckingInterval;
+    // the layermask for raycasting to the player, allows enemies to see through certain objects
+    [SerializeField] LayerMask _layerMask;
     // tracks whether the enemy can currently see the player
     protected bool _lineOfSight;
 
@@ -171,7 +173,7 @@ public class EnemyController : MonoBehaviour
             if (DEBUG_MODE) Debug.DrawRay(_eyeTransform.position, direction);
 
             // raycast towards the target
-            if (Physics.Raycast(_eyeTransform.position, direction, out RaycastHit hit, distance + 1f))
+            if (Physics.Raycast(_eyeTransform.position, direction, out RaycastHit hit, distance + 1f, _layerMask))
             {
                 // if raycast hits something, see if it's the player
                 if (hit.collider.CompareTag("Player"))

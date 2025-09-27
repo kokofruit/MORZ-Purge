@@ -7,6 +7,7 @@ public class EnemySpawnManager : MonoBehaviour
     public static EnemySpawnManager instance;
 
     private List<List<EnemySpawnerController>> _spawners = new();
+    private int _zoneIndex = 0;
 
     // Set the instance or destroy if it's a duplicate
     private void Awake()
@@ -17,7 +18,7 @@ public class EnemySpawnManager : MonoBehaviour
         }
         else
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
     }
 
@@ -30,13 +31,19 @@ public class EnemySpawnManager : MonoBehaviour
 
         foreach (EnemySpawnerController spawner in FindObjectsByType<EnemySpawnerController>(FindObjectsSortMode.None))
         {
-            int listIndex = (int)spawner.spawningZone;
+            int listIndex = (int)spawner.spawnLocation;
             _spawners[listIndex].Add(spawner);
         }
     }
 
     public void SpawnWave(int zone)
     {
+        if (_zoneIndex >= _spawners.Count) return;
 
+        foreach (EnemySpawnerController spawner in _spawners[_zoneIndex])
+        {
+            spawner.SpawnEnemies();
+        }
+        _zoneIndex++;
     }
 }
