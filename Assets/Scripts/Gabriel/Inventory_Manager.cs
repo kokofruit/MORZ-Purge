@@ -143,17 +143,25 @@ public class Inventory_Manager : MonoBehaviour
     }
     public void ChangeWeapon(int inc, int start , ref Weapon w)
     {
+        //fairly simple recursive loop that assigns w the next availbile weapon
+
         gunImages[start].enabled = false;
+
         int val = start;
         val += inc;
+
+        //this part loops around the weapon array bounds
         if (val > 2)
             val = 0;
         else if (val < 0)
             val = 2;
+
         if (Weapons[val] == null)
+            //next itteration when no weapon found
             ChangeWeapon(inc, val, ref w);
         else
         {
+            //end of loop
             gunImages[val].enabled = true;
             w =Weapons[val];
         }

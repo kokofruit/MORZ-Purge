@@ -60,7 +60,9 @@ public class Weapon_Action_Controller : MonoBehaviour
                 {
                     if (currentWeapon.FIRE_SELECT == WeaponTemplate.FireSelect.Explosive)
                     {
-                        Collider[] c = Physics.OverlapSphere(hit.point, 3);
+                        //grabs all colliders in the explosion radius which is currently 5
+                        //might want to use layer masking to only grab enemy colliders later
+                        Collider[] c = Physics.OverlapSphere(hit.point, 5);
                         foreach (Collider e in c)
                         {
                             if (hit.collider.tag == "Enemy")
@@ -115,11 +117,15 @@ public class Weapon_Action_Controller : MonoBehaviour
 
     public void OnScroll(InputValue input)
     {
+        //0 is the nothing state for scroll wheel and ignored
         if (input.Get<float>() == 0)
             return;
+        //equips different weapon
         GetWeapon((int)input.Get<float>(), (int)currentWeapon.AMMO_TYPE);
     }
 
+    //method that equips a weapon from the inventory
+    //is seperate for use in the inventory manager start when adding the starter gun.
     public void GetWeapon(int inc, int start) {
         Inventory_Manager.instance.ChangeWeapon(inc,start , ref currentWeapon);
     }
