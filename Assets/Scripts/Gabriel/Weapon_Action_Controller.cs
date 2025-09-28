@@ -58,9 +58,28 @@ public class Weapon_Action_Controller : MonoBehaviour
                 // Check to make sure the bullet hit something
                 if (hit.collider != null)
                 {
-                    // Display the hitmarker image
-                    StartCoroutine("DisplayHit");
-                    Debug.Log("Object Hit:" + hit.collider.gameObject.name);
+                    if (currentWeapon.FIRE_SELECT == WeaponTemplate.FireSelect.Explosive)
+                    {
+                        Collider[] c = Physics.OverlapSphere(hit.point, 3);
+                        foreach (Collider e in c)
+                        {
+                            if (hit.collider.tag == "Enemy")
+                            {
+                                hit.collider.GetComponent<EnemyController>().EnemyDamage(currentWeapon.damage);
+                            }
+                            //make explosive
+                        }
+                    }
+                    else if (hit.collider.tag == "Enemy")
+                    {
+                        // Display the hitmarker image
+                        StartCoroutine("DisplayHit");
+                        Debug.Log("Object Hit:" + hit.collider.gameObject.name);
+                        hit.collider.GetComponent<EnemyController>().EnemyDamage(currentWeapon.damage);
+                    }
+
+
+
                 }
                 // Remove a bullet from the weapons magazine
                 currentWeapon.SubtractAmmo();

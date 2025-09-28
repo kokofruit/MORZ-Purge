@@ -16,7 +16,7 @@ public class EnemyController : MonoBehaviour
     // The base health of the enemy
     [SerializeField] protected int _baseHealth;
     // The current health of the enemy
-    protected int _health;
+    protected float _health;
 
     // ATTACKING
     [Header("Attack Variables")]
@@ -288,7 +288,7 @@ public class EnemyController : MonoBehaviour
     // OTHER FUNCTIONS
     /** Kris Herbert
      * Function to deal damage to the enemy when the player shoots an enemy. */
-    public void EnemyDamage(int damage)
+    public void EnemyDamage(float damage)
     {
         _health -= damage;
         if (_health < 0)

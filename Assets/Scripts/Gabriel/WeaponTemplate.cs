@@ -18,7 +18,7 @@ public class WeaponTemplate : ScriptableObject
     public AmmoType AMMO_TYPE;
     public enum Stage { first, second, third, all };
     public Stage STAGE;
-    public enum FireSelect { Single, Auto }
+    public enum FireSelect { Single, Auto, Explosive }
     public FireSelect FIRE_SELECT;
     public int MAG_SIZE;
 }
