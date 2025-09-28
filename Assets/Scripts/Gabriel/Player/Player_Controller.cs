@@ -4,14 +4,13 @@
 // Description: Input manager for the main player object
 
 using UnityEngine;
-using System.Collections;
 using UnityEngine.InputSystem;
-using System.Data.Common;
 
 public class Player_Controller : MonoBehaviour
 {
     //////////////////// Public Variables /////////////////////
-
+    // Static instance of the player for other scripts to reference
+    public static Player_Controller instance;
     // Player's starting health
     public float _health { get; private set; } = 100;
     // Head object that contains the first person camera
@@ -53,9 +52,19 @@ public class Player_Controller : MonoBehaviour
 
     ///////////////////////////////// Monobehvaior Methods ////////////////////////////////
 
+    void Awake()
+    {
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(gameObject);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
+        Game_Manager.instance.LoadPlayerData();
+
         // Find unnassigned runtime objects and variables
         head = transform.Find("Head");
         _rb = GetComponent<Rigidbody>();

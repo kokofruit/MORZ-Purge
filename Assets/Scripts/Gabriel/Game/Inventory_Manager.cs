@@ -14,10 +14,7 @@ public class Inventory_Manager : MonoBehaviour
     public WeaponTemplate starterGun;
     public class upVal { public float[] upgradeValues = { 0, 0, 0, 0 }; };
 
-    private int[] ammo = new int[3];
-    private int[] AMMO_CAPS = new int[3];
-    private Weapon[] Weapons = new Weapon[3];
-    private upVal[] upgrades = new upVal[9];
+    public Inventory playerInventory;
 
     void Awake()
     {
@@ -29,21 +26,48 @@ public class Inventory_Manager : MonoBehaviour
 
     void Start()
     {
-        AMMO_CAPS[(int)WeaponTemplate.AmmoType.Light] = LIGHT_AMMO_CAP;
-        AMMO_CAPS[(int)WeaponTemplate.AmmoType.Medium] = MEDIUM_AMMO_CAP;
-        AMMO_CAPS[(int)WeaponTemplate.AmmoType.Heavy] = HEAVY_AMMO_CAP;
+        playerInventory = new Inventory();
 
-        ammo[(int)WeaponTemplate.AmmoType.Light] = AMMO_CAPS[(int)WeaponTemplate.AmmoType.Light];
-        ammo[(int)WeaponTemplate.AmmoType.Medium] = AMMO_CAPS[(int)WeaponTemplate.AmmoType.Medium];
-        ammo[(int)WeaponTemplate.AmmoType.Heavy] = AMMO_CAPS[(int)WeaponTemplate.AmmoType.Heavy];
+        playerInventory.AMMO_CAPS[(int)WeaponTemplate.AmmoType.Light] = LIGHT_AMMO_CAP;
+        playerInventory.AMMO_CAPS[(int)WeaponTemplate.AmmoType.Medium] = MEDIUM_AMMO_CAP;
+        playerInventory.AMMO_CAPS[(int)WeaponTemplate.AmmoType.Heavy] = HEAVY_AMMO_CAP;
 
+        playerInventory.ammo[(int)WeaponTemplate.AmmoType.Light] = playerInventory.AMMO_CAPS[(int)WeaponTemplate.AmmoType.Light];
+        playerInventory.ammo[(int)WeaponTemplate.AmmoType.Medium] = playerInventory.AMMO_CAPS[(int)WeaponTemplate.AmmoType.Medium];
+        playerInventory.ammo[(int)WeaponTemplate.AmmoType.Heavy] = playerInventory.AMMO_CAPS[(int)WeaponTemplate.AmmoType.Heavy];
+    }
+
+
+
+    public void StartInventory()
+    {
+        playerInventory.AddWeapon(starterGun);
+        Weapon_Action_Controller.instance.currentWeapon = playerInventory.GetWeapon(0);
+    }
+
+    public void SetInventory(Inventory newInventory)
+    {
+        playerInventory = newInventory;
+    }
+
+    public Inventory GetInventory()
+    {
+        return playerInventory;
+    }
+}
+public class Inventory
+{
+    public int[] ammo = new int[3];
+    public int[] AMMO_CAPS = new int[3];
+    private Weapon[] Weapons = new Weapon[3];
+    private Inventory_Manager.upVal[] upgrades = new Inventory_Manager.upVal[9];
+
+    public Inventory()
+    {
         for (int i = 0; i < upgrades.Length; i++)
         {
-            upgrades[i] = new upVal();
+            upgrades[i] = new Inventory_Manager.upVal();
         }
-
-        AddWeapon(starterGun);
-        Weapon_Action_Controller.instance.currentWeapon = Weapons[0];
     }
 
     public Weapon[] GetLoadout()
@@ -101,14 +125,16 @@ public class Inventory_Manager : MonoBehaviour
     public void AddUpgrade(UpgradeTemplate upgrade)
     {
         int upgradeIndex = (int)upgrade.AMMO_TYPE * 3 + (int)upgrade.STAGE;
-        
-        if (upgrade.STAGE == WeaponTemplate.Stage.all) {
+
+        if (upgrade.STAGE == WeaponTemplate.Stage.all)
+        {
             for (int i = (int)upgrade.AMMO_TYPE * 3; i < upgradeIndex; i++)
             {
                 upgrades[i].upgradeValues[(int)upgrade.UPGRADE_TYPE] += upgrade.AMOUNT;
             }
         }
-        else {
+        else
+        {
             upgrades[upgradeIndex].upgradeValues[(int)upgrade.UPGRADE_TYPE] += upgrade.AMOUNT;
         }
 

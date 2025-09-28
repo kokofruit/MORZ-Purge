@@ -12,6 +12,7 @@ public class Game_Manager : MonoBehaviour
     public static Game_Manager instance;
     private int _playerLives;
     private int _currentLevel;
+    private Inventory savedInventory;
 
     void Awake()
     {
@@ -28,6 +29,11 @@ public class Game_Manager : MonoBehaviour
         // Load();
         _playerLives = 3;
         _currentLevel = 1;
+    }
+
+    public void LoadPlayerData()
+    {
+        LoadInventory(savedInventory);
     }
 
     // void Load() {
@@ -81,6 +87,20 @@ public class Game_Manager : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.None;
         Scene_Manager.instance.LoadDeathScreen();
+    }
+
+    public void LoadInventory(Inventory newInventory)
+    {
+        if (newInventory != null)
+        {
+            Inventory_Manager.instance.SetInventory(newInventory);
+        }
+        else Inventory_Manager.instance.StartInventory();
+    }
+
+    public void SaveInventory()
+    {
+        savedInventory = Inventory_Manager.instance.GetInventory();
     }
 
     public void RestartLevel()

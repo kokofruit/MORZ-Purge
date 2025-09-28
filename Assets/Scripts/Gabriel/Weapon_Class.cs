@@ -75,7 +75,7 @@ public class Weapon
     // Method to reload the weapon's magazine
     public void Reload()
     {
-        ammo = Inventory_Manager.instance.SubtractAmmo(AMMO_TYPE, magSize);
+        ammo = Inventory_Manager.instance.playerInventory.SubtractAmmo(AMMO_TYPE, magSize);
     }
 
     // Method to start the cooldown for this weapon

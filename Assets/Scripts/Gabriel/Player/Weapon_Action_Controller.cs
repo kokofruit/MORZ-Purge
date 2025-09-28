@@ -26,7 +26,6 @@ public class Weapon_Action_Controller : MonoBehaviour
             instance = this;
         else
             Destroy(gameObject);
-        DontDestroyOnLoad(gameObject);
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -44,7 +43,7 @@ public class Weapon_Action_Controller : MonoBehaviour
             // Start the weapon's cooldown if it is out of ammo
             if (currentWeapon.ammo <= 0 && !currentWeapon.GetCooldownStatus())
             {
-                if (Inventory_Manager.instance.GetAmmo(currentWeapon.AMMO_TYPE) > 0)
+                if (Inventory_Manager.instance.playerInventory.GetAmmo(currentWeapon.AMMO_TYPE) > 0)
                     currentWeapon.BeginCooldown();
             }
             // Check if the player is attacking, if the next shot it ready to fire, and the gun is not cooling down.
@@ -70,6 +69,10 @@ public class Weapon_Action_Controller : MonoBehaviour
             // If the gun is single fire and the player is attacking but cannot fire, set attacking to false to avoid weapon misfire
             else if (currentWeapon.FIRE_SELECT == WeaponTemplate.FireSelect.Single)
                 _isAttacking = false;
+        }
+        else
+        {
+            Debug.LogError("Current weapon is not set to an instance of an object.");
         }
     }
 
