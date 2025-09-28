@@ -18,9 +18,7 @@ public class Player_Controller : MonoBehaviour
     public float _health { get; private set; } = 100;
     // Head object that contains the first person camera
     public Transform head;
-    // Connection to HealthBar
-    public HUDController healthBar;
-    // Player_controller instance
+    // Player_Controller instance
     public static Player_Controller instance;
 
     //////////////////// Private Variables /////////////////////
@@ -63,7 +61,7 @@ public class Player_Controller : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
 
         // Set MAX_HEALTH on start
-        healthBar.SetMaxHealth(MAX_HEALTH);
+        HUDController.instance.SetMaxHealth(MAX_HEALTH);
     }
 
     private void Awake()
@@ -149,8 +147,8 @@ public class Player_Controller : MonoBehaviour
             _health = MAX_HEALTH;
         }
 
-        // Update healthBar with new health amount
-        healthBar.SetHealth(_health);
+        // Update health bar with new health amount
+        HUDController.instance.SetHealth(_health);
     }
 
     public void SubtractHealth(float amount)
@@ -162,8 +160,8 @@ public class Player_Controller : MonoBehaviour
             Game_Manager.instance.PlayerDied();
         }
 
-        // Update healthBar with new health amount
-        healthBar.SetHealth(_health);
+        // Update health bar with new health amount
+        HUDController.instance.SetHealth(_health);
     }
 
     ///////////////////////////////// Input  Management ////////////////////////////////

@@ -11,13 +11,9 @@ public class PickupController : MonoBehaviour
 {
     // Private Variables
     private float movementSpeed = 3f;
-    private bool DEBUG = true;
     private float yPosition;
     private float addHeight = .75f;
-
-    // Public Variables
-    public float raycastDistance;
-    public Player_Controller playerController;
+    private float raycastDistance = 10f;
 
     void Start()
     {
@@ -40,7 +36,7 @@ public class PickupController : MonoBehaviour
         // Rotates object
         transform.Rotate(0, 0, 30 * Time.deltaTime);
 
-        // Bobbles object
+        // Bobbles object up and down
         Vector3 pos = transform.position;
         float newY = (Mathf.Sin(Time.time * movementSpeed) / 4) + yPosition;    // add new yPosition to spawn above ground
         transform.position = new Vector3(pos.x, newY, pos.z);

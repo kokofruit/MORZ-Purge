@@ -11,26 +11,31 @@ using static WeaponTemplate;
 
 public class HUDController : MonoBehaviour
 {
-    // Pulic variables
-    public float Health, MaxHealth, Width, Height;
+    //// Pulic variables ////
+    // References health bar image on HUD
     public Image healthBar;
+    // References the text box displayed for ammo currently in mag
     public TextMeshProUGUI ammoTxt;
+    // References the text boxes for light, medium, and heavy ammo
     public TextMeshProUGUI[] inventoryAmmo = new TextMeshProUGUI[3];
-    public int[] Ammo, MaxAmmo;
-    public int ammo;
-    public Inventory_Manager inventoryManager;
+    // Instance for HUDController
     public static HUDController instance;
 
 
-    // Private variables
-    [SerializeField]
+    //// Private variables ////
+    // Health bar dimensions
     private int healthBarWidth = 100;
     private int healthBarHeight = 100;
+    // Health bar RectTransform to manipulate
     private RectTransform healthBarRect;
-
+    // Types of ammo stored in list
     private string[] ammoString = new string[3];
+    // Ammo caps stored in list
     private int[] ammoCaps = new int[3];
+    // To reference Inventory_Manager's Ammo variable
+    private int[] Ammo;
 
+    // Used to make an instance
     private void Awake()
     {
        instance = this;
@@ -38,43 +43,46 @@ public class HUDController : MonoBehaviour
 
     void Start()
     {
-
-        // Set health bar stuffs
+        // Get health bar RectTransform
         healthBarRect = healthBar.GetComponent<RectTransform>();
+        // Set health bar width and height
         healthBarRect.sizeDelta = new Vector2(healthBarWidth, healthBarHeight);
+        // Set max player health on start
         SetMaxHealth(healthBarHeight);
 
-        // Set ammo
+        // Populate ammoString with types of ammo
         ammoString[0] = "Light  ";
         ammoString[1] = "Medium";
         ammoString[2] = "Heavy";
+        // Populate ammoCaps with amounts of max ammo
         ammoCaps[0] = 60;
         ammoCaps[1] = 260;
         ammoCaps[2] = 40;
+        // Get the Ammo variable from Inventory_Manager
         Ammo = Inventory_Manager.instance.GetAmmo();
+        // Set starting ammo based off of whatever is in Ammo from Inventory_Manager
         SetAmmo(Ammo);
     }
 
-    //Setting max health
+    // Setting max health
     public void SetMaxHealth(float maxHealth)
     {
-        MaxHealth = maxHealth;
         healthBarRect.sizeDelta = new Vector2(healthBarWidth, maxHealth);
     }
 
-    //Setting health
+    // Setting health (used when health is added or subtracted)
     public void SetHealth(float health)
     {
-        Health = health;
-        healthBarRect.sizeDelta = new Vector2(healthBarWidth, Health);
+        healthBarRect.sizeDelta = new Vector2(healthBarWidth, health);
     }
 
-    // Set ammo inventory
+    // Update ammo inventory after shooting/reloading
     public void UpdateAmmo(WeaponTemplate.AmmoType ammoType)
     {
        inventoryAmmo[(int)ammoType].text = "" + ammoString[(int)ammoType] + "\t" + Inventory_Manager.instance.GetAmmo(ammoType).ToString() + "/" + ammoCaps[(int)ammoType];
     }
 
+    // Set ammo inventory to start with strings
     public void SetAmmo(int[] Ammo)
     {
         for (int i = 0; i < 3; i++)
