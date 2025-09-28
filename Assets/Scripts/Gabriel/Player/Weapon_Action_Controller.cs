@@ -7,6 +7,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngine.Windows;
 
 public class Weapon_Action_Controller : MonoBehaviour
 {
@@ -33,6 +34,7 @@ public class Weapon_Action_Controller : MonoBehaviour
     {
         // Store a reference to the player controller script
         player = GetComponent<Player_Controller>();
+
     }
 
     // Update is called once per frame
@@ -55,9 +57,28 @@ public class Weapon_Action_Controller : MonoBehaviour
                 // Check to make sure the bullet hit something
                 if (hit.collider != null)
                 {
-                    // Display the hitmarker image
-                    StartCoroutine("DisplayHit");
-                    Debug.Log("Object Hit:" + hit.collider.gameObject.name);
+                    if (currentWeapon.FIRE_SELECT == WeaponTemplate.FireSelect.Explosive)
+                    {
+                        Collider[] c = Physics.OverlapSphere(hit.point, 3);
+                        foreach (Collider e in c)
+                        {
+                            if (hit.collider.tag == "Enemy")
+                            {
+                                hit.collider.GetComponent<EnemyController>().EnemyDamage(currentWeapon.damage);
+                            }
+                            //make explosive
+                        }
+                    }
+                    else if (hit.collider.tag == "Enemy")
+                    {
+                        // Display the hitmarker image
+                        StartCoroutine("DisplayHit");
+                        Debug.Log("Object Hit:" + hit.collider.gameObject.name);
+                        hit.collider.GetComponent<EnemyController>().EnemyDamage(currentWeapon.damage);
+                    }
+
+
+
                 }
                 // Remove a bullet from the weapons magazine
                 currentWeapon.SubtractAmmo();
@@ -97,6 +118,12 @@ public class Weapon_Action_Controller : MonoBehaviour
 
     public void OnScroll(InputValue input)
     {
-        Debug.Log("" + input.Get<float>());
+        if (input.Get<float>() == 0)
+            return;
+        GetWeapon((int)input.Get<float>(), (int)currentWeapon.AMMO_TYPE);
+    }
+
+    public void GetWeapon(int inc, int start) {
+        Inventory_Manager.instance.ChangeWeapon(inc,start , ref currentWeapon);
     }
 }

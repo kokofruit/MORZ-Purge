@@ -16,6 +16,7 @@ public class Weapon
         RANGE = weapon.RANGE;
         FIRE_SELECT = weapon.FIRE_SELECT;
         STAGE = weapon.STAGE;
+        AMMO_TYPE = weapon.AMMO_TYPE;
 
         damage = weapon.DAMAGE;
         fireRate = weapon.FIRE_RATE;
@@ -53,6 +54,7 @@ public class Weapon
     public float cooldown { get; private set; }
     // Stores the cooling state of the weapon
     private bool _isCooling;
+
 
     // Method to remove 1 bullet from the current magazine
     public void SubtractAmmo()

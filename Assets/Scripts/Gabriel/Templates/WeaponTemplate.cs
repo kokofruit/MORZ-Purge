@@ -4,6 +4,7 @@
 // Description: Scriptable object that stores the attributes for in game weapons.
 
 using UnityEngine;
+using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "WeaponTemplate", menuName = "Scriptable Objects/WeaponTemplate")]
 public class WeaponTemplate : ScriptableObject
@@ -17,7 +18,7 @@ public class WeaponTemplate : ScriptableObject
     public AmmoType AMMO_TYPE;
     public enum Stage { first, second, third, all };
     public Stage STAGE;
-    public enum FireSelect { Single, Auto }
+    public enum FireSelect { Single, Auto, Explosive }
     public FireSelect FIRE_SELECT;
     public int MAG_SIZE;
 }

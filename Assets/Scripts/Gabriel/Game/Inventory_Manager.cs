@@ -4,6 +4,11 @@
 // Description: Manages the player's inventory during runtime.
 
 using UnityEngine;
+using System.Collections.Generic;
+using UnityEngine.InputSystem;
+using UnityEngine.UI;
+using NUnit.Framework;
+
 
 public class Inventory_Manager : MonoBehaviour
 {
@@ -12,9 +17,14 @@ public class Inventory_Manager : MonoBehaviour
     public int MEDIUM_AMMO_CAP;
     public int HEAVY_AMMO_CAP;
     public WeaponTemplate starterGun;
+    public WeaponTemplate starterGun2;
+
     public class upVal { public float[] upgradeValues = { 0, 0, 0, 0 }; };
 
     public Inventory playerInventory;
+
+    // stuff to make better mayhaps
+    public Image[] gunImages;
 
     void Awake()
     {
@@ -69,6 +79,7 @@ public class Inventory
             upgrades[i] = new Inventory_Manager.upVal();
         }
     }
+ 
 
     public Weapon[] GetLoadout()
     {
@@ -78,6 +89,7 @@ public class Inventory
     public int[] GetAmmo()
     {
         return ammo;
+
     }
 
     public int GetAmmo(WeaponTemplate.AmmoType type)
@@ -107,9 +119,12 @@ public class Inventory
         }
     }
 
+
     public void AddWeapon(WeaponTemplate weapon)
     {
         Weapons[(int)weapon.AMMO_TYPE] = new Weapon(weapon, GetUpgrades(weapon));
+        gunImages[(int)weapon.AMMO_TYPE].sprite = weapon.Image;
+
     }
 
     public float[] GetUpgrades(WeaponTemplate weapon)
@@ -144,6 +159,23 @@ public class Inventory
             {
                 weapon.AddUpgrades(upgrades[upgradeIndex].upgradeValues);
             }
+        }
+    }
+    public void ChangeWeapon(int inc, int start , ref Weapon w)
+    {
+        gunImages[start].enabled = false;
+        int val = start;
+        val += inc;
+        if (val > 2)
+            val = 0;
+        else if (val < 0)
+            val = 2;
+        if (Weapons[val] == null)
+            ChangeWeapon(inc, val, ref w);
+        else
+        {
+            gunImages[val].enabled = true;
+            w =Weapons[val];
         }
     }
 }
