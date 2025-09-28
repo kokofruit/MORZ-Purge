@@ -20,6 +20,8 @@ public class Player_Controller : MonoBehaviour
     public Transform head;
     // Connection to HealthBar
     public HUDController healthBar;
+    // Player_controller instance
+    public static Player_Controller instance;
 
     //////////////////// Private Variables /////////////////////
     // Default movement speed
@@ -62,6 +64,11 @@ public class Player_Controller : MonoBehaviour
 
         // Set MAX_HEALTH on start
         healthBar.SetMaxHealth(MAX_HEALTH);
+    }
+
+    private void Awake()
+    {
+        instance = this;
     }
 
     // Update is called once per frame

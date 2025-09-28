@@ -13,9 +13,9 @@ public class PickupController : MonoBehaviour
     private float movementSpeed = 3f;
     private bool DEBUG = true;
     private float yPosition;
+    private float addHeight = .75f;
 
     // Public Variables
-    public float addHeight;
     public float raycastDistance;
     public Player_Controller playerController;
 
@@ -45,15 +45,5 @@ public class PickupController : MonoBehaviour
         float newY = (Mathf.Sin(Time.time * movementSpeed) / 4) + yPosition;    // add new yPosition to spawn above ground
         transform.position = new Vector3(pos.x, newY, pos.z);
         
-    }
-
-    // This should be 'E' but im just doing this for testing purposes
-    private void OnTriggerEnter(Collider other)
-    {
-        // Make sure only the player can trigger pickups (no bugz allowed!)
-        if (other.gameObject.CompareTag("Player"))
-        {
-            //Do stuff in child objects
-        }
     }
 }
