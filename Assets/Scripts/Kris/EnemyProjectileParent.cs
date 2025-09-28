@@ -9,11 +9,13 @@ public class EnemyProjectileParent : MonoBehaviour
     [SerializeField] protected float _projectileForce;
     [SerializeField] protected int _damage;
     [SerializeField] protected int _maxTime;
+    protected Player_Controller _controller;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         //TODO: detect collision with player; apply damage; add timer to projectile
+        _controller = FindAnyObjectByType<Player_Controller>();
         Invoke("RemoveProjectile", _maxTime);
     }
 
@@ -22,8 +24,8 @@ public class EnemyProjectileParent : MonoBehaviour
         print("Hit");
         if (collision.gameObject.CompareTag("Player"))
         {
+            ProjectileDamage();
             RemoveProjectile();
-            //EnemyController.PlayerDamage(_damage); Issue with Playerdamage() being protected
         }
         else if (collision.gameObject)
         {
@@ -34,5 +36,15 @@ public class EnemyProjectileParent : MonoBehaviour
     protected void RemoveProjectile()
     {
         Destroy(gameObject);
+    }
+
+    protected void ProjectileDamage()
+    {
+        _controller.SubtractHealth(_damage);
+    }
+
+    public void AddForce()
+    {
+
     }
 }

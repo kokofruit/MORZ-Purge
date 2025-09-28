@@ -6,6 +6,7 @@ using UnityEngine;
 public class RangedEnemyController : EnemyController
 {
     [SerializeField] protected GameObject _projectilePrefab;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected override void Start()
     {
