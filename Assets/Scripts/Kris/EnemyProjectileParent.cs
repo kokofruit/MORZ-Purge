@@ -1,6 +1,6 @@
-// Main Contribtors: Kris Herbert
+// Main Contribtor: Kris Herbert
 // Reviewer: 
-// Description: 
+// Description: A parent class for all projectiles to use to allow the ranged enemies to shoot the player and deal damage to the player.
 
 using UnityEngine;
 
@@ -14,7 +14,6 @@ public class EnemyProjectileParent : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        //TODO: detect collision with player; apply damage; add timer to projectile
         _controller = FindAnyObjectByType<Player_Controller>();
         Invoke("RemoveProjectile", _maxTime);
     }
