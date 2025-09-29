@@ -6,15 +6,16 @@ using UnityEngine;
 
 public class EnemyProjectileParent : MonoBehaviour
 {
-    [SerializeField] protected float _projectileForce;
     [SerializeField] protected int _damage;
     [SerializeField] protected int _maxTime;
+    protected Rigidbody _rigidbody;
     protected Player_Controller _controller;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         //TODO: detect collision with player; apply damage; add timer to projectile
+        _rigidbody = GetComponent<Rigidbody>();
         _controller = FindAnyObjectByType<Player_Controller>();
         Invoke("RemoveProjectile", _maxTime);
     }
@@ -43,8 +44,8 @@ public class EnemyProjectileParent : MonoBehaviour
         _controller.SubtractHealth(_damage);
     }
 
-    public void AddForce()
+    public void AddForce(Vector3 force)
     {
-
+        _rigidbody.AddForce(force);
     }
 }

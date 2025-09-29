@@ -6,6 +6,7 @@ using UnityEngine;
 public class RangedEnemyController : EnemyController
 {
     [SerializeField] protected GameObject _projectilePrefab;
+    [SerializeField] protected float _projectileForce;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected override void Start()
@@ -33,5 +34,8 @@ public class RangedEnemyController : EnemyController
     protected void ShootProjectile()
     {
         //TODO: Instantiate projectile; link projectile to parent; apply force;
+        EnemyProjectileParent projectile = Instantiate(_projectilePrefab, transform.forward + transform.position, Quaternion.identity).GetComponent<EnemyProjectileParent>();
+        Vector3 direction = _playerTransform.position - projectile.transform.position;
+        projectile.AddForce(direction.normalized * _projectileForce);
     }
 }
