@@ -28,13 +28,14 @@ public class RangedEnemyController : EnemyController
             _enemyState = EnemyState.chasing;
             return;
         }
+        _attackingTimer -= Time.deltaTime;
     }
 
     // Function to shoot the enemy projectile
     protected void ShootProjectile()
     {
         //TODO: Instantiate projectile; link projectile to parent; apply force;
-        EnemyProjectileParent projectile = Instantiate(_projectilePrefab, transform.forward + transform.position, Quaternion.identity).GetComponent<EnemyProjectileParent>();
+        EnemyProjectileParent projectile = Instantiate(_projectilePrefab, transform.forward + _eyeTransform.position, Quaternion.identity).GetComponent<EnemyProjectileParent>();
         Vector3 direction = _playerTransform.position - projectile.transform.position;
         projectile.AddForce(direction.normalized * _projectileForce);
     }

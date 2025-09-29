@@ -15,21 +15,26 @@ public class EnemyProjectileParent : MonoBehaviour
     void Start()
     {
         //TODO: detect collision with player; apply damage; add timer to projectile
-        _rigidbody = GetComponent<Rigidbody>();
         _controller = FindAnyObjectByType<Player_Controller>();
         Invoke("RemoveProjectile", _maxTime);
     }
 
+    void Awake()
+    {
+        _rigidbody = GetComponent<Rigidbody>();
+    }
+
     protected void OnCollisionEnter(Collision collision)
     {
-        print("Hit");
         if (collision.gameObject.CompareTag("Player"))
         {
+            print("Hit Player");
             ProjectileDamage();
             RemoveProjectile();
         }
-        else if (collision.gameObject)
+        else
         {
+            print("Missed Player");
             RemoveProjectile();
         }
     }
