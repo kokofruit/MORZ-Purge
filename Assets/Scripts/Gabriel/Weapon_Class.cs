@@ -79,10 +79,4 @@ public class Weapon
     {
         ammo = Inventory_Manager.instance.playerInventory.SubtractAmmo(AMMO_TYPE, magSize);
     }
-
-    // Method to start the cooldown for this weapon
-    public void BeginCooldown()
-    {
-        Weapon_Manager.instance.BeginCooldown(this);
-    }
 };

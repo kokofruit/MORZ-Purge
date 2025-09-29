@@ -4,27 +4,25 @@
 // Description: Manages the player's inventory during runtime.
 
 using UnityEngine;
-using System.Collections.Generic;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using NUnit.Framework;
-
 
 public class Inventory_Manager : MonoBehaviour
 {
+    // Static instance for other scripts to reference
     public static Inventory_Manager instance;
+    // Definitions for the maximum capacity for each ammo type in the player's inventory
     public int LIGHT_AMMO_CAP;
     public int MEDIUM_AMMO_CAP;
     public int HEAVY_AMMO_CAP;
+    // The gun that the player will start the game with
     public WeaponTemplate starterGun;
-    public WeaponTemplate starterGun2;
-
+    // Class to hold the upgrade values
     public class upVal { public float[] upgradeValues = { 0, 0, 0, 0 }; };
-
+    // Variable to store the instantiated player inventory
     public Inventory playerInventory;
 
     // stuff to make better mayhaps
-    public Image[] gunImages;
+    public Image gunImage;
 
     void Awake()
     {
@@ -36,6 +34,11 @@ public class Inventory_Manager : MonoBehaviour
 
     void Start()
     {
+        
+    }
+
+    public void StartNewInventory()
+    {
         playerInventory = new Inventory();
 
         playerInventory.AMMO_CAPS[(int)WeaponTemplate.AmmoType.Light] = LIGHT_AMMO_CAP;
@@ -45,19 +48,15 @@ public class Inventory_Manager : MonoBehaviour
         playerInventory.ammo[(int)WeaponTemplate.AmmoType.Light] = playerInventory.AMMO_CAPS[(int)WeaponTemplate.AmmoType.Light];
         playerInventory.ammo[(int)WeaponTemplate.AmmoType.Medium] = playerInventory.AMMO_CAPS[(int)WeaponTemplate.AmmoType.Medium];
         playerInventory.ammo[(int)WeaponTemplate.AmmoType.Heavy] = playerInventory.AMMO_CAPS[(int)WeaponTemplate.AmmoType.Heavy];
-    }
 
-
-
-    public void StartInventory()
-    {
         playerInventory.AddWeapon(starterGun);
         Weapon_Action_Controller.instance.currentWeapon = playerInventory.GetWeapon(0);
     }
 
-    public void SetInventory(Inventory newInventory)
+    public void SetInventory(Inventory inventory)
     {
-        playerInventory = newInventory;
+        playerInventory = inventory;
+        Weapon_Action_Controller.instance.currentWeapon = playerInventory.GetWeapon(0);
     }
 
     public Inventory GetInventory()
@@ -65,6 +64,7 @@ public class Inventory_Manager : MonoBehaviour
         return playerInventory;
     }
 }
+
 public class Inventory
 {
     public int[] ammo = new int[3];
@@ -80,7 +80,6 @@ public class Inventory
         }
     }
  
-
     public Weapon[] GetLoadout()
     {
         return Weapons;
@@ -119,12 +118,13 @@ public class Inventory
         }
     }
 
-
     public void AddWeapon(WeaponTemplate weapon)
     {
+        Debug.Log("Trying to add weapon");
         Weapons[(int)weapon.AMMO_TYPE] = new Weapon(weapon, GetUpgrades(weapon));
-        gunImages[(int)weapon.AMMO_TYPE].sprite = weapon.Image;
-
+        Debug.Log("Building weapon good");
+        Inventory_Manager.instance.gunImage.sprite = weapon.Image;
+        Debug.Log("Setting sprite good");
     }
 
     public float[] GetUpgrades(WeaponTemplate weapon)
@@ -161,9 +161,10 @@ public class Inventory
             }
         }
     }
-    public void ChangeWeapon(int inc, int start , ref Weapon w)
+    
+    public void ChangeWeapon(int inc, int start, ref Weapon w)
     {
-        gunImages[start].enabled = false;
+        Inventory_Manager.instance.gunImage.enabled = false;
         int val = start;
         val += inc;
         if (val > 2)
@@ -174,8 +175,8 @@ public class Inventory
             ChangeWeapon(inc, val, ref w);
         else
         {
-            gunImages[val].enabled = true;
-            w =Weapons[val];
+            Inventory_Manager.instance.gunImage.enabled = true;
+            w = Weapons[val];
         }
     }
 }

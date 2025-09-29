@@ -20,22 +20,53 @@ public class Game_Manager : MonoBehaviour
             instance = this;
         else
             Destroy(gameObject);
-
         DontDestroyOnLoad(instance);
     }
 
     void Start()
     {
-        // Load();
+        // TODO Load();
         _playerLives = 3;
         _currentLevel = 1;
     }
 
     public void LoadPlayerData()
     {
-        LoadInventory(savedInventory);
+        if (savedInventory == null)
+            Inventory_Manager.instance.StartNewInventory();
+        else
+            Inventory_Manager.instance.SetInventory(savedInventory);
     }
 
+    public void PlayerDied()
+    {
+        _playerLives--;
+        if (_playerLives <= 0)
+        {
+            savedInventory = null;
+            // TODO Clear out player's data file
+        }
+
+        Scene_Manager.instance.LoadDeathScreen();
+    }
+
+    public void SaveInventory()
+    {
+        savedInventory = Inventory_Manager.instance.GetInventory();
+    }
+
+    public void RestartLevel()
+    {
+        Scene_Manager.instance.RestartScene();
+    }
+
+    public int GetCurrentLevel()
+    {
+        return _currentLevel;
+    }
+
+
+    
     // void Load() {
     //     if (File.Exists(Application.persistentDataPath + "/player.save")) {
 
@@ -76,40 +107,4 @@ public class Game_Manager : MonoBehaviour
     //     bf.Serialize(afile, playerState);
     //     afile.Close();
     // }
-
-    public void PlayerDied()
-    {
-        _playerLives--;
-        if (_playerLives <= 0)
-        {
-            // TODO Clear out player's data file
-        }
-
-        Cursor.lockState = CursorLockMode.None;
-        Scene_Manager.instance.LoadDeathScreen();
-    }
-
-    public void LoadInventory(Inventory newInventory)
-    {
-        if (newInventory != null)
-        {
-            Inventory_Manager.instance.SetInventory(newInventory);
-        }
-        else Inventory_Manager.instance.StartInventory();
-    }
-
-    public void SaveInventory()
-    {
-        savedInventory = Inventory_Manager.instance.GetInventory();
-    }
-
-    public void RestartLevel()
-    {
-        Scene_Manager.instance.RestartScene();
-    }
-
-    public int GetCurrentLevel()
-    {
-        return _currentLevel;
-    }
 }

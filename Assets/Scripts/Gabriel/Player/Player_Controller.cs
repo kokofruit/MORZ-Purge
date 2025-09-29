@@ -64,6 +64,7 @@ public class Player_Controller : MonoBehaviour
     void Start()
     {
         Game_Manager.instance.LoadPlayerData();
+        Debug.Log("Player good");
 
         // Find unnassigned runtime objects and variables
         head = transform.Find("Head");

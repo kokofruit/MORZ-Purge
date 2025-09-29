@@ -1,5 +1,5 @@
 // Main Contributor: Gabriel Heiser
-// Secondary Contributor: 
+// Secondary Contributor: Phillip Cano
 // Reviewer: 
 // Description: Handles the player input for weapon behaviors and translates them into gameplay actions.
 
@@ -7,7 +7,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using UnityEngine.Windows;
 
 public class Weapon_Action_Controller : MonoBehaviour
 {
@@ -34,7 +33,6 @@ public class Weapon_Action_Controller : MonoBehaviour
     {
         // Store a reference to the player controller script
         player = GetComponent<Player_Controller>();
-
     }
 
     // Update is called once per frame
@@ -46,7 +44,7 @@ public class Weapon_Action_Controller : MonoBehaviour
             if (currentWeapon.ammo <= 0 && !currentWeapon.GetCooldownStatus())
             {
                 if (Inventory_Manager.instance.playerInventory.GetAmmo(currentWeapon.AMMO_TYPE) > 0)
-                    currentWeapon.BeginCooldown();
+                    BeginCooldown(currentWeapon);
             }
             // Check if the player is attacking, if the next shot it ready to fire, and the gun is not cooling down.
             else if (_isAttacking && Time.time >= _nextShotTime && !currentWeapon.GetCooldownStatus())
@@ -62,9 +60,9 @@ public class Weapon_Action_Controller : MonoBehaviour
                         Collider[] c = Physics.OverlapSphere(hit.point, 3);
                         foreach (Collider e in c)
                         {
-                            if (hit.collider.tag == "Enemy")
+                            if (e.tag == "Enemy")
                             {
-                                hit.collider.GetComponent<EnemyController>().EnemyDamage(currentWeapon.damage);
+                                e.GetComponent<EnemyController>().EnemyDamage(currentWeapon.damage);
                             }
                             //make explosive
                         }
@@ -76,9 +74,6 @@ public class Weapon_Action_Controller : MonoBehaviour
                         Debug.Log("Object Hit:" + hit.collider.gameObject.name);
                         hit.collider.GetComponent<EnemyController>().EnemyDamage(currentWeapon.damage);
                     }
-
-
-
                 }
                 // Remove a bullet from the weapons magazine
                 currentWeapon.SubtractAmmo();
@@ -105,6 +100,23 @@ public class Weapon_Action_Controller : MonoBehaviour
         hitMarker.enabled = false;
     }
 
+    public void BeginCooldown(Weapon weapon)
+    {
+        StartCoroutine(Cooldown(weapon));
+    }
+
+    public static IEnumerator Cooldown(Weapon weapon)
+    {
+        weapon.SetCoolingStatus(true);
+        yield return new WaitForSecondsRealtime(weapon.cooldown);
+        weapon.Reload();
+        weapon.SetCoolingStatus(false);
+    }
+
+    public void GetWeapon(int inc, int start) {
+        Inventory_Manager.instance.playerInventory.ChangeWeapon(inc,start , ref currentWeapon);
+    }
+
     // Handles player attack input action
     public void OnAttack(InputValue input)
     {
@@ -121,9 +133,5 @@ public class Weapon_Action_Controller : MonoBehaviour
         if (input.Get<float>() == 0)
             return;
         GetWeapon((int)input.Get<float>(), (int)currentWeapon.AMMO_TYPE);
-    }
-
-    public void GetWeapon(int inc, int start) {
-        Inventory_Manager.instance.ChangeWeapon(inc,start , ref currentWeapon);
     }
 }
