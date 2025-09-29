@@ -77,7 +77,8 @@ public class Weapon_Action_Controller : MonoBehaviour
                 }
                 // Remove a bullet from the weapons magazine
                 currentWeapon.SubtractAmmo();
-                Debug.Log("Ammo remaining: " + currentWeapon.ammo);
+                // Reflect that change on HUD
+                HUDController.instance.SetMagAmmo(currentWeapon.ammo);
 
                 // Determine the time when the next bullet will be avaible to fire
                 _nextShotTime = Time.time + (1f / currentWeapon.fireRate);

@@ -17,5 +17,6 @@ MonoBehaviour:
   RANGE: 20
   FIRE_RATE: 10
   AMMO_TYPE: 0
+  STAGE: 0
   FIRE_SELECT: 0
   MAG_SIZE: 20

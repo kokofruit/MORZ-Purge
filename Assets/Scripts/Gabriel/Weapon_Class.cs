@@ -25,6 +25,7 @@ public class Weapon
 
         ammo = magSize;
         AddUpgrades(upgradeValues);
+        HUDController.instance.SetMagAmmo(this.ammo);
     }
 
     public void AddUpgrades(float[] upgradeValues)
@@ -78,5 +79,8 @@ public class Weapon
     public void Reload()
     {
         ammo = Inventory_Manager.instance.playerInventory.SubtractAmmo(AMMO_TYPE, magSize);
+        // BIG PROBLEM HERE !!
+        HUDController.instance.UpdateAmmo(Weapon_Action_Controller.instance.currentWeapon.AMMO_TYPE);
+        HUDController.instance.SetMagAmmo(ammo);
     }
 };
