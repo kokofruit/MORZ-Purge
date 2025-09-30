@@ -30,13 +30,13 @@ public class EnemyProjectileParent : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            print("Hit Player");
+            // print("Hit Player");
             ProjectileDamage();
             RemoveProjectile();
         }
         else
         {
-            print("Missed Player");
+            // print("Missed Player");
             RemoveProjectile();
         }
     }

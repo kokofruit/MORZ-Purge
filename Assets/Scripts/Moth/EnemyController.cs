@@ -1,5 +1,5 @@
 // Main Contributors: Moth Harper and Kris Herbert 
-// Reviewer: 
+// Reviewer: Gabriel Heiser
 // Description: Controls the basic enemy behavior via a state machine
 
 using System.Collections;
@@ -77,6 +77,9 @@ public class EnemyController : MonoBehaviour
     // UNITY LIFECYCYLE FUNCTIONS
     protected virtual void Start()
     {
+        // Set enemy health to the base health
+        _health = _baseHealth;
+
         // Cache components
         _navMeshAgent = GetComponent<NavMeshAgent>();
 
@@ -291,7 +294,8 @@ public class EnemyController : MonoBehaviour
     public void EnemyDamage(float damage)
     {
         _health -= damage;
-        if (_health < 0)
+
+        if (_health <= 0)
         {
             Die();
         }

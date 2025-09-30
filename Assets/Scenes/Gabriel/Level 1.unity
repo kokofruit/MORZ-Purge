@@ -465,8 +465,8 @@ MonoBehaviour:
   - {fileID: 6772492763247544868, guid: 463127e4f4ea5904aa8de47dc2db07d9, type: 3}
   - {fileID: 6377917487719104797, guid: fb1b76356706b2a40b3cd9477a07b7d3, type: 3}
   - {fileID: 1625208117185856178, guid: e75434da2b7e4b54b9fbdcdebcc524fe, type: 3}
-  _minEnemies: 2
-  _maxEnemies: 8
+  _minEnemies: 4
+  _maxEnemies: 10
   _spawnRadius: 10
   _maxSpawningAttempts: 10
 --- !u!1 &706484895 stripped
@@ -610,8 +610,8 @@ MonoBehaviour:
   - {fileID: 6772492763247544868, guid: 463127e4f4ea5904aa8de47dc2db07d9, type: 3}
   - {fileID: 6377917487719104797, guid: fb1b76356706b2a40b3cd9477a07b7d3, type: 3}
   - {fileID: 1625208117185856178, guid: e75434da2b7e4b54b9fbdcdebcc524fe, type: 3}
-  _minEnemies: 2
-  _maxEnemies: 8
+  _minEnemies: 4
+  _maxEnemies: 10
   _spawnRadius: 10
   _maxSpawningAttempts: 10
 --- !u!1 &1194465461 stripped
@@ -975,8 +975,8 @@ MonoBehaviour:
   - {fileID: 6772492763247544868, guid: 463127e4f4ea5904aa8de47dc2db07d9, type: 3}
   - {fileID: 6377917487719104797, guid: fb1b76356706b2a40b3cd9477a07b7d3, type: 3}
   - {fileID: 1625208117185856178, guid: e75434da2b7e4b54b9fbdcdebcc524fe, type: 3}
-  _minEnemies: 2
-  _maxEnemies: 8
+  _minEnemies: 4
+  _maxEnemies: 10
   _spawnRadius: 10
   _maxSpawningAttempts: 10
 --- !u!1001 &1386550492
@@ -1258,6 +1258,30 @@ PrefabInstance:
     - target: {fileID: 3047782848299804380, guid: 71b1ade77c9d38848ab920a3469ad60f, type: 3}
       propertyPath: m_TagString
       value: Ground
+      objectReference: {fileID: 0}
+    - target: {fileID: 3133483079669212136, guid: 71b1ade77c9d38848ab920a3469ad60f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 19.66
+      objectReference: {fileID: 0}
+    - target: {fileID: 3133483079669212136, guid: 71b1ade77c9d38848ab920a3469ad60f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 7.36
+      objectReference: {fileID: 0}
+    - target: {fileID: 3133483079669212136, guid: 71b1ade77c9d38848ab920a3469ad60f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 138.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 3133483079669212136, guid: 71b1ade77c9d38848ab920a3469ad60f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.011813341
+      objectReference: {fileID: 0}
+    - target: {fileID: 3133483079669212136, guid: 71b1ade77c9d38848ab920a3469ad60f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.99993026
+      objectReference: {fileID: 0}
+    - target: {fileID: 3133483079669212136, guid: 71b1ade77c9d38848ab920a3469ad60f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 1.354
       objectReference: {fileID: 0}
     - target: {fileID: 3149153384376457556, guid: 71b1ade77c9d38848ab920a3469ad60f, type: 3}
       propertyPath: m_TagString
@@ -1790,6 +1814,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1901195922920793626, guid: 71b1ade77c9d38848ab920a3469ad60f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 706484897}
+    - targetCorrespondingSourceObject: {fileID: 8538872912157699874, guid: 71b1ade77c9d38848ab920a3469ad60f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1551507499}
   m_SourcePrefab: {fileID: 100100000, guid: 71b1ade77c9d38848ab920a3469ad60f, type: 3}
 --- !u!1 &1386550493 stripped
 GameObject:
@@ -1859,8 +1886,8 @@ MonoBehaviour:
   - {fileID: 6772492763247544868, guid: 463127e4f4ea5904aa8de47dc2db07d9, type: 3}
   - {fileID: 6377917487719104797, guid: fb1b76356706b2a40b3cd9477a07b7d3, type: 3}
   - {fileID: 1625208117185856178, guid: e75434da2b7e4b54b9fbdcdebcc524fe, type: 3}
-  _minEnemies: 2
-  _maxEnemies: 8
+  _minEnemies: 4
+  _maxEnemies: 10
   _spawnRadius: 10
   _maxSpawningAttempts: 10
 --- !u!114 &1386550506
@@ -1923,6 +1950,23 @@ MonoBehaviour:
   m_IgnoreFromBuild: 1
   m_ApplyToChildren: 1
   m_AffectedAgents: f46d2d58
+--- !u!1 &1551507494 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8538872912157699874, guid: 71b1ade77c9d38848ab920a3469ad60f, type: 3}
+  m_PrefabInstance: {fileID: 1386550492}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1551507499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1551507494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a06cba8070da0e44aa55ddc2523ef90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1709538350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1941,8 +1985,8 @@ MonoBehaviour:
   - {fileID: 6772492763247544868, guid: 463127e4f4ea5904aa8de47dc2db07d9, type: 3}
   - {fileID: 6377917487719104797, guid: fb1b76356706b2a40b3cd9477a07b7d3, type: 3}
   - {fileID: 1625208117185856178, guid: e75434da2b7e4b54b9fbdcdebcc524fe, type: 3}
-  _minEnemies: 2
-  _maxEnemies: 8
+  _minEnemies: 4
+  _maxEnemies: 10
   _spawnRadius: 10
   _maxSpawningAttempts: 10
 --- !u!1 &1887407490 stripped
@@ -1980,8 +2024,8 @@ MonoBehaviour:
   - {fileID: 6772492763247544868, guid: 463127e4f4ea5904aa8de47dc2db07d9, type: 3}
   - {fileID: 6377917487719104797, guid: fb1b76356706b2a40b3cd9477a07b7d3, type: 3}
   - {fileID: 1625208117185856178, guid: e75434da2b7e4b54b9fbdcdebcc524fe, type: 3}
-  _minEnemies: 2
-  _maxEnemies: 8
+  _minEnemies: 4
+  _maxEnemies: 10
   _spawnRadius: 10
   _maxSpawningAttempts: 10
 --- !u!1001 &1929202727

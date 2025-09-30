@@ -26,7 +26,7 @@ public class RangedEnemyController : EnemyController
         if (_attackingTimer == _attackCooldown)
         {
             ShootProjectile();
-            print("shots fired");
+            // print("shots fired");
         }
         else if( _attackingTimer <= 0)
         {
