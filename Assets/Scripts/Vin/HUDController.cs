@@ -71,7 +71,7 @@ public class HUDController : MonoBehaviour
     // Update ammo inventory after shooting/reloading
     public void UpdateAmmo(WeaponTemplate.AmmoType ammoType)
     {
-       inventoryAmmo[(int)ammoType].text = "" + ammoString[(int)ammoType] + "\t" + Inventory_Manager.instance.playerInventory.GetAmmo(ammoType).ToString() + "/" + ammoCaps[(int)ammoType];
+        inventoryAmmo[(int)ammoType].text = "" + ammoString[(int)ammoType] + "\t" + Inventory_Manager.instance.playerInventory.GetAmmo(ammoType).ToString() + "/" + ammoCaps[(int)ammoType];
     }
 
     // Set ammo inventory to start with strings

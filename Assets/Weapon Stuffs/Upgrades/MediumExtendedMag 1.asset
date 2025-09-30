@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f09b9b0369a83ab4fb781b63bde973e8, type: 3}
-  m_Name: LightMagSize
+  m_Name: MediumExtendedMag 1
   m_EditorClassIdentifier: 
-  Amount: 5
-  Type: 0
-  Stage: 3
+  AMOUNT: 8
+  AMMO_TYPE: 1
+  STAGE: 3
+  UPGRADE_TYPE: 2

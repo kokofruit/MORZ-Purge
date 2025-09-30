@@ -7,14 +7,15 @@ using UnityEngine;
 
 public class AmmoPickup : PickupController
 {
-    private int AmmoAmount = 20;
+    public int AmmoAmount = 20;
+    public WeaponTemplate.AmmoType ammoType;
 
     // Setting trigger event for testing
     public override void PickupObject()
     {
-        Inventory_Manager.instance.playerInventory.AddAmmo(0, AmmoAmount);
+        Inventory_Manager.instance.playerInventory.AddAmmo(ammoType, AmmoAmount);
         // Update ammo HUD
-        HUDController.instance.UpdateAmmo(0);
+        HUDController.instance.UpdateAmmo(ammoType);
 
         base.PickupObject();
     }

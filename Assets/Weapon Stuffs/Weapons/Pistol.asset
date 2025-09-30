@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Pistol
   m_EditorClassIdentifier: 
   SPRITE: {fileID: 21300000, guid: 99868052acd12804db1298ec45bb26d6, type: 3}
-  DAMAGE: 0
-  COOLDOWN: 5
+  DAMAGE: 3
+  COOLDOWN: 3
   RANGE: 20
-  FIRE_RATE: 1
+  FIRE_RATE: 10
   AMMO_TYPE: 0
   STAGE: 0
-  FIRE_SELECT: 1
+  FIRE_SELECT: 0
   MAG_SIZE: 20

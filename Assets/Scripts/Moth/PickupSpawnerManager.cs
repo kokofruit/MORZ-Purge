@@ -1,3 +1,8 @@
+// Main Contributor: Moth Harper
+// Secondary Contributor: Gabe & Phil :) & Gub :(
+// Reviewer:
+// Description: Spawns pickups in the level
+
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -7,10 +12,8 @@ public class PickupSpawnerManager : MonoBehaviour
     // the singleton instance
     public static PickupSpawnerManager instance;
 
-    // the prefab for ammo pickups
-    [SerializeField] private GameObject _ammoPickupPrefab;
-    // the prefab for health pickups
-    [SerializeField] private GameObject _healthPickupPrefab;
+    // NOT ENOUGH BALLS
+    [SerializeField] private GameObject[] _pickupObjects;
     // the amount of pickups desired
     [SerializeField] private int _pickupAmount;
     // the amount of ammo vs health pickups
@@ -31,17 +34,11 @@ public class PickupSpawnerManager : MonoBehaviour
         }
     }
 
-    void Start()
+    public void SpawnPickups()
     {
         // Find all spawners in the scene and add them into the list
         _spawners = FindObjectsByType<PickupSpawnerController>(FindObjectsSortMode.None).ToList();
 
-        // TODO: CALL IN GAME MANAGER
-        SpawnPickups();
-    }
-
-    public void SpawnPickups()
-    {
         // some error proofing
         if (_pickupAmount == 0) return;
         if (_pickupAmount > _spawners.Count) _pickupAmount = _spawners.Count;
@@ -56,14 +53,14 @@ public class PickupSpawnerManager : MonoBehaviour
         for (int i = 0; i < ammoAmount; i++)
         {
             int index = Random.Range(0, availableSpawners.Count);
-            availableSpawners[index].GetComponent<PickupSpawnerController>()?.CreatePickup(_ammoPickupPrefab);
+            availableSpawners[index].GetComponent<PickupSpawnerController>()?.CreatePickup(_pickupObjects[(i % 3 == 0) ? 1 : (i % 2 == 0) ? 3 : 2]);
             availableSpawners.RemoveAt(index);
         }
         // create health pickups
         for (int i = 0; i < healthAmout; i++)
         {
             int index = Random.Range(0, availableSpawners.Count);
-            availableSpawners[index].GetComponent<PickupSpawnerController>()?.CreatePickup(_healthPickupPrefab);
+            availableSpawners[index].GetComponent<PickupSpawnerController>()?.CreatePickup(_pickupObjects[0]);
             availableSpawners.RemoveAt(index);
         }
     }

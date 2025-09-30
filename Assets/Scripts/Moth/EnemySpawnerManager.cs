@@ -1,5 +1,7 @@
-// Moth Harper
-// This script will oversee all enemy spawners and control zone spawns
+// Main Contributor: Moth Harper
+// Secondary Contributor:
+// Reviewer:
+// Description: This script will oversee all enemy spawners and control zone spawns
 
 using System;
 using System.Collections.Generic;
@@ -58,7 +60,7 @@ public class EnemySpawnerManager : MonoBehaviour
             spawner.SpawnEnemies();
         }
 
-        // increment the zone index
-        _zoneIndex++;
+        // // increment the zone index
+        // _zoneIndex++;
     }
 }

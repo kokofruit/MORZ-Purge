@@ -119,10 +119,8 @@ public class Inventory
 
     public void AddAmmo(WeaponTemplate.AmmoType type, int amount)
     {
-        if (ammo[(int)type] > AMMO_CAPS[(int)type])
-            ammo[(int)type] = AMMO_CAPS[(int)type];
-        else
-            ammo[(int)type] += amount;
+        ammo[(int)type] += amount;
+        ammo[(int)type] = Mathf.Clamp(ammo[(int)type], 0, AMMO_CAPS[(int)type]);
     }
 
     public int SubtractAmmo(WeaponTemplate.AmmoType type, int amount)

@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: c6665a9f245ffa646b4b8b79f0bdacdd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -168,7 +168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DEBUG_MODE: 0
-  _baseHealth: 100
+  _baseHealth: 5
   _baseDamage: 8
   _attackDistance: 3
   _attackCooldown: 3
@@ -182,7 +182,6 @@ MonoBehaviour:
   _idleDuration: 5
   _maxRoamingDuration: 10
   _pathfindingAttempts: 30
-  _attackingTimer: 0
   _enemyState: 0
 --- !u!114 &6402114061870985366
 MonoBehaviour:

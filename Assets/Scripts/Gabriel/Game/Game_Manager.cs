@@ -30,7 +30,13 @@ public class Game_Manager : MonoBehaviour
         _currentLevel = 1;
     }
 
-    public void LoadPlayerData()
+    public void StartLevel()
+    {
+        PickupSpawnerManager.instance.SpawnPickups();
+        LoadPlayerData();
+    }
+
+    private void LoadPlayerData()
     {
         if (savedInventory == null)
             Inventory_Manager.instance.StartNewInventory();

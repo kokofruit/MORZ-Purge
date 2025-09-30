@@ -11,12 +11,12 @@ using UnityEngine.UI;
 public class Weapon_Action_Controller : MonoBehaviour
 {
     public static Weapon_Action_Controller instance;
-    public Image hitMarker;
-    public float hitMarkerDisplayTime = .05f;
-
-    // Weapon controller runtime variables
-    private Player_Controller player;
     public Weapon currentWeapon;
+
+    public Image hitMarker;
+    private float _hitMarkerDisplayTime = .05f;
+    // Weapon controller runtime variables
+    private Player_Controller _player;
     private bool _isAttacking;
     private float _nextShotTime;
 
@@ -32,7 +32,7 @@ public class Weapon_Action_Controller : MonoBehaviour
     void Start()
     {
         // Store a reference to the player controller script
-        player = GetComponent<Player_Controller>();
+        _player = GetComponent<Player_Controller>();
     }
 
     // Update is called once per frame
@@ -51,18 +51,18 @@ public class Weapon_Action_Controller : MonoBehaviour
             {
                 RaycastHit hit;
                 // Fire a "Bullet" (Raycast) in the direction the player is looking and get out the first object hit
-                Physics.Raycast(player.head.position, player.head.forward, out hit, currentWeapon.RANGE);
+                Physics.Raycast(_player.head.position, _player.head.forward, out hit, currentWeapon.RANGE);
                 // Check to make sure the bullet hit something
                 if (hit.collider != null)
                 {
                     if (currentWeapon.FIRE_SELECT == WeaponTemplate.FireSelect.Explosive)
                     {
-                        Collider[] c = Physics.OverlapSphere(hit.point, 3);
+                        Collider[] c = Physics.OverlapSphere(hit.point, 5);
                         foreach (Collider e in c)
                         {
                             if (e.tag == "Enemy")
                             {
-                                // e.GetComponent<EnemyController>().EnemyDamage(currentWeapon.damage);
+                                e.GetComponent<EnemyController>().EnemyDamage(currentWeapon.damage);
                                 StartCoroutine("DisplayHit");
                             }
                             //make explosive
@@ -73,7 +73,7 @@ public class Weapon_Action_Controller : MonoBehaviour
                         // Display the hitmarker image
                         StartCoroutine("DisplayHit");
                         Debug.Log("Object Hit:" + hit.collider.gameObject.name);
-                        // hit.collider.GetComponent<EnemyController>().EnemyDamage(currentWeapon.damage);
+                        hit.collider.GetComponent<EnemyController>().EnemyDamage(currentWeapon.damage);
                     }
                 }
                 // Remove a bullet from the weapons magazine
@@ -87,6 +87,9 @@ public class Weapon_Action_Controller : MonoBehaviour
             // If the gun is single fire and the player is attacking but cannot fire, set attacking to false to avoid weapon misfire
             else if (currentWeapon.FIRE_SELECT == WeaponTemplate.FireSelect.Single)
                 _isAttacking = false;
+
+            else if (currentWeapon.FIRE_SELECT == WeaponTemplate.FireSelect.Explosive)
+                _isAttacking = false;
         }
         else
         {
@@ -98,7 +101,7 @@ public class Weapon_Action_Controller : MonoBehaviour
     public IEnumerator DisplayHit()
     {
         hitMarker.enabled = true;
-        yield return new WaitForSecondsRealtime(hitMarkerDisplayTime);
+        yield return new WaitForSecondsRealtime(_hitMarkerDisplayTime);
         hitMarker.enabled = false;
     }
 
@@ -107,11 +110,12 @@ public class Weapon_Action_Controller : MonoBehaviour
         StartCoroutine(Cooldown(weapon));
     }
 
-    public static IEnumerator Cooldown(Weapon weapon)
+    public IEnumerator Cooldown(Weapon weapon)
     {
         weapon.SetCoolingStatus(true);
         yield return new WaitForSecondsRealtime(weapon.cooldown);
         weapon.Reload();
+        HUDController.instance.SetMagAmmo(currentWeapon.ammo);
         weapon.SetCoolingStatus(false);
     }
 

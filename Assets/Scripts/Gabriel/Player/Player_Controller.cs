@@ -61,7 +61,7 @@ public class Player_Controller : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Game_Manager.instance.LoadPlayerData();
+        Game_Manager.instance.StartLevel();
 
         // Find unnassigned runtime objects and variables
         head = transform.Find("Head");

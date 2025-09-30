@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MiniSMG
   m_EditorClassIdentifier: 
   SPRITE: {fileID: 0}
-  DAMAGE: 0
+  DAMAGE: 5
   COOLDOWN: 2
   RANGE: 20
   FIRE_RATE: 10
