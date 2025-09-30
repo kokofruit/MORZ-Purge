@@ -62,7 +62,8 @@ public class Weapon_Action_Controller : MonoBehaviour
                         {
                             if (e.tag == "Enemy")
                             {
-                                e.GetComponent<EnemyController>().EnemyDamage(currentWeapon.damage);
+                                // e.GetComponent<EnemyController>().EnemyDamage(currentWeapon.damage);
+                                StartCoroutine("DisplayHit");
                             }
                             //make explosive
                         }
@@ -72,7 +73,7 @@ public class Weapon_Action_Controller : MonoBehaviour
                         // Display the hitmarker image
                         StartCoroutine("DisplayHit");
                         Debug.Log("Object Hit:" + hit.collider.gameObject.name);
-                        hit.collider.GetComponent<EnemyController>().EnemyDamage(currentWeapon.damage);
+                        // hit.collider.GetComponent<EnemyController>().EnemyDamage(currentWeapon.damage);
                     }
                 }
                 // Remove a bullet from the weapons magazine
@@ -115,7 +116,7 @@ public class Weapon_Action_Controller : MonoBehaviour
     }
 
     public void GetWeapon(int inc, int start) {
-        Inventory_Manager.instance.playerInventory.ChangeWeapon(inc,start , ref currentWeapon);
+        Inventory_Manager.instance.ChangeWeapon(inc,start , ref currentWeapon);
     }
 
     // Handles player attack input action

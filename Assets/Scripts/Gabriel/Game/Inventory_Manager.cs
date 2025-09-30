@@ -34,7 +34,7 @@ public class Inventory_Manager : MonoBehaviour
 
     void Start()
     {
-        
+
     }
 
     public void StartNewInventory()
@@ -50,18 +50,39 @@ public class Inventory_Manager : MonoBehaviour
         playerInventory.ammo[(int)WeaponTemplate.AmmoType.Heavy] = playerInventory.AMMO_CAPS[(int)WeaponTemplate.AmmoType.Heavy];
 
         playerInventory.AddWeapon(starterGun);
-        Weapon_Action_Controller.instance.currentWeapon = playerInventory.GetWeapon(0);
+
+        HUDController.instance.SetAmmo(playerInventory.ammo);
     }
 
     public void SetInventory(Inventory inventory)
     {
         playerInventory = inventory;
+
+        HUDController.instance.SetAmmo(playerInventory.ammo);
         Weapon_Action_Controller.instance.currentWeapon = playerInventory.GetWeapon(0);
     }
 
     public Inventory GetInventory()
     {
         return playerInventory;
+    }
+
+    public void ChangeWeapon(int inc, int start, ref Weapon w)
+    {
+        int val = start;
+        val += inc;
+        if (val > 2)
+            val = 0;
+        else if (val < 0)
+            val = 2;
+        if (playerInventory.GetWeapon(val) == null)
+            ChangeWeapon(inc, val, ref w);
+        else
+        {
+            w = playerInventory.GetWeapon(val);
+            gunImage.sprite = w.SPRITE;
+            HUDController.instance.SetMagAmmo(w.ammo);
+        }
     }
 }
 
@@ -120,11 +141,9 @@ public class Inventory
 
     public void AddWeapon(WeaponTemplate weapon)
     {
-        Debug.Log("Trying to add weapon");
         Weapons[(int)weapon.AMMO_TYPE] = new Weapon(weapon, GetUpgrades(weapon));
-        Debug.Log("Building weapon good");
-        Inventory_Manager.instance.gunImage.sprite = weapon.Image;
-        Debug.Log("Setting sprite good");
+        Inventory_Manager.instance.gunImage.sprite = weapon.SPRITE;
+        Weapon_Action_Controller.instance.currentWeapon = GetWeapon((int)weapon.AMMO_TYPE);
     }
 
     public float[] GetUpgrades(WeaponTemplate weapon)
@@ -155,28 +174,10 @@ public class Inventory
 
         foreach (Weapon weapon in Weapons)
         {
-            if (weapon.AMMO_TYPE == upgrade.AMMO_TYPE)
+            if (weapon?.AMMO_TYPE == upgrade.AMMO_TYPE)
             {
                 weapon.AddUpgrades(upgrades[upgradeIndex].upgradeValues);
             }
-        }
-    }
-    
-    public void ChangeWeapon(int inc, int start, ref Weapon w)
-    {
-        Inventory_Manager.instance.gunImage.enabled = false;
-        int val = start;
-        val += inc;
-        if (val > 2)
-            val = 0;
-        else if (val < 0)
-            val = 2;
-        if (Weapons[val] == null)
-            ChangeWeapon(inc, val, ref w);
-        else
-        {
-            Inventory_Manager.instance.gunImage.enabled = true;
-            w = Weapons[val];
         }
     }
 }

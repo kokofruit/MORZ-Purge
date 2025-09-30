@@ -3,6 +3,9 @@
 // Reviewer: 
 // Description: Object that represents an in game weapon the player can wield, constructed based on the weapon templates
 
+using Microsoft.Unity.VisualStudio.Editor;
+using UnityEngine;
+
 public class Weapon
 {
     // Constructor for the weapon class
@@ -13,6 +16,8 @@ public class Weapon
 
     public void ChangeWeapon(WeaponTemplate weapon, float[] upgradeValues)
     {
+        SPRITE = weapon.SPRITE;
+
         RANGE = weapon.RANGE;
         FIRE_SELECT = weapon.FIRE_SELECT;
         STAGE = weapon.STAGE;
@@ -36,6 +41,7 @@ public class Weapon
         cooldown -= upgradeValues[3];
     }
 
+    public Sprite SPRITE  { get; private set; }
     // The maximum number of bullets the weapon can hold in its magazine
     public int magSize { get; private set; }
     // The number of actual bullets currently in the weapons magazine

@@ -15,8 +15,6 @@ public class Player_Controller : MonoBehaviour
     public float _health { get; private set; } = 100;
     // Head object that contains the first person camera
     public Transform head;
-    // Player_Controller instance
-    public static Player_Controller instance;
 
     //////////////////// Private Variables /////////////////////
     ///     // Player horizontal look sensitivity
@@ -64,7 +62,6 @@ public class Player_Controller : MonoBehaviour
     void Start()
     {
         Game_Manager.instance.LoadPlayerData();
-        Debug.Log("Player good");
 
         // Find unnassigned runtime objects and variables
         head = transform.Find("Head");
@@ -107,6 +104,15 @@ public class Player_Controller : MonoBehaviour
             Vector3 localVelocity = transform.TransformDirection(new Vector3(velocity.x, _rb.linearVelocity.y, velocity.y));
             // Set the rigidbody's velocity to the new local velocity
             _rb.linearVelocity = localVelocity;
+        }
+    }
+
+    void OnTriggerEnter(Collider collider)
+    {
+        if (collider.gameObject.CompareTag("Pickup"))
+        {
+            collider.gameObject.TryGetComponent(out PickupController pickup);
+            pickup.PickupObject();
         }
     }
 
@@ -173,24 +179,6 @@ public class Player_Controller : MonoBehaviour
         HUDController.instance.SetHealth(_health);
     }
 
-    private void PickUpObject(GameObject pickup)
-    {
-        if (pickup.GetComponent<PickupController>() != null)
-        {
-            PickupController pickupController = pickup.GetComponent<PickupController>();
-
-            // if (pickupController is HealthPickup health)
-            // {
-            //     AddHealth(health.amount);
-            // }
-
-            // else if (pickupController is WeaponPickup weapon)
-            // {
-            //     Inventory_Manager.instance.AddWeapon(weapon.template);
-            // }
-        }
-    }
-
     ///////////////////////////////// Input  Management ////////////////////////////////
 
     // Movement input from the input manager
@@ -236,7 +224,8 @@ public class Player_Controller : MonoBehaviour
         if (hit.collider == null)
             if (hit.collider.CompareTag("Pickup"))
             {
-                PickUpObject(hit.collider.gameObject);
+                hit.collider.TryGetComponent(out PickupController pickup);
+                pickup.PickupObject();
             }
     }
 }

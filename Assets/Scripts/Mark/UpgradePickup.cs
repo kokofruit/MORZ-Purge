@@ -7,16 +7,13 @@ using UnityEngine;
 
 public class UpgradePickup : PickupController
 {
+    // Drag needed upgrade into specific pickup
+    public UpgradeTemplate upgrade;
 
-    private void OnTriggerEnter(Collider collider)
+    public override void PickupObject()
     {
-        // Setting so only the player can trigger the pickup
-        if (collider.gameObject.CompareTag("Player"))
-        {
-      
-            // Call upgrade functions here
+        Inventory_Manager.instance.playerInventory.AddUpgrade(upgrade);
 
-            Destroy(this.gameObject);
-        }
+        base.PickupObject();
     }
 }

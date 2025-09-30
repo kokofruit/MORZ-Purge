@@ -11,15 +11,10 @@ public class HealthPickup : PickupController
     private float healthAmount = 20;
 
     // Setting trigger event for testing
-    // Will implement interact "E" once completed
-    private void OnTriggerEnter(Collider collider)
+    public override void PickupObject()
     {
-        // Setting so only the player can trigger the pickup
-        if (collider.gameObject.CompareTag("Player"))
-        {
-            Player_Controller.instance.AddHealth(healthAmount);
+        Player_Controller.instance.AddHealth(healthAmount);
 
-            Destroy(this.gameObject);
-        }
+        base.PickupObject();
     }
 }

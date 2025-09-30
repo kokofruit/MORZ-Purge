@@ -12,17 +12,13 @@ public class WeaponPickup : PickupController
 
     // Setting trigger event for testing
     // Will implement interact "E" once completed
-    private void OnTriggerEnter(Collider collider)
+    public override void PickupObject()
     {
-        // Setting so only the player can trigger the pickup
-        if (collider.gameObject.CompareTag("Player"))
-        {
-            // Calling 
-            Inventory_Manager.instance.AddWeapon(weapon);
-            // Add an if statment to swap weapons if player already has 3
+        Debug.Log("BLOOOBY");
 
-            Debug.Log("pickup " + weapon.name);
-            Destroy(this.gameObject);
-        }
+        // Calling 
+        Inventory_Manager.instance.playerInventory.AddWeapon(weapon);
+
+        base.PickupObject();
     }
 }

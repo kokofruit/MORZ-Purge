@@ -40,6 +40,10 @@ public class PickupController : MonoBehaviour
         Vector3 pos = transform.position;
         float newY = (Mathf.Sin(Time.time * movementSpeed) / 4) + yPosition;    // add new yPosition to spawn above ground
         transform.position = new Vector3(pos.x, newY, pos.z);
-        
+    }
+
+    public virtual void PickupObject()
+    {
+        Destroy(gameObject);
     }
 }

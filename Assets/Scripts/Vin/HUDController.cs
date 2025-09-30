@@ -1,13 +1,11 @@
-using System;
+// Main Contributor: Vin
+// Secondary Contributor: 
+// Reviewer: Gabriel Heiser
+// Description: Controller to show health, ammo, and upgrades on the HUD
+
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static WeaponTemplate;
-
-// Main Contributor: Vin
-// Secondary Contributor: 
-// Reviewer: 
-// Description: Controller to show health, ammo, and upgrades on the HUD
 
 public class HUDController : MonoBehaviour
 {
@@ -32,8 +30,6 @@ public class HUDController : MonoBehaviour
     private string[] ammoString = new string[3];
     // Ammo caps stored in list
     private int[] ammoCaps = new int[3];
-    // To reference Inventory_Manager's Ammo variable
-    private int[] Ammo;
 
     // Used to make an instance
     private void Awake()
@@ -58,10 +54,6 @@ public class HUDController : MonoBehaviour
         ammoCaps[0] = 60;
         ammoCaps[1] = 260;
         ammoCaps[2] = 40;
-        // Get the Ammo variable from Inventory_Manager
-        Ammo = Inventory_Manager.instance.GetAmmo();
-        // Set starting ammo based off of whatever is in Ammo from Inventory_Manager
-        SetAmmo(Ammo);
     }
 
     // Setting max health
@@ -79,7 +71,7 @@ public class HUDController : MonoBehaviour
     // Update ammo inventory after shooting/reloading
     public void UpdateAmmo(WeaponTemplate.AmmoType ammoType)
     {
-       inventoryAmmo[(int)ammoType].text = "" + ammoString[(int)ammoType] + "\t" + Inventory_Manager.instance.GetAmmo(ammoType).ToString() + "/" + ammoCaps[(int)ammoType];
+       inventoryAmmo[(int)ammoType].text = "" + ammoString[(int)ammoType] + "\t" + Inventory_Manager.instance.playerInventory.GetAmmo(ammoType).ToString() + "/" + ammoCaps[(int)ammoType];
     }
 
     // Set ammo inventory to start with strings

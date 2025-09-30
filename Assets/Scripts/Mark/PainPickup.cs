@@ -10,12 +10,10 @@ public class PainPickup : PickupController
     // How much damage the player will take
     public float PainAmount = 10;
 
-    private void OnTriggerEnter(Collider collider)
+    public override void PickupObject()
     {
-        if (collider.gameObject.CompareTag("Player"))
-        {
-            // Calling the SubtactHealth function within the player_Controller and applying the damage amount.
-            Player_Controller.instance.SubtractHealth(PainAmount);
-        }
+        // Calling the SubtactHealth function within the player_Controller and applying the damage amount.
+        Player_Controller.instance.SubtractHealth(PainAmount);
+        base.PickupObject();
     }
 }

@@ -9,15 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9026bc7339770f4d8cc619eeb750f2e, type: 3}
-  m_Name: Pistol
+  m_Script: {fileID: 11500000, guid: f09b9b0369a83ab4fb781b63bde973e8, type: 3}
+  m_Name: FasterFireRate
   m_EditorClassIdentifier: 
-  SPRITE: {fileID: 21300000, guid: 99868052acd12804db1298ec45bb26d6, type: 3}
-  DAMAGE: 0
-  COOLDOWN: 5
-  RANGE: 20
-  FIRE_RATE: 1
+  AMOUNT: 8
   AMMO_TYPE: 0
   STAGE: 0
-  FIRE_SELECT: 1
-  MAG_SIZE: 20
+  UPGRADE_TYPE: 1
