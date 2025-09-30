@@ -14,8 +14,6 @@ public class WeaponPickup : PickupController
     // Will implement interact "E" once completed
     public override void PickupObject()
     {
-        Debug.Log("BLOOOBY");
-
         // Calling 
         Inventory_Manager.instance.playerInventory.AddWeapon(weapon);
 

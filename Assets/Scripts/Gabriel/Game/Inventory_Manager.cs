@@ -169,13 +169,7 @@ public class Inventory
         {
             upgrades[upgradeIndex].upgradeValues[(int)upgrade.UPGRADE_TYPE] += upgrade.AMOUNT;
         }
-
-        foreach (Weapon weapon in Weapons)
-        {
-            if (weapon?.AMMO_TYPE == upgrade.AMMO_TYPE)
-            {
-                weapon.AddUpgrades(upgrades[upgradeIndex].upgradeValues);
-            }
-        }
+        
+        Weapons[(int)upgrade.AMMO_TYPE]?.AddUpgrades(upgrades[(int)upgrade.AMMO_TYPE * 3 + (int)Weapons[(int)upgrade.AMMO_TYPE].STAGE].upgradeValues);
     }
 }
