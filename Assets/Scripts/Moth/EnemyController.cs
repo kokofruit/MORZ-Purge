@@ -61,7 +61,7 @@ public class EnemyController : MonoBehaviour
     // The timers keeping track of how long the enemy is in it's current state
     protected float _idleTimer;
     protected float _roamingTimer;
-    [SerializeField] protected float _attackingTimer;
+    protected float _attackingTimer;
     // The enum of possible states
     protected enum EnemyState { idle, roaming, chasing, attacking }
     // The current state of the enemy
@@ -293,7 +293,7 @@ public class EnemyController : MonoBehaviour
         _health -= damage;
         if (_health < 0)
         {
-            // TODO: TRIGGER DEATH SEQUENCE
+            Die();
         }
     }
 
@@ -311,7 +311,7 @@ public class EnemyController : MonoBehaviour
     protected void PlayerDamage()
     {
         if (DEBUG_MODE) print(gameObject.name + "Damaged player by: " + _calculatedDamage);
-        // TODO: call function in player
+        _playerTransform.GetComponent<Player_Controller>().SubtractHealth(_calculatedDamage);
     }
 
 
