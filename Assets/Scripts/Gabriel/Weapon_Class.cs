@@ -3,7 +3,6 @@
 // Reviewer: 
 // Description: Object that represents an in game weapon the player can wield, constructed based on the weapon templates
 
-using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
 
 public class Weapon
