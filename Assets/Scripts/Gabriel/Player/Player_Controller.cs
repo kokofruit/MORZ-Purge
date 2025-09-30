@@ -216,16 +216,17 @@ public class Player_Controller : MonoBehaviour
         }
     }
 
-    public void OnInteract()
-    {
-        RaycastHit hit;
-        Physics.Raycast(head.position, head.forward, out hit, _interactDistance);
+    //todo later
+    //public void OnInteract()
+    //{
+    //    RaycastHit hit;
+    //    Physics.Raycast(head.position, head.forward, out hit, _interactDistance);
 
-        if (hit.collider == null)
-            if (hit.collider.CompareTag("Pickup"))
-            {
-                hit.collider.TryGetComponent(out PickupController pickup);
-                pickup.PickupObject();
-            }
-    }
+    //    if (hit.collider == null)
+    //        if (hit.collider.CompareTag("Pickup"))
+    //        {
+    //            hit.collider.TryGetComponent(out PickupController pickup);
+    //            pickup.PickupObject();
+    //        }
+    //}
 }

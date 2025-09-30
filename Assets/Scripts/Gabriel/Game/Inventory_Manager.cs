@@ -1,5 +1,5 @@
 // Main Contributor: Gabriel Heiser
-// Secondary Contributor: 
+// Secondary Contributor: Philll
 // Reviewer: 
 // Description: Manages the player's inventory during runtime.
 
@@ -16,7 +16,7 @@ public class Inventory_Manager : MonoBehaviour
     public int HEAVY_AMMO_CAP;
     // The gun that the player will start the game with
     public WeaponTemplate starterGun;
-    // Class to hold the upgrade values
+    // Class to hold the upgrade values: [damage, fire rate, mag size, cooldown]
     public class upVal { public float[] upgradeValues = { 0, 0, 0, 0 }; };
     // Variable to store the instantiated player inventory
     public Inventory playerInventory;
@@ -41,18 +41,20 @@ public class Inventory_Manager : MonoBehaviour
     {
         playerInventory = new Inventory();
 
+        //Set maximum ammo for the three ammo types
         playerInventory.AMMO_CAPS[(int)WeaponTemplate.AmmoType.Light] = LIGHT_AMMO_CAP;
         playerInventory.AMMO_CAPS[(int)WeaponTemplate.AmmoType.Medium] = MEDIUM_AMMO_CAP;
         playerInventory.AMMO_CAPS[(int)WeaponTemplate.AmmoType.Heavy] = HEAVY_AMMO_CAP;
-
+        //Set ammo ammount to max ammo
         playerInventory.ammo[(int)WeaponTemplate.AmmoType.Light] = playerInventory.AMMO_CAPS[(int)WeaponTemplate.AmmoType.Light];
         playerInventory.ammo[(int)WeaponTemplate.AmmoType.Medium] = playerInventory.AMMO_CAPS[(int)WeaponTemplate.AmmoType.Medium];
         playerInventory.ammo[(int)WeaponTemplate.AmmoType.Heavy] = playerInventory.AMMO_CAPS[(int)WeaponTemplate.AmmoType.Heavy];
-
+        //adds a starter gun
         playerInventory.AddWeapon(starterGun);
-
+        
         HUDController.instance.SetAmmo(playerInventory.ammo);
     }
+
 
     public void SetInventory(Inventory inventory)
     {
@@ -67,18 +69,25 @@ public class Inventory_Manager : MonoBehaviour
         return playerInventory;
     }
 
+    //Method to find and set to the next available gun in inventorys
     public void ChangeWeapon(int inc, int start, ref Weapon w)
     {
+        //increment here
         int val = start;
         val += inc;
+
+        //loops back around the three slots here
         if (val > 2)
             val = 0;
         else if (val < 0)
             val = 2;
+
         if (playerInventory.GetWeapon(val) == null)
+            //recursive call
             ChangeWeapon(inc, val, ref w);
         else
         {
+            //sets gun here
             w = playerInventory.GetWeapon(val);
             gunImage.sprite = w.SPRITE;
             HUDController.instance.SetMagAmmo(w.ammo);
@@ -88,24 +97,30 @@ public class Inventory_Manager : MonoBehaviour
 
 public class Inventory
 {
+    //All weapon items are stored [Light, Medium, Heavy]
     public int[] ammo = new int[3];
     public int[] AMMO_CAPS = new int[3];
     private Weapon[] Weapons = new Weapon[3];
+
     private Inventory_Manager.upVal[] upgrades = new Inventory_Manager.upVal[9];
 
     public Inventory()
     {
+        //upgrades are stored for each affected individual gun
+        //[3 Light, 3 Medium, 3 Heavy]
+        //Identifiable with 3*AmmoType+Stage
         for (int i = 0; i < upgrades.Length; i++)
         {
             upgrades[i] = new Inventory_Manager.upVal();
         }
     }
- 
+
+    //returns the three gun slots
     public Weapon[] GetLoadout()
     {
         return Weapons;
     }
-
+    //returns the three ammo slots
     public int[] GetAmmo()
     {
         return ammo;
@@ -123,22 +138,27 @@ public class Inventory
         ammo[(int)type] = Mathf.Clamp(ammo[(int)type], 0, AMMO_CAPS[(int)type]);
     }
 
+    //Used for reloading
     public int SubtractAmmo(WeaponTemplate.AmmoType type, int amount)
     {
         if (ammo[(int)type] < amount)
         {
+            //when reloading more bullets than you have set ammo zero and return what remained
+            amount = ammo[(int)type];
             ammo[(int)type] = 0;
-            return ammo[(int)type];
+            return amount;
         }
         else
         {
+            //otherwise do it normally
             ammo[(int)type] -= amount;
             return amount;
         }
     }
 
     public void AddWeapon(WeaponTemplate weapon)
-    {
+    { 
+        //replaces whatever is in the slot
         Weapons[(int)weapon.AMMO_TYPE] = new Weapon(weapon, GetUpgrades(weapon));
         Inventory_Manager.instance.gunImage.sprite = weapon.SPRITE;
         Weapon_Action_Controller.instance.currentWeapon = GetWeapon((int)weapon.AMMO_TYPE);
@@ -156,17 +176,20 @@ public class Inventory
 
     public void AddUpgrade(UpgradeTemplate upgrade)
     {
+        //see constructor for explanation on math
         int upgradeIndex = (int)upgrade.AMMO_TYPE * 3 + (int)upgrade.STAGE;
-
+        //4 Stage types:All loop through all stages of an ammo type, anything else apply to that stage of that ammo type 
         if (upgrade.STAGE == WeaponTemplate.Stage.all)
         {
             for (int i = (int)upgrade.AMMO_TYPE * 3; i < upgradeIndex; i++)
             {
+                //adds upgrades
                 upgrades[i].upgradeValues[(int)upgrade.UPGRADE_TYPE] += upgrade.AMOUNT;
             }
         }
         else
         {
+            //adds upgrades
             upgrades[upgradeIndex].upgradeValues[(int)upgrade.UPGRADE_TYPE] += upgrade.AMOUNT;
         }
 
@@ -174,6 +197,7 @@ public class Inventory
         {
             if (weapon?.AMMO_TYPE == upgrade.AMMO_TYPE)
             {
+                //applies upgrades here
                 weapon.AddUpgrades(upgrades[upgradeIndex].upgradeValues);
             }
         }

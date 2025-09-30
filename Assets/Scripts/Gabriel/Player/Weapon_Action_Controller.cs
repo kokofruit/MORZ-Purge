@@ -105,6 +105,7 @@ public class Weapon_Action_Controller : MonoBehaviour
         hitMarker.enabled = false;
     }
 
+    //Starts reload cooldown coroutine for given weapon
     public void BeginCooldown(Weapon weapon)
     {
         StartCoroutine(Cooldown(weapon));
@@ -119,6 +120,7 @@ public class Weapon_Action_Controller : MonoBehaviour
         weapon.SetCoolingStatus(false);
     }
 
+    //Sets held weapon to one from the inventory
     public void GetWeapon(int inc, int start) {
         Inventory_Manager.instance.ChangeWeapon(inc,start , ref currentWeapon);
     }
@@ -136,6 +138,7 @@ public class Weapon_Action_Controller : MonoBehaviour
 
     public void OnScroll(InputValue input)
     {
+        //0 is no scroll and therefore ignored
         if (input.Get<float>() == 0)
             return;
         GetWeapon((int)input.Get<float>(), (int)currentWeapon.AMMO_TYPE);
