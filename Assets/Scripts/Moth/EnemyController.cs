@@ -16,7 +16,7 @@ public class EnemyController : MonoBehaviour
     // The base health of the enemy
     [SerializeField] protected int _baseHealth;
     // The current health of the enemy
-    protected int _health;
+    protected float _health;
 
     // ATTACKING
     [Header("Attack Variables")]
@@ -28,7 +28,7 @@ public class EnemyController : MonoBehaviour
         get { return _baseDamage * 1; } // TODO: REPLACE WITH GLOBAL MODIFIER
     }
     // How close the enemy needs to be to the player to attack
-    [SerializeField] float _attackDistance;
+    [SerializeField] protected float _attackDistance;
     // The amount of time before it can attack again
     [SerializeField] protected int _attackCooldown;
 
@@ -45,6 +45,8 @@ public class EnemyController : MonoBehaviour
     [SerializeField] protected Transform _eyeTransform;
     // how often the enemy checks if it can see the player
     [SerializeField, Min(0.001f)] float _sightCheckingInterval;
+    // the layermask for raycasting to the player, allows enemies to see through certain objects
+    [SerializeField] LayerMask _layerMask;
     // tracks whether the enemy can currently see the player
     protected bool _lineOfSight;
 
@@ -61,11 +63,9 @@ public class EnemyController : MonoBehaviour
     protected float _roamingTimer;
     protected float _attackingTimer;
     // The enum of possible states
-    protected enum EnemyState { idle, roaming, chasing, attacking, }
+    protected enum EnemyState { idle, roaming, chasing, attacking }
     // The current state of the enemy
-    protected EnemyState _enemyState = EnemyState.idle;
-    // tracks whether the enemy is currently alive
-    protected bool _alive = true;
+    [SerializeField] protected EnemyState _enemyState = EnemyState.idle;
 
     // COMPONENTS
     protected NavMeshAgent _navMeshAgent;
@@ -121,14 +121,13 @@ public class EnemyController : MonoBehaviour
         if (_lineOfSight)
         {
             _enemyState = EnemyState.chasing;
-            _navMeshAgent.stoppingDistance = _attackDistance;
             return;
         }
         // if the idle timer is over, roam or restart idling
         if (_idleTimer <= 0)
         {
             // if a random spot is found, get ready to roam towards it
-            if (RandomSpot(out Vector3 _destination))
+            if (RandomSpot(transform.position, _roamingRange, out Vector3 _destination))
             {
                 // set navmeshagent's destination
                 _navMeshAgent.SetDestination(_destination);
@@ -160,7 +159,7 @@ public class EnemyController : MonoBehaviour
      * Check if enemy can see player */
     IEnumerator LineOfSight()
     {
-        while (_alive)
+        while (true)
         {
             // find the direction to the target
             Vector3 direction = _playerTransform.position - _eyeTransform.position;
@@ -174,7 +173,7 @@ public class EnemyController : MonoBehaviour
             if (DEBUG_MODE) Debug.DrawRay(_eyeTransform.position, direction);
 
             // raycast towards the target
-            if (Physics.Raycast(_eyeTransform.position, direction, out RaycastHit hit, distance + 1f))
+            if (Physics.Raycast(_eyeTransform.position, direction, out RaycastHit hit, distance + 1f, _layerMask))
             {
                 // if raycast hits something, see if it's the player
                 if (hit.collider.CompareTag("Player"))
@@ -193,7 +192,7 @@ public class EnemyController : MonoBehaviour
     /** Moth Harper
      * Find a random spot to navigate to
      * Based on Unity documentation */
-    bool RandomSpot(out Vector3 result)
+    protected bool RandomSpot(Vector3 sphereCenter, float sphereSize, out Vector3 result)
     {
         // attempt to sample a random spot on the navmesh
         for (int i = 0; i < _pathfindingAttempts; i++)
@@ -222,12 +221,13 @@ public class EnemyController : MonoBehaviour
         if (_lineOfSight)
         {
             _enemyState = EnemyState.chasing;
-            _navMeshAgent.stoppingDistance = _attackDistance;
             return;
         }
         // If done navigating or if navigating for too long (in case of being stuck), return to idle mode
-        if ((_navMeshAgent.remainingDistance <= _navMeshAgent.stoppingDistance) | (_roamingTimer <= 0))
+        if ((_navMeshAgent.remainingDistance <= 0) | (_roamingTimer <= 0))
         {
+            // clear the navmeshagent's path
+            _navMeshAgent.ResetPath();
             // set the state timer to idling time with some random variation
             _idleTimer = _idleDuration * Random.Range(0.75f, 1.25f);
             // set the state
@@ -251,8 +251,11 @@ public class EnemyController : MonoBehaviour
          * if close enough to player and not on cooldown, attack them */
         if ((Vector3.Distance(transform.position, _playerTransform.position) <= _attackDistance) && (_attackingTimer <= 0))
         {
-            print("attack mode!");
+            // clear path
+            _navMeshAgent.ResetPath();
+            // set attack timer
             _attackingTimer = _attackCooldown;
+            // change state
             _enemyState = EnemyState.attacking;
             return;
         }
@@ -271,7 +274,6 @@ public class EnemyController : MonoBehaviour
         else
         {
             _idleTimer = _idleDuration;
-            _navMeshAgent.stoppingDistance = 0;
             _enemyState = EnemyState.idle;
         }
     }
@@ -286,22 +288,30 @@ public class EnemyController : MonoBehaviour
     // OTHER FUNCTIONS
     /** Kris Herbert
      * Function to deal damage to the enemy when the player shoots an enemy. */
-    public void EnemyDamage(int damage)
+    public void EnemyDamage(float damage)
     {
         _health -= damage;
         if (_health < 0)
         {
-            _alive = false;
-            // TODO: TRIGGER DEATH SEQUENCE
+            Die();
         }
+    }
+
+    // Moth Harper
+    // In event of enemy death
+    public void Die()
+    {
+        // TODO: PLACE A DEAD GUY
+        StopAllCoroutines();
+        Destroy(gameObject);
     }
 
     /** Kris Herbert
      * Function to deal damage to the player when an enemy hits the player. */
     protected void PlayerDamage()
     {
-        print(_calculatedDamage);
-        // TODO: call function in player
+        if (DEBUG_MODE) print(gameObject.name + "Damaged player by: " + _calculatedDamage);
+        _playerTransform.GetComponent<Player_Controller>().SubtractHealth(_calculatedDamage);
     }
 
 

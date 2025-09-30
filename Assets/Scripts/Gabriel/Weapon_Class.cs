@@ -3,6 +3,8 @@
 // Reviewer: 
 // Description: Object that represents an in game weapon the player can wield, constructed based on the weapon templates
 
+using UnityEngine;
+
 public class Weapon
 {
     // Constructor for the weapon class
@@ -13,9 +15,12 @@ public class Weapon
 
     public void ChangeWeapon(WeaponTemplate weapon, float[] upgradeValues)
     {
+        SPRITE = weapon.SPRITE;
+
         RANGE = weapon.RANGE;
         FIRE_SELECT = weapon.FIRE_SELECT;
         STAGE = weapon.STAGE;
+        AMMO_TYPE = weapon.AMMO_TYPE;
 
         damage = weapon.DAMAGE;
         fireRate = weapon.FIRE_RATE;
@@ -34,6 +39,7 @@ public class Weapon
         cooldown -= upgradeValues[3];
     }
 
+    public Sprite SPRITE  { get; private set; }
     // The maximum number of bullets the weapon can hold in its magazine
     public int magSize { get; private set; }
     // The number of actual bullets currently in the weapons magazine
@@ -53,6 +59,7 @@ public class Weapon
     public float cooldown { get; private set; }
     // Stores the cooling state of the weapon
     private bool _isCooling;
+
 
     // Method to remove 1 bullet from the current magazine
     public void SubtractAmmo()
@@ -75,12 +82,9 @@ public class Weapon
     // Method to reload the weapon's magazine
     public void Reload()
     {
-        ammo = Inventory_Manager.instance.SubtractAmmo(AMMO_TYPE, magSize);
-    }
-
-    // Method to start the cooldown for this weapon
-    public void BeginCooldown()
-    {
-        Weapon_Manager.instance.BeginCooldown(this);
+        ammo = Inventory_Manager.instance.playerInventory.SubtractAmmo(AMMO_TYPE, magSize);
+        // BIG PROBLEM HERE !!
+        HUDController.instance.UpdateAmmo(AMMO_TYPE);
+        HUDController.instance.SetMagAmmo(ammo);
     }
 };

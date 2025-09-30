@@ -13,8 +13,11 @@ MonoBehaviour:
   m_Name: AssaultRifle
   m_EditorClassIdentifier: 
   Image: {fileID: 0}
-  ReloadCooldown: 3
-  FireRate: 4
-  AmmoType: 2
-  AmmoCap: 0
-  MagSize: 22
+  DAMAGE: 0
+  COOLDOWN: 0
+  RANGE: 0
+  FIRE_RATE: 0
+  AMMO_TYPE: 1
+  STAGE: 0
+  FIRE_SELECT: 0
+  MAG_SIZE: 0
