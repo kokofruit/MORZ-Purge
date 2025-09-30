@@ -30,7 +30,7 @@ public class DoorController : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        //Checks if player has entered trigger zone to close door
+        //Checks if player has entered trigger zone to open door
         if (other.CompareTag("Player"))
         {
             //Debug.Log("Player entered door range");
