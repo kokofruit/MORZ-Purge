@@ -72,7 +72,6 @@ public class Weapon_Action_Controller : MonoBehaviour
                     {
                         // Display the hitmarker image
                         StartCoroutine("DisplayHit");
-                        Debug.Log("Object Hit:" + hit.collider.gameObject.name);
                         hit.collider.GetComponent<EnemyController>().EnemyDamage(currentWeapon.damage);
                     }
                 }
