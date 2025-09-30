@@ -1,3 +1,8 @@
+// Main Contributor: Gabriel heiser
+// Secondary Contributor: 
+// Reviewer: 
+// Description: Scriptable object to store data for each unique pugrade
+
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "UpgradeTemplate", menuName = "Scriptable Objects/UpgradeTemplate")]
