@@ -154,7 +154,7 @@ GameObject:
   - component: {fileID: 7861087807491701673}
   - component: {fileID: 172688249608675843}
   m_Layer: 0
-  m_Name: KrisTestEnemy
+  m_Name: TestEnemyPrefab
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
