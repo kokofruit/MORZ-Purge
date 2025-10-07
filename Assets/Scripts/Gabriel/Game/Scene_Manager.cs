@@ -26,6 +26,10 @@ public class Scene_Manager : MonoBehaviour
     {
         SceneManager.LoadScene("DeathScreen");
     }
+    public void LoadLoseScreen()
+    {
+        SceneManager.LoadScene("LoseScreen");
+    }
 
     // Load the win screen when the player reaches the end of the game
     public void LoadWinScreen()
@@ -42,7 +46,18 @@ public class Scene_Manager : MonoBehaviour
     // Load one of the main gameplay levels
     public void LoadLevel(int level)
     {
-        SceneManager.LoadScene(level);
+        if (level != SceneManager.GetActiveScene().buildIndex)
+            SceneManager.LoadScene(level);
+    }
+
+    public void LoadNextLevel()
+    {
+        if ((SceneManager.GetActiveScene().buildIndex + 1) == SceneManager.GetSceneByName("WinScreen").buildIndex) {
+            LoadWinScreen();
+        }
+        else {
+            LoadLevel(SceneManager.GetActiveScene().buildIndex + 1);
+        }
     }
 
     // Restart the current scene the player is in

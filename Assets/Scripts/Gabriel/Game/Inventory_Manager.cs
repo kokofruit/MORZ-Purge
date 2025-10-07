@@ -17,6 +17,7 @@ public class Inventory_Manager : MonoBehaviour
     // The gun that the player will start the game with
     public WeaponTemplate starterGun;
     // Class to hold the upgrade values: [damage, fire rate, mag size, cooldown]
+    [System.Serializable]
     public class upVal { public float[] upgradeValues = { 0, 0, 0, 0 }; };
     // Variable to store the instantiated player inventory
     public Inventory playerInventory;
@@ -52,7 +53,7 @@ public class Inventory_Manager : MonoBehaviour
         //adds a starter gun
         playerInventory.AddWeapon(starterGun);
         
-        HUDController.instance.SetAmmo(playerInventory.ammo);
+        HUDController.instance.DisplayInventoryAmmo(playerInventory.ammo);
     }
 
 
@@ -60,7 +61,7 @@ public class Inventory_Manager : MonoBehaviour
     {
         playerInventory = inventory;
 
-        HUDController.instance.SetAmmo(playerInventory.ammo);
+        HUDController.instance.DisplayInventoryAmmo(playerInventory.ammo);
         Weapon_Action_Controller.instance.currentWeapon = playerInventory.GetWeapon(0);
     }
 
@@ -89,12 +90,13 @@ public class Inventory_Manager : MonoBehaviour
         {
             //sets gun here
             w = playerInventory.GetWeapon(val);
-            gunImage.sprite = w.SPRITE;
-            HUDController.instance.SetMagAmmo(w.ammo);
+            // gunImage.sprite = w.SPRITE;
+            HUDController.instance.DisplayWeaponAmmo(w.ammo);
         }
     }
 }
 
+[System.Serializable]
 public class Inventory
 {
     //All weapon items are stored [Light, Medium, Heavy]
@@ -157,7 +159,7 @@ public class Inventory
     }
 
     public void AddWeapon(WeaponTemplate weapon)
-    { 
+    {
         //replaces whatever is in the slot
         Weapons[(int)weapon.AMMO_TYPE] = new Weapon(weapon, GetUpgrades(weapon));
         Inventory_Manager.instance.gunImage.sprite = weapon.SPRITE;
@@ -192,7 +194,7 @@ public class Inventory
             //adds upgrades
             upgrades[upgradeIndex].upgradeValues[(int)upgrade.UPGRADE_TYPE] += upgrade.AMOUNT;
         }
-        
+
         // applies Upgrades to the player's current weapons
         Weapons[(int)upgrade.AMMO_TYPE]?.AddUpgrades(upgrades[(int)upgrade.AMMO_TYPE * 3 + (int)Weapons[(int)upgrade.AMMO_TYPE].STAGE].upgradeValues);
     }

@@ -1,5 +1,5 @@
 // Main Contributor: Vin
-// Secondary Contributor: 
+// Secondary Contributor: Gabriel Heiser
 // Reviewer: Gabriel Heiser
 // Description: Controller to show health, ammo, and upgrades on the HUD
 
@@ -51,9 +51,7 @@ public class HUDController : MonoBehaviour
         ammoString[1] = "Medium";
         ammoString[2] = "Heavy";
         // Populate ammoCaps with amounts of max ammo
-        ammoCaps[0] = 60;
-        ammoCaps[1] = 260;
-        ammoCaps[2] = 40;
+        ammoCaps = Inventory_Manager.instance.playerInventory.AMMO_CAPS;
     }
 
     // Setting max health
@@ -63,7 +61,7 @@ public class HUDController : MonoBehaviour
     }
 
     // Setting health (used when health is added or subtracted)
-    public void SetHealth(float health)
+    public void DisplayHealth(float health)
     {
         healthBarRect.sizeDelta = new Vector2(healthBarWidth, health);
     }
@@ -75,7 +73,7 @@ public class HUDController : MonoBehaviour
     }
 
     // Set ammo inventory to start with strings
-    public void SetAmmo(int[] Ammo)
+    public void DisplayInventoryAmmo(int[] Ammo)
     {
         for (int i = 0; i < 3; i++)
         {
@@ -84,7 +82,7 @@ public class HUDController : MonoBehaviour
     }
 
     // Setting amount in mag
-    public void SetMagAmmo(float ammo)
+    public void DisplayWeaponAmmo(float ammo)
     {
         ammoTxt.text = "" + ammo;
     }

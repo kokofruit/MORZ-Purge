@@ -6,7 +6,7 @@ public class CubeOfWinning : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Scene_Manager.instance?.LoadWinScreen();
+            Game_Manager.instance?.GoToNextLevel();
         }
     }
 }

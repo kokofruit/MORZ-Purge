@@ -163,7 +163,7 @@ public class Player_Controller : MonoBehaviour
         }
 
         // Update health bar with new health amount
-        HUDController.instance.SetHealth(_health);
+        HUDController.instance.DisplayHealth(_health);
     }
 
     public void SubtractHealth(float amount)
@@ -176,7 +176,7 @@ public class Player_Controller : MonoBehaviour
         }
 
         // Update health bar with new health amount
-        HUDController.instance.SetHealth(_health);
+        HUDController.instance.DisplayHealth(_health);
     }
 
     ///////////////////////////////// Input  Management ////////////////////////////////

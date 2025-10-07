@@ -5,6 +5,7 @@
 
 using UnityEngine;
 
+[System.Serializable]
 public class Weapon
 {
     // Constructor for the weapon class
@@ -15,7 +16,7 @@ public class Weapon
 
     public void ChangeWeapon(WeaponTemplate weapon, float[] upgradeValues)
     {
-        SPRITE = weapon.SPRITE;
+        // SPRITE = weapon.SPRITE;
 
         RANGE = weapon.RANGE;
         FIRE_SELECT = weapon.FIRE_SELECT;
@@ -39,7 +40,8 @@ public class Weapon
         cooldown -= upgradeValues[3];
     }
 
-    public Sprite SPRITE  { get; private set; }
+    // public Sprite SPRITE { get; private set; }
+
     // The maximum number of bullets the weapon can hold in its magazine
     public int magSize { get; private set; }
     // The number of actual bullets currently in the weapons magazine
@@ -85,6 +87,6 @@ public class Weapon
         ammo = Inventory_Manager.instance.playerInventory.SubtractAmmo(AMMO_TYPE, magSize);
         // BIG PROBLEM HERE !!
         HUDController.instance.UpdateAmmo(AMMO_TYPE);
-        HUDController.instance.SetMagAmmo(ammo);
+        HUDController.instance.DisplayWeaponAmmo(ammo);
     }
 };
