@@ -15,6 +15,10 @@ public class PickupController : MonoBehaviour
     private float addHeight = .75f;
     private float raycastDistance = 10f;
 
+    // Public Variables //
+    // For temporary pickups
+    public bool activated = false;
+
     void Start()
     {
         // Raycast to the ground to spawn above it
