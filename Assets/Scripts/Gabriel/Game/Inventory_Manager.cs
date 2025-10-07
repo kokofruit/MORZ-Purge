@@ -17,7 +17,7 @@ public class Inventory_Manager : MonoBehaviour
     // The gun that the player will start the game with
     public WeaponTemplate starterGun;
     // Class to hold the upgrade values: [damage, fire rate, mag size, cooldown]
-    public class upVal { public float[] upgradeValues = { 0, 0, 0, 0 }; };
+    public class upVal { public float[] upgradeValues = { 0, 0, 0, 0, 0 }; };
     // Variable to store the instantiated player inventory
     public Inventory playerInventory;
 
@@ -185,14 +185,18 @@ public class Inventory
             {
                 //adds upgrades
                 upgrades[i].upgradeValues[(int)upgrade.UPGRADE_TYPE] += upgrade.AMOUNT;
+                //determines which of the 2 all upgrades are added
+                upgrades[i].upgradeValues[4] += upgrade.SLOT ? 2:1;
             }
         }
         else
         {
             //adds upgrades
             upgrades[upgradeIndex].upgradeValues[(int)upgrade.UPGRADE_TYPE] += upgrade.AMOUNT;
+            //unique upgrade slot covered
+            upgrades[upgradeIndex].upgradeValues[4] += 4;
         }
-        
+
         // applies Upgrades to the player's current weapons
         Weapons[(int)upgrade.AMMO_TYPE]?.AddUpgrades(upgrades[(int)upgrade.AMMO_TYPE * 3 + (int)Weapons[(int)upgrade.AMMO_TYPE].STAGE].upgradeValues);
     }
