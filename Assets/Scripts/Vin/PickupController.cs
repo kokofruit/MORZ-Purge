@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -9,15 +10,13 @@ using UnityEngine;
 
 public class PickupController : MonoBehaviour
 {
+
     // Private Variables
     private float movementSpeed = 3f;
     private float yPosition;
     private float addHeight = .75f;
     private float raycastDistance = 10f;
-
-    // Public Variables //
-    // For temporary pickups
-    public bool activated = false;
+    private bool activated = false;
 
     void Start()
     {

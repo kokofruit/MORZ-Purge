@@ -47,6 +47,10 @@ public class Player_Controller : MonoBehaviour
     private float _lookY;
     // Maximum allowed player health
     private int MAX_HEALTH = 100;
+    // Upgrade bools
+    private bool armorUpActivated = false;
+    private bool stimulantUpActivated = false;
+    private bool shieldUpActivated = false;
 
     ///////////////////////////////// Monobehvaior Methods ////////////////////////////////
 
@@ -73,6 +77,7 @@ public class Player_Controller : MonoBehaviour
 
         // Set MAX_HEALTH on start
         // healthBar.SetMaxHealth(MAX_HEALTH);
+
     }
 
     // Update is called once per frame
@@ -168,15 +173,19 @@ public class Player_Controller : MonoBehaviour
 
     public void SubtractHealth(float amount)
     {
-        _health -= amount;
-
-        if (_health < 0)
+        // Check to make sure invincibility armor isn't active
+        if(!armorUpActivated)
         {
-            Game_Manager.instance.PlayerDied();
-        }
+            _health -= amount;
 
-        // Update health bar with new health amount
-        HUDController.instance.SetHealth(_health);
+            if (_health < 0)
+            {
+                Game_Manager.instance.PlayerDied();
+            }
+
+            // Update health bar with new health amount
+            HUDController.instance.SetHealth(_health);
+        }
     }
 
     ///////////////////////////////// Input  Management ////////////////////////////////
@@ -213,6 +222,44 @@ public class Player_Controller : MonoBehaviour
         {
             // Add an sudden upwards force
             _rb.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
+        }
+    }
+
+    public void ActivateUpgrade(int upgradeType)
+    {
+        if (upgradeType == 0)
+        {
+            armorUpActivated = true;
+            Debug.Log("armor upgrade activated");
+        }
+        else if (upgradeType == 1)
+        {
+            stimulantUpActivated = true;
+            Debug.Log("stimulant upgrade activated");
+        }
+        else if (upgradeType == 2)
+        {
+            shieldUpActivated = true;
+            Debug.Log("shield upgrade activated");
+        }
+    }
+
+    public void DeactivateUpgrade(int upgradeType)
+    {
+        if(upgradeType == 0)
+        {
+            armorUpActivated = false;
+            Debug.Log("armor upgrade deactivated");
+        }
+        else if (upgradeType == 1)
+        {
+            stimulantUpActivated = false;
+            Debug.Log("stimulant upgrade activated");
+        }
+        else if (upgradeType == 2)
+        {
+            shieldUpActivated = false;
+            Debug.Log("shield upgrade activated");
         }
     }
 

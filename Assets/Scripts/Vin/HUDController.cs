@@ -3,6 +3,7 @@
 // Reviewer: Gabriel Heiser
 // Description: Controller to show health, ammo, and upgrades on the HUD
 
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,6 +17,10 @@ public class HUDController : MonoBehaviour
     public TextMeshProUGUI ammoTxt;
     // References the text boxes for light, medium, and heavy ammo
     public TextMeshProUGUI[] inventoryAmmo = new TextMeshProUGUI[3];
+    // Reference to upgrade info text box
+    public TextMeshProUGUI upgradeInfoTxt;
+    // Reference to upgrade timer text box
+    public TextMeshProUGUI upgradeTimerTxt;
     // Instance for HUDController
     public static HUDController instance;
 
@@ -30,6 +35,8 @@ public class HUDController : MonoBehaviour
     private string[] ammoString = new string[3];
     // Ammo caps stored in list
     private int[] ammoCaps = new int[3];
+    // Upgrade text stored in list
+    private string[] upgradesString = new string[4];
 
     // Used to make an instance
     private void Awake()
@@ -54,6 +61,11 @@ public class HUDController : MonoBehaviour
         ammoCaps[0] = 60;
         ammoCaps[1] = 260;
         ammoCaps[2] = 40;
+        // Populate upgradesString with upgrade types
+        upgradesString[0] = "Invulnerability Armor";
+        upgradesString[1] = "Stimulant";
+        upgradesString[2] = "Invisibility Shield";
+        upgradesString[3] = "Ammo Pack";
     }
 
     // Setting max health
@@ -90,8 +102,33 @@ public class HUDController : MonoBehaviour
     }
 
     // Setting upgrade
-    public void SetUpgrade()
+    public void SetUpgrade(int upgradeType, float upgradeDuration)
     {
-        // Manipulate upgrade text
+        upgradeInfoTxt.text = "" + upgradesString[upgradeType];
+
+        StartCoroutine(Timer(upgradeType, upgradeDuration));
+
+    }
+
+    IEnumerator Timer(int upgradeType, float upgradeDuration)
+    {
+        while (upgradeDuration > 0)
+        {
+
+            // Set upgradeTimerTxt
+            upgradeTimerTxt.text = "" + upgradeDuration.ToString() + "s";
+
+            // Increment the countdown by one second
+            yield return new WaitForSeconds(1f);
+
+
+            // Decrement countdown time
+            upgradeDuration -= 1f;
+        }
+
+        // Set timer text to 0s
+        upgradeTimerTxt.text = "0s";
+        // Deactivate upgrade after timer runs out
+        Player_Controller.instance.DeactivateUpgrade(upgradeType);
     }
 }
