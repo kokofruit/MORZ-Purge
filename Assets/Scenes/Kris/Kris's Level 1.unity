@@ -1849,21 +1849,29 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 172688249608675843, guid: beab27ce7eecd254e849814e099f363c, type: 3}
+      propertyPath: m_Size.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 172688249608675843, guid: beab27ce7eecd254e849814e099f363c, type: 3}
+      propertyPath: m_Center.y
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6377917487719104797, guid: beab27ce7eecd254e849814e099f363c, type: 3}
       propertyPath: m_Name
       value: RollerPrefab
       objectReference: {fileID: 0}
     - target: {fileID: 6443707355526875129, guid: beab27ce7eecd254e849814e099f363c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 24.062704
+      value: 46.07
       objectReference: {fileID: 0}
     - target: {fileID: 6443707355526875129, guid: beab27ce7eecd254e849814e099f363c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.07
+      value: 3.22
       objectReference: {fileID: 0}
     - target: {fileID: 6443707355526875129, guid: beab27ce7eecd254e849814e099f363c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -26.61172
+      value: 5.69
       objectReference: {fileID: 0}
     - target: {fileID: 6443707355526875129, guid: beab27ce7eecd254e849814e099f363c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1894,8 +1902,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8160520240315021106, guid: beab27ce7eecd254e849814e099f363c, type: 3}
+      propertyPath: _moveSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8160520240315021106, guid: beab27ce7eecd254e849814e099f363c, type: 3}
       propertyPath: _projectileForce
-      value: 300
+      value: 250
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
