@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LoadLevelButton : MonoBehaviour
+public class StartNewGameButton : MonoBehaviour
 {
     void Start()
     {
@@ -9,6 +9,6 @@ public class LoadLevelButton : MonoBehaviour
     }
 
     void ButtonPressed() {
-        Scene_Manager.instance.LoadLevel(Game_Manager.instance.GetCurrentLevel());
+        GameManager.instance.StartNewGame();
     }
 }

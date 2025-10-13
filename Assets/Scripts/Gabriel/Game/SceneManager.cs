@@ -59,10 +59,4 @@ public class Scene_Manager : MonoBehaviour
             LoadLevel(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
-
-    // Restart the current scene the player is in
-    public void RestartScene()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
 }

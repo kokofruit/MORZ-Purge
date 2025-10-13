@@ -30,6 +30,8 @@ public class Weapon
 
         ammo = magSize;
         AddUpgrades(upgradeValues);
+
+        HUDController.instance.DisplayWeaponAmmo(ammo);
     }
 
     public void AddUpgrades(float[] upgradeValues)
@@ -73,6 +75,7 @@ public class Weapon
     public void SetCoolingStatus(bool status)
     {
         _isCooling = status;
+        HUDController.instance.DisplayWeaponAmmo("Cooling");
     }
 
     // Method to get the weapon's current cooling status
@@ -84,7 +87,7 @@ public class Weapon
     // Method to reload the weapon's magazine
     public void Reload()
     {
-        ammo = Inventory_Manager.instance.playerInventory.SubtractAmmo(AMMO_TYPE, magSize);
+        ammo = InventoryManager.instance.playerInventory.SubtractAmmo(AMMO_TYPE, magSize);
         // BIG PROBLEM HERE !!
         HUDController.instance.UpdateAmmo(AMMO_TYPE);
         HUDController.instance.DisplayWeaponAmmo(ammo);

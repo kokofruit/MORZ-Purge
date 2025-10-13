@@ -13,7 +13,7 @@ public class HealthPickup : PickupController
     // Setting trigger event for testing
     public override void PickupObject()
     {
-        Player_Controller.instance.AddHealth(healthAmount);
+        PlayerController.instance.AddHealth(healthAmount);
 
         base.PickupObject();
     }

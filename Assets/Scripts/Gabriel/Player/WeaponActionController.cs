@@ -8,15 +8,15 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class Weapon_Action_Controller : MonoBehaviour
+public class WeaponActionController : MonoBehaviour
 {
-    public static Weapon_Action_Controller instance;
+    public static WeaponActionController instance;
     public Weapon currentWeapon;
 
     public Image hitMarker;
     private float _hitMarkerDisplayTime = .05f;
     // Weapon controller runtime variables
-    private Player_Controller _player;
+    private PlayerController _player;
     private bool _isAttacking;
     private float _nextShotTime;
 
@@ -32,7 +32,7 @@ public class Weapon_Action_Controller : MonoBehaviour
     void Start()
     {
         // Store a reference to the player controller script
-        _player = GetComponent<Player_Controller>();
+        _player = GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
@@ -43,7 +43,7 @@ public class Weapon_Action_Controller : MonoBehaviour
             // Start the weapon's cooldown if it is out of ammo
             if (currentWeapon.ammo <= 0 && !currentWeapon.GetCooldownStatus())
             {
-                if (Inventory_Manager.instance.playerInventory.GetAmmo(currentWeapon.AMMO_TYPE) > 0)
+                if (InventoryManager.instance.playerInventory.GetAmmo(currentWeapon.AMMO_TYPE) > 0)
                     BeginCooldown(currentWeapon);
             }
             // Check if the player is attacking, if the next shot it ready to fire, and the gun is not cooling down.
@@ -115,13 +115,13 @@ public class Weapon_Action_Controller : MonoBehaviour
         weapon.SetCoolingStatus(true);
         yield return new WaitForSecondsRealtime(weapon.cooldown);
         weapon.Reload();
-        HUDController.instance.DisplayWeaponAmmo(currentWeapon.ammo);
         weapon.SetCoolingStatus(false);
+        HUDController.instance.DisplayWeaponAmmo(currentWeapon.ammo);
     }
 
     //Sets held weapon to one from the inventory
     public void GetWeapon(int inc, int start) {
-        Inventory_Manager.instance.ChangeWeapon(inc,start , ref currentWeapon);
+        InventoryManager.instance.ChangeWeapon(inc,start , ref currentWeapon);
     }
 
     // Handles player attack input action
@@ -141,5 +141,11 @@ public class Weapon_Action_Controller : MonoBehaviour
         if (input.Get<float>() == 0)
             return;
         GetWeapon((int)input.Get<float>(), (int)currentWeapon.AMMO_TYPE);
+    }
+
+    public void OnReload()
+    {
+        if (currentWeapon != null)
+            BeginCooldown(currentWeapon);
     }
 }

@@ -7,9 +7,9 @@ using UnityEngine;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
-public class Game_Manager : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
-    public static Game_Manager instance;
+    public static GameManager instance;
     public bool clearDataOnStart = false;
     private int _playerLives;
     private int _currentLevel;
@@ -23,16 +23,25 @@ public class Game_Manager : MonoBehaviour
         DontDestroyOnLoad(instance);
     }
 
-    public void Start()
+    void Start()
     {
-        // FIX THIS LATER
-        // ALSO NEED TO FIX SPRITE PROBLEM BECUASE SPRITES CANNOT NATIVELY BE SAVED
         if (clearDataOnStart)
         {
             ClearSaveFile();
         }
+    }
 
+    public void LoadGame()
+    {
         GameLoad();
+        Scene_Manager.instance.LoadLevel(_currentLevel);
+    }
+
+    public void StartNewGame()
+    {
+        ClearSaveFile();
+        GameLoad();
+        Scene_Manager.instance.LoadLevel(_currentLevel);
     }
 
     public void StartLevel()
@@ -60,13 +69,22 @@ public class Game_Manager : MonoBehaviour
         }
     }
 
+    public bool CheckForSaveFile()
+    {
+        if (File.Exists(Application.persistentDataPath + "/player.save"))
+        {
+            return true;
+        }
+        return false;
+    }
+
     public void Save()
     {
         SaveState playerState = new SaveState();
         playerState.playerLives = _playerLives;
         playerState.currentLevel = _currentLevel;
 
-        playerState.inventory = Inventory_Manager.instance.GetInventory();
+        playerState.inventory = InventoryManager.instance.GetInventory();
 
         BinaryFormatter bf = new BinaryFormatter();
         FileStream afile = File.Create(Application.persistentDataPath + "/player.save");
@@ -90,7 +108,7 @@ public class Game_Manager : MonoBehaviour
             _playerLives = playerData.playerLives;
             _currentLevel = playerData.currentLevel;
 
-            Inventory_Manager.instance.SetInventory(playerData.inventory);
+            InventoryManager.instance.SetInventory(playerData.inventory);
         }
 
         else
@@ -112,12 +130,14 @@ public class Game_Manager : MonoBehaviour
 
             afile.Close();
 
-            Inventory_Manager.instance.SetInventory(playerData.inventory);
+            InventoryManager.instance.SetInventory(playerData.inventory);
+
+            HUDController.instance.DisplayWeaponAmmo(WeaponActionController.instance.currentWeapon.ammo);
         }
 
         else
         {
-            Inventory_Manager.instance.StartNewInventory();
+            InventoryManager.instance.StartNewInventory();
         }
     }
 
@@ -127,11 +147,14 @@ public class Game_Manager : MonoBehaviour
         {
             File.Delete(Application.persistentDataPath + "/player.save");
         }
+        else Debug.Log("No current save files.");
+
+        Debug.Log(CheckForSaveFile());
     }
 
     public void RestartLevel()
     {
-        Scene_Manager.instance.RestartScene();
+        Scene_Manager.instance.LoadLevel(_currentLevel);
     }
 
     public int GetCurrentLevel()
@@ -143,7 +166,7 @@ public class Game_Manager : MonoBehaviour
     {
         if (_currentLevel < 2)
             _currentLevel++;
-        Save();
+            Save();
         Scene_Manager.instance.LoadNextLevel();
     }
 }

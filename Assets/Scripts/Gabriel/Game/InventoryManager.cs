@@ -6,10 +6,10 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Inventory_Manager : MonoBehaviour
+public class InventoryManager : MonoBehaviour
 {
     // Static instance for other scripts to reference
-    public static Inventory_Manager instance;
+    public static InventoryManager instance;
     // Definitions for the maximum capacity for each ammo type in the player's inventory
     public int LIGHT_AMMO_CAP;
     public int MEDIUM_AMMO_CAP;
@@ -62,7 +62,7 @@ public class Inventory_Manager : MonoBehaviour
         playerInventory = inventory;
 
         HUDController.instance.DisplayInventoryAmmo(playerInventory.ammo);
-        Weapon_Action_Controller.instance.currentWeapon = playerInventory.GetWeapon(0);
+        WeaponActionController.instance.currentWeapon = playerInventory.GetWeapon(0);
     }
 
     public Inventory GetInventory()
@@ -91,7 +91,11 @@ public class Inventory_Manager : MonoBehaviour
             //sets gun here
             w = playerInventory.GetWeapon(val);
             // gunImage.sprite = w.SPRITE;
-            HUDController.instance.DisplayWeaponAmmo(w.ammo);
+            if (w.GetCooldownStatus())
+                HUDController.instance.DisplayWeaponAmmo("Cooling");
+            else
+                HUDController.instance.DisplayWeaponAmmo(w.ammo);
+            
         }
     }
 }
@@ -104,7 +108,7 @@ public class Inventory
     public int[] AMMO_CAPS = new int[3];
     private Weapon[] Weapons = new Weapon[3];
 
-    private Inventory_Manager.upVal[] upgrades = new Inventory_Manager.upVal[9];
+    private InventoryManager.upVal[] upgrades = new InventoryManager.upVal[9];
 
     public Inventory()
     {
@@ -113,7 +117,7 @@ public class Inventory
         //Identifiable with 3*AmmoType+Stage
         for (int i = 0; i < upgrades.Length; i++)
         {
-            upgrades[i] = new Inventory_Manager.upVal();
+            upgrades[i] = new InventoryManager.upVal();
         }
     }
 
@@ -162,8 +166,8 @@ public class Inventory
     {
         //replaces whatever is in the slot
         Weapons[(int)weapon.AMMO_TYPE] = new Weapon(weapon, GetUpgrades(weapon));
-        Inventory_Manager.instance.gunImage.sprite = weapon.SPRITE;
-        Weapon_Action_Controller.instance.currentWeapon = GetWeapon((int)weapon.AMMO_TYPE);
+        InventoryManager.instance.gunImage.sprite = weapon.SPRITE;
+        WeaponActionController.instance.currentWeapon = GetWeapon((int)weapon.AMMO_TYPE);
     }
 
     public float[] GetUpgrades(WeaponTemplate weapon)

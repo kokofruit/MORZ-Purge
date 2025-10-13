@@ -6,7 +6,7 @@ public class CubeOfDeath : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Game_Manager.instance.PlayerDied();
+            GameManager.instance.PlayerDied();
         }
     }
 }

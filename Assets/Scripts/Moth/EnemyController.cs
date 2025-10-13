@@ -84,7 +84,7 @@ public class EnemyController : MonoBehaviour
         _navMeshAgent = GetComponent<NavMeshAgent>();
 
         // Cache player transform
-        _playerTransform = FindAnyObjectByType<Player_Controller>().transform;
+        _playerTransform = FindAnyObjectByType<PlayerController>().transform;
 
         // Set stats
         _navMeshAgent.speed = _moveSpeed;
@@ -315,7 +315,7 @@ public class EnemyController : MonoBehaviour
     protected void PlayerDamage()
     {
         if (DEBUG_MODE) print(gameObject.name + "Damaged player by: " + _calculatedDamage);
-        _playerTransform.GetComponent<Player_Controller>().SubtractHealth(_calculatedDamage);
+        _playerTransform.GetComponent<PlayerController>().SubtractHealth(_calculatedDamage);
     }
 
 

@@ -6,11 +6,11 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Player_Controller : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     //////////////////// Public Variables /////////////////////
     // Static instance of the player for other scripts to reference
-    public static Player_Controller instance;
+    public static PlayerController instance;
     // Player's starting health
     public float _health { get; private set; } = 100;
     // Head object that contains the first person camera
@@ -61,7 +61,7 @@ public class Player_Controller : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Game_Manager.instance.StartLevel();
+        GameManager.instance.StartLevel();
 
         // Find unnassigned runtime objects and variables
         head = transform.Find("Head");
@@ -70,9 +70,6 @@ public class Player_Controller : MonoBehaviour
 
         // Lock the cursor to the center of the screen during gameplay
         Cursor.lockState = CursorLockMode.Locked;
-
-        // Set MAX_HEALTH on start
-        // healthBar.SetMaxHealth(MAX_HEALTH);
     }
 
     // Update is called once per frame
@@ -172,7 +169,7 @@ public class Player_Controller : MonoBehaviour
 
         if (_health < 0)
         {
-            Game_Manager.instance.PlayerDied();
+            GameManager.instance.PlayerDied();
         }
 
         // Update health bar with new health amount
@@ -216,17 +213,18 @@ public class Player_Controller : MonoBehaviour
         }
     }
 
-    //todo later
-    //public void OnInteract()
-    //{
-    //    RaycastHit hit;
-    //    Physics.Raycast(head.position, head.forward, out hit, _interactDistance);
+    public void OnInteract()
+    {
+        Debug.Log("Yippee");
+        RaycastHit hit;
+        Physics.Raycast(head.position, head.forward, out hit, _interactDistance);
+        Debug.Log(hit);
 
-    //    if (hit.collider == null)
-    //        if (hit.collider.CompareTag("Pickup"))
-    //        {
-    //            hit.collider.TryGetComponent(out PickupController pickup);
-    //            pickup.PickupObject();
-    //        }
-    //}
+        if (hit.collider == null)
+            if (hit.collider.CompareTag("Pickup"))
+            {
+                hit.collider.TryGetComponent(out PickupController pickup);
+                pickup.PickupObject();
+            }
+    }
 }
