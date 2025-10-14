@@ -12,25 +12,20 @@ public class SuckerController : FlyingEnemyController
         base.Start();
     }
 
-    protected override void DoAttacking()
+    protected override void IntialAttack()
     {
-        base.DoAttacking();
-        LifeDrain();
-        if (_lineOfSight && (Vector3.Distance(transform.position, _playerTransform.position) > _attackDistance))
-        {
-            _navMeshAgent.SetDestination(_playerTransform.position);
-        }
-        else
-        {
-            _navMeshAgent.ResetPath();
-        }
+        base.InitialAttack();
+        LifeDrain();   
     }
 
     protected void LifeDrain()
     {
-        if (_health < _baseHealth && _health != 0)
+        if ((_health + _lifeGained) <= _baseHealth && _health != 0)
         {
+            if (DEBUG_MODE) print(_health);
+            if (DEBUG_MODE) print("Gained " + _lifeGained + " Life");
             _health += _lifeGained;
+            if (DEBUG_MODE) print(_health);
         }
     }
 }

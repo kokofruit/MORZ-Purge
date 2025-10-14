@@ -193,7 +193,7 @@ MonoBehaviour:
   _baseHealth: 40
   _baseDamage: 0
   _attackDistance: 15
-  _attackCooldown: 15
+  _attackCooldown: 2
   _moveSpeed: 5
   _roamingRange: 10
   _eyeTransform: {fileID: 3579865005072262356}
