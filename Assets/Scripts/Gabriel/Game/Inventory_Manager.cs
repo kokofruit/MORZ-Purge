@@ -169,6 +169,12 @@ public class Inventory
         return upgrades[3 * (int)weapon.AMMO_TYPE + (int)weapon.STAGE].upgradeValues;
     }
 
+    public void GetUpgradeSlots(ref float[] slots) {
+        foreach (Weapon w in Weapons)
+        {
+            slots[(int)w.AMMO_TYPE] = upgrades[(int)w.AMMO_TYPE].upgradeValues[4];
+        }
+    }
     public Weapon GetWeapon(int index)
     {
         return Weapons[index];
