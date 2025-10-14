@@ -46,7 +46,7 @@ public class EnemyController : MonoBehaviour
     // how often the enemy checks if it can see the player
     [SerializeField, Min(0.001f)] float _sightCheckingInterval;
     // the layermask for raycasting to the player, allows enemies to see through certain objects
-    [SerializeField] LayerMask _layerMask;
+    LayerMask _layerMask = 1;
     // tracks whether the enemy can currently see the player
     protected bool _lineOfSight;
 

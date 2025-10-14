@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 65941918}
   - component: {fileID: 65941920}
   - component: {fileID: 65941919}
+  - component: {fileID: 65941921}
   m_Layer: 2
   m_Name: RadarSource
   m_TagString: Untagged
@@ -146,7 +147,7 @@ Transform:
   m_GameObject: {fileID: 65941917}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 34.64199, y: 0, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -165,12 +166,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _scanRadius: 15
-  _scanSpeed: 4
+  _scanSpeed: 10
   _scanInterval: 4
   _radarUI: {fileID: 1322545866}
   _sweepCircleUI: {fileID: 825811381}
   _pingUIPrefab: {fileID: 8288601570430480364, guid: d9b5e24eb66f04f4c8ad73b47253e2a2, type: 3}
-  _enemyPingSprite: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  _enemyPingSprite: {fileID: 21300000, guid: 234f475890bcdc54f8d621a263fa2cb8, type: 3}
   _pickUpPingSprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!135 &65941920
 SphereCollider:
@@ -193,6 +194,33 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 15
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &65941921
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 65941917}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &82320044
 GameObject:
   m_ObjectHideFlags: 0

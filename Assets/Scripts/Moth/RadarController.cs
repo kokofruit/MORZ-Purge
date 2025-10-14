@@ -34,7 +34,9 @@ public class RadarController : MonoBehaviour
     void Start()
     {
         _playerTransform = FindFirstObjectByType<Player_Controller>().transform;
+        
         _detectionSphere = GetComponent<SphereCollider>();
+        
         StartCoroutine(nameof(TimeScan));
     }
 
@@ -78,7 +80,7 @@ public class RadarController : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         // if not currently scanning, early return
-        if (!_isScanning) return;
+         if (!_isScanning) return;
 
         if (other.CompareTag("Enemy") || other.CompareTag("Pickup"))
         {
@@ -91,12 +93,17 @@ public class RadarController : MonoBehaviour
             GameObject ping = Instantiate(_pingUIPrefab, _radarUI);
             ping.transform.localPosition = new Vector2(scaledPosition.x, scaledPosition.z);
 
+            // set the scale based on the overall distance
+            float distance = Vector3.Distance(other.transform.position, transform.position);
+            ping.transform.localScale = Vector3.one * (1.5f - (distance / _scanRadius));
+
             // cache the ping's image component
             Image pingImage = ping.GetComponent<Image>();
             // set the sprite based on the type
             pingImage.sprite = other.CompareTag("Enemy") ? _enemyPingSprite : _pickUpPingSprite;
             // start fading the ping out
             pingImage.CrossFadeAlpha(0, _scanInterval, true);
+
             // destroy the ping eventually
             Destroy(ping, _scanInterval);
         }

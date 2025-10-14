@@ -61,7 +61,7 @@ MonoBehaviour:
   _sightCheckingInterval: 2
   _layerMask:
     serializedVersion: 2
-    m_Bits: 55
+    m_Bits: 1
   _idleDuration: 5
   _maxRoamingDuration: 10
   _pathfindingAttempts: 10
