@@ -128,7 +128,14 @@ public class HUDController : MonoBehaviour
 
         // Set timer text to 0s
         upgradeTimerTxt.text = "0s";
-        // Deactivate upgrade after timer runs out
-        Player_Controller.instance.DeactivateUpgrade(upgradeType);
+        if(upgradeType == 0 || upgradeType == 1)
+        {
+            // Deactivate upgrade after timer runs out
+            Player_Controller.instance.DeactivateUpgrade(upgradeType);
+        }
+        else if(upgradeType == 2)
+        {
+            EnemyController.instance.DeactivateUpgrade(upgradeType);
+        }
     }
 }

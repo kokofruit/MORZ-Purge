@@ -1,33 +1,34 @@
 // Main Contributor: Vin Lettich
 // Secondary Contributor: 
 // Reviewer: 
-// Description: Controller for temporary Invulnerability Armor Upgrade
+// Description: Controller for temporary Invisibility Shield upgrade
 
 using System.Collections;
 using UnityEngine;
 using System;
 
-public class ArmorUpgradeController : PickupController
+public class ShieldUpgradeController : PickupController
 {
     /* 
      * TODO:
-     * change UI to visually show armor activation
+     * only slightly works, bug goes to last known player location and just waits
+     * change UI to visually show shield activation
      * fix stacking upgrades
      */
 
     // Private Variables //
     private float upgradeDuration = 10f;
-    // Armor upgrade is type 0
-    private int upgradeType = 0;
-    // I could see a potential bug here if you get more than one upgrade at once
+    // Stimulant upgrade is type 2
+    private int upgradeType = 2;
 
     // Trigger event (initiated by Player_Controller)
     public override void PickupObject()
     {
-        // Invoke armor upgrade event that will stop player damage from happening
-        Player_Controller.instance.ActivateUpgrade(upgradeType);
+        // Invoke shield upgrade event that will stop enemy from chasing player
+        EnemyController.instance.ActivateUpgrade(upgradeType);
         //SetUpgrade in HUD
         HUDController.instance.SetUpgrade(upgradeType, upgradeDuration);
         base.PickupObject();
     }
 }
+

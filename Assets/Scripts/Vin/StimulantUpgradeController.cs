@@ -1,30 +1,30 @@
 // Main Contributor: Vin Lettich
 // Secondary Contributor: 
 // Reviewer: 
-// Description: Controller for temporary Invulnerability Armor Upgrade
+// Description: Controller for temporary Stimulation Upgrade
 
 using System.Collections;
 using UnityEngine;
 using System;
+using UnityEngine.WSA;
 
-public class ArmorUpgradeController : PickupController
+public class StimulantUpgradeController : PickupController
 {
     /* 
      * TODO:
-     * change UI to visually show armor activation
+     * change UI to visually show stim activation
      * fix stacking upgrades
      */
 
     // Private Variables //
     private float upgradeDuration = 10f;
-    // Armor upgrade is type 0
-    private int upgradeType = 0;
-    // I could see a potential bug here if you get more than one upgrade at once
+    // Stimulant upgrade is type 1
+    private int upgradeType = 1;
 
     // Trigger event (initiated by Player_Controller)
     public override void PickupObject()
     {
-        // Invoke armor upgrade event that will stop player damage from happening
+        // Invoke stimulant upgrade that will increase player _speed
         Player_Controller.instance.ActivateUpgrade(upgradeType);
         //SetUpgrade in HUD
         HUDController.instance.SetUpgrade(upgradeType, upgradeDuration);

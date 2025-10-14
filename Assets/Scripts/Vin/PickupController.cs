@@ -16,7 +16,6 @@ public class PickupController : MonoBehaviour
     private float yPosition;
     private float addHeight = .75f;
     private float raycastDistance = 10f;
-    private bool activated = false;
 
     void Start()
     {

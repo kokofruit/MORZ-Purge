@@ -1,5 +1,5 @@
 // Main Contributor: Gabriel Heiser
-// Secondary Contributor: 
+// Secondary Contributor: Vin (temporary upgrades)
 // Reviewer: 
 // Description: Input manager for the main player object
 
@@ -50,7 +50,8 @@ public class Player_Controller : MonoBehaviour
     // Upgrade bools
     private bool armorUpActivated = false;
     private bool stimulantUpActivated = false;
-    private bool shieldUpActivated = false;
+    // Stimulant Upgrade Multiplier
+    private float stimMultiplier = 3;
 
     ///////////////////////////////// Monobehvaior Methods ////////////////////////////////
 
@@ -102,7 +103,13 @@ public class Player_Controller : MonoBehaviour
         {
             // Set the players speed depending on whether they are sprinting or not
             float _speed = _isSprinting ? _walkSpeed * _runSpeedMultiplier : _walkSpeed;
-
+            // Check if stimulant is activated
+            if (stimulantUpActivated)
+            {
+                // Increase speed by multiplying by the multiplier
+                _speed += _walkSpeed * stimMultiplier;
+            }
+            // Speed goes back to normal once stimulantUpActivated is false
             // Change the raw input into player velocity by adding player speed
             Vector3 velocity = _movementVector * _speed;
             // Get the local vector to reflect changes in player rotation
@@ -237,11 +244,6 @@ public class Player_Controller : MonoBehaviour
             stimulantUpActivated = true;
             Debug.Log("stimulant upgrade activated");
         }
-        else if (upgradeType == 2)
-        {
-            shieldUpActivated = true;
-            Debug.Log("shield upgrade activated");
-        }
     }
 
     public void DeactivateUpgrade(int upgradeType)
@@ -254,12 +256,7 @@ public class Player_Controller : MonoBehaviour
         else if (upgradeType == 1)
         {
             stimulantUpActivated = false;
-            Debug.Log("stimulant upgrade activated");
-        }
-        else if (upgradeType == 2)
-        {
-            shieldUpActivated = false;
-            Debug.Log("shield upgrade activated");
+            Debug.Log("stimulant upgrade deactivated");
         }
     }
 
