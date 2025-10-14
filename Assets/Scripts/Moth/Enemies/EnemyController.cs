@@ -285,7 +285,35 @@ public class EnemyController : MonoBehaviour
     // Specified in subclasses
     protected virtual void DoAttacking()
     {
+        // If attack state was just initiated, attack the player
+        if (_attackingTimer == _attackCooldown)
+        {
+            // Initial attack beahvior
+            InitialAttack();
+        }
+        // If the cooldown is up, return to chasing
+        else if (_attackingTimer <= 0)
+        {
+            _enemyState = EnemyState.chasing;
+            return;
+        }
+        // Decrease the attacking timer
+        _attackingTimer -= Time.deltaTime;
+        
+        // Cooldown behavior
+        AttackCooldown();
+    }
 
+    // Initial attack beahvior
+    protected virtual void InitialAttack()
+    {
+
+    }
+
+    // Cooldown behavior
+    protected virtual void AttackCooldown()
+    {
+        
     }
 
     // OTHER FUNCTIONS

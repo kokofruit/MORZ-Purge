@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 173955349685090722}
   - component: {fileID: 2717184170425545322}
   m_Layer: 0
-  m_Name: pusm
+  m_Name: PickUpSpawnerManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
