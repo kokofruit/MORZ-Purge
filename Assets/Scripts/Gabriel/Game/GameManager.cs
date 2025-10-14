@@ -13,7 +13,17 @@ public class GameManager : MonoBehaviour
     public bool clearDataOnStart = false;
     private int _playerLives;
     private int _currentLevel;
+    private int _difficulty;
+    [SerializeField]
+    private int _startingLives = 3;
+    [SerializeField]
+    private int _startingLevel = 1;
+    [SerializeField]
+    private int _startingDifficulty = 1;
 
+
+    /************************************** MonoBehavior Methods ***********************************/
+    #region MonoBehavior Methods
     void Awake()
     {
         if (instance == null)
@@ -30,45 +40,10 @@ public class GameManager : MonoBehaviour
             ClearSaveFile();
         }
     }
+    #endregion
 
-    public void LoadGame()
-    {
-        GameLoad();
-        Scene_Manager.instance.LoadLevel(_currentLevel);
-    }
-
-    public void StartNewGame()
-    {
-        ClearSaveFile();
-        GameLoad();
-        Scene_Manager.instance.LoadLevel(_currentLevel);
-    }
-
-    public void StartLevel()
-    {
-        PickupSpawnerManager.instance?.SpawnPickups();
-        PlayerLoad();
-        Scene_Manager.instance.LoadLevel(_currentLevel);
-    }
-
-    public void PlayerDied()
-    {
-        _playerLives--;
-
-        Debug.Log(_playerLives);
-
-        if (_playerLives <= 0)
-        {
-            ClearSaveFile();
-            GameLoad();
-            Scene_Manager.instance.LoadLoseScreen();
-        }
-        else
-        {
-            Scene_Manager.instance.LoadDeathScreen();
-        }
-    }
-
+    /************************************** Saving / Loading Methods ***********************************/
+    #region Saving / Loading Methods
     public bool CheckForSaveFile()
     {
         if (File.Exists(Application.persistentDataPath + "/player.save"))
@@ -113,8 +88,9 @@ public class GameManager : MonoBehaviour
 
         else
         {
-            _playerLives = 3;
-            _currentLevel = 1;
+            _playerLives = _startingLives;
+            _currentLevel = _startingLevel;
+            _difficulty = _startingDifficulty;
         }
     }
 
@@ -151,6 +127,29 @@ public class GameManager : MonoBehaviour
 
         Debug.Log(CheckForSaveFile());
     }
+    #endregion
+
+    /************************************** Game Management Methods ***********************************/
+    #region Game Management Methods
+    public void StartNewGame()
+    {
+        ClearSaveFile();
+        GameLoad();
+        Scene_Manager.instance.LoadLevel(_currentLevel);
+    }
+
+    public void LoadGame()
+    {
+        GameLoad();
+        Scene_Manager.instance.LoadLevel(_currentLevel);
+    }
+
+    public void StartLevel()
+    {
+        PickupSpawnerManager.instance?.SpawnPickups();
+        PlayerLoad();
+        Scene_Manager.instance.LoadLevel(_currentLevel);
+    }
 
     public void RestartLevel()
     {
@@ -166,7 +165,41 @@ public class GameManager : MonoBehaviour
     {
         if (_currentLevel < 2)
             _currentLevel++;
-            Save();
+        Save();
         Scene_Manager.instance.LoadNextLevel();
     }
+
+    public void PlayerDied()
+    {
+        _playerLives--;
+
+        Debug.Log(_playerLives);
+
+        if (_playerLives <= 0)
+        {
+            ClearSaveFile();
+            GameLoad();
+            Scene_Manager.instance.LoadLoseScreen();
+        }
+        else
+        {
+            Scene_Manager.instance.LoadDeathScreen();
+        }
+    }
+
+    public void SetStartingDifficulty(int diffVal)
+    {
+        _startingDifficulty = diffVal;
+    }
+
+    public int GetStartingDifficulty()
+    {
+        return _startingDifficulty;
+    }
+    
+    public int GetDifficulty()
+    {
+        return _difficulty + 1;
+    }
 }
+#endregion
