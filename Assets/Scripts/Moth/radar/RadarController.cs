@@ -58,8 +58,6 @@ public class RadarController : MonoBehaviour
     {
         // match the radar's rotation to the player's
         radarUI.rotation = Quaternion.Euler(0, 0, transform.rotation.eulerAngles.y);
-
-        // sweepCircleUI.localScale = Vector3.one * (_detectionSphere.radius / scanRadius);
     }
 
     void OnTriggerEnter(Collider other)
@@ -72,7 +70,7 @@ public class RadarController : MonoBehaviour
             Vector3 scaledPosition = relativePosition * (radarUI.rect.width / (scanRadius * 2));
             // create a "ping" on the radar for where the enemy is
             GameObject ping = Instantiate(pingUIPrefab, radarUI);
-            ping.transform.localPosition = scaledPosition;
+            ping.transform.localPosition = new Vector2(scaledPosition.x, scaledPosition.z);
             // start fading the ping out
             ping.GetComponent<Image>().CrossFadeAlpha(0, scanInterval, true);
             // destroy the ping eventually

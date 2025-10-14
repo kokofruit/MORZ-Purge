@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 65941920}
   - component: {fileID: 65941919}
   m_Layer: 2
-  m_Name: um
+  m_Name: RadarDetector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
