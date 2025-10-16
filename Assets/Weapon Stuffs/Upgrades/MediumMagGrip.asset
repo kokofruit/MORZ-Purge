@@ -16,3 +16,4 @@ MonoBehaviour:
   AMMO_TYPE: 1
   STAGE: 0
   UPGRADE_TYPE: 3
+  SLOT: 1

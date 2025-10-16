@@ -162,6 +162,7 @@ public class Inventory
         Weapons[(int)weapon.AMMO_TYPE] = new Weapon(weapon, GetUpgrades(weapon));
         Inventory_Manager.instance.gunImage.sprite = weapon.SPRITE;
         Weapon_Action_Controller.instance.currentWeapon = GetWeapon((int)weapon.AMMO_TYPE);
+        HUDController.instance.SetUpgrades();
     }
 
     public float[] GetUpgrades(WeaponTemplate weapon)
@@ -172,7 +173,8 @@ public class Inventory
     public void GetUpgradeSlots(ref float[] slots) {
         foreach (Weapon w in Weapons)
         {
-            slots[(int)w.AMMO_TYPE] = upgrades[(int)w.AMMO_TYPE].upgradeValues[4];
+            if(w!=null)
+            slots[(int)w.AMMO_TYPE] = upgrades[(int)w.AMMO_TYPE*3+(int)w.STAGE].upgradeValues[4];
         }
     }
     public Weapon GetWeapon(int index)
@@ -205,5 +207,6 @@ public class Inventory
 
         // applies Upgrades to the player's current weapons
         Weapons[(int)upgrade.AMMO_TYPE]?.AddUpgrades(upgrades[(int)upgrade.AMMO_TYPE * 3 + (int)Weapons[(int)upgrade.AMMO_TYPE].STAGE].upgradeValues);
+        HUDController.instance.SetUpgrades();
     }
 }
