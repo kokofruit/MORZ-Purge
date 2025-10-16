@@ -15,7 +15,7 @@ public class PickupSpawnerManager : MonoBehaviour
     // NOT ENOUGH BALLS
     [SerializeField] private GameObject[] _pickupObjects;
     // the amount of pickups desired
-    [SerializeField] private int _pickupAmount;
+    [SerializeField, Min(0)] private int _pickupAmount;
     // the amount of ammo vs health pickups
     [SerializeField, Range(0, 1)] private float _ammoToHealthRatio;
 

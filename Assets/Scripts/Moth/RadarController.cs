@@ -1,3 +1,7 @@
+// Moth Harper
+// This script creates a pulse radar system that uses a trigger collider to scan the area around 
+// the player, and create a ui display the reflects nearby enemies and pickups.
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

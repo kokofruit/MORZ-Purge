@@ -58,22 +58,38 @@ public class Weapon_Action_Controller : MonoBehaviour
                     if (currentWeapon.FIRE_SELECT == WeaponTemplate.FireSelect.Explosive)
                     {
                         Collider[] c = Physics.OverlapSphere(hit.point, 5);
-                        foreach (Collider e in c)
+                        foreach (Collider o in c)
                         {
-                            if (e.tag == "Enemy")
+                            // Hi, Moth addition here. I'm leaving the old stuff as comments, Just In Case(tm).
+                            // if hit object within explosion radius has a damageable interface, deal damage
+                            if (hit.collider.TryGetComponent(out IDamageable damageableInterface))
                             {
-                                e.GetComponent<EnemyController>().EnemyDamage(currentWeapon.damage);
-                                StartCoroutine("DisplayHit");
+                                damageableInterface.TakeDamage(currentWeapon.damage);
                             }
+
+                            // if (e.tag == "Enemy")
+                            // {
+                            //     e.GetComponent<EnemyController>().EnemyDamage(currentWeapon.damage);
+                            //     StartCoroutine("DisplayHit");
+                            // }
                             //make explosive
                         }
                     }
-                    else if (hit.collider.tag == "Enemy")
+                    // Hello again, Moth addition once more. I'm still leaving the old stuff as comments.
+                    // if hit object has a damageable interface, deal damage
+                    else if (hit.collider.TryGetComponent(out IDamageable damageableInterface))
                     {
-                        // Display the hitmarker image
-                        StartCoroutine("DisplayHit");
-                        hit.collider.GetComponent<EnemyController>().EnemyDamage(currentWeapon.damage);
+                        damageableInterface.TakeDamage(currentWeapon.damage);
+                        // display the hitmarker image
+                        StartCoroutine(nameof(DisplayHit));
                     }
+                    // Old Stuff:
+                    // else if (hit.collider.tag == "Enemy")
+                    // {
+                    //     // Display the hitmarker image
+                    //     StartCoroutine("DisplayHit");
+                    //     hit.collider.GetComponent<EnemyController>().EnemyDamage(currentWeapon.damage);
+                    // }
                 }
                 // Remove a bullet from the weapons magazine
                 currentWeapon.SubtractAmmo();

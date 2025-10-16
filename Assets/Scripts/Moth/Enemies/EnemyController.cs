@@ -6,7 +6,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyController : MonoBehaviour
+public class EnemyController : MonoBehaviour, IDamageable
 {
     // The toggle for Moth's makeshift debug mode
     [SerializeField] protected bool DEBUG_MODE;
@@ -313,13 +313,14 @@ public class EnemyController : MonoBehaviour
     // Cooldown behavior
     protected virtual void AttackCooldown()
     {
-        
+
     }
 
     // OTHER FUNCTIONS
     /** Kris Herbert
      * Function to deal damage to the enemy when the player shoots an enemy. */
-    public void EnemyDamage(float damage)
+    // Moth Harper expansion: attack to damageable interface
+    void IDamageable.TakeDamage(float damage)
     {
         _health -= damage;
 
