@@ -19,6 +19,9 @@ public class PickupSpawnerManager : MonoBehaviour
     // the amount of ammo vs health pickups
     [SerializeField, Range(0, 1)] private float _ammoToHealthRatio;
 
+    // the chance of spawning a pickup when the player destroys a breakable object
+    [SerializeField, Range(0, 1)] private float _breakableSpawnRate;
+
     private List<PickupSpawnerController> _spawners;
 
     // Set the instance or destroy if it's a duplicate
@@ -44,7 +47,7 @@ public class PickupSpawnerManager : MonoBehaviour
         if (_pickupAmount > _spawners.Count) _pickupAmount = _spawners.Count;
 
         // set amounts for each pickup
-        int ammoAmount = (int) Mathf.Round(_ammoToHealthRatio * _pickupAmount);
+        int ammoAmount = (int)Mathf.Round(_ammoToHealthRatio * _pickupAmount);
         int healthAmout = _pickupAmount - ammoAmount;
 
         // create a list of unused spawners
@@ -62,6 +65,34 @@ public class PickupSpawnerManager : MonoBehaviour
             int index = Random.Range(0, availableSpawners.Count);
             availableSpawners[index].GetComponent<PickupSpawnerController>()?.CreatePickup(_pickupObjects[0]);
             availableSpawners.RemoveAt(index);
+        }
+    }
+
+    public bool SpawnFromBreakable(out GameObject pickup)
+    {
+        // runs at a chance determined by the breakable spawn rate 
+        if (Random.value <= _breakableSpawnRate)
+        {
+            // possibly return an ammo pickup
+            if (Random.value <= _ammoToHealthRatio)
+            {
+                // return a random type of ammo
+                int ammoType = Random.Range(1, 4);
+                pickup = _pickupObjects[ammoType];
+            }
+            // otherwise, return a health pickup
+            else
+            {
+                pickup = _pickupObjects[0];
+            }
+            // return true
+            return true;
+        }
+        // if not spawning a pickup, return false and a null value
+        else
+        {
+            pickup = null;
+            return false;
         }
     }
 }

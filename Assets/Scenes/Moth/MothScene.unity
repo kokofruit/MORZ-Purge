@@ -935,8 +935,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health: 1
-  _particleSystemPrefab: {fileID: 9007801043852121943, guid: a0efe2123618c264ebda8cdfb688d3da, type: 3}
+  _particleSystemPrefab: {fileID: 4566029627841721403, guid: a0efe2123618c264ebda8cdfb688d3da, type: 3}
   _particleMaterial: {fileID: 0}
+  _canSpawnPickups: 1
 --- !u!65 &379028444
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1455,8 +1456,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health: 1
-  _particleSystemPrefab: {fileID: 9007801043852121943, guid: a0efe2123618c264ebda8cdfb688d3da, type: 3}
+  _particleSystemPrefab: {fileID: 4566029627841721403, guid: a0efe2123618c264ebda8cdfb688d3da, type: 3}
   _particleMaterial: {fileID: 2100000, guid: c6665a9f245ffa646b4b8b79f0bdacdd, type: 2}
+  _canSpawnPickups: 1
 --- !u!65 &770624968
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1732,6 +1734,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2717184170425545322, guid: ac869b19f5da8824093e715731634f15, type: 3}
+      propertyPath: _ammoToHealthRatio
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2717184170425545322, guid: ac869b19f5da8824093e715731634f15, type: 3}
+      propertyPath: _breakableSpawnRate
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2717184170425545322, guid: ac869b19f5da8824093e715731634f15, type: 3}
       propertyPath: _healthPickupPrefab
       value: 
       objectReference: {fileID: 6883110562916348441, guid: 3229d5c3335d38a439abe4c80383fbaa, type: 3}
@@ -1840,7 +1850,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1030721209
 Transform:
   m_ObjectHideFlags: 0
@@ -3380,8 +3390,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health: 1
-  _particleSystemPrefab: {fileID: 9007801043852121943, guid: a0efe2123618c264ebda8cdfb688d3da, type: 3}
+  _particleSystemPrefab: {fileID: 4566029627841721403, guid: a0efe2123618c264ebda8cdfb688d3da, type: 3}
   _particleMaterial: {fileID: 2100000, guid: c6665a9f245ffa646b4b8b79f0bdacdd, type: 2}
+  _canSpawnPickups: 1
 --- !u!65 &1490796341
 BoxCollider:
   m_ObjectHideFlags: 0
