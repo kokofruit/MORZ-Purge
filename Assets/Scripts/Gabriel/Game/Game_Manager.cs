@@ -113,4 +113,13 @@ public class Game_Manager : MonoBehaviour
     //     bf.Serialize(afile, playerState);
     //     afile.Close();
     // }
+
+    // Hiii moth addition here. This will generate and set a random seed for the game.
+    private void SetRandomSeed()
+    {
+        // Generate a random value from 0 to 255
+        int randomSeed = Random.Range(0, 256);
+        // Set random seed for the "run"
+        Random.InitState(randomSeed);
+    }
 }
