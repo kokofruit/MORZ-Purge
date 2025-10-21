@@ -231,14 +231,18 @@ public class Player_Controller : MonoBehaviour
             _rb.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
         }
     }
-
+    
+    /* Vin Lettich
+     * Functions to deal with armor and stimulant upgrades */
     public void ActivateUpgrade(int upgradeType)
     {
+        // If upgrade is armor, set armor activated to true
         if (upgradeType == 0)
         {
             armorUpActivated = true;
             Debug.Log("armor upgrade activated");
         }
+        // If upgrade is stim, set stim activated to true
         else if (upgradeType == 1)
         {
             stimulantUpActivated = true;

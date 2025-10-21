@@ -4,6 +4,7 @@
 // Description: Handles the player input for weapon behaviors and translates them into gameplay actions.
 
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -19,6 +20,9 @@ public class Weapon_Action_Controller : MonoBehaviour
     private Player_Controller _player;
     private bool _isAttacking;
     private float _nextShotTime;
+
+    // Variable for ammo upgrade
+    private bool ammoUpActivated = false;
 
     void Awake()
     {
@@ -75,10 +79,15 @@ public class Weapon_Action_Controller : MonoBehaviour
                         hit.collider.GetComponent<EnemyController>().EnemyDamage(currentWeapon.damage);
                     }
                 }
-                // Remove a bullet from the weapons magazine
-                currentWeapon.SubtractAmmo();
-                // Reflect that change on HUD
-                HUDController.instance.SetMagAmmo(currentWeapon.ammo);
+
+                // Ignores all of this if unlimited ammo upgrade is active
+                if(!ammoUpActivated)
+                {
+                    // Remove a bullet from the weapons magazine
+                    currentWeapon.SubtractAmmo();
+                    // Reflect that change on HUD
+                    HUDController.instance.SetMagAmmo(currentWeapon.ammo);
+                }
 
                 // Determine the time when the next bullet will be avaible to fire
                 _nextShotTime = Time.time + (1f / currentWeapon.fireRate);
@@ -141,5 +150,19 @@ public class Weapon_Action_Controller : MonoBehaviour
         if (input.Get<float>() == 0)
             return;
         GetWeapon((int)input.Get<float>(), (int)currentWeapon.AMMO_TYPE);
+    }
+
+    /* Vin Lettich
+     * Functions to deal with unlimited ammo upgrade */
+    public void ActivateUpgrade(int upgradeType)
+    {
+        ammoUpActivated = true;
+        Debug.Log("ammo upgrade activated");
+    }
+
+    public void DeactivateUpgrade(int upgradeType)
+    {
+        ammoUpActivated = false;
+        Debug.Log("ammo upgrade deactivated");
     }
 }

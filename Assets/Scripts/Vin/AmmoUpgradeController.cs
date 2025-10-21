@@ -1,13 +1,14 @@
 // Main Contributor: Vin Lettich
 // Secondary Contributor: 
 // Reviewer: 
-// Description: Controller for temporary Invulnerability Armor Upgrade
+// Description: Controller for temporary Ammo Upgrade
 
 using System.Collections;
 using UnityEngine;
 using System;
+using UnityEngine.WSA;
 
-public class ArmorUpgradeController : PickupController
+public class AmmoUpgradeController : PickupController
 {
     /* 
      * TODO:
@@ -16,14 +17,14 @@ public class ArmorUpgradeController : PickupController
 
     // Private Variables //
     private float upgradeDuration = 10f;
-    // Armor upgrade is type 0
-    private int upgradeType = 0;
+    // Ammo upgrade is type 3
+    private int upgradeType = 3;
 
-    // Trigger event (initiated by Player_Controller)
+    // Trigger event (initiated by Weapon_Action_Controller)
     public override void PickupObject()
     {
-        // Invoke armor upgrade event that will stop player damage from happening
-        Player_Controller.instance.ActivateUpgrade(upgradeType);
+        // Invoke ammo upgrade that will stop ammo from decreasing for 10s
+        Weapon_Action_Controller.instance.ActivateUpgrade(upgradeType);
         //SetUpgrade in HUD
         HUDController.instance.SetUpgrade(upgradeType, upgradeDuration);
         base.PickupObject();

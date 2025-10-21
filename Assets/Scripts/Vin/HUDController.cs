@@ -23,6 +23,11 @@ public class HUDController : MonoBehaviour
     public TextMeshProUGUI upgradeTimerTxt;
     // Instance for HUDController
     public static HUDController instance;
+    // Upgrade tint references
+    public Image shieldUpgradeImg;
+    public Image armorUpgradeImg;
+    public Image stimUpgradeImg;
+    public Image ammoUpgradeImg;
 
 
     //// Private variables ////
@@ -66,6 +71,13 @@ public class HUDController : MonoBehaviour
         upgradesString[1] = "Stimulant";
         upgradesString[2] = "Invisibility Shield";
         upgradesString[3] = "Ammo Pack";
+
+        // Make sure upgrade tints are disabled
+        shieldUpgradeImg.enabled = false;
+        armorUpgradeImg.enabled = false;
+        stimUpgradeImg.enabled = false;
+        ammoUpgradeImg.enabled = false;
+
     }
 
     // Setting max health
@@ -104,6 +116,12 @@ public class HUDController : MonoBehaviour
     // Setting upgrade
     public void SetUpgrade(int upgradeType, float upgradeDuration)
     {
+        // Find what upgrade it is and set screen tint based on that
+        if(upgradeType == 0) armorUpgradeImg.enabled = true;
+        else if (upgradeType == 1) stimUpgradeImg.enabled = true;
+        else if (upgradeType == 2) shieldUpgradeImg.enabled = true;
+        else if (upgradeType == 3) ammoUpgradeImg.enabled = true;
+
         upgradeInfoTxt.text = "" + upgradesString[upgradeType];
 
         StartCoroutine(Timer(upgradeType, upgradeDuration));
@@ -128,14 +146,32 @@ public class HUDController : MonoBehaviour
 
         // Set timer text to 0s
         upgradeTimerTxt.text = "0s";
+
+        // Find upgrade type and deactivate/disable things based on that
         if(upgradeType == 0 || upgradeType == 1)
         {
             // Deactivate upgrade after timer runs out
             Player_Controller.instance.DeactivateUpgrade(upgradeType);
+            // Deactivate screen tints
+            stimUpgradeImg.enabled = false;
+            armorUpgradeImg.enabled = false;
         }
         else if(upgradeType == 2)
         {
+            // Deactivate upgrade after timer runs out
             EnemyController.instance.DeactivateUpgrade(upgradeType);
+            // Deactivate screen tint
+            shieldUpgradeImg.enabled = false;
         }
+        else if (upgradeType == 3)
+        {
+            // Deactivate upgrade after timer runs out
+            Weapon_Action_Controller.instance.DeactivateUpgrade(upgradeType);
+            // Deactivate screen tint
+            ammoUpgradeImg.enabled = false;
+        }
+
+            // Reset upgrade description
+            upgradeInfoTxt.text = "none";
     }
 }

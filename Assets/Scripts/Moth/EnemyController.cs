@@ -340,20 +340,14 @@ public class EnemyController : MonoBehaviour
      * Functions to deal with invisibility shield (interrupting the DoChasing for 10s) */
     public void ActivateUpgrade(int upgradeType)
     {
-        if (upgradeType == 2)
-        {
-            shieldUpActivated = true;
-            Debug.Log("shield upgrade activated");
-        }
+        shieldUpActivated = true;
+        Debug.Log("shield upgrade activated");
     }
 
     public void DeactivateUpgrade(int upgradeType)
     {
-        if (upgradeType == 2)
-        {
-            shieldUpActivated = false;
-            Debug.Log("shield upgrade deactivated");
-        }
+        shieldUpActivated = false;
+        Debug.Log("shield upgrade deactivated");
     }
 
 

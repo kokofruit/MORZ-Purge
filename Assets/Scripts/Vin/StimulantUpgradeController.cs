@@ -12,7 +12,6 @@ public class StimulantUpgradeController : PickupController
 {
     /* 
      * TODO:
-     * change UI to visually show stim activation
      * fix stacking upgrades
      */
 

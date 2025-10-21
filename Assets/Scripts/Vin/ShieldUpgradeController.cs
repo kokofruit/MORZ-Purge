@@ -11,17 +11,16 @@ public class ShieldUpgradeController : PickupController
 {
     /* 
      * TODO:
-     * only slightly works, bug goes to last known player location and just waits
-     * change UI to visually show shield activation
+     * bug goes to last known player location and just waits
      * fix stacking upgrades
      */
 
     // Private Variables //
     private float upgradeDuration = 10f;
-    // Stimulant upgrade is type 2
+    // Shield upgrade is type 2
     private int upgradeType = 2;
 
-    // Trigger event (initiated by Player_Controller)
+    // Trigger event (initiated by EnemyController)
     public override void PickupObject()
     {
         // Invoke shield upgrade event that will stop enemy from chasing player

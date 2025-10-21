@@ -6,7 +6,7 @@ using UnityEngine;
 // Main Contributor: Vin
 // Secondary Contributor: Mark
 // Reviewer: 
-// Description: Parent script for pickups (health, ammo, etc.)
+// Description: Parent script for pickups (health, ammo, etc.) AND temporary pickups (shield, armor, stim, ammo)
 
 public class PickupController : MonoBehaviour
 {
