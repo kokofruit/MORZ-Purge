@@ -111,8 +111,7 @@ public class WeaponActionController : MonoBehaviour
     public IEnumerator Cooldown(Weapon weapon)
     {
         weapon.SetCoolingStatus(true, Time.time);
-        StartCoroutine(HUDController.instance.DisplayCooldown(weapon));
-        Debug.Log("YUMMY");
+        HUDController.instance.LoadMagazineDisplay(currentWeapon);
         yield return new WaitForSecondsRealtime(weapon.cooldown);
         weapon.Reload();
         weapon.SetCoolingStatus(false);

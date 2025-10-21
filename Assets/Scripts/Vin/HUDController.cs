@@ -16,7 +16,6 @@ public class HUDController : MonoBehaviour
     public Image healthBar;
     public Image cooldownBar;
 
-
     public GameObject loadoutAmmoContainer;
     public GameObject magazineAmmoContainer;
     public GameObject weaponSpriteContainer;
@@ -109,38 +108,38 @@ public class HUDController : MonoBehaviour
     // Setting amount in mag
     public void LoadMagazineDisplay(Weapon weapon)
     {
+        StopAllCoroutines();
         if (weapon.GetCooldownStatus())
         {
-            DisplayCooldown(weapon);
+            cooldownBar.enabled = true;
+            StartCoroutine(DisplayCooldown(weapon));
         }
-        else
+        else cooldownBar.enabled = false;
+
+        int ammo = weapon.ammo;
+        int maxAmmo = weapon.magSize;
+
+
+        for (int i = 0; i < maxAmmo; i++)
         {
-            int ammo = weapon.ammo;
-            int maxAmmo = weapon.magSize;
-
-
-            for (int i = 0; i < maxAmmo; i++)
+            magazineAmmoContainer.transform.GetChild(i).gameObject.SetActive(true);
+            if (i < ammo)
             {
-                magazineAmmoContainer.transform.GetChild(i).gameObject.SetActive(true);
-                if (i < ammo)
-                {
-                    magazineAmmoContainer.transform.GetChild(i).GetComponent<Image>().color = new Color(255, 255, 255, 1);
-                }
-                else
-                {
-                    magazineAmmoContainer.transform.GetChild(i).GetComponent<Image>().color = new Color(255, 255, 255, 0);
-                }
+                magazineAmmoContainer.transform.GetChild(i).GetComponent<Image>().color = new Color(255, 255, 255, 1);
             }
-            for (int i = maxAmmo; i < magazineAmmoContainer.transform.childCount; i++)
+            else
             {
-                magazineAmmoContainer.transform.GetChild(i).gameObject.SetActive(false);
+                magazineAmmoContainer.transform.GetChild(i).GetComponent<Image>().color = new Color(255, 255, 255, 0);
             }
+        }
+        for (int i = maxAmmo; i < magazineAmmoContainer.transform.childCount; i++)
+        {
+            magazineAmmoContainer.transform.GetChild(i).gameObject.SetActive(false);
         }
     }
     
     public IEnumerator DisplayCooldown(Weapon weapon)
     {
-        cooldownBar.enabled = true;
         while (weapon.GetCooldownStatus())
         {
             cooldownBar.fillAmount = (Time.time - weapon.GetCooldownStartTime()) / weapon.cooldown;
