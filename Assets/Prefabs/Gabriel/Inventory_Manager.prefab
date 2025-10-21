@@ -48,3 +48,6 @@ MonoBehaviour:
   MEDIUM_AMMO_CAP: 260
   HEAVY_AMMO_CAP: 40
   starterGun: {fileID: 11400000, guid: 506470b813ae8674abecc9bf4451b3b4, type: 2}
+  playerInventory:
+    ammo: 000000000000000000000000
+    AMMO_CAPS: 000000000000000000000000
