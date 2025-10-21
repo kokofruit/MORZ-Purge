@@ -69,6 +69,7 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     // COMPONENTS
     protected NavMeshAgent _navMeshAgent;
+    [SerializeField] protected Animator _animator;
     // The transform of the player
     protected Transform _playerTransform;
 
@@ -124,6 +125,7 @@ public class EnemyController : MonoBehaviour, IDamageable
         if (_lineOfSight)
         {
             _enemyState = EnemyState.chasing;
+            _animator.SetBool("isWalking", true);
             return;
         }
         // if the idle timer is over, roam or restart idling
@@ -138,6 +140,7 @@ public class EnemyController : MonoBehaviour, IDamageable
                 _roamingTimer = _maxRoamingDuration;
                 // change the state
                 _enemyState = EnemyState.roaming;
+                _animator.SetBool("isWalking", true);
 
                 // print debug statement
                 if (DEBUG_MODE) print(gameObject.name + ": Set state to roaming");
@@ -224,6 +227,7 @@ public class EnemyController : MonoBehaviour, IDamageable
         if (_lineOfSight)
         {
             _enemyState = EnemyState.chasing;
+            _animator.SetBool("isWalking", true);
             return;
         }
         // If done navigating or if navigating for too long (in case of being stuck), return to idle mode
@@ -295,6 +299,7 @@ public class EnemyController : MonoBehaviour, IDamageable
         else if (_attackingTimer <= 0)
         {
             _enemyState = EnemyState.chasing;
+            _animator.SetBool("isWalking", true);
             return;
         }
         // Decrease the attacking timer
