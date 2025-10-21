@@ -159,7 +159,7 @@ public class HUDController : MonoBehaviour
     public void SetUpgrades()
     {
         float[] slots = new float[3];
-        Inventory_Manager.instance.playerInventory.GetUpgradeSlots(ref slots);
+        InventoryManager.instance.playerInventory.GetUpgradeSlots(ref slots);
         for (int i =0; i<3; i++) {
             if (slots[i] >= 4) {
                 slots[i]-= 4;
