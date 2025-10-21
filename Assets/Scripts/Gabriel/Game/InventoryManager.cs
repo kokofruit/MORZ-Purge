@@ -4,7 +4,6 @@
 // Description: Manages the player's inventory during runtime.
 
 using UnityEngine;
-using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -22,20 +21,12 @@ public class InventoryManager : MonoBehaviour
     // Variable to store the instantiated player inventory
     public Inventory playerInventory;
 
-    // stuff to make better mayhaps
-    public Image gunImage;
-
     void Awake()
     {
         if (instance == null)
             instance = this;
         else
             Destroy(gameObject);
-    }
-
-    void Start()
-    {
-
     }
 
     public void StartNewInventory()
@@ -56,6 +47,12 @@ public class InventoryManager : MonoBehaviour
         HUDController.instance.DisplayInventoryAmmo(playerInventory.ammo);
     }
 
+    public void RefreshUI()
+    {
+        HUDController.instance.SetWeaponImage(3 * (int)playerInventory.GetWeapon(0).STAGE + (int)playerInventory.GetWeapon(0).AMMO_TYPE);
+        HUDController.instance.SetIconBG((int)playerInventory.GetWeapon(0).AMMO_TYPE);
+        HUDController.instance.SetWeaponIcon((int)playerInventory.GetWeapon(0).AMMO_TYPE, (int)playerInventory.GetWeapon(0).STAGE);
+    }
 
     public void SetInventory(Inventory inventory)
     {
@@ -73,6 +70,8 @@ public class InventoryManager : MonoBehaviour
     //Method to find and set to the next available gun in inventorys
     public void ChangeWeapon(int inc, int start, ref Weapon w)
     {
+        inc = -inc;
+
         //increment here
         int val = start;
         val += inc;
@@ -90,12 +89,11 @@ public class InventoryManager : MonoBehaviour
         {
             //sets gun here
             w = playerInventory.GetWeapon(val);
-            // gunImage.sprite = w.SPRITE;
-            if (w.GetCooldownStatus())
-                HUDController.instance.DisplayWeaponAmmo("Cooling");
-            else
-                HUDController.instance.DisplayWeaponAmmo(w.ammo);
-            
+
+            HUDController.instance.SetWeaponImage(3 * (int)w.STAGE + (int)w.AMMO_TYPE);
+            HUDController.instance.SetIconBG((int)w.AMMO_TYPE);
+            HUDController.instance.SetWeaponIcon((int)w.AMMO_TYPE, (int)w.STAGE);
+            HUDController.instance.LoadMagazineDisplay(WeaponActionController.instance.currentWeapon);
         }
     }
 }
@@ -130,7 +128,6 @@ public class Inventory
     public int[] GetAmmo()
     {
         return ammo;
-
     }
 
     public int GetAmmo(WeaponTemplate.AmmoType type)
@@ -166,13 +163,15 @@ public class Inventory
     {
         //replaces whatever is in the slot
         Weapons[(int)weapon.AMMO_TYPE] = new Weapon(weapon, GetUpgrades(weapon));
-        InventoryManager.instance.gunImage.sprite = weapon.SPRITE;
+        HUDController.instance.SetWeaponImage(3 * (int)weapon.STAGE + (int)weapon.AMMO_TYPE);
+        HUDController.instance.SetIconBG((int)weapon.AMMO_TYPE);
+        HUDController.instance.SetWeaponIcon((int)weapon.AMMO_TYPE, (int)weapon.STAGE);
         WeaponActionController.instance.currentWeapon = GetWeapon((int)weapon.AMMO_TYPE);
     }
 
     public float[] GetUpgrades(WeaponTemplate weapon)
     {
-        return upgrades[3 * (int)weapon.AMMO_TYPE + (int)weapon.STAGE].upgradeValues;
+        return upgrades[3 * (int)weapon.STAGE + (int)weapon.AMMO_TYPE].upgradeValues;
     }
 
     public Weapon GetWeapon(int index)
@@ -187,7 +186,7 @@ public class Inventory
         //4 Stage types:All loop through all stages of an ammo type, anything else apply to that stage of that ammo type 
         if (upgrade.STAGE == WeaponTemplate.Stage.all)
         {
-            for (int i = (int)upgrade.AMMO_TYPE * 3; i < upgradeIndex; i++)
+            for (int i = (int)upgrade.AMMO_TYPE; i < upgradeIndex; i += 3)
             {
                 //adds upgrades
                 upgrades[i].upgradeValues[(int)upgrade.UPGRADE_TYPE] += upgrade.AMOUNT;
@@ -201,5 +200,6 @@ public class Inventory
 
         // applies Upgrades to the player's current weapons
         Weapons[(int)upgrade.AMMO_TYPE]?.AddUpgrades(upgrades[(int)upgrade.AMMO_TYPE * 3 + (int)Weapons[(int)upgrade.AMMO_TYPE].STAGE].upgradeValues);
+        HUDController.instance.LoadMagazineDisplay(WeaponActionController.instance.currentWeapon);
     }
 }

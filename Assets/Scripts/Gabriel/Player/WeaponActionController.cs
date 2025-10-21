@@ -12,11 +12,10 @@ public class WeaponActionController : MonoBehaviour
 {
     public static WeaponActionController instance;
     public Weapon currentWeapon;
-
     public Image hitMarker;
+
     private float _hitMarkerDisplayTime = .05f;
     // Weapon controller runtime variables
-    private PlayerController _player;
     private bool _isAttacking;
     private float _nextShotTime;
 
@@ -31,8 +30,7 @@ public class WeaponActionController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        // Store a reference to the player controller script
-        _player = GetComponent<PlayerController>();
+
     }
 
     // Update is called once per frame
@@ -51,7 +49,7 @@ public class WeaponActionController : MonoBehaviour
             {
                 RaycastHit hit;
                 // Fire a "Bullet" (Raycast) in the direction the player is looking and get out the first object hit
-                Physics.Raycast(_player.head.position, _player.head.forward, out hit, currentWeapon.RANGE);
+                Physics.Raycast(PlayerController.instance.head.position, PlayerController.instance.head.forward, out hit, currentWeapon.RANGE);
                 // Check to make sure the bullet hit something
                 if (hit.collider != null)
                 {
@@ -78,7 +76,7 @@ public class WeaponActionController : MonoBehaviour
                 // Remove a bullet from the weapons magazine
                 currentWeapon.SubtractAmmo();
                 // Reflect that change on HUD
-                HUDController.instance.DisplayWeaponAmmo(currentWeapon.ammo);
+                HUDController.instance.LoadMagazineDisplay(currentWeapon);
 
                 // Determine the time when the next bullet will be avaible to fire
                 _nextShotTime = Time.time + (1f / currentWeapon.fireRate);
@@ -112,11 +110,13 @@ public class WeaponActionController : MonoBehaviour
 
     public IEnumerator Cooldown(Weapon weapon)
     {
-        weapon.SetCoolingStatus(true);
+        weapon.SetCoolingStatus(true, Time.time);
+        StartCoroutine(HUDController.instance.DisplayCooldown(weapon));
+        Debug.Log("YUMMY");
         yield return new WaitForSecondsRealtime(weapon.cooldown);
         weapon.Reload();
         weapon.SetCoolingStatus(false);
-        HUDController.instance.DisplayWeaponAmmo(currentWeapon.ammo);
+        HUDController.instance.LoadMagazineDisplay(currentWeapon);
     }
 
     //Sets held weapon to one from the inventory

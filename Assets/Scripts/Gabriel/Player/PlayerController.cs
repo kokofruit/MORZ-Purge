@@ -70,6 +70,10 @@ public class PlayerController : MonoBehaviour
 
         // Lock the cursor to the center of the screen during gameplay
         Cursor.lockState = CursorLockMode.Locked;
+
+        HUDController.instance.SetMaxHealth();
+
+        InventoryManager.instance.RefreshUI();
     }
 
     // Update is called once per frame
@@ -218,6 +222,7 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Yippee");
         RaycastHit hit;
         Physics.Raycast(head.position, head.forward, out hit, _interactDistance);
+        Debug.DrawRay(head.position, head.forward, Color.white, _interactDistance);
         Debug.Log(hit);
 
         if (hit.collider == null)

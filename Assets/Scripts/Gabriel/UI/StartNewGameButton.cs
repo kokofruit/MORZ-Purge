@@ -9,6 +9,7 @@ public class StartNewGameButton : MonoBehaviour
     }
 
     void ButtonPressed() {
+        MenuInputController.instance.ClearActiveWindow();
         GameManager.instance.StartNewGame();
     }
 }

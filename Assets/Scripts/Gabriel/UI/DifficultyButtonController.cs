@@ -24,15 +24,14 @@ public class DifficultyButtonController : MonoBehaviour
 
     private void CheckDifficulty()
     {
-        DifficultyButtonController[] siblings = transform.parent.GetComponentsInChildren<DifficultyButtonController>();
+        DifficultyButtonController[] diffButtons = transform.parent.GetComponentsInChildren<DifficultyButtonController>();
 
-        foreach (DifficultyButtonController b in siblings)
+        foreach (DifficultyButtonController diffButton in diffButtons)
         {
-            if (GameManager.instance.GetStartingDifficulty() == (int)b.diffVal)
-                button.interactable = false;
-
-            else button.interactable = true;
+            if (GameManager.instance.GetStartingDifficulty() == (int)diffButton.diffVal)
+                diffButton.GetComponent<Button>().interactable = false;
+            
+            else diffButton.GetComponent<Button>().interactable = true;
         }
-
     }
 }

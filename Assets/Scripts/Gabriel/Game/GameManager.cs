@@ -6,6 +6,7 @@
 using UnityEngine;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
@@ -34,7 +35,7 @@ public class GameManager : MonoBehaviour
     }
 
     void Start()
-    {
+    {        
         if (clearDataOnStart)
         {
             ClearSaveFile();
@@ -108,7 +109,7 @@ public class GameManager : MonoBehaviour
 
             InventoryManager.instance.SetInventory(playerData.inventory);
 
-            HUDController.instance.DisplayWeaponAmmo(WeaponActionController.instance.currentWeapon.ammo);
+            HUDController.instance.LoadMagazineDisplay(WeaponActionController.instance.currentWeapon);
         }
 
         else
@@ -124,8 +125,6 @@ public class GameManager : MonoBehaviour
             File.Delete(Application.persistentDataPath + "/player.save");
         }
         else Debug.Log("No current save files.");
-
-        Debug.Log(CheckForSaveFile());
     }
     #endregion
 
@@ -196,10 +195,26 @@ public class GameManager : MonoBehaviour
     {
         return _startingDifficulty;
     }
-    
+
     public int GetDifficulty()
     {
         return _difficulty + 1;
+    }
+
+    public void PauseGame(bool state)
+    {
+        if (state)
+        {
+            Time.timeScale = 0;
+            Cursor.lockState = CursorLockMode.None;
+            PlayerController.instance.GetComponent<PlayerInput>().enabled = false;
+        }
+        else
+        {
+            Time.timeScale = 1;
+            Cursor.lockState = CursorLockMode.Locked;
+            PlayerController.instance.GetComponent<PlayerInput>().enabled = true;
+        }
     }
 }
 #endregion

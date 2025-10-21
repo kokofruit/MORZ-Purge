@@ -1,4 +1,4 @@
-using Unity.VisualScripting;
+
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,6 +16,7 @@ public class MenuItemButton : MonoBehaviour
 
     public void OnButtonPressed()
     {
-        menuItem.SetActive(!menuItem.activeInHierarchy);
+        if (!menuItem.activeInHierarchy) MenuInputController.instance.SetActiveWinow(menuItem);
+        else MenuInputController.instance.OnEscape();
     }
 }
