@@ -14,7 +14,7 @@ public class RangedEnemyController : EnemyController
         base.Start();
     }
 
-    protected override void IntialAttack()
+    protected override void InitialAttack()
     {
         EnemyProjectileParent projectile = Instantiate(_projectilePrefab, transform.forward + _eyeTransform.position, Quaternion.identity).GetComponent<EnemyProjectileParent>();
         Vector3 direction = _playerTransform.position - projectile.transform.position;

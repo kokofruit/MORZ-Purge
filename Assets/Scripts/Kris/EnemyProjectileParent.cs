@@ -12,7 +12,7 @@ public class EnemyProjectileParent : MonoBehaviour
     protected Player_Controller _controller;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    protected virtual void Start()
     {
         // Finds the Player_Controller class and allows other functions to call functions from that class that affects the player.
         _controller = FindAnyObjectByType<Player_Controller>();
@@ -20,13 +20,13 @@ public class EnemyProjectileParent : MonoBehaviour
         Invoke("RemoveProjectile", _maxTime);
     }
 
-    void Awake()
+    protected virtual void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
     }
 
     // OnCollisionEnter checks to see if the cloned projectile has hit the player or any other object other than the player.
-    protected void OnCollisionEnter(Collision collision)
+    protected virtual void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {

@@ -12,7 +12,7 @@ public class SuckerController : FlyingEnemyController
         base.Start();
     }
 
-    protected override void IntialAttack()
+    protected override void InitialAttack()
     {
         base.InitialAttack();
         LifeDrain();   
