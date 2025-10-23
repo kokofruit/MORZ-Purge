@@ -597,7 +597,7 @@ Light:
   serializedVersion: 11
   m_Type: 1
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
+  m_Intensity: 0.2
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -2884,6 +2884,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Ground
       objectReference: {fileID: 0}
+    - target: {fileID: 2402711811335910468, guid: 71b1ade77c9d38848ab920a3469ad60f, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: e810bdcca4efe1b4cae1f7f200bb76f5, type: 2}
     - target: {fileID: 2508798360611016169, guid: 71b1ade77c9d38848ab920a3469ad60f, type: 3}
       propertyPath: m_TagString
       value: Ground
@@ -2968,6 +2972,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Ground
       objectReference: {fileID: 0}
+    - target: {fileID: 3153532923765419564, guid: 71b1ade77c9d38848ab920a3469ad60f, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: e810bdcca4efe1b4cae1f7f200bb76f5, type: 2}
     - target: {fileID: 3230612639238947863, guid: 71b1ade77c9d38848ab920a3469ad60f, type: 3}
       propertyPath: m_TagString
       value: Ground
@@ -3052,6 +3060,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Ground
       objectReference: {fileID: 0}
+    - target: {fileID: 4404063692935966840, guid: 71b1ade77c9d38848ab920a3469ad60f, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: e810bdcca4efe1b4cae1f7f200bb76f5, type: 2}
     - target: {fileID: 4471527820158426658, guid: 71b1ade77c9d38848ab920a3469ad60f, type: 3}
       propertyPath: m_TagString
       value: Ground
@@ -3084,6 +3096,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Ground
       objectReference: {fileID: 0}
+    - target: {fileID: 4796633672438845812, guid: 71b1ade77c9d38848ab920a3469ad60f, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: e810bdcca4efe1b4cae1f7f200bb76f5, type: 2}
     - target: {fileID: 4885326782775796944, guid: 71b1ade77c9d38848ab920a3469ad60f, type: 3}
       propertyPath: m_TagString
       value: Ground
@@ -3192,6 +3208,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Ground
       objectReference: {fileID: 0}
+    - target: {fileID: 6363869456506719888, guid: 71b1ade77c9d38848ab920a3469ad60f, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 83d258f22cfae2d4abd3c575613ba601, type: 2}
     - target: {fileID: 6518161708817720529, guid: 71b1ade77c9d38848ab920a3469ad60f, type: 3}
       propertyPath: m_TagString
       value: Ground
@@ -3376,6 +3396,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8202279935770109135, guid: 71b1ade77c9d38848ab920a3469ad60f, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: e810bdcca4efe1b4cae1f7f200bb76f5, type: 2}
     - target: {fileID: 8214347333857341003, guid: 71b1ade77c9d38848ab920a3469ad60f, type: 3}
       propertyPath: m_TagString
       value: Ground

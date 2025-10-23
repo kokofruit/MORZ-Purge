@@ -22,7 +22,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: f7a0d0f485c2a8c4481f13a62242d465, type: 2}
+  m_Motion: {fileID: 7400000, guid: 8ea5d72090db21b4481fd20a8d657227, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -74,7 +74,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 73bb841a86129a144b6f1b47820779a2, type: 2}
+  m_Motion: {fileID: 7400000, guid: afdbe4770edd2fc42b6fabed4f8cdb99, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -124,7 +124,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 73e18d8fbd18e2d4a95e4dd6ab52d4b3, type: 2}
+  m_Motion: {fileID: 7400000, guid: 136645e6c0dba4f4b80ae5d28e5595b0, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -136,7 +136,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: chomper-animator
+  m_Name: stinger-animator
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: isWalking
