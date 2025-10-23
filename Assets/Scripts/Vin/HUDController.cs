@@ -29,6 +29,8 @@ public class HUDController : MonoBehaviour
     // Ammo caps stored in list
     private int[] ammoCaps = new int[3];
 
+    //comment later goober
+    public Image[] upgradeSlots = new Image[9];
 
 
     // Used to make an instance
@@ -44,6 +46,11 @@ public class HUDController : MonoBehaviour
         ammoString[1] = "Medium";
         ammoString[2] = "Heavy";
         // Populate ammoCaps with amounts of max ammo
+        ammoCaps[0] = 60;
+        ammoCaps[1] = 260;
+        ammoCaps[2] = 40;
+
+        SetUpgrades();
         ammoCaps = InventoryManager.instance.playerInventory.AMMO_CAPS;
     }
 
@@ -149,8 +156,30 @@ public class HUDController : MonoBehaviour
     }
 
     // Setting upgrade
-    public void SetUpgrade()
+    public void SetUpgrades()
     {
-        // Manipulate upgrade text
+        float[] slots = new float[3];
+        InventoryManager.instance.playerInventory.GetUpgradeSlots(ref slots);
+        for (int i =0; i<3; i++) {
+            if (slots[i] >= 4) {
+                slots[i]-= 4;
+                upgradeSlots[i*3+2].enabled = true;
+            }else
+                upgradeSlots[i * 3 + 2].enabled = false;
+            if (slots[i] >= 2)
+            {
+                slots[i] -= 2;
+                upgradeSlots[i * 3 + 1].enabled = true;
+            }
+            else
+                upgradeSlots[i * 3 + 1].enabled = false;
+            if (slots[i] == 1)
+            {
+                slots[i] --;
+                upgradeSlots[i * 3 + 0].enabled = true;
+            }
+            else
+                upgradeSlots[i * 3 + 0].enabled = false;
+        }
     }
 }
