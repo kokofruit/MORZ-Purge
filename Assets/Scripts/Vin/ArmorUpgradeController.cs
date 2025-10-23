@@ -9,10 +9,6 @@ using System;
 
 public class ArmorUpgradeController : PickupController
 {
-    /* 
-     * TODO:
-     * fix stacking upgrades
-     */
 
     // Private Variables //
     private float upgradeDuration = 10f;
@@ -22,8 +18,6 @@ public class ArmorUpgradeController : PickupController
     // Trigger event (initiated by Player_Controller)
     public override void PickupObject()
     {
-        // Invoke armor upgrade event that will stop player damage from happening
-        Player_Controller.instance.ActivateUpgrade(upgradeType);
         //SetUpgrade in HUD
         HUDController.instance.SetUpgrade(upgradeType, upgradeDuration);
         base.PickupObject();

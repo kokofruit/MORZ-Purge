@@ -10,10 +10,6 @@ using UnityEngine.WSA;
 
 public class StimulantUpgradeController : PickupController
 {
-    /* 
-     * TODO:
-     * fix stacking upgrades
-     */
 
     // Private Variables //
     private float upgradeDuration = 10f;
@@ -23,8 +19,6 @@ public class StimulantUpgradeController : PickupController
     // Trigger event (initiated by Player_Controller)
     public override void PickupObject()
     {
-        // Invoke stimulant upgrade that will increase player _speed
-        Player_Controller.instance.ActivateUpgrade(upgradeType);
         //SetUpgrade in HUD
         HUDController.instance.SetUpgrade(upgradeType, upgradeDuration);
         base.PickupObject();

@@ -10,10 +10,6 @@ using UnityEngine.WSA;
 
 public class AmmoUpgradeController : PickupController
 {
-    /* 
-     * TODO:
-     * fix stacking upgrades
-     */
 
     // Private Variables //
     private float upgradeDuration = 10f;
@@ -23,8 +19,6 @@ public class AmmoUpgradeController : PickupController
     // Trigger event (initiated by Weapon_Action_Controller)
     public override void PickupObject()
     {
-        // Invoke ammo upgrade that will stop ammo from decreasing for 10s
-        Weapon_Action_Controller.instance.ActivateUpgrade(upgradeType);
         //SetUpgrade in HUD
         HUDController.instance.SetUpgrade(upgradeType, upgradeDuration);
         base.PickupObject();

@@ -124,12 +124,32 @@ public class HUDController : MonoBehaviour
 
         upgradeInfoTxt.text = "" + upgradesString[upgradeType];
 
+        // Stop any running coroutines
+        StopAllCoroutines();
+
+        // Start Coroutine
         StartCoroutine(Timer(upgradeType, upgradeDuration));
 
     }
 
     IEnumerator Timer(int upgradeType, float upgradeDuration)
     {
+        if (upgradeType == 0 || upgradeType == 1)
+        {
+            // Activate upgrade
+            Player_Controller.instance.ActivateUpgrade(upgradeType);
+        }
+        else if (upgradeType == 2)
+        {
+            // Activate upgrade
+            EnemyController.instance.ActivateUpgrade(upgradeType);
+        }
+        else if (upgradeType == 3)
+        {
+            // Activate upgrade
+            Weapon_Action_Controller.instance.ActivateUpgrade(upgradeType);
+        }
+
         while (upgradeDuration > 0)
         {
 
@@ -139,16 +159,12 @@ public class HUDController : MonoBehaviour
             // Increment the countdown by one second
             yield return new WaitForSeconds(1f);
 
-
             // Decrement countdown time
             upgradeDuration -= 1f;
         }
 
-        // Set timer text to 0s
-        upgradeTimerTxt.text = "0s";
-
         // Find upgrade type and deactivate/disable things based on that
-        if(upgradeType == 0 || upgradeType == 1)
+        if (upgradeType == 0 || upgradeType == 1)
         {
             // Deactivate upgrade after timer runs out
             Player_Controller.instance.DeactivateUpgrade(upgradeType);
@@ -171,7 +187,10 @@ public class HUDController : MonoBehaviour
             ammoUpgradeImg.enabled = false;
         }
 
-            // Reset upgrade description
-            upgradeInfoTxt.text = "none";
+        // Set timer text to 0s
+        upgradeTimerTxt.text = "0s";
+        // Reset upgrade description
+        upgradeInfoTxt.text = "none";
+
     }
 }
