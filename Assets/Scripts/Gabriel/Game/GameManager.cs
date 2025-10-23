@@ -7,12 +7,10 @@ using UnityEngine;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine.InputSystem;
-using UnityEngine.Audio;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public AudioMixer audioMixer;
     public bool clearDataOnStart = false;
     private int _playerLives;
     private int _currentLevel;
@@ -37,7 +35,7 @@ public class GameManager : MonoBehaviour
     }
 
     void Start()
-    {        
+    {
         if (clearDataOnStart)
         {
             ClearSaveFile();
@@ -132,10 +130,6 @@ public class GameManager : MonoBehaviour
 
     /************************************** Game Management Methods ***********************************/
     #region Game Management Methods
-    public void SetAudioLevels(float MainVol, float MusicVol, float SFXVol)
-    {
-        audioMixer.SetFloat("volume", MainVol);
-    }
     
     public void StartNewGame()
     {
