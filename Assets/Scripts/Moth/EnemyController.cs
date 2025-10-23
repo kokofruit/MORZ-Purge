@@ -341,13 +341,11 @@ public class EnemyController : MonoBehaviour
     public void ActivateUpgrade(int upgradeType)
     {
         shieldUpActivated = true;
-        Debug.Log("shield upgrade activated");
     }
 
     public void DeactivateUpgrade(int upgradeType)
     {
         shieldUpActivated = false;
-        Debug.Log("shield upgrade deactivated");
     }
 
 

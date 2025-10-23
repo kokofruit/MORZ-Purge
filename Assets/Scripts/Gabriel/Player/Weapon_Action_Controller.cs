@@ -157,12 +157,10 @@ public class Weapon_Action_Controller : MonoBehaviour
     public void ActivateUpgrade(int upgradeType)
     {
         ammoUpActivated = true;
-        Debug.Log("ammo upgrade activated");
     }
 
     public void DeactivateUpgrade(int upgradeType)
     {
         ammoUpActivated = false;
-        Debug.Log("ammo upgrade deactivated");
     }
 }

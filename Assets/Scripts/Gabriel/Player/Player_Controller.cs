@@ -240,13 +240,11 @@ public class Player_Controller : MonoBehaviour
         if (upgradeType == 0)
         {
             armorUpActivated = true;
-            Debug.Log("armor upgrade activated");
         }
         // If upgrade is stim, set stim activated to true
         else if (upgradeType == 1)
         {
             stimulantUpActivated = true;
-            Debug.Log("stimulant upgrade activated");
         }
     }
 
@@ -255,12 +253,10 @@ public class Player_Controller : MonoBehaviour
         if(upgradeType == 0)
         {
             armorUpActivated = false;
-            Debug.Log("armor upgrade deactivated");
         }
         else if (upgradeType == 1)
         {
             stimulantUpActivated = false;
-            Debug.Log("stimulant upgrade deactivated");
         }
     }
 
