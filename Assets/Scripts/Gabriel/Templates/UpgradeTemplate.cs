@@ -16,5 +16,5 @@ public class UpgradeTemplate : ScriptableObject
 
     //for upgrade UI
     //only important for Stage.All
-    public bool SLOT;
+    public int SLOT;
 }
