@@ -44,9 +44,12 @@ public class PickupSpawnerManager : MonoBehaviour
 
         // create a list of unused spawners
         List<PickupSpawnerController> availableSpawners = _spawners;
+
+        //spawn one of each upgrade
         foreach (GameObject g in _upgradeObjects ) {
             if (availableSpawners.Count < 1)
-                break;
+                return;
+            int index = Random.Range(0, availableSpawners.Count);
             availableSpawners[0].GetComponent<PickupSpawnerController>()?.CreatePickup(g);
             availableSpawners.RemoveAt(0);
         }
@@ -54,6 +57,9 @@ public class PickupSpawnerManager : MonoBehaviour
         // some error proofing
         if (_pickupAmount == 0) return;
         if (_pickupAmount > availableSpawners.Count) _pickupAmount = availableSpawners.Count;
+
+
+
 
         // set amounts for each pickup
         int ammoAmount = (int) Mathf.Round(_ammoToHealthRatio * _pickupAmount);
