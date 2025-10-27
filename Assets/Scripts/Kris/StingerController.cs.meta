@@ -1,2 +1,15 @@
 fileFormatVersion: 2
 guid: 79309312e4acf5f40b6d7dd73f5feaa6
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - _eyeTransform: {instanceID: 0}
+  - _attackAudio: {instanceID: 0}
+  - _damageAudio: {instanceID: 0}
+  - _deathAudio: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
