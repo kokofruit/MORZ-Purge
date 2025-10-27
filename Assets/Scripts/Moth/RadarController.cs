@@ -33,7 +33,7 @@ public class RadarController : MonoBehaviour
 
     void Start()
     {
-        _playerTransform = FindFirstObjectByType<Player_Controller>().transform;
+        _playerTransform = FindFirstObjectByType<PlayerController>().transform;
         _detectionSphere = GetComponent<SphereCollider>();
         StartCoroutine(nameof(TimeScan));
     }
