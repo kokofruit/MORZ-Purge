@@ -69,30 +69,25 @@ public class FlyingEnemyController : EnemyController
         }
     }
 
-    protected override void DoAttacking()
+    protected override void InitialAttack()
     {
-        // if attack state was just initiated, attack the player
-        if (_attackingTimer == _attackCooldown)
-        {
-            PlayerDamage();
-            SoundManager.instance.PlayFXAudio(_testSound, transform);
-            if (DEBUG_MODE) print(gameObject.name + ": Attack!");
-            Flee();
-        }
-        // if the cooldown is up, return to chasing
-        else if (_attackingTimer <= 0)
-        {
-            _enemyState = EnemyState.chasing;
-            return;
-        }
-        // rise back up
-        _navMeshAgent.baseOffset = Mathf.MoveTowards(_navMeshAgent.baseOffset, _flyingHeight, _swoopSpeed * Time.deltaTime);
-        
-        // decrease the attacking timer
-        _attackingTimer -= Time.deltaTime;
+        // damage player
+        PlayerDamage();
+        // sound testing
+        SoundManager.instance.PlayFXAudio(_testSound, transform);
+        // print debug statement
+        if (DEBUG_MODE) print(gameObject.name + ": Attack!");
+        // flee from player
+        Flee();
     }
 
-    void Flee()
+    protected override void AttackCooldown()
+    {
+        // rise back up
+        _navMeshAgent.baseOffset = Mathf.MoveTowards(_navMeshAgent.baseOffset, _flyingHeight, _swoopSpeed * Time.deltaTime);
+    }
+
+    protected virtual void Flee()
     {
         Vector3 direction = _eyeTransform.position - _playerTransform.position;
         // run away from player
