@@ -25,7 +25,7 @@ public class EnemyController : MonoBehaviour
     // The damage applied to the player, calculated by multiplying the base damage by the global multiplier
     protected float _calculatedDamage
     {
-        get { return _baseDamage * GameManager.instance.GetDifficulty(); } // TODO: REPLACE WITH GLOBAL MODIFIER
+        get { return _baseDamage * GameManager.instance.GetDifficulty() / 2; }
     }
     // How close the enemy needs to be to the player to attack
     [SerializeField] protected float _attackDistance;
@@ -293,7 +293,9 @@ public class EnemyController : MonoBehaviour
      * Function to deal damage to the enemy when the player shoots an enemy. */
     public void EnemyDamage(float damage)
     {
-        _health -= damage;
+        _health -= damage / (GameManager.instance.GetDifficulty() / 2 + 0.5f);
+
+        Debug.Log("Health Delta: " + GameManager.instance.GetDifficulty() / 2 + 0.5f);
 
         if (_health <= 0)
         {

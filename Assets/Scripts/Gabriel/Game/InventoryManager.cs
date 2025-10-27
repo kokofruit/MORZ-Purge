@@ -23,10 +23,7 @@ public class InventoryManager : MonoBehaviour
 
     void Awake()
     {
-        if (instance == null)
-            instance = this;
-        else
-            Destroy(gameObject);
+        instance = this;
     }
 
     public void StartNewInventory()
@@ -47,19 +44,19 @@ public class InventoryManager : MonoBehaviour
         HUDController.instance.DisplayInventoryAmmo(playerInventory.ammo);
     }
 
-    public void RefreshUI()
-    {
-        HUDController.instance.SetWeaponImage(3 * (int)playerInventory.GetWeapon(0).STAGE + (int)playerInventory.GetWeapon(0).AMMO_TYPE);
-        HUDController.instance.SetIconBG((int)playerInventory.GetWeapon(0).AMMO_TYPE);
-        HUDController.instance.SetWeaponIcon((int)playerInventory.GetWeapon(0).AMMO_TYPE, (int)playerInventory.GetWeapon(0).STAGE);
-    }
-
     public void SetInventory(Inventory inventory)
     {
         playerInventory = inventory;
 
-        HUDController.instance.DisplayInventoryAmmo(playerInventory.ammo);
         WeaponActionController.instance.currentWeapon = playerInventory.GetWeapon(0);
+        
+        HUDController.instance.SetWeaponImage(3 * (int)playerInventory.GetWeapon(0).STAGE + (int)playerInventory.GetWeapon(0).AMMO_TYPE);
+        HUDController.instance.SetIconBG((int)playerInventory.GetWeapon(0).AMMO_TYPE);
+        HUDController.instance.LoadMagazineDisplay(playerInventory.GetWeapon(0));
+        HUDController.instance.DisplayInventoryAmmo(playerInventory.ammo);
+
+        for (int i = 0; i < 3; i++)
+            if (playerInventory.GetWeapon(i) != null) HUDController.instance.SetWeaponIcon((int)playerInventory.GetWeapon(i).AMMO_TYPE, (int)playerInventory.GetWeapon(i).STAGE);
     }
 
     public Inventory GetInventory()
@@ -104,8 +101,8 @@ public class Inventory
     //All weapon items are stored [Light, Medium, Heavy]
     public int[] ammo = new int[3];
     public int[] AMMO_CAPS = new int[3];
-    private Weapon[] Weapons = new Weapon[3];
 
+    private Weapon[] Weapons = new Weapon[3];
     private InventoryManager.upVal[] upgrades = new InventoryManager.upVal[9];
 
     public Inventory()

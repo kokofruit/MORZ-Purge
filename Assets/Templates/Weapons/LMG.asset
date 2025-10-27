@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9026bc7339770f4d8cc619eeb750f2e, type: 3}
   m_Name: LMG
   m_EditorClassIdentifier: 
-  Image: {fileID: 0}
-  ReloadCooldown: 6
-  FireRate: 3
-  AmmoType: 2
-  AmmoCap: 0
-  MagSize: 40
+  DAMAGE: 0
+  COOLDOWN: 8
+  RANGE: 35
+  FIRE_RATE: 5
+  AMMO_TYPE: 1
+  STAGE: 2
+  FIRE_SELECT: 1
+  MAG_SIZE: 40

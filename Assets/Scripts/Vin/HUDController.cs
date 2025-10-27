@@ -36,7 +36,7 @@ public class HUDController : MonoBehaviour
     // Used to make an instance
     private void Awake()
     {
-       instance = this;
+        instance = this;
     }
 
     void Start()

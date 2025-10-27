@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
     {
         if (clearDataOnStart)
         {
-            ClearSaveFile();
+            DeleteSaveFile();
         }
     }
     #endregion
@@ -69,7 +69,7 @@ public class GameManager : MonoBehaviour
         afile.Close();
     }
 
-    private void GameLoad()
+    private void LoadGameData()
     {
         if (File.Exists(Application.persistentDataPath + "/player.save"))
         {
@@ -83,8 +83,6 @@ public class GameManager : MonoBehaviour
 
             _playerLives = playerData.playerLives;
             _currentLevel = playerData.currentLevel;
-
-            InventoryManager.instance.SetInventory(playerData.inventory);
         }
 
         else
@@ -95,7 +93,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void PlayerLoad()
+    void LoadPlayerData()
     {
         if (File.Exists(Application.persistentDataPath + "/player.save"))
         {
@@ -108,8 +106,6 @@ public class GameManager : MonoBehaviour
             afile.Close();
 
             InventoryManager.instance.SetInventory(playerData.inventory);
-
-            HUDController.instance.LoadMagazineDisplay(WeaponActionController.instance.currentWeapon);
         }
 
         else
@@ -118,7 +114,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void ClearSaveFile()
+    void DeleteSaveFile()
     {
         if (File.Exists(Application.persistentDataPath + "/player.save"))
         {
@@ -133,22 +129,22 @@ public class GameManager : MonoBehaviour
     
     public void StartNewGame()
     {
-        ClearSaveFile();
-        GameLoad();
+        DeleteSaveFile();
+        LoadGameData();
         Scene_Manager.instance.LoadLevel(_currentLevel);
     }
 
     public void LoadGame()
     {
-        GameLoad();
+        LoadGameData();
         Scene_Manager.instance.LoadLevel(_currentLevel);
     }
 
     public void StartLevel()
     {
         PickupSpawnerManager.instance?.SpawnPickups();
-        PlayerLoad();
-        Scene_Manager.instance.LoadLevel(_currentLevel);
+        Time.timeScale = 1;
+        LoadPlayerData();
     }
 
     public void RestartLevel()
@@ -173,16 +169,11 @@ public class GameManager : MonoBehaviour
     {
         _playerLives--;
 
-        Debug.Log(_playerLives);
-
-        if (_playerLives <= 0)
-        {
-            ClearSaveFile();
-            GameLoad();
+        if (_playerLives <= 0) {
+            DeleteSaveFile();
             Scene_Manager.instance.LoadLoseScreen();
         }
-        else
-        {
+        else {
             Scene_Manager.instance.LoadDeathScreen();
         }
     }
@@ -204,18 +195,11 @@ public class GameManager : MonoBehaviour
 
     public void PauseGame(bool state)
     {
-        if (state)
-        {
-            Time.timeScale = 0;
-            Cursor.lockState = CursorLockMode.None;
-            PlayerController.instance.GetComponent<PlayerInput>().enabled = false;
-        }
-        else
-        {
-            Time.timeScale = 1;
-            Cursor.lockState = CursorLockMode.Locked;
-            PlayerController.instance.GetComponent<PlayerInput>().enabled = true;
-        }
+        if (state) Cursor.lockState = CursorLockMode.None;
+        else Cursor.lockState = CursorLockMode.Locked;
+
+        Time.timeScale = state ? 0 : 1;
+        PlayerController.instance.GetComponent<PlayerInput>().enabled = !state;
     }
 }
 #endregion

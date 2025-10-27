@@ -19,4 +19,4 @@ MonoBehaviour:
   AMMO_TYPE: 0
   STAGE: 0
   FIRE_SELECT: 1
-  MAG_SIZE: 20
+  MAG_SIZE: 16

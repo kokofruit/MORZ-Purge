@@ -61,6 +61,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Tell the game manager to load level information
         GameManager.instance.StartLevel();
 
         // Find unnassigned runtime objects and variables
@@ -71,9 +72,8 @@ public class PlayerController : MonoBehaviour
         // Lock the cursor to the center of the screen during gameplay
         Cursor.lockState = CursorLockMode.Locked;
 
+        // Set the players health to full
         HUDController.instance.SetMaxHealth();
-
-        InventoryManager.instance.RefreshUI();
     }
 
     // Update is called once per frame
@@ -108,11 +108,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // Called when the player collides with a trigger object
     void OnTriggerEnter(Collider collider)
     {
+        // If the object is a pickup
         if (collider.gameObject.CompareTag("Pickup"))
         {
+            // Get out the pickup object's pickup controller script
             collider.gameObject.TryGetComponent(out PickupController pickup);
+
             pickup.PickupObject();
         }
     }
@@ -171,6 +175,7 @@ public class PlayerController : MonoBehaviour
     {
         _health -= amount;
 
+        // If the player runs out of health, they die
         if (_health < 0)
         {
             GameManager.instance.PlayerDied();
@@ -219,13 +224,11 @@ public class PlayerController : MonoBehaviour
 
     public void OnInteract()
     {
-        Debug.Log("Yippee");
         RaycastHit hit;
         Physics.Raycast(head.position, head.forward, out hit, _interactDistance);
-        Debug.DrawRay(head.position, head.forward, Color.white, _interactDistance);
         Debug.Log(hit);
 
-        if (hit.collider == null)
+        if (hit.collider != null)
             if (hit.collider.CompareTag("Pickup"))
             {
                 hit.collider.TryGetComponent(out PickupController pickup);

@@ -190,7 +190,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DEBUG_MODE: 0
-  _baseHealth: 1
+  _baseHealth: 8
   _baseDamage: 0
   _attackDistance: 20
   _attackCooldown: 6
