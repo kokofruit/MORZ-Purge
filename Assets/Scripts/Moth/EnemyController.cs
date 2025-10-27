@@ -295,8 +295,6 @@ public class EnemyController : MonoBehaviour
     {
         _health -= damage / (GameManager.instance.GetDifficulty() / 2 + 0.5f);
 
-        Debug.Log("Health Delta: " + GameManager.instance.GetDifficulty() / 2 + 0.5f);
-
         if (_health <= 0)
         {
             Die();
