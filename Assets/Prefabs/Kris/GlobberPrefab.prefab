@@ -149,12 +149,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6443707355526875129}
-  - component: {fileID: 6186878446862545317}
+  - component: {fileID: 6722213010491951009}
   - component: {fileID: 4737314653000514258}
   - component: {fileID: 7861087807491701673}
   - component: {fileID: 172688249608675843}
   m_Layer: 0
-  m_Name: KrisTestEnemy
+  m_Name: GlobberPrefab
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -177,7 +177,7 @@ Transform:
   - {fileID: 3579865005072262356}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6186878446862545317
+--- !u!114 &6722213010491951009
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -186,27 +186,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 6377917487719104797}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7f635890ab7cdc4f8fc2081c3cacf72, type: 3}
+  m_Script: {fileID: 11500000, guid: a4ae066f261a4544791a3eb965fa43fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   DEBUG_MODE: 0
-  _baseHealth: 1
+  _baseHealth: 35
   _baseDamage: 0
   _attackDistance: 20
-  _attackCooldown: 6
-  _moveSpeed: 5
-  _roamingRange: 5
+  _attackCooldown: 5
+  _moveSpeed: 0
+  _roamingRange: 0
   _eyeTransform: {fileID: 3579865005072262356}
   _sightCheckingInterval: 1
   _layerMask:
     serializedVersion: 2
     m_Bits: 55
   _idleDuration: 5
-  _maxRoamingDuration: 10
-  _pathfindingAttempts: 30
+  _maxRoamingDuration: 0
+  _pathfindingAttempts: 0
   _enemyState: 0
   _projectilePrefab: {fileID: 948437041128951277, guid: 42a58116d445be245bcc1f71daa13de4, type: 3}
-  _projectileForce: 300
+  _projectileForce: 800
 --- !u!114 &4737314653000514258
 MonoBehaviour:
   m_ObjectHideFlags: 0
