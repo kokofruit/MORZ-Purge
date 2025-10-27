@@ -1,4 +1,5 @@
 // Contributor: Kris Herbert
+// Secondary Contributer: Mark Klitsch
 // Reviewer: 
 // Descritpion: Controller for the flying enemy Sucker
 using UnityEngine;
@@ -6,7 +7,9 @@ using UnityEngine;
 public class SuckerController : FlyingEnemyController
 {
     [SerializeField] protected int _lifeGained;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [SerializeField] AudioClip _attackAudio;
+    [SerializeField] AudioClip _damageAudio;
+    [SerializeField] AudioClip _deathAudio;
 
     // Uses the Start from the FlyingEnemyController
     protected override void Start()
@@ -18,6 +21,8 @@ public class SuckerController : FlyingEnemyController
     protected override void InitialAttack()
     {
         base.InitialAttack();
+        // Add attack sound to the enemy
+        SoundManager.instance.PlayFXAudio(_attackAudio, transform);
         LifeDrain();   
     }
 

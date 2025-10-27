@@ -1,17 +1,23 @@
 // Contributor: Kris Herbert
+// Secondary Contributor: Mark Klitsch
 // Reviewer: 
 // Description: Controller script used for the Zipper Enemy.
 using UnityEngine;
 
 public class ZipperController : FlyingEnemyController
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [SerializeField] AudioClip _attackAudio;
+    [SerializeField] AudioClip _damageAudio;
+    [SerializeField] AudioClip _deathAudio;
 
-    // Calls for the start that is used within FlyingEnemyController which calls on EnemyController
-
-    //NOTE: FlyingEnemyController Script could be used for this enemy but to have things better organized and seperated this ZipperController will be used.
-    void Start()
+    protected override void Start()
     {
         base.Start();
+    }
+
+    protected override void InitialAttack()
+    {
+        base.InitialAttack();
+        SoundManager.instance.PlayFXAudio(_attackAudio, transform);
     }
 }
