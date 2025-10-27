@@ -69,7 +69,7 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     // COMPONENTS
     protected NavMeshAgent _navMeshAgent;
-    [SerializeField] protected Animator _animator;
+    protected Animator _animator;
     // The transform of the player
     protected Transform _playerTransform;
 
@@ -83,6 +83,7 @@ public class EnemyController : MonoBehaviour, IDamageable
 
         // Cache components
         _navMeshAgent = GetComponent<NavMeshAgent>();
+        _animator = GetComponentInChildren<Animator>();
 
         // Cache player transform
         _playerTransform = FindAnyObjectByType<Player_Controller>().transform;
@@ -312,7 +313,8 @@ public class EnemyController : MonoBehaviour, IDamageable
     // Initial attack beahvior
     protected virtual void InitialAttack()
     {
-
+        PlayerDamage();
+        _animator.SetTrigger("triggerAttack");
     }
 
     // Cooldown behavior
