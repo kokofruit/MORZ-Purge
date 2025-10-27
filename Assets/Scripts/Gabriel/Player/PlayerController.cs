@@ -1,5 +1,5 @@
 // Main Contributor: Gabriel Heiser
-// Secondary Contributor: 
+// Secondary Contributor: Domenic, Phil
 // Reviewer: 
 // Description: Input manager for the main player object
 
