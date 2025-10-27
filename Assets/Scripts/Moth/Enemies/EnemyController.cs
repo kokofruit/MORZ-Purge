@@ -25,7 +25,7 @@ public class EnemyController : MonoBehaviour
     // The damage applied to the player, calculated by multiplying the base damage by the global multiplier
     protected float _calculatedDamage
     {
-        get { return _baseDamage * 1; } // TODO: REPLACE WITH GLOBAL MODIFIER
+        get { return _baseDamage * GameManager.instance.GetDifficulty() / 2; }
     }
     // How close the enemy needs to be to the player to attack
     [SerializeField] protected float _attackDistance;
@@ -84,7 +84,7 @@ public class EnemyController : MonoBehaviour
         _navMeshAgent = GetComponent<NavMeshAgent>();
 
         // Cache player transform
-        _playerTransform = FindAnyObjectByType<Player_Controller>().transform;
+        _playerTransform = FindAnyObjectByType<PlayerController>().transform;
 
         // Set stats
         _navMeshAgent.speed = _moveSpeed;
@@ -321,7 +321,7 @@ public class EnemyController : MonoBehaviour
      * Function to deal damage to the enemy when the player shoots an enemy. */
     public void EnemyDamage(float damage)
     {
-        _health -= damage;
+        _health -= damage / (GameManager.instance.GetDifficulty() / 2 + 0.5f);
 
         if (_health <= 0)
         {
@@ -343,7 +343,7 @@ public class EnemyController : MonoBehaviour
     protected void PlayerDamage()
     {
         if (DEBUG_MODE) print(gameObject.name + "Damaged player by: " + _calculatedDamage);
-        _playerTransform.GetComponent<Player_Controller>().SubtractHealth(_calculatedDamage);
+        _playerTransform.GetComponent<PlayerController>().SubtractHealth(_calculatedDamage);
     }
 
 

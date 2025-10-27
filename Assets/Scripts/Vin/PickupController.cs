@@ -1,11 +1,9 @@
-using System.Collections;
-using Unity.VisualScripting;
-using UnityEngine;
-
 // Main Contributor: Vin
 // Secondary Contributor: Mark
 // Reviewer: 
 // Description: Parent script for pickups (health, ammo, etc.)
+
+using UnityEngine;
 
 public class PickupController : MonoBehaviour
 {

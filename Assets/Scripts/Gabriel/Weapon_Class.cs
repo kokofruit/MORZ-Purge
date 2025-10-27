@@ -11,13 +11,6 @@ public class Weapon
     // Constructor for the weapon class
     public Weapon(WeaponTemplate weapon, float[] upgradeValues)
     {
-        ChangeWeapon(weapon, upgradeValues);
-    }
-
-    public void ChangeWeapon(WeaponTemplate weapon, float[] upgradeValues)
-    {
-        // SPRITE = weapon.SPRITE;
-
         RANGE = weapon.RANGE;
         FIRE_SELECT = weapon.FIRE_SELECT;
         STAGE = weapon.STAGE;
@@ -30,6 +23,8 @@ public class Weapon
 
         ammo = magSize;
         AddUpgrades(upgradeValues);
+
+        HUDController.instance.LoadMagazineDisplay(this);
     }
 
     public void AddUpgrades(float[] upgradeValues)
@@ -39,8 +34,6 @@ public class Weapon
         magSize += (int)upgradeValues[2];
         cooldown -= upgradeValues[3];
     }
-
-    // public Sprite SPRITE { get; private set; }
 
     // The maximum number of bullets the weapon can hold in its magazine
     public int magSize { get; private set; }
@@ -61,6 +54,8 @@ public class Weapon
     public float cooldown { get; private set; }
     // Stores the cooling state of the weapon
     private bool _isCooling;
+    // Stores the time that the weapons last cooldown began
+    private float _coolStartTime;
 
 
     // Method to remove 1 bullet from the current magazine
@@ -75,18 +70,27 @@ public class Weapon
         _isCooling = status;
     }
 
+    public void SetCoolingStatus(bool status, float coolStartTime)
+    {
+        SetCoolingStatus(status);
+        _coolStartTime = coolStartTime;
+    }
+
     // Method to get the weapon's current cooling status
     public bool GetCooldownStatus()
     {
         return _isCooling;
     }
 
+    public float GetCooldownStartTime()
+    {
+        return _coolStartTime;
+    }
+
     // Method to reload the weapon's magazine
     public void Reload()
     {
-        ammo = Inventory_Manager.instance.playerInventory.SubtractAmmo(AMMO_TYPE, magSize);
-        // BIG PROBLEM HERE !!
+        ammo = InventoryManager.instance.playerInventory.SubtractAmmo(AMMO_TYPE, magSize);
         HUDController.instance.UpdateAmmo(AMMO_TYPE);
-        HUDController.instance.DisplayWeaponAmmo(ammo);
     }
 };

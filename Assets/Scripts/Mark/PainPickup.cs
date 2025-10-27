@@ -13,7 +13,7 @@ public class PainPickup : PickupController
     public override void PickupObject()
     {
         // Calling the SubtactHealth function within the player_Controller and applying the damage amount.
-        Player_Controller.instance.SubtractHealth(PainAmount);
+        PlayerController.instance.SubtractHealth(PainAmount);
         base.PickupObject();
     }
 }

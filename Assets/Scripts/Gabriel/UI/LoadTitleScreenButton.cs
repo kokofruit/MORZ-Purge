@@ -9,6 +9,7 @@ public class LoadTitleScreenButton : MonoBehaviour
     }
 
     void ButtonPressed() {
+        MenuInputController.instance.ClearActiveWindow();
         Scene_Manager.instance.LoadTitleScreen();
     }
 }

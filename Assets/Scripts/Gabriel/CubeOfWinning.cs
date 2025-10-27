@@ -6,7 +6,7 @@ public class CubeOfWinning : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Game_Manager.instance?.GoToNextLevel();
+            GameManager.instance?.GoToNextLevel();
         }
     }
 }
