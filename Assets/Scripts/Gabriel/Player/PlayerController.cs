@@ -1,5 +1,5 @@
 // Main Contributor: Gabriel Heiser
-// Secondary Contributor: 
+// Secondary Contributor: Domenic, Phil
 // Reviewer: 
 // Description: Input manager for the main player object
 
@@ -225,7 +225,7 @@ public class PlayerController : MonoBehaviour
         Debug.DrawRay(head.position, head.forward, Color.white, _interactDistance);
         Debug.Log(hit);
 
-        if (hit.collider == null)
+        if (hit.collider != null)
             if (hit.collider.CompareTag("Pickup"))
             {
                 hit.collider.TryGetComponent(out PickupController pickup);
