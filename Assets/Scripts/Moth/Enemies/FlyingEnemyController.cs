@@ -71,6 +71,8 @@ public class FlyingEnemyController : EnemyController
 
     protected override void InitialAttack()
     {
+        base.InitialAttack();
+
         // damage player
         PlayerDamage();
         // sound testing

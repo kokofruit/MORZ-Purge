@@ -3,10 +3,10 @@
 // Reviewer: Gabriel Heiser
 // Description: Controller to show health, ammo, and upgrades on the HUD
 
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 
 public class HUDController : MonoBehaviour
 {
@@ -15,6 +15,19 @@ public class HUDController : MonoBehaviour
     // References health bar image on HUD
     public Image healthBar;
     public Image cooldownBar;
+    // References the text box displayed for ammo currently in mag
+    public TextMeshProUGUI ammoTxt;
+    // References the text boxes for light, medium, and heavy ammo
+    public TextMeshProUGUI[] inventoryAmmo = new TextMeshProUGUI[3];
+    // Reference to upgrade info text box
+    // public TextMeshProUGUI upgradeInfoTxt;
+    // Reference to upgrade timer text box
+    // public TextMeshProUGUI upgradeTimerTxt;
+    // Upgrade tint references
+    public Image shieldUpgradeImg;
+    public Image armorUpgradeImg;
+    public Image stimUpgradeImg;
+    public Image ammoUpgradeImg;
 
     //Overarching UI objects containing changing sprites
     //total ammo
@@ -35,6 +48,8 @@ public class HUDController : MonoBehaviour
     private string[] ammoString = new string[3];
     // Ammo caps stored in list
     private int[] ammoCaps = new int[3];
+    // Upgrade text stored in list
+    private string[] upgradesString = new string[4];
 
     //comment later goober
     public Image[] upgradeSlots = new Image[9];
@@ -59,6 +74,18 @@ public class HUDController : MonoBehaviour
 
         SetUpgrades();
         ammoCaps = InventoryManager.instance.playerInventory.AMMO_CAPS;
+        // Populate upgradesString with upgrade types
+        upgradesString[0] = "Invulnerability Armor";
+        upgradesString[1] = "Stimulant";
+        upgradesString[2] = "Invisibility Shield";
+        upgradesString[3] = "Ammo Pack";
+
+        // Make sure upgrade tints are disabled
+        shieldUpgradeImg.enabled = false;
+        armorUpgradeImg.enabled = false;
+        stimUpgradeImg.enabled = false;
+        ammoUpgradeImg.enabled = false;
+
     }
 
     // Setting max health
@@ -203,11 +230,66 @@ public class HUDController : MonoBehaviour
             //check slot 1
             if (slots[i] == 1)
             {
-                slots[i] --;
+                slots[i]--;
                 upgradeSlots[i * 3 + 0].enabled = true;
             }
             else
                 upgradeSlots[i * 3 + 0].enabled = false;
         }
+    }
+    
+    public void SetUpgrade(int upgradeType, float upgradeDuration)
+    {
+        // Set text to display what upgrade player obtained
+        // upgradeInfoTxt.text = "" + upgradesString[upgradeType];
+
+        // Deactivate any running upgrades before starting another upgrade
+        DeactivateUpgrades(upgradeType);
+
+        // Start timer
+        TempPickupManager.instance.StartTimer(upgradeType, upgradeDuration);
+
+        // Activate upgrades and HUD tints
+        if (upgradeType == 0 || upgradeType == 1)
+        {
+            if(upgradeType == 0) armorUpgradeImg.enabled = true;
+            else stimUpgradeImg.enabled = true;
+            // Activate upgrade
+            PlayerController.instance.ActivateUpgrade(upgradeType);
+        }
+        else if (upgradeType == 2)
+        {
+            // Activate upgrade
+            EnemyController.ActivateUpgrade(upgradeType);
+            shieldUpgradeImg.enabled = true;
+        }
+        else if (upgradeType == 3)
+        {
+            // Activate upgrade
+            WeaponActionController.instance.ActivateUpgrade(upgradeType);
+            ammoUpgradeImg.enabled = true;
+        }
+
+    }
+
+    // This deactivates any running upgrades, and disables the tint image
+    public void DeactivateUpgrades(int upgradeType)
+    {
+        // Deactivate armor and stim upgrade after timer runs out
+        PlayerController.instance.DeactivateUpgrade(0);
+        PlayerController.instance.DeactivateUpgrade(1);
+        // Deactivate screen tints
+        stimUpgradeImg.enabled = false;
+        armorUpgradeImg.enabled = false;
+
+        // Deactivate shield upgrade after timer runs out
+        EnemyController.DeactivateUpgrade(2);
+        // Deactivate screen tint
+        shieldUpgradeImg.enabled = false;
+
+        // Deactivate ammo upgrade after timer runs out
+        WeaponActionController.instance.DeactivateUpgrade(3);
+        // Deactivate screen tint
+        ammoUpgradeImg.enabled = false;
     }
 }

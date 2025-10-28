@@ -2,7 +2,6 @@
 // This script will control each enemy spawner and allow them to instantiate enemies
 
 using System.Collections.Generic;
-using System.Linq;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.AI;
@@ -42,7 +41,7 @@ public class EnemySpawnerController : MonoBehaviour
             if (NavMesh.SamplePosition(randomPos, out NavMeshHit hit, _spawnRadius, mask))
             {
                 // create an enemy of specified type at specified position
-                Instantiate(RandomEnemy(), hit.position, quaternion.identity);
+                GameObject enemy = Instantiate(RandomEnemy(), hit.position, quaternion.identity);
 
                 // increase the count of successful spawns
                 enemiesSpawned++;

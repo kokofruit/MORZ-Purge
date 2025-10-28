@@ -1,5 +1,5 @@
 // Main Contributor: Gabriel Heiser
-// Secondary Contributor: Domenic, Phil
+// Other Contributors: Domenic, Phil, Vin (temporary upgrades)
 // Reviewer: 
 // Description: Input manager for the main player object
 
@@ -47,6 +47,11 @@ public class PlayerController : MonoBehaviour
     private float _lookY;
     // Maximum allowed player health
     private int MAX_HEALTH = 100;
+    // Upgrade bools
+    private bool armorUpActivated = false;
+    private bool stimulantUpActivated = false;
+    // Stimulant Upgrade Multiplier
+    private float stimMultiplier = 3;
 
     ///////////////////////////////// Monobehvaior Methods ////////////////////////////////
 
@@ -98,7 +103,13 @@ public class PlayerController : MonoBehaviour
         {
             // Set the players speed depending on whether they are sprinting or not
             float _speed = _isSprinting ? _walkSpeed * _runSpeedMultiplier : _walkSpeed;
-
+            // Check if stimulant is activated
+            if (stimulantUpActivated)
+            {
+                // Increase speed by multiplying by the multiplier
+                _speed += _walkSpeed * stimMultiplier;
+            }
+            // Speed goes back to normal once stimulantUpActivated is false
             // Change the raw input into player velocity by adding player speed
             Vector3 velocity = _movementVector * _speed;
             // Get the local vector to reflect changes in player rotation
@@ -173,16 +184,19 @@ public class PlayerController : MonoBehaviour
 
     public void SubtractHealth(float amount)
     {
-        _health -= amount;
-
-        // If the player runs out of health, they die
-        if (_health < 0)
+        // Check to make sure invincibility armor isn't active
+        if(!armorUpActivated)
         {
-            GameManager.instance.PlayerDied();
-        }
+            _health -= amount;
 
-        // Update health bar with new health amount
-        HUDController.instance.DisplayHealth(_health);
+            if (_health < 0)
+            {
+                GameManager.instance.PlayerDied();
+            }
+
+            // Update health bar with new health amount
+            HUDController.instance.DisplayHealth(_health);
+        }
     }
 
     ///////////////////////////////// Input  Management ////////////////////////////////
@@ -219,6 +233,34 @@ public class PlayerController : MonoBehaviour
         {
             // Add an sudden upwards force
             _rb.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
+        }
+    }
+    
+    /* Vin Lettich
+     * Functions to deal with armor and stimulant upgrades */
+    public void ActivateUpgrade(int upgradeType)
+    {
+        // If upgrade is armor, set armor activated to true
+        if (upgradeType == 0)
+        {
+            armorUpActivated = true;
+        }
+        // If upgrade is stim, set stim activated to true
+        else if (upgradeType == 1)
+        {
+            stimulantUpActivated = true;
+        }
+    }
+
+    public void DeactivateUpgrade(int upgradeType)
+    {
+        if(upgradeType == 0)
+        {
+            armorUpActivated = false;
+        }
+        else if (upgradeType == 1)
+        {
+            stimulantUpActivated = false;
         }
     }
 

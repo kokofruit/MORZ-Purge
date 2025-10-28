@@ -16,6 +16,8 @@ public class PickupSpawnerManager : MonoBehaviour
     [SerializeField] private GameObject[] _pickupObjects;
     //Upgrade Objects
     [SerializeField] private GameObject[] _upgradeObjects;
+
+    [SerializeField] public GameObject[] tempPickupObjects;
     // the amount of pickups desired
     [SerializeField, Min(0)] private int _pickupAmount;
     // the amount of ammo vs health pickups
