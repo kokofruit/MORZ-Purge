@@ -268,13 +268,17 @@ public class PlayerController : MonoBehaviour
     {
         RaycastHit hit;
         Physics.Raycast(head.position, head.forward, out hit, _interactDistance);
-        Debug.Log(hit);
+        //Debug.Log(hit);
 
+        //if raycast hits
         if (hit.collider != null)
+            //and hits a pickup
             if (hit.collider.CompareTag("Pickup"))
             {
+                //pickup
                 hit.collider.TryGetComponent(out PickupController pickup);
                 pickup.PickupObject();
+                //later dropping gun will be implemented in PickupObject()
             }
     }
 }
