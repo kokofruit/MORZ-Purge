@@ -69,7 +69,7 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     // COMPONENTS
     protected NavMeshAgent _navMeshAgent;
-    [SerializeField] protected Animator _animator;
+    protected Animator _animator;
     // The transform of the player
     protected Transform _playerTransform;
 
@@ -86,6 +86,9 @@ public class EnemyController : MonoBehaviour, IDamageable
 
         // Cache player transform
         _playerTransform = FindAnyObjectByType<PlayerController>().transform;
+
+        // Get the animator
+        _animator = transform.GetComponentInChildren<Animator>();
 
         // Set stats
         _navMeshAgent.speed = _moveSpeed;
