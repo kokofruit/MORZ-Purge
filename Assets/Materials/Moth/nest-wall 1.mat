@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Green
-  m_Shader: {fileID: -6465566751694194690, guid: f1e7110d75345364e824a09bb72abb7b, type: 3}
+  m_Name: nest-wall 1
+  m_Shader: {fileID: -6465566751694194690, guid: 763560524c6f1254b96e9d7f4e20ccfe, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -25,8 +25,8 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
+        m_Texture: {fileID: 2800000, guid: 879e0af90e1ffc540b739aeb211ac58b, type: 3}
+        m_Scale: {x: 5, y: 5}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 0}
@@ -49,8 +49,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
+        m_Texture: {fileID: 2800000, guid: 879e0af90e1ffc540b739aeb211ac58b, type: 3}
+        m_Scale: {x: 5, y: 5}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
@@ -64,12 +64,16 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_ad90a52eb4714a6a93e98ca2a952251d_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 879e0af90e1ffc540b739aeb211ac58b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Texture:
-        m_Texture: {fileID: 2800000, guid: 449ff4f034868504991bf69dd7ca5c20, type: 3}
+    - _Triplanar_a1341c89c4be4744a97426153d3ab6cc_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 879e0af90e1ffc540b739aeb211ac58b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -94,6 +98,7 @@ Material:
     - _BumpScale: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
+    - _ColorScaling: 20
     - _Cull: 2
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
@@ -116,17 +121,20 @@ Material:
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
-    - _UniversalScale: -0.2
+    - _TextureScaling: 0.01
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 0.3407147, g: 1, b: 0, a: 1}
-    - _Color: {r: 0.18543798, g: 0.5566038, b: 0.007876454, a: 1}
+    - _BaseColor: {r: 0.4528302, g: 0.29271284, b: 0.2207191, a: 1}
+    - _Color: {r: 0.45283014, g: 0.2927128, b: 0.22071907, a: 1}
+    - _ColorA: {r: 0.3803985, g: 0.035288375, b: 0.5754717, a: 1}
+    - _ColorB: {r: 1, g: 0.53751856, b: 0.3537736, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _TextureScaling: {r: 6, g: 6, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!114 &4455177675348052404
+--- !u!114 &2973289371354466914
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
