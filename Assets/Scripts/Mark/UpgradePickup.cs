@@ -12,7 +12,7 @@ public class UpgradePickup : PickupController
 
     public override void PickupObject()
     {
-        Inventory_Manager.instance.playerInventory.AddUpgrade(upgrade);
+        InventoryManager.instance.playerInventory.AddUpgrade(upgrade);
 
         base.PickupObject();
     }

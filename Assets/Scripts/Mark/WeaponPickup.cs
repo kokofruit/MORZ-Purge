@@ -15,7 +15,7 @@ public class WeaponPickup : PickupController
     public override void PickupObject()
     {
         // Calling 
-        Inventory_Manager.instance.playerInventory.AddWeapon(weapon);
+        InventoryManager.instance.playerInventory.AddWeapon(weapon);
 
         base.PickupObject();
     }
