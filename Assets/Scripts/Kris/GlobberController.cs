@@ -6,10 +6,6 @@ using UnityEngine;
 
 public class GlobberController : RangedEnemyController
 {
-    [SerializeField] AudioClip _attackAudio;
-    [SerializeField] AudioClip _damageAudio;
-    [SerializeField] AudioClip _deathAudio;
-
     protected override void Start()
     {
         base.Start();

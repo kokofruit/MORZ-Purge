@@ -73,6 +73,11 @@ public class EnemyController : MonoBehaviour, IDamageable
     // The transform of the player
     protected Transform _playerTransform;
 
+    // SOUNDS
+    [SerializeField] protected AudioClip _attackAudio;
+    [SerializeField] protected AudioClip _damageAudio;
+    [SerializeField] protected AudioClip _deathAudio;
+
     #region FUNCTIONS
 
     // UNITY LIFECYCYLE FUNCTIONS
@@ -331,9 +336,11 @@ public class EnemyController : MonoBehaviour, IDamageable
     void IDamageable.TakeDamage(float damage)
     {
         _health -= damage / (GameManager.instance.GetDifficulty() / 2 + 0.5f);
+        SoundManager.instance.PlayFXAudio(_damageAudio, transform);
 
         if (_health <= 0)
         {
+            SoundManager.instance.PlayFXAudio(_deathAudio, transform);
             Die();
         }
     }

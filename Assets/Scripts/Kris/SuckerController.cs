@@ -7,9 +7,6 @@ using UnityEngine;
 public class SuckerController : FlyingEnemyController
 {
     [SerializeField] protected int _lifeGained;
-    [SerializeField] AudioClip _attackAudio;
-    [SerializeField] AudioClip _damageAudio;
-    [SerializeField] AudioClip _deathAudio;
 
     // Uses the Start from the FlyingEnemyController
     protected override void Start()
