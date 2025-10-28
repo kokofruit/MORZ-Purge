@@ -67,30 +67,28 @@ public class InventoryManager : MonoBehaviour
     //Method to find and set to the next available gun in inventorys
     public void ChangeWeapon(int inc, int start, ref Weapon w)
     {
-        inc = -inc;
-
-        //increment here
         int val = start;
         val += inc;
 
-        //loops back around the three slots here
-        if (val > 2)
-            val = 0;
-        else if (val < 0)
-            val = 2;
+        while (val != start) {
+            //loops back around the three slots here
+            if (val > 2)
+                val = 0;
+            else if (val < 0)
+                val = 2;
 
-        if (playerInventory.GetWeapon(val) == null)
-            //recursive call
-            ChangeWeapon(inc, val, ref w);
-        else
-        {
-            //sets gun here
-            w = playerInventory.GetWeapon(val);
+            if (playerInventory.GetWeapon(val) != null) {
+                //sets gun here
+                w = playerInventory.GetWeapon(val);
 
-            HUDController.instance.SetWeaponImage(3 * (int)w.STAGE + (int)w.AMMO_TYPE);
-            HUDController.instance.SetIconBG((int)w.AMMO_TYPE);
-            HUDController.instance.SetWeaponIcon((int)w.AMMO_TYPE, (int)w.STAGE);
-            HUDController.instance.LoadMagazineDisplay(WeaponActionController.instance.currentWeapon);
+                HUDController.instance.SetWeaponImage(3 * (int)w.STAGE + (int)w.AMMO_TYPE);
+                HUDController.instance.SetIconBG((int)w.AMMO_TYPE);
+                HUDController.instance.SetWeaponIcon((int)w.AMMO_TYPE, (int)w.STAGE);
+                HUDController.instance.LoadMagazineDisplay(WeaponActionController.instance.currentWeapon);
+                break;
+            }
+            //increment here
+            val += inc;
         }
     }
 }
@@ -196,7 +194,7 @@ public class Inventory
                 //adds upgrades
                 upgrades[i].upgradeValues[(int)upgrade.UPGRADE_TYPE] += upgrade.AMOUNT;
                 //determines which of the 2 all upgrades are added
-                upgrades[i].upgradeValues[4] += upgrade.SLOT ? 2:1;
+                upgrades[i].upgradeValues[4] += upgrade.SLOT==1 ? 2:1;
             }
         }
         else
