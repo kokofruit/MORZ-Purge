@@ -6,7 +6,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyController : MonoBehaviour
+public class EnemyController : MonoBehaviour, IDamageable
 {
     // The toggle for Moth's makeshift debug mode
     [SerializeField] protected bool DEBUG_MODE;
@@ -25,7 +25,7 @@ public class EnemyController : MonoBehaviour
     // The damage applied to the player, calculated by multiplying the base damage by the global multiplier
     protected float _calculatedDamage
     {
-        get { return _baseDamage * 1; } // TODO: REPLACE WITH GLOBAL MODIFIER
+        get { return _baseDamage * GameManager.instance.GetDifficulty() / 2; }
     }
     // How close the enemy needs to be to the player to attack
     [SerializeField] protected float _attackDistance;
@@ -46,7 +46,7 @@ public class EnemyController : MonoBehaviour
     // how often the enemy checks if it can see the player
     [SerializeField, Min(0.001f)] float _sightCheckingInterval;
     // the layermask for raycasting to the player, allows enemies to see through certain objects
-    [SerializeField] LayerMask _layerMask;
+    LayerMask _layerMask = 1;
     // tracks whether the enemy can currently see the player
     protected bool _lineOfSight;
 
@@ -69,6 +69,7 @@ public class EnemyController : MonoBehaviour
 
     // COMPONENTS
     protected NavMeshAgent _navMeshAgent;
+    protected Animator _animator;
     // The transform of the player
     protected Transform _playerTransform;
 
@@ -84,7 +85,10 @@ public class EnemyController : MonoBehaviour
         _navMeshAgent = GetComponent<NavMeshAgent>();
 
         // Cache player transform
-        _playerTransform = FindAnyObjectByType<Player_Controller>().transform;
+        _playerTransform = FindAnyObjectByType<PlayerController>().transform;
+
+        // Get the animator
+        _animator = transform.GetComponentInChildren<Animator>();
 
         // Set stats
         _navMeshAgent.speed = _moveSpeed;
@@ -124,6 +128,7 @@ public class EnemyController : MonoBehaviour
         if (_lineOfSight)
         {
             _enemyState = EnemyState.chasing;
+            _animator.SetBool("isWalking", true);
             return;
         }
         // if the idle timer is over, roam or restart idling
@@ -138,6 +143,7 @@ public class EnemyController : MonoBehaviour
                 _roamingTimer = _maxRoamingDuration;
                 // change the state
                 _enemyState = EnemyState.roaming;
+                _animator.SetBool("isWalking", true);
 
                 // print debug statement
                 if (DEBUG_MODE) print(gameObject.name + ": Set state to roaming");
@@ -224,6 +230,7 @@ public class EnemyController : MonoBehaviour
         if (_lineOfSight)
         {
             _enemyState = EnemyState.chasing;
+            _animator.SetBool("isWalking", true);
             return;
         }
         // If done navigating or if navigating for too long (in case of being stuck), return to idle mode
@@ -295,6 +302,7 @@ public class EnemyController : MonoBehaviour
         else if (_attackingTimer <= 0)
         {
             _enemyState = EnemyState.chasing;
+            _animator.SetBool("isWalking", true);
             return;
         }
         // Decrease the attacking timer
@@ -313,15 +321,16 @@ public class EnemyController : MonoBehaviour
     // Cooldown behavior
     protected virtual void AttackCooldown()
     {
-        
+
     }
 
     // OTHER FUNCTIONS
     /** Kris Herbert
      * Function to deal damage to the enemy when the player shoots an enemy. */
-    public void EnemyDamage(float damage)
+    // Moth Harper expansion: attack to damageable interface
+    void IDamageable.TakeDamage(float damage)
     {
-        _health -= damage;
+        _health -= damage / (GameManager.instance.GetDifficulty() / 2 + 0.5f);
 
         if (_health <= 0)
         {
@@ -343,7 +352,7 @@ public class EnemyController : MonoBehaviour
     protected void PlayerDamage()
     {
         if (DEBUG_MODE) print(gameObject.name + "Damaged player by: " + _calculatedDamage);
-        _playerTransform.GetComponent<Player_Controller>().SubtractHealth(_calculatedDamage);
+        _playerTransform.GetComponent<PlayerController>().SubtractHealth(_calculatedDamage);
     }
 
 

@@ -9,7 +9,6 @@ using UnityEngine.UI;
 [CreateAssetMenu(fileName = "WeaponTemplate", menuName = "Scriptable Objects/WeaponTemplate")]
 public class WeaponTemplate : ScriptableObject
 {
-    public Sprite SPRITE;
     public float DAMAGE;
     public float COOLDOWN;
     public int RANGE;
