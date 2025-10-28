@@ -9,6 +9,9 @@ using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour, IDamageable
 {
+    // Static instance of the enemy for other scripts to reference
+    public static EnemyController instance;
+
     // The toggle for Moth's makeshift debug mode
     [SerializeField] protected bool DEBUG_MODE;
 
@@ -76,7 +79,18 @@ public class EnemyController : MonoBehaviour, IDamageable
     // The transform of the player
     protected Transform _playerTransform;
 
+    // INVISIBILITY SHIELD
+    private bool shieldUpActivated = false;
+
     #region FUNCTIONS
+
+    void Awake()
+    {
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(gameObject);
+    }
 
     // UNITY LIFECYCYLE FUNCTIONS
     protected virtual void Start()
@@ -261,34 +275,38 @@ public class EnemyController : MonoBehaviour, IDamageable
      * Behavior for chasing state */
     protected virtual void DoChasing()
     {
-        /** Moth Harper and Kris Herbert
+        // If invisibility shield is activated, interrupt the DoChasing process
+        if(!shieldUpActivated)
+        {
+            /** Moth Harper and Kris Herbert
          * if close enough to player and not on cooldown, attack them */
-        if ((Vector3.Distance(transform.position, _playerTransform.position) <= _attackDistance) && (_attackingTimer <= 0))
-        {
-            // clear path
-            _navMeshAgent.ResetPath();
-            // set attack timer
-            _attackingTimer = _attackCooldown;
-            // change state
-            _enemyState = EnemyState.attacking;
-            return;
-        }
+            if ((Vector3.Distance(transform.position, _playerTransform.position) <= _attackDistance) && (_attackingTimer <= 0))
+            {
+                // clear path
+                _navMeshAgent.ResetPath();
+                // set attack timer
+                _attackingTimer = _attackCooldown;
+                // change state
+                _enemyState = EnemyState.attacking;
+                return;
+            }
 
-        /**
-        * Kris Herbert
-        * _lineOfSight uses a raycast to check if it can see the player
-        * if true than it will change EnemyState to start chasing the player
-        * if it's false then it will return to the idle EnemyState.
-        */
+            /**
+            * Kris Herbert
+            * _lineOfSight uses a raycast to check if it can see the player
+            * if true than it will change EnemyState to start chasing the player
+            * if it's false then it will return to the idle EnemyState.
+            */
 
-        if (_lineOfSight == true)
-        {
-            this._navMeshAgent.SetDestination(_playerTransform.position);
-        }
-        else
-        {
-            _idleTimer = _idleDuration;
-            _enemyState = EnemyState.idle;
+            if (_lineOfSight == true)
+            {
+                this._navMeshAgent.SetDestination(_playerTransform.position);
+            }
+            else
+            {
+                _idleTimer = _idleDuration;
+                _enemyState = EnemyState.idle;
+            }
         }
     }
 
@@ -359,6 +377,18 @@ public class EnemyController : MonoBehaviour, IDamageable
     {
         if (DEBUG_MODE) print(gameObject.name + "Damaged player by: " + _calculatedDamage);
         _playerTransform.GetComponent<PlayerController>().SubtractHealth(_calculatedDamage);
+    }
+
+    /* Vin Lettich
+     * Functions to deal with invisibility shield (interrupting the DoChasing for 10s) */
+    public void ActivateUpgrade(int upgradeType)
+    {
+        shieldUpActivated = true;
+    }
+
+    public void DeactivateUpgrade(int upgradeType)
+    {
+        shieldUpActivated = false;
     }
 
 

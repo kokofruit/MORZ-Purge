@@ -4,6 +4,7 @@
 // Description: Handles the player input for weapon behaviors and translates them into gameplay actions.
 
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -18,6 +19,9 @@ public class WeaponActionController : MonoBehaviour
     // Weapon controller runtime variables
     private bool _isAttacking;
     private float _nextShotTime;
+
+    // Variable for ammo upgrade
+    private bool ammoUpActivated = false;
 
     void Awake()
     {
@@ -83,10 +87,14 @@ public class WeaponActionController : MonoBehaviour
                     //     hit.collider.GetComponent<EnemyController>().EnemyDamage(currentWeapon.damage);
                     // }
                 }
-                // Remove a bullet from the weapons magazine
-                currentWeapon.SubtractAmmo();
-                // Reflect that change on HUD
-                HUDController.instance.LoadMagazineDisplay(currentWeapon);
+                // Ignores all of this if unlimited ammo upgrade is active
+                if(!ammoUpActivated)
+                {
+                    // Remove a bullet from the weapons magazine
+                    currentWeapon.SubtractAmmo();
+                    // Reflect that change on HUD
+                    HUDController.instance.LoadMagazineDisplay(currentWeapon);
+                }
 
                 // Determine the time when the next bullet will be avaible to fire
                 _nextShotTime = Time.time + (1f / currentWeapon.fireRate);
@@ -151,6 +159,20 @@ public class WeaponActionController : MonoBehaviour
             return;
         GetWeapon((int)input.Get<float>(), (int)currentWeapon.AMMO_TYPE);
     }
+
+    /* Vin Lettich
+     * Functions to deal with unlimited ammo upgrade
+    /*************************/
+    public void ActivateUpgrade(int upgradeType)
+    {
+        ammoUpActivated = true;
+    }
+
+    public void DeactivateUpgrade(int upgradeType)
+    {
+        ammoUpActivated = false;
+    }
+    /*************************/
 
     public void OnReload()
     {
