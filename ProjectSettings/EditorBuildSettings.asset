@@ -6,8 +6,26 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    path: Assets/Scenes/Gabriel/TitleScreen.unity
+    guid: 1772d09bc35fa1d478780060aace6e7d
+  - enabled: 1
+    path: Assets/Scenes/Gabriel/Level 1.unity
+    guid: 35de71893b9210846817bf863f62bf90
+  - enabled: 1
+    path: Assets/Scenes/Gabriel/Level 2.unity
+    guid: a40d2e8fde2ee6a4981f50af77f8bcc8
+  - enabled: 1
+    path: Assets/Scenes/Gabriel/Level 3.unity
+    guid: 56b0abfe9770e5e4888d17618c96f2cf
+  - enabled: 1
+    path: Assets/Scenes/Gabriel/WinScreen.unity
+    guid: b7a3012d30f629543a0d6b82ceed6bb0
+  - enabled: 1
+    path: Assets/Scenes/Gabriel/DeathScreen.unity
+    guid: eb88c13b323048f4d9660570a5c8cf18
+  - enabled: 1
+    path: Assets/Scenes/Gabriel/LoseScreen.unity
+    guid: e13b825816a1d5f47965380103c7fd48
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
