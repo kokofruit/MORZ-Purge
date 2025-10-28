@@ -1116,9 +1116,9 @@ MonoBehaviour:
   spawnLocation: 0
   _spawnableEnemies:
   - {fileID: 2325259227681129849, guid: 6f341898ac0f685469379fb4c936bb3f, type: 3}
-  - {fileID: 6772492763247544868, guid: 463127e4f4ea5904aa8de47dc2db07d9, type: 3}
+  - {fileID: 1625208117185856178, guid: b5225fab23cb83142a9d8775d6ee5e24, type: 3}
   - {fileID: 6377917487719104797, guid: fb1b76356706b2a40b3cd9477a07b7d3, type: 3}
-  - {fileID: 1653444842913093788, guid: a1834a07ed655374abaadcdf61071fb3, type: 3}
+  - {fileID: 1625208117185856178, guid: c50a413a7ee7a5748a0463c3889fda0f, type: 3}
   _minEnemies: 8
   _maxEnemies: 14
   _spawnRadius: 12
@@ -1894,9 +1894,9 @@ MonoBehaviour:
   spawnLocation: 0
   _spawnableEnemies:
   - {fileID: 2325259227681129849, guid: 6f341898ac0f685469379fb4c936bb3f, type: 3}
-  - {fileID: 6772492763247544868, guid: 463127e4f4ea5904aa8de47dc2db07d9, type: 3}
+  - {fileID: 1625208117185856178, guid: b5225fab23cb83142a9d8775d6ee5e24, type: 3}
   - {fileID: 6377917487719104797, guid: fb1b76356706b2a40b3cd9477a07b7d3, type: 3}
-  - {fileID: 1653444842913093788, guid: a1834a07ed655374abaadcdf61071fb3, type: 3}
+  - {fileID: 1625208117185856178, guid: c50a413a7ee7a5748a0463c3889fda0f, type: 3}
   _minEnemies: 8
   _maxEnemies: 14
   _spawnRadius: 12
@@ -2142,9 +2142,9 @@ MonoBehaviour:
   spawnLocation: 0
   _spawnableEnemies:
   - {fileID: 2325259227681129849, guid: 6f341898ac0f685469379fb4c936bb3f, type: 3}
-  - {fileID: 6772492763247544868, guid: 463127e4f4ea5904aa8de47dc2db07d9, type: 3}
+  - {fileID: 1625208117185856178, guid: b5225fab23cb83142a9d8775d6ee5e24, type: 3}
   - {fileID: 6377917487719104797, guid: fb1b76356706b2a40b3cd9477a07b7d3, type: 3}
-  - {fileID: 1653444842913093788, guid: a1834a07ed655374abaadcdf61071fb3, type: 3}
+  - {fileID: 1625208117185856178, guid: c50a413a7ee7a5748a0463c3889fda0f, type: 3}
   _minEnemies: 8
   _maxEnemies: 14
   _spawnRadius: 12
@@ -3629,9 +3629,9 @@ MonoBehaviour:
   spawnLocation: 0
   _spawnableEnemies:
   - {fileID: 2325259227681129849, guid: 6f341898ac0f685469379fb4c936bb3f, type: 3}
-  - {fileID: 6772492763247544868, guid: 463127e4f4ea5904aa8de47dc2db07d9, type: 3}
+  - {fileID: 1625208117185856178, guid: b5225fab23cb83142a9d8775d6ee5e24, type: 3}
   - {fileID: 6377917487719104797, guid: fb1b76356706b2a40b3cd9477a07b7d3, type: 3}
-  - {fileID: 1653444842913093788, guid: a1834a07ed655374abaadcdf61071fb3, type: 3}
+  - {fileID: 1625208117185856178, guid: c50a413a7ee7a5748a0463c3889fda0f, type: 3}
   _minEnemies: 8
   _maxEnemies: 14
   _spawnRadius: 12
@@ -11176,7 +11176,7 @@ PrefabInstance:
     - target: {fileID: 3134025216242002184, guid: b06c8d648d2d2c1458b7e28656b2c10e, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 1c65db2f19fbaeb40b1876acb1cf3073, type: 2}
+      objectReference: {fileID: 2100000, guid: cb1cdf0a392b4754ebeef2d8e461426c, type: 2}
     - target: {fileID: 3135022374025596332, guid: b06c8d648d2d2c1458b7e28656b2c10e, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
@@ -12240,7 +12240,7 @@ PrefabInstance:
     - target: {fileID: 3569552445623572514, guid: b06c8d648d2d2c1458b7e28656b2c10e, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 1c65db2f19fbaeb40b1876acb1cf3073, type: 2}
+      objectReference: {fileID: 2100000, guid: cb1cdf0a392b4754ebeef2d8e461426c, type: 2}
     - target: {fileID: 3571118369797523287, guid: b06c8d648d2d2c1458b7e28656b2c10e, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
@@ -25345,9 +25345,9 @@ MonoBehaviour:
   spawnLocation: 0
   _spawnableEnemies:
   - {fileID: 2325259227681129849, guid: 6f341898ac0f685469379fb4c936bb3f, type: 3}
-  - {fileID: 6772492763247544868, guid: 463127e4f4ea5904aa8de47dc2db07d9, type: 3}
+  - {fileID: 1625208117185856178, guid: b5225fab23cb83142a9d8775d6ee5e24, type: 3}
   - {fileID: 6377917487719104797, guid: fb1b76356706b2a40b3cd9477a07b7d3, type: 3}
-  - {fileID: 1653444842913093788, guid: a1834a07ed655374abaadcdf61071fb3, type: 3}
+  - {fileID: 1625208117185856178, guid: c50a413a7ee7a5748a0463c3889fda0f, type: 3}
   _minEnemies: 8
   _maxEnemies: 14
   _spawnRadius: 12
@@ -25757,9 +25757,9 @@ MonoBehaviour:
   spawnLocation: 0
   _spawnableEnemies:
   - {fileID: 2325259227681129849, guid: 6f341898ac0f685469379fb4c936bb3f, type: 3}
-  - {fileID: 6772492763247544868, guid: 463127e4f4ea5904aa8de47dc2db07d9, type: 3}
+  - {fileID: 1625208117185856178, guid: b5225fab23cb83142a9d8775d6ee5e24, type: 3}
   - {fileID: 6377917487719104797, guid: fb1b76356706b2a40b3cd9477a07b7d3, type: 3}
-  - {fileID: 1653444842913093788, guid: a1834a07ed655374abaadcdf61071fb3, type: 3}
+  - {fileID: 1625208117185856178, guid: c50a413a7ee7a5748a0463c3889fda0f, type: 3}
   _minEnemies: 8
   _maxEnemies: 14
   _spawnRadius: 12
@@ -26062,6 +26062,34 @@ PrefabInstance:
     - target: {fileID: 4997579544214914947, guid: 5bfb54c92bca86341b4ab6ef722e85f3, type: 3}
       propertyPath: m_Name
       value: Radar
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330354435963895498, guid: 5bfb54c92bca86341b4ab6ef722e85f3, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6aeeb22cd3652fa4daf5c25d27635490, type: 3}
+    - target: {fileID: 5330354435963895498, guid: 5bfb54c92bca86341b4ab6ef722e85f3, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330354435963895498, guid: 5bfb54c92bca86341b4ab6ef722e85f3, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330354435963895498, guid: 5bfb54c92bca86341b4ab6ef722e85f3, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5379055331052004602, guid: 5bfb54c92bca86341b4ab6ef722e85f3, type: 3}
+      propertyPath: m_Color.b
+      value: 0.79330516
+      objectReference: {fileID: 0}
+    - target: {fileID: 5379055331052004602, guid: 5bfb54c92bca86341b4ab6ef722e85f3, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5379055331052004602, guid: 5bfb54c92bca86341b4ab6ef722e85f3, type: 3}
+      propertyPath: m_Color.r
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7594176001434446703, guid: 5bfb54c92bca86341b4ab6ef722e85f3, type: 3}
       propertyPath: m_AnchorMax.x
@@ -26696,6 +26724,22 @@ PrefabInstance:
     - target: {fileID: 834595443447365811, guid: 2e0f48a916624284bab5e136ea54697d, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 977779826998750455, guid: 2e0f48a916624284bab5e136ea54697d, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: cf99bda65797f7b4198d938e5bf405ef, type: 3}
+    - target: {fileID: 977779826998750455, guid: 2e0f48a916624284bab5e136ea54697d, type: 3}
+      propertyPath: m_Color.b
+      value: 0.8632076
+      objectReference: {fileID: 0}
+    - target: {fileID: 977779826998750455, guid: 2e0f48a916624284bab5e136ea54697d, type: 3}
+      propertyPath: m_Color.g
+      value: 0.8632076
+      objectReference: {fileID: 0}
+    - target: {fileID: 977779826998750455, guid: 2e0f48a916624284bab5e136ea54697d, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 977779826998750455, guid: 2e0f48a916624284bab5e136ea54697d, type: 3}
       propertyPath: m_Enabled
