@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4404179622309038449}
   - component: {fileID: 7838662412711957683}
   - component: {fileID: 2657913012246621473}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: StingerPrefab
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -51,7 +51,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DEBUG_MODE: 0
   _baseHealth: 15
-  _bugDeathExplosion: {fileID: 0}
+  _bugDeathExplosion: {fileID: 6709580774957103173, guid: 1299c3f0212f10a458dc6b9ba8f91bdf, type: 3}
   _baseDamage: 6
   _attackDistance: 3
   _attackCooldown: 8
@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 4582616667015295079}
   - component: {fileID: 7544547901577101086}
   - component: {fileID: 8846673434992123305}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EnemySpriteQuad
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -147,7 +147,7 @@ Transform:
   m_GameObject: {fileID: 3192739476905438236}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: -10, y: 1, z: 12.5}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1.56, y: 1.56, z: 1.56}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -239,7 +239,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7654907420084245735}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EnemyEyePoint
   m_TagString: Enemy
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}

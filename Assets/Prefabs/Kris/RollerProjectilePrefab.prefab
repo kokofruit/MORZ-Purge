@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 3742492750591347490}
   - component: {fileID: 4782917544583794510}
   - component: {fileID: 3749333793019402085}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RollerProjectilePrefab
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -1234,9 +1234,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 645586293516293358, guid: cf4010b4725251f408f33ba3114c881a, type: 3}
       insertIndex: 11
       addedObject: {fileID: 2109275854}
-    - targetCorrespondingSourceObject: {fileID: 645586293516293358, guid: cf4010b4725251f408f33ba3114c881a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1322545866}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf4010b4725251f408f33ba3114c881a, type: 3}
 --- !u!1001 &657909271
@@ -1628,11 +1625,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!224 &825811381 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 7594176001434446703, guid: 5bfb54c92bca86341b4ab6ef722e85f3, type: 3}
-  m_PrefabInstance: {fileID: 5481070262326473157}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &837246488
 GameObject:
   m_ObjectHideFlags: 0
@@ -1900,6 +1892,10 @@ PrefabInstance:
       propertyPath: '_pickupObjects.Array.data[3]'
       value: 
       objectReference: {fileID: 3505227149932339712, guid: 7032d4d5db875c34b8acbc587dbb9240, type: 3}
+    - target: {fileID: 2717184170425545322, guid: ac869b19f5da8824093e715731634f15, type: 3}
+      propertyPath: tempPickupObjects.Array.size
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 5841057268498492037, guid: ac869b19f5da8824093e715731634f15, type: 3}
       propertyPath: m_Name
       value: pusm
@@ -2411,11 +2407,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f540abf0223495047a1dc9d7593c6684, type: 3}
---- !u!224 &1322545866 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 3750212251233489521, guid: 5bfb54c92bca86341b4ab6ef722e85f3, type: 3}
-  m_PrefabInstance: {fileID: 5481070262326473157}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1428548323 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8955192714415123838, guid: 71b1ade77c9d38848ab920a3469ad60f, type: 3}
@@ -4410,7 +4401,6 @@ SceneRoots:
   - {fileID: 222147537}
   - {fileID: 595608611}
   - {fileID: 1318136413}
-  - {fileID: 8609564550240345041}
   - {fileID: 1097212883}
   - {fileID: 980817307}
   - {fileID: 480029558}

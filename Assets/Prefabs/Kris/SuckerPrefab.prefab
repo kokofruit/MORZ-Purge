@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4404179622309038449}
   - component: {fileID: 7838662412711957683}
   - component: {fileID: 2657913012246621473}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SuckerPrefab
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -51,7 +51,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DEBUG_MODE: 0
   _baseHealth: 6
-  _bugDeathExplosion: {fileID: 0}
+  _bugDeathExplosion: {fileID: 6709580774957103173, guid: 1299c3f0212f10a458dc6b9ba8f91bdf, type: 3}
   _baseDamage: 5
   _attackDistance: 3
   _attackCooldown: 3
@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 1388506250082797776}
   - component: {fileID: 585501653760361033}
   - component: {fileID: 5981569535419007412}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EnemySpriteQuad
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -151,13 +151,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6694327558542250019}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1.56, y: 1.56, z: 1.56}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 6424224405630106537}
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &585501653760361033
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -244,7 +244,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7654907420084245735}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EnemyEyePoint
   m_TagString: Enemy
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}

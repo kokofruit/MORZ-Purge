@@ -12,7 +12,7 @@ public class AmmoUpgradeController : PickupController
 {
 
     // Private Variables //
-    private float upgradeDuration = 10f;
+    [SerializeField] private float upgradeDuration = 10f;
     // Ammo upgrade is type 3
     private int upgradeType = 3;
 

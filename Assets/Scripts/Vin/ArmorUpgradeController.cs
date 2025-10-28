@@ -11,7 +11,7 @@ public class ArmorUpgradeController : PickupController
 {
 
     // Private Variables //
-    private float upgradeDuration = 10f;
+    [SerializeField] private float upgradeDuration = 10f;
     // Armor upgrade is type 0
     private int upgradeType = 0;
 

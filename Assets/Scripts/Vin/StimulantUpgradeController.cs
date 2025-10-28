@@ -12,7 +12,7 @@ public class StimulantUpgradeController : PickupController
 {
 
     // Private Variables //
-    private float upgradeDuration = 10f;
+    [SerializeField] private float upgradeDuration = 10f;
     // Stimulant upgrade is type 1
     private int upgradeType = 1;
 

@@ -80,17 +80,17 @@ public class EnemyController : MonoBehaviour, IDamageable
     protected Transform _playerTransform;
 
     // INVISIBILITY SHIELD
-    private bool shieldUpActivated = false;
+    private static bool shieldUpActivated = false;
 
     #region FUNCTIONS
 
-    void Awake()
-    {
-        if (instance == null)
-            instance = this;
-        else
-            Destroy(gameObject);
-    }
+    // void Awake()
+    // {
+    //     if (instance == null)
+    //         instance = this;
+    //     else
+    //         Destroy(gameObject);
+    // }
 
     // UNITY LIFECYCYLE FUNCTIONS
     protected virtual void Start()
@@ -366,9 +366,19 @@ public class EnemyController : MonoBehaviour, IDamageable
     public void Die()
     {
         GameObject bugsplosion = Instantiate(_bugDeathExplosion.gameObject, transform.GetChild(0).position, quaternion.identity);
+        int randInt = UnityEngine.Random.Range(0, 50);
+        if (randInt < PickupSpawnerManager.instance.tempPickupObjects.Length)
+        {
+            Instantiate(PickupSpawnerManager.instance.tempPickupObjects[randInt], transform.position, transform.rotation);
+        }
         Destroy(bugsplosion, 0.5f);
         StopAllCoroutines();
         Destroy(gameObject);
+    }
+
+    void OnDestroy()
+    {
+        // print("plpease");
     }
 
     /** Kris Herbert
@@ -381,12 +391,12 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     /* Vin Lettich
      * Functions to deal with invisibility shield (interrupting the DoChasing for 10s) */
-    public void ActivateUpgrade(int upgradeType)
+    public static void ActivateUpgrade(int upgradeType)
     {
         shieldUpActivated = true;
     }
 
-    public void DeactivateUpgrade(int upgradeType)
+    public static void DeactivateUpgrade(int upgradeType)
     {
         shieldUpActivated = false;
     }

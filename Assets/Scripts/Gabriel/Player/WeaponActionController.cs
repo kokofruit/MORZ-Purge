@@ -4,7 +4,6 @@
 // Description: Handles the player input for weapon behaviors and translates them into gameplay actions.
 
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;

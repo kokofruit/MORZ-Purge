@@ -191,11 +191,11 @@ public class PlayerController : MonoBehaviour
 
             if (_health < 0)
             {
-                Game_Manager.instance.PlayerDied();
+                GameManager.instance.PlayerDied();
             }
 
             // Update health bar with new health amount
-            HUDController.instance.SetHealth(_health);
+            HUDController.instance.DisplayHealth(_health);
         }
     }
 

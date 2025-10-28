@@ -11,7 +11,7 @@ public class ShieldUpgradeController : PickupController
 {
 
     // Private Variables //
-    private float upgradeDuration = 10f;
+    [SerializeField] private float upgradeDuration = 10f;
     // Shield upgrade is type 2
     private int upgradeType = 2;
 

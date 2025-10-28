@@ -88,7 +88,7 @@ public class InventoryManager : MonoBehaviour
                 break;
             }
             //increment here
-            val += inc;
+            val -= inc;
         }
     }
 }
