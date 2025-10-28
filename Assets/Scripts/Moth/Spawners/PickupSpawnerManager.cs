@@ -1,5 +1,5 @@
 // Main Contributor: Moth Harper
-// Secondary Contributor: Gabe & Phil :) & Gub :(
+// Secondary Contributor: Gabe & Gub :) & Phil :)
 // Reviewer:
 // Description: Spawns pickups in the level
 
@@ -14,6 +14,8 @@ public class PickupSpawnerManager : MonoBehaviour
 
     // NOT ENOUGH BALLS
     [SerializeField] private GameObject[] _pickupObjects;
+    //Upgrade Objects
+    [SerializeField] private GameObject[] _upgradeObjects;
     // the amount of pickups desired
     [SerializeField, Min(0)] private int _pickupAmount;
     // the amount of ammo vs health pickups
@@ -42,16 +44,30 @@ public class PickupSpawnerManager : MonoBehaviour
         // Find all spawners in the scene and add them into the list
         _spawners = FindObjectsByType<PickupSpawnerController>(FindObjectsSortMode.None).ToList();
 
+
+        // create a list of unused spawners
+        List<PickupSpawnerController> availableSpawners = _spawners;
+
+        //spawn one of each upgrade
+        foreach (GameObject g in _upgradeObjects ) {
+            if (availableSpawners.Count < 1)
+                return;
+            int index = Random.Range(0, availableSpawners.Count);
+            availableSpawners[0].GetComponent<PickupSpawnerController>()?.CreatePickup(g);
+            availableSpawners.RemoveAt(0);
+        }
+
         // some error proofing
         if (_pickupAmount == 0) return;
-        if (_pickupAmount > _spawners.Count) _pickupAmount = _spawners.Count;
+        if (_pickupAmount > availableSpawners.Count) _pickupAmount = availableSpawners.Count;
+
+
+
 
         // set amounts for each pickup
         int ammoAmount = (int)Mathf.Round(_ammoToHealthRatio * _pickupAmount);
         int healthAmout = _pickupAmount - ammoAmount;
 
-        // create a list of unused spawners
-        List<PickupSpawnerController> availableSpawners = _spawners;
         // create ammo pickups
         for (int i = 0; i < ammoAmount; i++)
         {
