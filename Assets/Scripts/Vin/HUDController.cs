@@ -16,7 +16,7 @@ public class HUDController : MonoBehaviour
     public Image healthBar;
     public Image cooldownBar;
     // References the text box displayed for ammo currently in mag
-    public TextMeshProUGUI ammoTxt;
+    // public TextMeshProUGUI ammoTxt;
     // References the text boxes for light, medium, and heavy ammo
     public TextMeshProUGUI[] inventoryAmmo = new TextMeshProUGUI[3];
     // Reference to upgrade info text box

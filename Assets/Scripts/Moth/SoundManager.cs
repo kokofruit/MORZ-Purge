@@ -4,7 +4,6 @@
 
 using UnityEngine;
 using UnityEngine.Audio;
-using System.Collections.Generic;
 
 public class SoundManager : MonoBehaviour
 {
@@ -40,6 +39,8 @@ public class SoundManager : MonoBehaviour
     /// <param name="pitchFluctuation">The maximum amount the pitch can differ (postively or negatively) from the base pitch</param>
     public void PlayFXAudio(AudioClip clip, Transform parent, float volume = 1f, float pitch = 1f, float pitchFluctuation = 0f)
     {
+        Debug.Log(clip);
+        
         // Create an object to play the audio
         AudioSource player = Instantiate(_soundPlayerPrefab, parent);
 
