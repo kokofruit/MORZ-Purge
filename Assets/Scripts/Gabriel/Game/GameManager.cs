@@ -11,14 +11,21 @@ using UnityEngine.InputSystem;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+
     public bool clearDataOnStart = false;
+
     private int _playerLives;
+
     private int _currentLevel;
+    
     private int _difficulty;
+    
     [SerializeField]
     private int _startingLives = 3;
+    
     [SerializeField]
     private int _startingLevel = 1;
+    
     [SerializeField]
     private int _startingDifficulty = 1;
 
@@ -57,9 +64,10 @@ public class GameManager : MonoBehaviour
     public void Save()
     {
         SaveState playerState = new SaveState();
+        //track the lives left and level
         playerState.playerLives = _playerLives;
         playerState.currentLevel = _currentLevel;
-
+        //Save the inventory
         playerState.inventory = InventoryManager.instance.GetInventory();
 
         BinaryFormatter bf = new BinaryFormatter();
@@ -73,20 +81,25 @@ public class GameManager : MonoBehaviour
     {
         if (File.Exists(Application.persistentDataPath + "/player.save"))
         {
+            //set lives, level, and difficulty if there is save data
+            //open file
             FileStream afile = File.Open(Application.persistentDataPath + "/player.save", FileMode.Open);
 
             BinaryFormatter bf = new BinaryFormatter();
 
             SaveState playerData = (SaveState)bf.Deserialize(afile);
 
+            //close file
             afile.Close();
 
+            //set lives and level
             _playerLives = playerData.playerLives;
             _currentLevel = playerData.currentLevel;
         }
 
         else
         {
+            //set lives, level, and difficulty if there is no save data
             _playerLives = _startingLives;
             _currentLevel = _startingLevel;
             _difficulty = _startingDifficulty;
@@ -97,12 +110,15 @@ public class GameManager : MonoBehaviour
     {
         if (File.Exists(Application.persistentDataPath + "/player.save"))
         {
+            //set inventory to saved data
+            //open file
             FileStream afile = File.Open(Application.persistentDataPath + "/player.save", FileMode.Open);
 
             BinaryFormatter bf = new BinaryFormatter();
 
             SaveState playerData = (SaveState)bf.Deserialize(afile);
-
+            
+            //close file
             afile.Close();
 
             InventoryManager.instance.SetInventory(playerData.inventory);
@@ -110,6 +126,7 @@ public class GameManager : MonoBehaviour
 
         else
         {
+            //create new inventory if no save data
             InventoryManager.instance.StartNewInventory();
         }
     }
@@ -118,6 +135,7 @@ public class GameManager : MonoBehaviour
     {
         if (File.Exists(Application.persistentDataPath + "/player.save"))
         {
+            //delete save if exists
             File.Delete(Application.persistentDataPath + "/player.save");
         }
         else Debug.Log("No current save files.");
@@ -159,9 +177,12 @@ public class GameManager : MonoBehaviour
 
     public void GoToNextLevel()
     {
+        //increments to the next level
         if (_currentLevel < 2)
             _currentLevel++;
+        //saves information
         Save();
+        //loads next level
         Scene_Manager.instance.LoadNextLevel();
     }
 
@@ -171,10 +192,12 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("Player Lives: " + _playerLives);
 
+        //Lose game
         if (_playerLives <= 0) {
             DeleteSaveFile();
             Scene_Manager.instance.LoadLoseScreen();
         }
+        //continue
         else {
             Scene_Manager.instance.LoadDeathScreen();
         }
@@ -197,10 +220,14 @@ public class GameManager : MonoBehaviour
 
     public void PauseGame(bool state)
     {
+        //release mouse
         if (state) Cursor.lockState = CursorLockMode.None;
+        //lock mouse to screen
         else Cursor.lockState = CursorLockMode.Locked;
 
+        //set time to move
         Time.timeScale = state ? 0 : 1;
+        //turn player input on or off
         PlayerController.instance.GetComponent<PlayerInput>().enabled = !state;
     }
 }

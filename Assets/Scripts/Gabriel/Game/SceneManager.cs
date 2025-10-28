@@ -52,6 +52,7 @@ public class Scene_Manager : MonoBehaviour
 
     public void LoadNextLevel()
     {
+        //not sure why any of this exists
         if ((SceneManager.GetActiveScene().buildIndex + 1) == SceneManager.GetSceneByName("WinScreen").buildIndex) {
             LoadWinScreen();
         }
