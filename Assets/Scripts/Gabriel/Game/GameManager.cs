@@ -169,6 +169,8 @@ public class GameManager : MonoBehaviour
     {
         _playerLives--;
 
+        Debug.Log("Player Lives: " + _playerLives);
+
         if (_playerLives <= 0) {
             DeleteSaveFile();
             Scene_Manager.instance.LoadLoseScreen();
