@@ -3,6 +3,7 @@
 // Description: Controls the basic enemy behavior via a state machine
 
 using System.Collections;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -17,6 +18,8 @@ public class EnemyController : MonoBehaviour, IDamageable
     [SerializeField] protected int _baseHealth;
     // The current health of the enemy
     protected float _health;
+    // The explosion created when the bug dies
+    [SerializeField] protected ParticleSystem _bugDeathExplosion;
 
     // ATTACKING
     [Header("Attack Variables")]
@@ -83,6 +86,7 @@ public class EnemyController : MonoBehaviour, IDamageable
 
         // Cache components
         _navMeshAgent = GetComponent<NavMeshAgent>();
+        _animator = GetComponentInChildren<Animator>();
 
         // Cache player transform
         _playerTransform = FindAnyObjectByType<PlayerController>().transform;
@@ -207,7 +211,7 @@ public class EnemyController : MonoBehaviour, IDamageable
         for (int i = 0; i < _pathfindingAttempts; i++)
         {
             // find a random spot within a random sphere centered around current position
-            Vector3 randomSpot = transform.position + Random.insideUnitSphere * _roamingRange;
+            Vector3 randomSpot = transform.position + UnityEngine.Random.insideUnitSphere * _roamingRange;
             // sample the navmesh at that spot
             if (NavMesh.SamplePosition(randomSpot, out NavMeshHit hit, 1f, _navMeshAgent.areaMask))
             {
@@ -239,7 +243,7 @@ public class EnemyController : MonoBehaviour, IDamageable
             // clear the navmeshagent's path
             _navMeshAgent.ResetPath();
             // set the state timer to idling time with some random variation
-            _idleTimer = _idleDuration * Random.Range(0.75f, 1.25f);
+            _idleTimer = _idleDuration * UnityEngine.Random.Range(0.75f, 1.25f);
             // set the state
             _enemyState = EnemyState.idle;
 
@@ -315,7 +319,8 @@ public class EnemyController : MonoBehaviour, IDamageable
     // Initial attack beahvior
     protected virtual void InitialAttack()
     {
-
+        PlayerDamage();
+        _animator.SetTrigger("triggerAttack");
     }
 
     // Cooldown behavior
@@ -342,7 +347,8 @@ public class EnemyController : MonoBehaviour, IDamageable
     // In event of enemy death
     public void Die()
     {
-        // TODO: PLACE A DEAD GUY
+        GameObject bugsplosion = Instantiate(_bugDeathExplosion.gameObject, transform.GetChild(0).position, quaternion.identity);
+        Destroy(bugsplosion, 0.5f);
         StopAllCoroutines();
         Destroy(gameObject);
     }

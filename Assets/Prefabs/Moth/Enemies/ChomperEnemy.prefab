@@ -160,7 +160,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DEBUG_MODE: 0
-  _baseHealth: 8
+  _baseHealth: 5
+  _bugDeathExplosion: {fileID: 6709580774957103173, guid: 1299c3f0212f10a458dc6b9ba8f91bdf, type: 3}
   _baseDamage: 3
   _attackDistance: 3
   _attackCooldown: 3
@@ -172,7 +173,6 @@ MonoBehaviour:
   _maxRoamingDuration: 10
   _pathfindingAttempts: 10
   _enemyState: 0
-  _animator: {fileID: 7856785221973064912}
 --- !u!114 &786651024129472812
 MonoBehaviour:
   m_ObjectHideFlags: 0
