@@ -1,4 +1,4 @@
-// Main Contributors: Moth Harper and Kris Herbert 
+// Main Contributors: Moth Harper, Kris Herbert, and Mark Klitsch
 // Reviewer: Gabriel Heiser
 // Description: Controls the basic enemy behavior via a state machine
 
@@ -74,6 +74,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     protected Transform _playerTransform;
 
     // SOUNDS
+    [Header("SFX")]
     [SerializeField] protected AudioClip _attackAudio;
     [SerializeField] protected AudioClip _damageAudio;
     [SerializeField] protected AudioClip _deathAudio;
@@ -320,7 +321,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     // Initial attack beahvior
     protected virtual void InitialAttack()
     {
-
+        SoundManager.instance.PlayFXAudio(_attackAudio, transform, pitchFluctuation: 0.2f);
     }
 
     // Cooldown behavior
@@ -333,14 +334,17 @@ public class EnemyController : MonoBehaviour, IDamageable
     /** Kris Herbert
      * Function to deal damage to the enemy when the player shoots an enemy. */
     // Moth Harper expansion: attack to damageable interface
+    // Mark Klitsch expansion: added sound to when the enemy takes damage/dying
     void IDamageable.TakeDamage(float damage)
     {
         _health -= damage / (GameManager.instance.GetDifficulty() / 2 + 0.5f);
-        SoundManager.instance.PlayFXAudio(_damageAudio, transform);
+        // Play sound when taking damage
+        SoundManager.instance.PlayFXAudio(_damageAudio, transform, pitchFluctuation: 0.2f);
 
         if (_health <= 0)
         {
-            SoundManager.instance.PlayFXAudio(_deathAudio, transform);
+            // Play sound when dying
+            SoundManager.instance.PlayFXAudio(_deathAudio, transform, pitchFluctuation: 0.2f);
             Die();
         }
     }

@@ -14,7 +14,6 @@ public class StingerController : MeleeEnemyContoller
     protected override void InitialAttack()
     {
         base.InitialAttack();
-        SoundManager.instance.PlayFXAudio(_attackAudio, transform);
     }
 
 }

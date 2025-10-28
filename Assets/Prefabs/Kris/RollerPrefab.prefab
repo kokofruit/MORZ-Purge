@@ -198,13 +198,13 @@ MonoBehaviour:
   _roamingRange: 10
   _eyeTransform: {fileID: 3579865005072262356}
   _sightCheckingInterval: 1
-  _layerMask:
-    serializedVersion: 2
-    m_Bits: 55
   _idleDuration: 5
   _maxRoamingDuration: 10
   _pathfindingAttempts: 30
   _enemyState: 0
+  _attackAudio: {fileID: 8300000, guid: 753fad3e28b630b4b8864cb678c8f306, type: 3}
+  _damageAudio: {fileID: 8300000, guid: f1fc23382efb54c478ea7ce32f404aa7, type: 3}
+  _deathAudio: {fileID: 8300000, guid: 2801b2db3f059e740aa51e022162ea6a, type: 3}
   _projectilePrefab: {fileID: 948437041128951277, guid: 79cf4b61a815c014389f0d76f6dc4abe, type: 3}
   _projectileForce: 500
 --- !u!114 &4737314653000514258

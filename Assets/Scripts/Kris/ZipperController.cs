@@ -14,6 +14,5 @@ public class ZipperController : FlyingEnemyController
     protected override void InitialAttack()
     {
         base.InitialAttack();
-        SoundManager.instance.PlayFXAudio(_attackAudio, transform);
     }
 }

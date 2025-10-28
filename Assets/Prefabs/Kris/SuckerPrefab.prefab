@@ -58,17 +58,16 @@ MonoBehaviour:
   _roamingRange: 5
   _eyeTransform: {fileID: 7654907420084245735}
   _sightCheckingInterval: 2
-  _layerMask:
-    serializedVersion: 2
-    m_Bits: 55
   _idleDuration: 10
   _maxRoamingDuration: 10
   _pathfindingAttempts: 30
   _enemyState: 0
+  _attackAudio: {fileID: 8300000, guid: 477173221f46b4149bb5d14570f2c536, type: 3}
+  _damageAudio: {fileID: 8300000, guid: 05b9c375213994f4c9ad505b45d1efd1, type: 3}
+  _deathAudio: {fileID: 8300000, guid: 5d71636f91de8924db6fc4c7b30abe1f, type: 3}
   _flyingHeight: 2
   _swoopDistance: 6
   _swoopSpeed: 2
-  _testSound: {fileID: 8300000, guid: a8654d95f20c87c49b40eda0ed26792d, type: 3}
   _lifeGained: 5
 --- !u!114 &4404179622309038449
 MonoBehaviour:

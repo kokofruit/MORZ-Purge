@@ -19,7 +19,6 @@ public class SuckerController : FlyingEnemyController
     {
         base.InitialAttack();
         // Add attack sound to the enemy
-        SoundManager.instance.PlayFXAudio(_attackAudio, transform);
         LifeDrain();   
     }
 
