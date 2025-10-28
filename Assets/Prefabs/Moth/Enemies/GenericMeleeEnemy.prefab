@@ -169,6 +169,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DEBUG_MODE: 0
   _baseHealth: 5
+  _bugDeathExplosion: {fileID: 6709580774957103173, guid: 1299c3f0212f10a458dc6b9ba8f91bdf, type: 3}
   _baseDamage: 8
   _attackDistance: 3
   _attackCooldown: 3
@@ -176,9 +177,6 @@ MonoBehaviour:
   _roamingRange: 5
   _eyeTransform: {fileID: 4195648470586659748}
   _sightCheckingInterval: 2
-  _layerMask:
-    serializedVersion: 2
-    m_Bits: 55
   _idleDuration: 5
   _maxRoamingDuration: 10
   _pathfindingAttempts: 30
