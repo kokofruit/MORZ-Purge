@@ -387,11 +387,6 @@ public class EnemyController : MonoBehaviour, IDamageable
         Destroy(gameObject);
     }
 
-    void OnDestroy()
-    {
-        // print("plpease");
-    }
-
     /** Kris Herbert
      * Function to deal damage to the player when an enemy hits the player. */
     protected void PlayerDamage()

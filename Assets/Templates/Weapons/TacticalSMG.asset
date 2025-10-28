@@ -18,5 +18,5 @@ MonoBehaviour:
   FIRE_RATE: 8
   AMMO_TYPE: 0
   STAGE: 2
-  FIRE_SELECT: 0
+  FIRE_SELECT: 1
   MAG_SIZE: 24
