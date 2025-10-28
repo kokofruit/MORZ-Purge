@@ -9,24 +9,24 @@ public class EnemyProjectileParent : MonoBehaviour
     [SerializeField] protected int _damage;
     [SerializeField] protected int _maxTime;
     protected Rigidbody _rigidbody;
-    protected Player_Controller _controller;
+    protected PlayerController _controller;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    protected virtual void Start()
     {
-        // Finds the Player_Controller class and allows other functions to call functions from that class that affects the player.
-        _controller = FindAnyObjectByType<Player_Controller>();
+        // Finds the PlayerController class and allows other functions to call functions from that class that affects the player.
+        _controller = FindAnyObjectByType<PlayerController>();
         // Sets a timer on when the projectile copy is removed fromn the game based on a preset time.
         Invoke("RemoveProjectile", _maxTime);
     }
 
-    void Awake()
+    protected virtual void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
     }
 
     // OnCollisionEnter checks to see if the cloned projectile has hit the player or any other object other than the player.
-    protected void OnCollisionEnter(Collision collision)
+    protected virtual void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
@@ -47,7 +47,7 @@ public class EnemyProjectileParent : MonoBehaviour
         Destroy(gameObject);
     }
 
-    // A function that takes health away from the player using a function from the Player_Controller class.
+    // A function that takes health away from the player using a function from the PlayerController class.
     protected void ProjectileDamage()
     {
         _controller.SubtractHealth(_damage);

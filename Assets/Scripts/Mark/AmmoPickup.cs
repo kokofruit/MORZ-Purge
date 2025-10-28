@@ -13,7 +13,7 @@ public class AmmoPickup : PickupController
     // Setting trigger event for testing
     public override void PickupObject()
     {
-        Inventory_Manager.instance.playerInventory.AddAmmo(ammoType, AmmoAmount);
+        InventoryManager.instance.playerInventory.AddAmmo(ammoType, AmmoAmount);
         // Update ammo HUD
         HUDController.instance.UpdateAmmo(ammoType);
 
