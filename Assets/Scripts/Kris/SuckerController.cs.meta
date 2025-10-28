@@ -1,2 +1,16 @@
 fileFormatVersion: 2
 guid: a707a571f5978d7418cb34594d98e6d1
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - _eyeTransform: {instanceID: 0}
+  - _attackAudio: {fileID: 8300000, guid: 477173221f46b4149bb5d14570f2c536, type: 3}
+  - _damageAudio: {fileID: 8300000, guid: 85e093653570b0649879425b45aaa248, type: 3}
+  - _deathAudio: {fileID: 8300000, guid: eb44f48cd020b6b45bd06d5cf2cc8862, type: 3}
+  - _testSound: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

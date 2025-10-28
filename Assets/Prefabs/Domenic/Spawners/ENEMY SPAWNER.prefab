@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8713367817359477059}
-  - component: {fileID: 9202789413975172073}
+  - component: {fileID: -3003761531241653921}
   m_Layer: 0
   m_Name: ENEMY SPAWNER
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9202789413975172073
+--- !u!114 &-3003761531241653921
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -45,11 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnLocation: 0
-  _spawnableEnemies:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  _minEnemies: 10
-  _maxEnemies: 15
+  _spawnableEnemies: []
+  _minEnemies: 0
+  _maxEnemies: 0
   _spawnRadius: 0
-  _maxSpawningAttempts: 15
+  _maxSpawningAttempts: 0

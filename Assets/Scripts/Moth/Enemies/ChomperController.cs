@@ -8,7 +8,7 @@ public class ChomperController : MeleeEnemyContoller
 {
     protected override void InitialAttack()
     {
-        PlayerDamage();
+        base.InitialAttack();
         _animator.SetTrigger("triggerAttack");
     }
 
