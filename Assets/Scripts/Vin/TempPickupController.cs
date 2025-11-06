@@ -1,21 +1,22 @@
 // Main Contributor: Vin Lettich
 // Secondary Contributor: 
 // Reviewer: 
-// Description: Controller for temporary Invisibility Shield upgrade
+// Description: Controller for temporary Stimulation Upgrade
 
 using System.Collections;
 using UnityEngine;
 using System;
+using UnityEngine.WSA;
 
-public class ShieldUpgradeController : PickupController
+public class TempPickupController : PickupController
 {
 
     // Private Variables //
     [SerializeField] private float upgradeDuration = 10f;
-    // Shield upgrade is type 2
-    private int upgradeType = 2;
+    // upgrade type
+    [SerializeField] private int upgradeType;
 
-    // Trigger event (initiated by EnemyController)
+    // Trigger event (initiated by Player_Controller)
     public override void PickupObject()
     {
         //SetUpgrade in HUD
@@ -23,4 +24,3 @@ public class ShieldUpgradeController : PickupController
         base.PickupObject();
     }
 }
-
