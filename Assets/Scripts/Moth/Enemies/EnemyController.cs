@@ -1,13 +1,17 @@
-// Main Contributors: Moth Harper and Kris Herbert 
+// Main Contributors: Moth Harper, Kris Herbert, and Mark Klitsch
 // Reviewer: Gabriel Heiser
 // Description: Controls the basic enemy behavior via a state machine
 
 using System.Collections;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour, IDamageable
 {
+    // Static instance of the enemy for other scripts to reference
+    public static EnemyController instance;
+
     // The toggle for Moth's makeshift debug mode
     [SerializeField] protected bool DEBUG_MODE;
 
@@ -17,6 +21,8 @@ public class EnemyController : MonoBehaviour, IDamageable
     [SerializeField] protected int _baseHealth;
     // The current health of the enemy
     protected float _health;
+    // The explosion created when the bug dies
+    [SerializeField] protected ParticleSystem _bugDeathExplosion;
 
     // ATTACKING
     [Header("Attack Variables")]
@@ -73,7 +79,23 @@ public class EnemyController : MonoBehaviour, IDamageable
     // The transform of the player
     protected Transform _playerTransform;
 
+    // SOUNDS
+    [Header("SFX")]
+    [SerializeField] protected AudioClip _attackAudio;
+    [SerializeField] protected AudioClip _damageAudio;
+    [SerializeField] protected AudioClip _deathAudio;
+    // INVISIBILITY SHIELD
+    private static bool shieldUpActivated = false;
+
     #region FUNCTIONS
+
+    // void Awake()
+    // {
+    //     if (instance == null)
+    //         instance = this;
+    //     else
+    //         Destroy(gameObject);
+    // }
 
     // UNITY LIFECYCYLE FUNCTIONS
     protected virtual void Start()
@@ -83,6 +105,7 @@ public class EnemyController : MonoBehaviour, IDamageable
 
         // Cache components
         _navMeshAgent = GetComponent<NavMeshAgent>();
+        _animator = GetComponentInChildren<Animator>();
 
         // Cache player transform
         _playerTransform = FindAnyObjectByType<PlayerController>().transform;
@@ -207,7 +230,7 @@ public class EnemyController : MonoBehaviour, IDamageable
         for (int i = 0; i < _pathfindingAttempts; i++)
         {
             // find a random spot within a random sphere centered around current position
-            Vector3 randomSpot = transform.position + Random.insideUnitSphere * _roamingRange;
+            Vector3 randomSpot = transform.position + UnityEngine.Random.insideUnitSphere * _roamingRange;
             // sample the navmesh at that spot
             if (NavMesh.SamplePosition(randomSpot, out NavMeshHit hit, 1f, _navMeshAgent.areaMask))
             {
@@ -239,7 +262,7 @@ public class EnemyController : MonoBehaviour, IDamageable
             // clear the navmeshagent's path
             _navMeshAgent.ResetPath();
             // set the state timer to idling time with some random variation
-            _idleTimer = _idleDuration * Random.Range(0.75f, 1.25f);
+            _idleTimer = _idleDuration * UnityEngine.Random.Range(0.75f, 1.25f);
             // set the state
             _enemyState = EnemyState.idle;
 
@@ -257,34 +280,38 @@ public class EnemyController : MonoBehaviour, IDamageable
      * Behavior for chasing state */
     protected virtual void DoChasing()
     {
-        /** Moth Harper and Kris Herbert
+        // If invisibility shield is activated, interrupt the DoChasing process
+        if(!shieldUpActivated)
+        {
+            /** Moth Harper and Kris Herbert
          * if close enough to player and not on cooldown, attack them */
-        if ((Vector3.Distance(transform.position, _playerTransform.position) <= _attackDistance) && (_attackingTimer <= 0))
-        {
-            // clear path
-            _navMeshAgent.ResetPath();
-            // set attack timer
-            _attackingTimer = _attackCooldown;
-            // change state
-            _enemyState = EnemyState.attacking;
-            return;
-        }
+            if ((Vector3.Distance(transform.position, _playerTransform.position) <= _attackDistance) && (_attackingTimer <= 0))
+            {
+                // clear path
+                _navMeshAgent.ResetPath();
+                // set attack timer
+                _attackingTimer = _attackCooldown;
+                // change state
+                _enemyState = EnemyState.attacking;
+                return;
+            }
 
-        /**
-        * Kris Herbert
-        * _lineOfSight uses a raycast to check if it can see the player
-        * if true than it will change EnemyState to start chasing the player
-        * if it's false then it will return to the idle EnemyState.
-        */
+            /**
+            * Kris Herbert
+            * _lineOfSight uses a raycast to check if it can see the player
+            * if true than it will change EnemyState to start chasing the player
+            * if it's false then it will return to the idle EnemyState.
+            */
 
-        if (_lineOfSight == true)
-        {
-            this._navMeshAgent.SetDestination(_playerTransform.position);
-        }
-        else
-        {
-            _idleTimer = _idleDuration;
-            _enemyState = EnemyState.idle;
+            if (_lineOfSight == true)
+            {
+                this._navMeshAgent.SetDestination(_playerTransform.position);
+            }
+            else
+            {
+                _idleTimer = _idleDuration;
+                _enemyState = EnemyState.idle;
+            }
         }
     }
 
@@ -315,7 +342,9 @@ public class EnemyController : MonoBehaviour, IDamageable
     // Initial attack beahvior
     protected virtual void InitialAttack()
     {
-
+        SoundManager.instance.PlayFXAudio(_attackAudio, transform, pitchFluctuation: 0.2f);
+        PlayerDamage();
+        _animator.SetTrigger("triggerAttack");
     }
 
     // Cooldown behavior
@@ -328,12 +357,17 @@ public class EnemyController : MonoBehaviour, IDamageable
     /** Kris Herbert
      * Function to deal damage to the enemy when the player shoots an enemy. */
     // Moth Harper expansion: attack to damageable interface
+    // Mark Klitsch expansion: added sound to when the enemy takes damage/dying
     void IDamageable.TakeDamage(float damage)
     {
         _health -= damage / (GameManager.instance.GetDifficulty() / 2 + 0.5f);
+        // Play sound when taking damage
+        SoundManager.instance.PlayFXAudio(_damageAudio, transform, pitchFluctuation: 0.2f);
 
         if (_health <= 0)
         {
+            // Play sound when dying
+            SoundManager.instance.PlayFXAudio(_deathAudio, transform, pitchFluctuation: 0.2f);
             Die();
         }
     }
@@ -342,7 +376,13 @@ public class EnemyController : MonoBehaviour, IDamageable
     // In event of enemy death
     public void Die()
     {
-        // TODO: PLACE A DEAD GUY
+        GameObject bugsplosion = Instantiate(_bugDeathExplosion.gameObject, transform.GetChild(0).position, quaternion.identity);
+        int randInt = UnityEngine.Random.Range(0, 50);
+        if (randInt < PickupSpawnerManager.instance.tempPickupObjects.Length)
+        {
+            Instantiate(PickupSpawnerManager.instance.tempPickupObjects[randInt], transform.position, transform.rotation);
+        }
+        Destroy(bugsplosion, 0.5f);
         StopAllCoroutines();
         Destroy(gameObject);
     }
@@ -353,6 +393,18 @@ public class EnemyController : MonoBehaviour, IDamageable
     {
         if (DEBUG_MODE) print(gameObject.name + "Damaged player by: " + _calculatedDamage);
         _playerTransform.GetComponent<PlayerController>().SubtractHealth(_calculatedDamage);
+    }
+
+    /* Vin Lettich
+     * Functions to deal with invisibility shield (interrupting the DoChasing for 10s) */
+    public static void ActivateUpgrade(int upgradeType)
+    {
+        shieldUpActivated = true;
+    }
+
+    public static void DeactivateUpgrade(int upgradeType)
+    {
+        shieldUpActivated = false;
     }
 
 

@@ -10,8 +10,8 @@ public class MeleeEnemyContoller : EnemyController
 
     protected override void InitialAttack()
     {
-        // damage player
-        PlayerDamage();
+        base.InitialAttack();
+
         // print debug
         if (DEBUG_MODE) print(gameObject.name + ": Attack!");
     }

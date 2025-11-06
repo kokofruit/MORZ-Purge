@@ -39,7 +39,6 @@ public class DoubleDoorController : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         //Checks if player has entered trigger zone to open door
-        if (other.CompareTag("Player"))
         {
             StartSliding(leftOpenPosition, rightOpenPosition);
         }

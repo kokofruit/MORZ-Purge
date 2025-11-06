@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9026bc7339770f4d8cc619eeb750f2e, type: 3}
   m_Name: LMG
   m_EditorClassIdentifier: 
-  DAMAGE: 0
+  DAMAGE: 5
   COOLDOWN: 8
   RANGE: 35
   FIRE_RATE: 5

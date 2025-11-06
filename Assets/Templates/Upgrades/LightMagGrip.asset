@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f09b9b0369a83ab4fb781b63bde973e8, type: 3}
   m_Name: LightMagGrip
   m_EditorClassIdentifier: 
-  AMOUNT: 1.5
+  AMOUNT: 1
   AMMO_TYPE: 0
   STAGE: 3
   UPGRADE_TYPE: 3

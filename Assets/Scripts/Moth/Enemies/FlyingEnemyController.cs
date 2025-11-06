@@ -18,7 +18,7 @@ public class FlyingEnemyController : EnemyController
     [SerializeField] protected float _swoopSpeed;
 
     // Temporary testing audio for the sound
-    [SerializeField] AudioClip _testSound;
+    //[SerializeField] AudioClip _testSound;
 
     protected override void Start()
     {
@@ -71,10 +71,12 @@ public class FlyingEnemyController : EnemyController
 
     protected override void InitialAttack()
     {
+        base.InitialAttack();
+
         // damage player
         PlayerDamage();
         // sound testing
-        SoundManager.instance.PlayFXAudio(_testSound, transform);
+        //SoundManager.instance.PlayFXAudio(_testSound, transform);
         // print debug statement
         if (DEBUG_MODE) print(gameObject.name + ": Attack!");
         // flee from player

@@ -19,5 +19,7 @@ public class RangedEnemyController : EnemyController
         EnemyProjectileParent projectile = Instantiate(_projectilePrefab, transform.forward + _eyeTransform.position, Quaternion.identity).GetComponent<EnemyProjectileParent>();
         Vector3 direction = _playerTransform.position - projectile.transform.position;
         projectile.AddForce(direction.normalized * _projectileForce);
+        SoundManager.instance.PlayFXAudio(_attackAudio, transform, pitchFluctuation: 0.2f);
+        _animator.SetTrigger("triggerAttack");
     }
 }
