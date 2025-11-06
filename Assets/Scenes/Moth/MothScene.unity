@@ -210,6 +210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cec0452439b75a2458fcbb0c3aee44c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _spawnTable: {fileID: 11400000, guid: 007956a03df3f1b48b6b36adeddfcbb0, type: 2}
 --- !u!1001 &105587105
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -754,6 +755,14 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Ground
       objectReference: {fileID: 0}
+    - target: {fileID: 2308388876719652113, guid: 71b1ade77c9d38848ab920a3469ad60f, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2308388876719652113, guid: 71b1ade77c9d38848ab920a3469ad60f, type: 3}
+      propertyPath: _spawnTable
+      value: 
+      objectReference: {fileID: 11400000, guid: 912d904af87cec34e97ae0e59134928a, type: 2}
     - target: {fileID: 2351522216572580022, guid: 71b1ade77c9d38848ab920a3469ad60f, type: 3}
       propertyPath: m_TagString
       value: Ground
@@ -942,6 +951,14 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Ground
       objectReference: {fileID: 0}
+    - target: {fileID: 3149817257224531494, guid: 71b1ade77c9d38848ab920a3469ad60f, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3149817257224531494, guid: 71b1ade77c9d38848ab920a3469ad60f, type: 3}
+      propertyPath: _spawnTable
+      value: 
+      objectReference: {fileID: 11400000, guid: 912d904af87cec34e97ae0e59134928a, type: 2}
     - target: {fileID: 3153532923765419564, guid: 71b1ade77c9d38848ab920a3469ad60f, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -970,6 +987,14 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: cb1cdf0a392b4754ebeef2d8e461426c, type: 2}
+    - target: {fileID: 3417237515135738892, guid: 71b1ade77c9d38848ab920a3469ad60f, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3417237515135738892, guid: 71b1ade77c9d38848ab920a3469ad60f, type: 3}
+      propertyPath: _spawnTable
+      value: 
+      objectReference: {fileID: 11400000, guid: 912d904af87cec34e97ae0e59134928a, type: 2}
     - target: {fileID: 3434231859837515604, guid: 71b1ade77c9d38848ab920a3469ad60f, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -1498,6 +1523,14 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Ground
       objectReference: {fileID: 0}
+    - target: {fileID: 7234862211727390407, guid: 71b1ade77c9d38848ab920a3469ad60f, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7234862211727390407, guid: 71b1ade77c9d38848ab920a3469ad60f, type: 3}
+      propertyPath: _spawnTable
+      value: 
+      objectReference: {fileID: 11400000, guid: 912d904af87cec34e97ae0e59134928a, type: 2}
     - target: {fileID: 7319215107616677469, guid: 71b1ade77c9d38848ab920a3469ad60f, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -1790,6 +1823,14 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: cb1cdf0a392b4754ebeef2d8e461426c, type: 2}
+    - target: {fileID: 8924864033882032616, guid: 71b1ade77c9d38848ab920a3469ad60f, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8924864033882032616, guid: 71b1ade77c9d38848ab920a3469ad60f, type: 3}
+      propertyPath: _spawnTable
+      value: 
+      objectReference: {fileID: 11400000, guid: 912d904af87cec34e97ae0e59134928a, type: 2}
     - target: {fileID: 8955192714415123838, guid: 71b1ade77c9d38848ab920a3469ad60f, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -1802,6 +1843,14 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: a793c8876b8ad584ea985ad159a17bac, type: 2}
+    - target: {fileID: 9056235828566320111, guid: 71b1ade77c9d38848ab920a3469ad60f, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9056235828566320111, guid: 71b1ade77c9d38848ab920a3469ad60f, type: 3}
+      propertyPath: _spawnTable
+      value: 
+      objectReference: {fileID: 11400000, guid: 912d904af87cec34e97ae0e59134928a, type: 2}
     - target: {fileID: 9085641950305946514, guid: 71b1ade77c9d38848ab920a3469ad60f, type: 3}
       propertyPath: m_TagString
       value: Ground
@@ -1936,6 +1985,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cec0452439b75a2458fcbb0c3aee44c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _spawnTable: {fileID: 11400000, guid: 007956a03df3f1b48b6b36adeddfcbb0, type: 2}
 --- !u!1001 &195134679
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1948,6 +1998,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: PICKUP SPAWNER (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 2330329948147379686, guid: 7333e78426260514ba9302de1601419e, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2330329948147379686, guid: 7333e78426260514ba9302de1601419e, type: 3}
+      propertyPath: _spawnTable
+      value: 
+      objectReference: {fileID: 11400000, guid: 912d904af87cec34e97ae0e59134928a, type: 2}
     - target: {fileID: 5324259774751795999, guid: 7333e78426260514ba9302de1601419e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 35.482
@@ -2132,6 +2190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cec0452439b75a2458fcbb0c3aee44c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _spawnTable: {fileID: 11400000, guid: 007956a03df3f1b48b6b36adeddfcbb0, type: 2}
 --- !u!1001 &283435090
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2144,6 +2203,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: PICKUP SPAWNER (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 2330329948147379686, guid: 7333e78426260514ba9302de1601419e, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2330329948147379686, guid: 7333e78426260514ba9302de1601419e, type: 3}
+      propertyPath: _spawnTable
+      value: 
+      objectReference: {fileID: 11400000, guid: 912d904af87cec34e97ae0e59134928a, type: 2}
     - target: {fileID: 5324259774751795999, guid: 7333e78426260514ba9302de1601419e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 64.65752
@@ -2214,6 +2281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cec0452439b75a2458fcbb0c3aee44c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _spawnTable: {fileID: 11400000, guid: 007956a03df3f1b48b6b36adeddfcbb0, type: 2}
 --- !u!1 &375807834
 GameObject:
   m_ObjectHideFlags: 0
@@ -2334,6 +2402,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: PICKUP SPAWNER (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 2330329948147379686, guid: 7333e78426260514ba9302de1601419e, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2330329948147379686, guid: 7333e78426260514ba9302de1601419e, type: 3}
+      propertyPath: _spawnTable
+      value: 
+      objectReference: {fileID: 11400000, guid: 912d904af87cec34e97ae0e59134928a, type: 2}
     - target: {fileID: 5324259774751795999, guid: 7333e78426260514ba9302de1601419e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 32.87
@@ -2456,6 +2532,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cec0452439b75a2458fcbb0c3aee44c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _spawnTable: {fileID: 11400000, guid: 007956a03df3f1b48b6b36adeddfcbb0, type: 2}
 --- !u!114 &557911467 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3441736846605545216, guid: 2e0f48a916624284bab5e136ea54697d, type: 3}
@@ -3086,6 +3163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cec0452439b75a2458fcbb0c3aee44c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _spawnTable: {fileID: 11400000, guid: 007956a03df3f1b48b6b36adeddfcbb0, type: 2}
 --- !u!1 &1030721208
 GameObject:
   m_ObjectHideFlags: 0
@@ -3286,6 +3364,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cec0452439b75a2458fcbb0c3aee44c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _spawnTable: {fileID: 11400000, guid: 007956a03df3f1b48b6b36adeddfcbb0, type: 2}
 --- !u!1001 &1206162153
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24448,6 +24527,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cec0452439b75a2458fcbb0c3aee44c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _spawnTable: {fileID: 11400000, guid: 007956a03df3f1b48b6b36adeddfcbb0, type: 2}
 --- !u!114 &1401378921 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9192358753176690242, guid: 2e0f48a916624284bab5e136ea54697d, type: 3}
@@ -24471,6 +24551,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: PICKUP SPAWNER (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 2330329948147379686, guid: 7333e78426260514ba9302de1601419e, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2330329948147379686, guid: 7333e78426260514ba9302de1601419e, type: 3}
+      propertyPath: _spawnTable
+      value: 
+      objectReference: {fileID: 11400000, guid: 912d904af87cec34e97ae0e59134928a, type: 2}
     - target: {fileID: 5324259774751795999, guid: 7333e78426260514ba9302de1601419e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 65.3
@@ -25182,6 +25270,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cec0452439b75a2458fcbb0c3aee44c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _spawnTable: {fileID: 11400000, guid: 007956a03df3f1b48b6b36adeddfcbb0, type: 2}
 --- !u!224 &1686361243 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4653305662663020350, guid: 2e0f48a916624284bab5e136ea54697d, type: 3}
@@ -25199,6 +25288,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: PICKUP SPAWNER (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 2330329948147379686, guid: 7333e78426260514ba9302de1601419e, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2330329948147379686, guid: 7333e78426260514ba9302de1601419e, type: 3}
+      propertyPath: _spawnTable
+      value: 
+      objectReference: {fileID: 11400000, guid: 912d904af87cec34e97ae0e59134928a, type: 2}
     - target: {fileID: 5324259774751795999, guid: 7333e78426260514ba9302de1601419e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 35.482
@@ -25269,7 +25366,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 70687942294643765, guid: 532f191ca117ace408afe814dd42a969, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8713367817359477059, guid: 532f191ca117ace408afe814dd42a969, type: 3}
       propertyPath: m_LocalPosition.x
@@ -25347,6 +25444,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cec0452439b75a2458fcbb0c3aee44c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _spawnTable: {fileID: 11400000, guid: 007956a03df3f1b48b6b36adeddfcbb0, type: 2}
 --- !u!1 &1797396856 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8538872912157699874, guid: 71b1ade77c9d38848ab920a3469ad60f, type: 3}
@@ -27430,6 +27528,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cec0452439b75a2458fcbb0c3aee44c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _spawnTable: {fileID: 11400000, guid: 007956a03df3f1b48b6b36adeddfcbb0, type: 2}
 --- !u!1001 &2005263775
 PrefabInstance:
   m_ObjectHideFlags: 0

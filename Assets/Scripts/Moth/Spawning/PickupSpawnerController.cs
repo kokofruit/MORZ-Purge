@@ -6,8 +6,16 @@ using UnityEngine;
 
 public class PickupSpawnerController : MonoBehaviour
 {
+    [SerializeField] SpawnTable _spawnTable;
+
+    public void SpawnPickup()
+    {
+        Instantiate(_spawnTable.ChooseItem(UnityEngine.Random.value), transform.position, quaternion.identity);
+    }
+    
     public void CreatePickup(GameObject pickup)
     {
-        Instantiate(pickup, transform.position, quaternion.identity);
+        SpawnPickup();
+        // Instantiate(pickup, transform.position, quaternion.identity);
     }
 }
