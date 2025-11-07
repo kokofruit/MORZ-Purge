@@ -367,7 +367,7 @@ public class EnemyController : MonoBehaviour, IDamageable
         if (_health <= 0)
         {
             // Play sound when dying
-            SoundManager.instance.PlayFXAudio(_deathAudio, transform, pitchFluctuation: 0.2f);
+            SoundManager.instance.PlayFXAudio(_deathAudio, transform.position, pitchFluctuation: 0.2f);
             Die();
         }
     }

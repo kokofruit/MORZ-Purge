@@ -38,6 +38,7 @@ public class EnemySpawnerController : MonoBehaviour
         {
             // Decide the type of enemy
             GameObject enemyPrefab = _spawnTable.ChooseItem(UnityEngine.Random.value);
+            
             // Choose a random position
             Vector3 randomPos = transform.position + UnityEngine.Random.insideUnitSphere * _spawnRadius;
 
@@ -54,7 +55,7 @@ public class EnemySpawnerController : MonoBehaviour
                 // increase the count of successful spawns
                 enemiesSpawned++;
             }
-
+            print("attempt");
             // increase the count of all attempts
             spawningAttempts++;
         }

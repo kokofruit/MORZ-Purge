@@ -14,9 +14,6 @@ public class EnemySpawnerManager : MonoBehaviour
     // The singleton instance
     public static EnemySpawnerManager instance;
 
-    // A list that contains all spawners in the scene
-    private List<EnemySpawnerController> _spawners = new();
-
     // Set the instance or destroy if it's a duplicate
     private void Awake()
     {
@@ -32,18 +29,16 @@ public class EnemySpawnerManager : MonoBehaviour
 
     void OnEnable()
     {
-        // Find all spawners in the scene and add them into the list
-        _spawners = FindObjectsByType<EnemySpawnerController>(FindObjectsSortMode.InstanceID).ToList();
         // Spawn at spawners that spawn at start
         SpawnEnemies();
     }
 
-
     public void SpawnEnemies()
     {
-        // call the spawning function for each spawner
-        foreach (EnemySpawnerController spawner in _spawners)
+        // spawn at every spawner that activates at level start
+        foreach (EnemySpawnerController spawner in FindObjectsByType<EnemySpawnerController>(FindObjectsSortMode.None))
         {
+            print(spawner);
             if (spawner.spawnAtStart)
             {
                 spawner.SpawnEnemies();
