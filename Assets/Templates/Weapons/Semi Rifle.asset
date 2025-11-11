@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9026bc7339770f4d8cc619eeb750f2e, type: 3}
   m_Name: Semi Rifle
   m_EditorClassIdentifier: 
-  DAMAGE: 6
+  DAMAGE: 8
   COOLDOWN: 4
-  RANGE: 50
-  FIRE_RATE: 4
+  RANGE: 80
+  FIRE_RATE: 2.5
   AMMO_TYPE: 1
   STAGE: 0
   FIRE_SELECT: 0
