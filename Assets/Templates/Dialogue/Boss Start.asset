@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88e33cf4f10986f4faa55d0c819bd0b3, type: 3}
+  m_Name: Boss Start
+  m_EditorClassIdentifier: 
+  dialogueText: "Lieutenant \u2013 \u201CIt seems that traversing this deep into
+    the caves is disrupting our communication\u2026 you may need to head back above
+    ground and come back another \u2013 WHAT THE #$1* IS THAT?-\u201C"
+  displayDuration: 5
