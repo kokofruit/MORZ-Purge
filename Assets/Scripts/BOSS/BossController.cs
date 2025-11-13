@@ -12,15 +12,19 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BossController : MonoBehaviour, IDamageable
 {
     // HEALTH
-    [SerializeField] private float _health;
+    [SerializeField] protected float _health;
 
-    // ATTACK ARRAY
-    protected List<Action> _actions = new();
+    // PHASE INFO
+    protected int _phaseIndex;
+    [SerializeField] private float _phaseTwoTrigger;
+    [SerializeField] private float _phaseThreeTrigger;
 
     // GLOB ATTACK
     [Header("Glob Attack")]
@@ -35,8 +39,16 @@ public class BossController : MonoBehaviour, IDamageable
     [SerializeField] protected AudioClip _damageAudio;
     [SerializeField] protected AudioClip _deathAudio;
 
+    // DEBUG TEXT
+    // for development purposes only
+    [SerializeField] private TMP_Text _debugText;
+
+    // ATTACK ARRAY
+    protected List<Func<IEnumerator>> _attacks = new();
+
     // COMPONENTS
     private Transform _playerTransform;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -44,28 +56,46 @@ public class BossController : MonoBehaviour, IDamageable
         // Cache player transform
         _playerTransform = FindAnyObjectByType<PlayerController>().transform;
 
-        // Add actions to list
-        //_actions.Add(ChargeAttack);
-        //_actions.Add(BodySlam);
-        _actions.Add(ShootGlob);
-
         // TEMPORARY
-        BossAwake();
+        StartPhaseOne();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void StartPhaseOne()
     {
-        
+        // set phase index
+        _phaseIndex = 1;
+
+        // Add phase one attacks to attack list
+        // _attacks.Add(ChargeAttack);
+        // _attacks.Add(BodySlam);
+        _attacks.Add(ShootGlob);
+
+        // Start attack cycle
+        ChooseNextAttack();
     }
 
-    public void BossAwake()
+    public void StartPhaseTwo()
     {
-        StartCoroutine(AttackCycle());
+        // set phase index
+        _phaseIndex = 2;
+
+        // Add phase two attacks to attack list
+        _attacks.Add(TendrilSweep);
+        _attacks.Add(SpawnBugs);
     }
 
-    // waiting time in between attacks and cycling between the different attacks
-    IEnumerator AttackCycle()
+    public void StartPhaseThree()
+    {
+        // set phase index
+        _phaseIndex = 3;
+
+        // Add phase three attacks to attack list
+        _attacks.Add(LaunchEggs);
+        _attacks.Add(TendrilBarrage);
+    }
+
+    // Choose a random attack and then execute it
+    void ChooseNextAttack()
     {
         /*
          * PHASE 1
@@ -74,82 +104,148 @@ public class BossController : MonoBehaviour, IDamageable
          * shoot glob
          * 
          * PHASE 2
-         * tenticle sweep
-         * launch eggs
+         * tentacle sweep
+         * spawn bugs
          * 
          * PHASE 3
-         * Spawn bugs
-         * tentical barrage
+         * launch eggs
+         * tentacle barrage
          */
-        while (true)
-        {
-            Action nextAttack = _actions[UnityEngine.Random.Range(0, _actions.Count)];
-            print(nextAttack);
-            nextAttack.Invoke();
 
-            yield return new WaitForSeconds(3);
-        }
+        // choose a random attack
+        Func<IEnumerator> nextAttack = _attacks[UnityEngine.Random.Range(0, _attacks.Count)];
+        // run attack
+        StartCoroutine(nextAttack.Method.Name);
+        // display for debug
+        _debugText.SetText(nextAttack.Method.Name);
     }
 
-    protected void ChargeAttack()
+    #region Phase One Attack
+    protected IEnumerator ChargeAttack()
     {
         /*
          * boss lunges at player
          * deal set player damage
          * when hit wall/player reset back
          */
+        float timeBeforeNextAttack = 3f;
+
+        // cooldown and then choose next attack
+        yield return new WaitForSeconds(timeBeforeNextAttack);
+        ChooseNextAttack();
     }
 
-    protected void BodySlam()
+    protected IEnumerator BodySlam()
     {
         /*
          * boss slams area near player
          * deal set player damage
          * reset after slam
          */
+        float timeBeforeNextAttack = 3f;
+
+        // cooldown and then choose next attack
+        yield return new WaitForSeconds(timeBeforeNextAttack);
+        ChooseNextAttack();
     }
 
-    protected void ShootGlob()
-    {
-        StartCoroutine(nameof(ShootGlobAction));
-    }
-    
-    protected IEnumerator ShootGlobAction()
+    protected IEnumerator ShootGlob()
     {
         /*
          * boss shoots glob at player
          * deal set player damage
          */
-        float timeBetweenGlobs = 0.5f;
         int globAmount = 3;
+        float timeBetweenGlobs = 0.5f;
+        float timeBeforeNextAttack = 3f;
 
-        // calculate direction towards player
-        Vector3 direction = _playerTransform.position - transform.position;
+        // play sound
+        SoundManager.instance.PlayFXAudio(_globAudio, transform, pitchFluctuation: 0.2f);
 
         // spawn three projectiles
         for (int projectileCount = 0; projectileCount < globAmount; projectileCount++)
         {
             // instantiate projectile
             EnemyProjectileParent projectile = Instantiate(_globPrefab, _globSource.position, Quaternion.identity).GetComponent<EnemyProjectileParent>();
+
+            // calculate direction towards player
+            Vector3 direction = _playerTransform.position - transform.position;
             // apply force
             projectile.AddForce(direction.normalized * _globForce);
 
+            // wait before globbing again
             yield return new WaitForSeconds(timeBetweenGlobs);
         }
 
-        // play sound
-        SoundManager.instance.PlayFXAudio(_globAudio, transform, pitchFluctuation: 0.2f);
+        // cooldown and then choose next attack (subtract glob time since it was just waited)
+        yield return new WaitForSeconds(timeBeforeNextAttack - timeBetweenGlobs);
+        ChooseNextAttack();
     }
 
-    public void TakeDamage(float damage) 
+    #endregion
+    #region Phase Two Attacks
+
+    protected IEnumerator TendrilSweep()
     {
+        float timeBeforeNextAttack = 3f;
+
+        // cooldown and then choose next attack
+        yield return new WaitForSeconds(timeBeforeNextAttack);
+        ChooseNextAttack();
+    }
+
+    protected IEnumerator SpawnBugs()
+    {
+        float timeBeforeNextAttack = 3f;
+
+        // cooldown and then choose next attack
+        yield return new WaitForSeconds(timeBeforeNextAttack);
+        ChooseNextAttack();
+    }
+
+    #endregion
+    #region Phase Three Attacks
+
+    protected IEnumerator LaunchEggs()
+    {
+        float timeBeforeNextAttack = 3f;
+
+        // cooldown and then choose next attack
+        yield return new WaitForSeconds(timeBeforeNextAttack);
+        ChooseNextAttack();
+    }
+
+    protected IEnumerator TendrilBarrage()
+    {
+        float timeBeforeNextAttack = 3f;
+
+        // cooldown and then choose next attack
+        yield return new WaitForSeconds(timeBeforeNextAttack);
+        ChooseNextAttack();
+    }
+
+    #endregion
+
+    public void TakeDamage(float damage)
+    {
+        // subtract health
         _health -= damage / (GameManager.instance.GetDifficulty() / 2 + 0.5f);
 
         // Play sound when taking damage
         // possibly play randomly instead of every hit
         //SoundManager.instance.PlayFXAudio(_damageAudio, transform, pitchFluctuation: 0.2f);
 
-        if (_health <= 0)
+        // trigger the next phase if needed
+        if ((_phaseIndex == 1) && (_health <= _phaseTwoTrigger))
+        {
+            StartPhaseTwo();
+        }
+        if ((_phaseIndex == 2) && (_health <= _phaseThreeTrigger))
+        {
+            StartPhaseThree();
+        }
+        // die if health is below zero
+        else if (_health <= 0)
         {
             Die();
         }
@@ -160,11 +256,13 @@ public class BossController : MonoBehaviour, IDamageable
     {
         // Play sound on death
         SoundManager.instance.PlayFXAudio(_deathAudio, transform, pitchFluctuation: 0.2f);
-        //Destroy(bugsplosion, 0.5f);
+
+        // stop function executions and destroy self
         StopAllCoroutines();
         Destroy(gameObject);
     }
 
+    // damage the player
     protected void PlayerDamage(int damage)
     {
         _playerTransform.GetComponent<PlayerController>().SubtractHealth(damage);
