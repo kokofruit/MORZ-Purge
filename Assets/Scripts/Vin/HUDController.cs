@@ -4,6 +4,7 @@
 // Description: Controller to show health, ammo, and upgrades on the HUD
 
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,24 +13,27 @@ public class HUDController : MonoBehaviour
 {
     //// Pulic variables ////
     public static HUDController instance;
-    // References health bar image on HUD
+
+    [Header("Runtime variables")]
+    // Controls the speed of the weapon walking animation
+    [SerializeField] private float _weaponAnimSpeed = 1;
+    // Controls the amount of movement of the weapon animation
+    [SerializeField] private float _weaponAnimAmp = 1;
+    [SerializeField] private float zRecoilRotationAmt = 5;
+    [SerializeField] private float xRecoilTransformAmt = 3;
+    [SerializeField] private float recoilAnimSpeed = 1;
+    [SerializeField] private int recoilAnimFrames = 24;
+    [SerializeField] private float damageAnimLen = 0.5f;
+    [SerializeField] private int damageIndicatorMaxAlpha = 50;
+
+    [Header("HUD")]
     public Image healthBar;
+    public Image damageIndicator;
     public Image cooldownBar;
-    // References the text box displayed for ammo currently in mag
-    // public TextMeshProUGUI ammoTxt;
+    public Image tempPickupCooldownBar;
+    public Image tempPickupCooldownBG;
     // References the text boxes for light, medium, and heavy ammo
     public TextMeshProUGUI[] inventoryAmmo = new TextMeshProUGUI[3];
-    // Reference to upgrade info text box
-    // public TextMeshProUGUI upgradeInfoTxt;
-    // Reference to upgrade timer text box
-    // public TextMeshProUGUI upgradeTimerTxt;
-    // Upgrade tint references
-    public Image shieldUpgradeImg;
-    public Image armorUpgradeImg;
-    public Image stimUpgradeImg;
-    public Image ammoUpgradeImg;
-
-    //Overarching UI objects containing changing sprites
     //total ammo
     public GameObject loadoutAmmoContainer;
     //mag ammo
@@ -42,6 +46,9 @@ public class HUDController : MonoBehaviour
     public GameObject IconBGContainer;
     //upgrade dots next to held weapon icons
     public GameObject upgradeDotContainer;
+    //comment later goober
+    public Image[] upgradeSlots = new Image[9];
+
 
     //// Private variables ////
     // Types of ammo stored in list
@@ -51,8 +58,13 @@ public class HUDController : MonoBehaviour
     // Upgrade text stored in list
     private string[] upgradesString = new string[4];
 
-    //comment later goober
-    public Image[] upgradeSlots = new Image[9];
+    private Vector3 weaponStartPos;
+    private bool indicatingDamage;
+    private float playerMoveDistance = 0;
+    private Coroutine currentCooldown;
+    private Coroutine currentRecoilCoroutine;
+    private Coroutine currentTempCoroutine;
+
 
 
     // Used to make an instance
@@ -81,11 +93,11 @@ public class HUDController : MonoBehaviour
         upgradesString[3] = "Ammo Pack";
 
         // Make sure upgrade tints are disabled
-        shieldUpgradeImg.enabled = false;
-        armorUpgradeImg.enabled = false;
-        stimUpgradeImg.enabled = false;
-        ammoUpgradeImg.enabled = false;
+        tempPickupCooldownBar.enabled = false;
+        tempPickupCooldownBG.enabled = false;
 
+        weaponStartPos = weaponSpriteContainer.GetComponent<RectTransform>().position;
+        Debug.Log("WeaponStartPos: " + weaponStartPos);
     }
 
     // Setting max health
@@ -129,6 +141,43 @@ public class HUDController : MonoBehaviour
         }
     }
 
+    public void resetDistance() {
+        playerMoveDistance = 0;
+    }
+
+    public void AnimateWeapon(float playerSpeed)
+    {
+        if (currentRecoilCoroutine == null) {
+            playerMoveDistance += playerSpeed;
+            weaponSpriteContainer.GetComponent<RectTransform>().position = weaponStartPos + new Vector3(_weaponAnimAmp * Mathf.Sin(_weaponAnimSpeed / 2 * playerMoveDistance), _weaponAnimAmp * Mathf.Sin(_weaponAnimSpeed * playerMoveDistance), 0f);
+        }
+    }
+
+    public void AnimateRecoil()
+    {
+        Vector3 weaponEndPos = new Vector3(weaponStartPos.x + xRecoilTransformAmt, weaponStartPos.y, weaponStartPos.z);
+        Vector3 weaponEndRotation = new Vector3(0, 0, -zRecoilRotationAmt);
+        
+        if (currentRecoilCoroutine != null) {
+            StopCoroutine(currentRecoilCoroutine);
+            currentRecoilCoroutine = null;
+        }
+        currentRecoilCoroutine = StartCoroutine(RecoilAnimation(weaponEndPos, weaponEndRotation, recoilAnimFrames));
+    }
+
+    public IEnumerator RecoilAnimation(Vector3 weaponEndPos, Vector3 weaponEndRotation, int frame)
+    {
+        while (frame > 0) {
+            Vector3 newPosition = Vector3.Lerp(weaponStartPos, weaponEndPos, (float)frame/recoilAnimFrames);
+            Vector3 newRotation = Vector3.Lerp(new Vector3(0,0,0), weaponEndRotation, (float)frame/recoilAnimFrames);
+            weaponSpriteContainer.GetComponent<RectTransform>().position = newPosition;
+            weaponSpriteContainer.GetComponent<RectTransform>().rotation = Quaternion.Euler(newRotation);
+            frame--;
+            yield return new WaitForSeconds(recoilAnimSpeed/recoilAnimFrames);
+        }
+        currentRecoilCoroutine = null;
+    }
+
     //set icon background
     public void SetIconBG(int idx)
     {
@@ -160,12 +209,15 @@ public class HUDController : MonoBehaviour
     public void LoadMagazineDisplay(Weapon weapon)
     {
         //stop current relaod cooldown bar
-        StopAllCoroutines();
+        if (currentCooldown != null) {
+            StopCoroutine(currentCooldown);
+            currentCooldown = null;
+        }
         if (weapon.GetCooldownStatus())
         {
             //bring up new cooldown bar if new gun is reloading
             cooldownBar.enabled = true;
-            StartCoroutine(DisplayCooldown(weapon));
+            currentCooldown = StartCoroutine(DisplayCooldown(weapon));
         }
         else cooldownBar.enabled = false;
 
@@ -203,6 +255,7 @@ public class HUDController : MonoBehaviour
             yield return null;
         }
         cooldownBar.enabled = false;
+        currentCooldown = null;
     }
 
     // Setting upgrade
@@ -240,56 +293,90 @@ public class HUDController : MonoBehaviour
     
     public void SetUpgrade(int upgradeType, float upgradeDuration)
     {
-        // Set text to display what upgrade player obtained
-        // upgradeInfoTxt.text = "" + upgradesString[upgradeType];
-
         // Deactivate any running upgrades before starting another upgrade
-        DeactivateUpgrades(upgradeType);
+        DeactivateUpgrades();
 
-        // Start timer
-        TempPickupManager.instance.StartTimer(upgradeType, upgradeDuration);
+        tempPickupCooldownBar.enabled = true;
+        tempPickupCooldownBG.enabled = true;
 
         // Activate upgrades and HUD tints
-        if (upgradeType == 0 || upgradeType == 1)
+        switch (upgradeType)
         {
-            if(upgradeType == 0) armorUpgradeImg.enabled = true;
-            else stimUpgradeImg.enabled = true;
-            // Activate upgrade
-            PlayerController.instance.ActivateUpgrade(upgradeType);
+            // Armor
+            case 0:
+                tempPickupCooldownBar.color = new Color(220, 255, 245);
+                PlayerController.instance.ActivateUpgrade(upgradeType);
+                break;
+            // Stimulant
+            case 1:
+                tempPickupCooldownBar.color = new Color(220, 255, 220);
+                PlayerController.instance.ActivateUpgrade(upgradeType);
+                break;
+            // Invisibility
+            case 2:
+                tempPickupCooldownBar.color = new Color(220, 220, 255);
+                EnemyController.ActivateUpgrade(upgradeType);
+                break;
+            // Unlimited Magazine
+            case 3:
+                tempPickupCooldownBar.color = new Color(245, 255, 220);
+                WeaponActionController.instance.ActivateUpgrade(upgradeType);
+                break;
         }
-        else if (upgradeType == 2)
-        {
-            // Activate upgrade
-            EnemyController.ActivateUpgrade(upgradeType);
-            shieldUpgradeImg.enabled = true;
+        if (currentTempCoroutine != null) {
+            StopCoroutine(currentTempCoroutine);
         }
-        else if (upgradeType == 3)
-        {
-            // Activate upgrade
-            WeaponActionController.instance.ActivateUpgrade(upgradeType);
-            ammoUpgradeImg.enabled = true;
-        }
+        currentTempCoroutine = StartCoroutine(TempUpgradeCountdown(upgradeDuration));
 
     }
 
-    // This deactivates any running upgrades, and disables the tint image
-    public void DeactivateUpgrades(int upgradeType)
+    private IEnumerator TempUpgradeCountdown(float time)
     {
+        float totalTime = time;
+
+        while (time > 0)
+        {
+            Debug.Log("Time: " + time);
+            time = time - Time.deltaTime;
+            tempPickupCooldownBar.fillAmount = time/totalTime;
+            yield return null;
+        }
+        tempPickupCooldownBar.enabled = false;
+        tempPickupCooldownBG.enabled = false;
+        DeactivateUpgrades();
+    }
+
+    // This deactivates any running upgrades, and disables the tint image
+    public void DeactivateUpgrades() {
         // Deactivate armor and stim upgrade after timer runs out
         PlayerController.instance.DeactivateUpgrade(0);
         PlayerController.instance.DeactivateUpgrade(1);
-        // Deactivate screen tints
-        stimUpgradeImg.enabled = false;
-        armorUpgradeImg.enabled = false;
-
         // Deactivate shield upgrade after timer runs out
         EnemyController.DeactivateUpgrade(2);
-        // Deactivate screen tint
-        shieldUpgradeImg.enabled = false;
-
         // Deactivate ammo upgrade after timer runs out
         WeaponActionController.instance.DeactivateUpgrade(3);
-        // Deactivate screen tint
-        ammoUpgradeImg.enabled = false;
+    }
+
+    public void IndicateDamage()
+    {
+        Debug.Log("Damage Indication Starting...");
+        damageIndicator.enabled = true;
+        if (!indicatingDamage) {
+            indicatingDamage = true;
+            StartCoroutine(DamageIndicatorAnim(damageIndicatorMaxAlpha, damageAnimLen / damageIndicatorMaxAlpha));
+        }
+    }
+
+    private IEnumerator DamageIndicatorAnim(float transparency, float timeDelta)
+    {
+        while (transparency > 0)
+        {
+            damageIndicator.color = new Color(damageIndicator.color.r, damageIndicator.color.g, damageIndicator.color.b, transparency--/100);
+            Debug.Log("Damage indicator transparency: " + transparency);
+            yield return new WaitForSecondsRealtime(timeDelta);
+        }
+        indicatingDamage = false;
+        if (damageIndicator != null) damageIndicator.enabled = false;
+        Debug.Log("Damage Indication Done!");
     }
 }

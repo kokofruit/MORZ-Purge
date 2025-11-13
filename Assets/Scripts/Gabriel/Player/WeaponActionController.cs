@@ -44,6 +44,8 @@ public class WeaponActionController : MonoBehaviour
             // Check if the player is attacking, if the next shot it ready to fire, and the gun is not cooling down.
             else if (_isAttacking && Time.time >= _nextShotTime && !currentWeapon.GetCooldownStatus())
             {
+                HUDController.instance.AnimateRecoil();
+                
                 RaycastHit hit;
                 // Fire a "Bullet" (Raycast) in the direction the player is looking and get out the first object hit
                 Physics.Raycast(PlayerController.instance.head.position, PlayerController.instance.head.forward, out hit, currentWeapon.RANGE);

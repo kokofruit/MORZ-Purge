@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     public Transform head;
 
     //////////////////// Private Variables /////////////////////
+    [Header("Runtime Variables")]
     ///     // Player horizontal look sensitivity
     [SerializeField] private float _lookSensX = 0.1f;
     // Player vertical look sensitivity
@@ -29,6 +30,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _jumpForce = 5;
     // Maximum distance within which the player can interact with other objects
     [SerializeField] private float _interactDistance = 5;
+    
+    // Player Heads Up Display
+    private HUDController HUD;
     // Player rigidbody
     private Rigidbody _rb;
     // Store the players height for runtime calculations
@@ -73,12 +77,13 @@ public class PlayerController : MonoBehaviour
         head = transform.Find("Head");
         _rb = GetComponent<Rigidbody>();
         _playerHeight = transform.localScale.y * 2;
+        HUD = HUDController.instance;
 
         // Lock the cursor to the center of the screen during gameplay
         Cursor.lockState = CursorLockMode.Locked;
 
         // Set the players health to full
-        HUDController.instance.SetMaxHealth();
+        HUD.SetMaxHealth();
     }
 
     // Update is called once per frame
@@ -103,6 +108,9 @@ public class PlayerController : MonoBehaviour
         {
             // Set the players speed depending on whether they are sprinting or not
             float _speed = _isSprinting ? _walkSpeed * _runSpeedMultiplier : _walkSpeed;
+
+            HUD.AnimateWeapon(_rb.linearVelocity.magnitude);
+
             // Check if stimulant is activated
             if (stimulantUpActivated)
             {
@@ -179,24 +187,30 @@ public class PlayerController : MonoBehaviour
         }
 
         // Update health bar with new health amount
-        HUDController.instance.DisplayHealth(_health);
+        HUD.DisplayHealth(_health);
     }
 
     public void SubtractHealth(float amount)
     {
         // Check to make sure invincibility armor isn't active
-        if(!armorUpActivated)
+        if (!armorUpActivated)
         {
             _health -= amount;
 
             if (_health < 0)
             {
                 GameManager.instance.PlayerDied();
+                return;
             }
-
             // Update health bar with new health amount
-            HUDController.instance.DisplayHealth(_health);
+            HUD.DisplayHealth(_health);
+            HUD.IndicateDamage();
         }
+    }
+    
+    public float GetVelocity()
+    {
+        return _rb.linearVelocity.magnitude;
     }
 
     ///////////////////////////////// Input  Management ////////////////////////////////
@@ -205,6 +219,7 @@ public class PlayerController : MonoBehaviour
     public void OnMove(InputValue input)
     {
         _movementVector = input.Get<Vector2>();
+        if (_rb.linearVelocity.magnitude < 0.1f) HUD.resetDistance();
     }
 
     // Look input from the input manager
