@@ -205,6 +205,8 @@ public class EnemyController : MonoBehaviour, IDamageable
             if (DEBUG_MODE) Debug.DrawRay(_eyeTransform.position, direction);
 
             // raycast towards the target
+            //
+            // put a range here later - phil
             if (Physics.Raycast(_eyeTransform.position, direction, out RaycastHit hit, distance + 1f, _layerMask))
             {
                 // if raycast hits something, see if it's the player
