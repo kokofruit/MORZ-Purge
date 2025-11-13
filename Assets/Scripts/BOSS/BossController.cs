@@ -26,6 +26,7 @@ public class BossController : MonoBehaviour, IDamageable
     [Header("Glob Attack")]
     [SerializeField] protected float _globForce;
     [SerializeField] protected GameObject _globPrefab;
+    [SerializeField] protected Transform _globSource;
     [SerializeField] protected AudioClip _globAudio;
 
     // SOUNDS
@@ -110,19 +111,31 @@ public class BossController : MonoBehaviour, IDamageable
 
     protected void ShootGlob()
     {
+        StartCoroutine(nameof(ShootGlobAction));
+    }
+    
+    protected IEnumerator ShootGlobAction()
+    {
         /*
          * boss shoots glob at player
          * deal set player damage
          */
+        float timeBetweenGlobs = 0.5f;
+        int globAmount = 3;
 
         // calculate direction towards player
         Vector3 direction = _playerTransform.position - transform.position;
 
-        // instantiate projectile
-        EnemyProjectileParent projectile = Instantiate(_globPrefab, direction.normalized + transform.position, Quaternion.identity).GetComponent<EnemyProjectileParent>();
+        // spawn three projectiles
+        for (int projectileCount = 0; projectileCount < globAmount; projectileCount++)
+        {
+            // instantiate projectile
+            EnemyProjectileParent projectile = Instantiate(_globPrefab, _globSource.position, Quaternion.identity).GetComponent<EnemyProjectileParent>();
+            // apply force
+            projectile.AddForce(direction.normalized * _globForce);
 
-        // apply force
-        projectile.AddForce(direction.normalized * _globForce);
+            yield return new WaitForSeconds(timeBetweenGlobs);
+        }
 
         // play sound
         SoundManager.instance.PlayFXAudio(_globAudio, transform, pitchFluctuation: 0.2f);
