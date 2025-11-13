@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5520188187510831407
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6351335467121119773}
+  - component: {fileID: 5673788906663963274}
+  m_Layer: 0
+  m_Name: DialogueManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6351335467121119773
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5520188187510831407}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 468.97754, y: 214.84642, z: 3.2734203}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5673788906663963274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5520188187510831407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be811f967019fa44cb9f39a9a2a50550, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogChoices:
+  - {fileID: 11400000, guid: c42cd4c3532e6ca4ab266a741d569757, type: 2}
+  - {fileID: 11400000, guid: 3d839f0aae4791043a1f5818e4870acc, type: 2}
+  - {fileID: 11400000, guid: 5bcd7a0d5364e254096c973ca8c0bd44, type: 2}
+  - {fileID: 11400000, guid: 7e97fea1380d8e14a872bb894c5babe8, type: 2}
+  - {fileID: 11400000, guid: a04b61a701ade2a4a8906911f3182eff, type: 2}
+  - {fileID: 11400000, guid: 4001d40c10fbc6b4cb094074bc71e120, type: 2}
+  - {fileID: 11400000, guid: e19cafbfeda26c545b3391b99e021332, type: 2}
+  - {fileID: 11400000, guid: fd231d33f72008a48ad4fe299126cab4, type: 2}
+  - {fileID: 11400000, guid: c8a28ae38ae2f3f459aa2e26ef0dd5a2, type: 2}
+  dialogBox: {fileID: 0}

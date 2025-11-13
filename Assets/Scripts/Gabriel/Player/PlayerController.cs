@@ -161,6 +161,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // Called when the player collides with another object
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("Collided w boundary");
+        if (collision.gameObject.tag == "Boundary")
+        {
+            //FIX THIS
+            //DialogueManager.OnDisplay(8);
+        }
+    }
+
     // Release the cursor when the player dies
     void OnDestroy()
     {

@@ -8,15 +8,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Gabriel/TitleScreen.unity
     guid: 1772d09bc35fa1d478780060aace6e7d
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Gabriel/Level 1.unity
     guid: 35de71893b9210846817bf863f62bf90
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Gabriel/Level 2.unity
-    guid: a40d2e8fde2ee6a4981f50af77f8bcc8
-  - enabled: 1
+    guid: cbaf03894c83df541ae18f056ff926a7
+  - enabled: 0
     path: Assets/Scenes/Gabriel/Level 3.unity
-    guid: 56b0abfe9770e5e4888d17618c96f2cf
+    guid: 1f19e5093899b8243b5aa5e3cb9f75d9
   - enabled: 1
     path: Assets/Scenes/Gabriel/WinScreen.unity
     guid: b7a3012d30f629543a0d6b82ceed6bb0
@@ -26,6 +26,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Gabriel/LoseScreen.unity
     guid: e13b825816a1d5f47965380103c7fd48
+  - enabled: 1
+    path: Assets/Scenes/Kris/Kris Level 1.unity
+    guid: c6e2ae1a7d0452640b575fe0c1642b8c
+  - enabled: 1
+    path: Assets/Scenes/Kris/Kris Level 2.unity
+    guid: 5be89a1ddb904b74bb54500d19aab59a
+  - enabled: 1
+    path: Assets/Scenes/Kris/Kris Level 3.unity
+    guid: 7070e7c44efbd3e4d93af8bb65aa2e08
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

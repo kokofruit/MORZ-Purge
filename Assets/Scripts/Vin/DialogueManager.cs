@@ -11,6 +11,12 @@ using UnityEngine.UI;
 using UnityEditor.Rendering;
 using UnityEngine.SceneManagement;
 
+/*
+ * TODO:
+ * End level dialogue when player kills all (or a certain number) of aliens
+ * Wrong way dialogue (waiting for boundary implementation)
+ */
+
 public class DialogueManager : MonoBehaviour
 {
     // public references
@@ -20,11 +26,6 @@ public class DialogueManager : MonoBehaviour
     // private variables
     private DialogueTemplate dialogText;
     private int index;
-
-    // Starting dialogues need displayed on scene loads
-    // Ending dialogues need displayed when all bugs are dead
-    // Wrong way dialogue can be triggered and displayed
-    // On Death Maybe ??
 
     // Indexes for dialogChoices
     /*
@@ -45,6 +46,7 @@ public class DialogueManager : MonoBehaviour
         Scene currentScene = SceneManager.GetActiveScene();
 
         // Set the dialogue index to be displayed based off of what the current scene is
+        // CHANGE SCENE NAMES IN FINAL BUILD
         if (currentScene.name == "Kris Level 1")
             index = 0;
         else if (currentScene.name == "Kris Level 2")
@@ -54,13 +56,21 @@ public class DialogueManager : MonoBehaviour
         else if (currentScene.name == "Boss")
             index = 6;
 
-        // On scene load, start dialogue
+        // On scene load, display start of level dialogue
         OnDisplay(index);
+    }
+
+    // Send the dialogue option to the coroutine to be displayed
+    public void OnDisplay(int index)
+    {
+        dialogText = dialogChoices[index];
+        StartCoroutine(TypeDialog(dialogText.dialogueText));
     }
 
     // Coroutine to type out given dialogue
     IEnumerator TypeDialog(string message)
     {
+        // Slight delay when player loads in scene cuz it looks nice
         yield return new WaitForSeconds(.5f);
         foreach (char c in message)
         {
@@ -71,15 +81,10 @@ public class DialogueManager : MonoBehaviour
         }
 
         // Wait to reset the dialogue box
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
         // Reset the dialogue box
         dialogBox.text = "";
     }
 
-    // Send the dialogue option to the coroutine to be displayed
-    private void OnDisplay(int index)
-    {
-        dialogText = dialogChoices[index];
-        StartCoroutine(TypeDialog(dialogText.dialogueText));
-    }
+
 }
