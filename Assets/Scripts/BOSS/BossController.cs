@@ -1,4 +1,4 @@
-// Main Contributors: Mark Klitsch
+// Main Contributors: Mark Klitsch, Moth Harper
 // Reviewer: Vin, Phil
 // Description: Basic behavior for the boss parent
 
@@ -15,58 +15,78 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class BossController : MonoBehaviour, IDamageable
 {
-    // HEALTH
-    [SerializeField] protected float _health;
+    // HEALTH & DAMAGE
+    [SerializeField] private float _health;
+    [SerializeField] private float _baseContactDamage;
+    private float _currentContactDamage;
 
     // PHASE INFO
-    protected int _phaseIndex;
+    [Header("Phase Variables")]
     [SerializeField] private float _phaseTwoTrigger;
     [SerializeField] private float _phaseThreeTrigger;
+    private int _phaseIndex;
+
+    // CHARGE ATTACK
+    [Header("Charge Attack")]
+    [SerializeField] private float _chargeSpeed;
+    [SerializeField] private float _chargeContactDamage;
+    [SerializeField] private AudioClip _chargeAudio;
 
     // GLOB ATTACK
     [Header("Glob Attack")]
-    [SerializeField] protected float _globForce;
-    [SerializeField] protected GameObject _globPrefab;
-    [SerializeField] protected Transform _globSource;
-    [SerializeField] protected AudioClip _globAudio;
+    [SerializeField] private float _globForce;
+    [SerializeField] private GameObject _globPrefab;
+    [SerializeField] private Transform _globSource;
+    [SerializeField] private AudioClip _globAudio;
 
     // SOUNDS
     [Header("SFX")]
-    [SerializeField] protected AudioClip _attackAudio;
-    [SerializeField] protected AudioClip _damageAudio;
-    [SerializeField] protected AudioClip _deathAudio;
+    [SerializeField] private AudioClip _attackAudio;
+    [SerializeField] private AudioClip _damageAudio;
+    [SerializeField] private AudioClip _deathAudio;
 
     // DEBUG TEXT
     // for development purposes only
     [SerializeField] private TMP_Text _debugText;
 
     // ATTACK ARRAY
-    protected List<Func<IEnumerator>> _attacks = new();
+    private List<Func<IEnumerator>> _attacks = new();
 
     // COMPONENTS
+    private NavMeshAgent _navMeshAgent;
+    private Animator _animator;
     private Transform _playerTransform;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        // Cache own components
+        _navMeshAgent = GetComponent<NavMeshAgent>();
+        _animator = GetComponentInChildren<Animator>();
+        
         // Cache player transform
         _playerTransform = FindAnyObjectByType<PlayerController>().transform;
 
+        // set contact damage
+        _currentContactDamage = _baseContactDamage;
+
         // TEMPORARY
-        StartPhaseOne();
+        Invoke(nameof(StartPhaseOne), 3f);
     }
 
+    #region Phase Changes
     public void StartPhaseOne()
     {
         // set phase index
         _phaseIndex = 1;
 
         // Add phase one attacks to attack list
-        // _attacks.Add(ChargeAttack);
+        _attacks.Add(ChargeAttack);
         // _attacks.Add(BodySlam);
         _attacks.Add(ShootGlob);
 
@@ -93,6 +113,7 @@ public class BossController : MonoBehaviour, IDamageable
         _attacks.Add(LaunchEggs);
         _attacks.Add(TendrilBarrage);
     }
+    #endregion
 
     // Choose a random attack and then execute it
     void ChooseNextAttack()
@@ -116,12 +137,13 @@ public class BossController : MonoBehaviour, IDamageable
         Func<IEnumerator> nextAttack = _attacks[UnityEngine.Random.Range(0, _attacks.Count)];
         // run attack
         StartCoroutine(nextAttack.Method.Name);
+
         // display for debug
         _debugText.SetText(nextAttack.Method.Name);
     }
 
-    #region Phase One Attack
-    protected IEnumerator ChargeAttack()
+    #region Phase One Attacks
+    private IEnumerator ChargeAttack()
     {
         /*
          * boss lunges at player
@@ -129,13 +151,50 @@ public class BossController : MonoBehaviour, IDamageable
          * when hit wall/player reset back
          */
         float timeBeforeNextAttack = 3f;
+        // for performance reasons. higher number -> better performance. lower number -> more precise destination
+        float destinationIterationModifier = 2.5f; 
+
+        // find direction towards player
+        Vector3 direction = _playerTransform.position - transform.position;
+        direction = new Vector3(direction.x, 0, direction.z);
+        direction = direction.normalized;
+
+        // iteratively search for farthest reachable point in that direction
+        Vector3 destinationCandidate = transform.position;
+        while (NavMesh.SamplePosition(destinationCandidate + (direction * destinationIterationModifier), out NavMeshHit hit, 0.5f, _navMeshAgent.areaMask))
+        {
+            destinationCandidate = hit.position;
+        }
+
+        // set speed
+        _navMeshAgent.speed = _chargeSpeed;
+        // set contact damage
+        _currentContactDamage = _chargeContactDamage;
+
+        // set destination to that direction
+        _navMeshAgent.SetDestination(destinationCandidate);
+
+        // TODO: start charge noise. like a growl maybe?
+        
+        // do nothing until finished charging
+        while (Vector3.Distance(transform.position, destinationCandidate) > 0f)
+        {
+            yield return null;
+        }
+
+        // TODO: collision noise?
+
+        // once done charging, reset speed
+        _navMeshAgent.speed = 0f;
+        // reset contact damage
+        _baseContactDamage = _chargeContactDamage;
 
         // cooldown and then choose next attack
         yield return new WaitForSeconds(timeBeforeNextAttack);
         ChooseNextAttack();
     }
 
-    protected IEnumerator BodySlam()
+    private IEnumerator BodySlam()
     {
         /*
          * boss slams area near player
@@ -149,7 +208,7 @@ public class BossController : MonoBehaviour, IDamageable
         ChooseNextAttack();
     }
 
-    protected IEnumerator ShootGlob()
+    private IEnumerator ShootGlob()
     {
         /*
          * boss shoots glob at player
@@ -183,9 +242,10 @@ public class BossController : MonoBehaviour, IDamageable
     }
 
     #endregion
+    
     #region Phase Two Attacks
 
-    protected IEnumerator TendrilSweep()
+    private IEnumerator TendrilSweep()
     {
         float timeBeforeNextAttack = 3f;
 
@@ -194,7 +254,7 @@ public class BossController : MonoBehaviour, IDamageable
         ChooseNextAttack();
     }
 
-    protected IEnumerator SpawnBugs()
+    private IEnumerator SpawnBugs()
     {
         float timeBeforeNextAttack = 3f;
 
@@ -204,9 +264,10 @@ public class BossController : MonoBehaviour, IDamageable
     }
 
     #endregion
+    
     #region Phase Three Attacks
 
-    protected IEnumerator LaunchEggs()
+    private IEnumerator LaunchEggs()
     {
         float timeBeforeNextAttack = 3f;
 
@@ -215,7 +276,7 @@ public class BossController : MonoBehaviour, IDamageable
         ChooseNextAttack();
     }
 
-    protected IEnumerator TendrilBarrage()
+    private IEnumerator TendrilBarrage()
     {
         float timeBeforeNextAttack = 3f;
 
@@ -226,6 +287,7 @@ public class BossController : MonoBehaviour, IDamageable
 
     #endregion
 
+    #region Damage (Taking and Giving)
     public void TakeDamage(float damage)
     {
         // subtract health
@@ -245,7 +307,7 @@ public class BossController : MonoBehaviour, IDamageable
             StartPhaseThree();
         }
         // die if health is below zero
-        else if (_health <= 0)
+        else if ((_phaseIndex == 3) && (_health <= _phaseThreeTrigger))
         {
             Die();
         }
@@ -263,9 +325,19 @@ public class BossController : MonoBehaviour, IDamageable
     }
 
     // damage the player
-    protected void PlayerDamage(int damage)
+    private void PlayerDamage(float baseDamage)
     {
-        _playerTransform.GetComponent<PlayerController>().SubtractHealth(damage);
+        _playerTransform.GetComponent<PlayerController>().SubtractHealth(baseDamage * GameManager.instance.GetDifficulty() / 2);
     }
 
+    // Damage player on collision
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            PlayerDamage(_currentContactDamage);
+        }
+    }
+    
+    #endregion
 }
