@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: TacticalSMG
   m_EditorClassIdentifier: 
   DAMAGE: 3
-  COOLDOWN: 3
+  COOLDOWN: 2
   RANGE: 30
-  FIRE_RATE: 8
+  FIRE_RATE: 12
   AMMO_TYPE: 0
   STAGE: 2
   FIRE_SELECT: 1
-  MAG_SIZE: 24
+  AOE_RADIUS: 0
+  MAG_SIZE: 28

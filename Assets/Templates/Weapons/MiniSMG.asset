@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9026bc7339770f4d8cc619eeb750f2e, type: 3}
   m_Name: MiniSMG
   m_EditorClassIdentifier: 
-  DAMAGE: 5
-  COOLDOWN: 2
+  DAMAGE: 4
+  COOLDOWN: 3
   RANGE: 20
-  FIRE_RATE: 10
+  FIRE_RATE: 9
   AMMO_TYPE: 0
   STAGE: 1
   FIRE_SELECT: 1
+  AOE_RADIUS: 0
   MAG_SIZE: 26
