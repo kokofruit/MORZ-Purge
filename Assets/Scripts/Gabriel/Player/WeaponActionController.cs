@@ -44,20 +44,22 @@ public class WeaponActionController : MonoBehaviour
             // Check if the player is attacking, if the next shot it ready to fire, and the gun is not cooling down.
             else if (_isAttacking && Time.time >= _nextShotTime && !currentWeapon.GetCooldownStatus())
             {
+                HUDController.instance.AnimateRecoil();
+                
                 RaycastHit hit;
                 // Fire a "Bullet" (Raycast) in the direction the player is looking and get out the first object hit
                 Physics.Raycast(PlayerController.instance.head.position, PlayerController.instance.head.forward, out hit, currentWeapon.RANGE);
                 // Check to make sure the bullet hit something
                 if (hit.collider != null)
                 {
-                    if (currentWeapon.FIRE_SELECT == WeaponTemplate.FireSelect.Explosive)
+                    if (currentWeapon.FIRE_SELECT == WeaponTemplate.FireSelect.AOE)
                     {
-                        Collider[] c = Physics.OverlapSphere(hit.point, 5);
+                        Collider[] c = Physics.OverlapSphere(hit.point, currentWeapon.AOE_RADIUS);
                         foreach (Collider o in c)
                         {
                             // Hi, Moth addition here. I'm leaving the old stuff as comments, Just In Case(tm).
                             // if hit object within explosion radius has a damageable interface, deal damage
-                            if (hit.collider.TryGetComponent(out IDamageable damageableInterface))
+                            if (o.TryGetComponent(out IDamageable damageableInterface))
                             {
                                 damageableInterface.TakeDamage(currentWeapon.damage);
                             }
@@ -99,10 +101,7 @@ public class WeaponActionController : MonoBehaviour
                 _nextShotTime = Time.time + (1f / currentWeapon.fireRate);
             }
             // If the gun is single fire and the player is attacking but cannot fire, set attacking to false to avoid weapon misfire
-            else if (currentWeapon.FIRE_SELECT == WeaponTemplate.FireSelect.Single)
-                _isAttacking = false;
-
-            else if (currentWeapon.FIRE_SELECT == WeaponTemplate.FireSelect.Explosive)
+            else if (currentWeapon.FIRE_SELECT == WeaponTemplate.FireSelect.Single || currentWeapon.FIRE_SELECT == WeaponTemplate.FireSelect.AOE)
                 _isAttacking = false;
         }
         else
@@ -135,11 +134,6 @@ public class WeaponActionController : MonoBehaviour
         HUDController.instance.LoadMagazineDisplay(currentWeapon);
     }
 
-    //Sets held weapon to one from the inventory
-    public void GetWeapon(int inc, int start) {
-        InventoryManager.instance.ChangeWeapon(inc,start , ref currentWeapon);
-    }
-
     // Handles player attack input action
     public void OnAttack(InputValue input)
     {
@@ -156,7 +150,7 @@ public class WeaponActionController : MonoBehaviour
         //0 is no scroll and therefore ignored
         if (input.Get<float>() == 0)
             return;
-        GetWeapon((int)input.Get<float>(), (int)currentWeapon.AMMO_TYPE);
+        InventoryManager.instance.ChangeWeapon((int)input.Get<float>(), (int)currentWeapon.AMMO_TYPE , ref currentWeapon);
     }
 
     /* Vin Lettich

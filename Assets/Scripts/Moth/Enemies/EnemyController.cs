@@ -392,7 +392,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     protected void PlayerDamage()
     {
         if (DEBUG_MODE) print(gameObject.name + "Damaged player by: " + _calculatedDamage);
-        _playerTransform.GetComponent<PlayerController>().SubtractHealth(_calculatedDamage);
+        PlayerController.instance.SubtractHealth(_calculatedDamage);
     }
 
     /* Vin Lettich
