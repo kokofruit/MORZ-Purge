@@ -11,25 +11,35 @@ public class PlayerController : MonoBehaviour
     //////////////////// Public Variables /////////////////////
     // Static instance of the player for other scripts to reference
     public static PlayerController instance;
-    // Player's starting health
-    public float _health { get; private set; } = 100;
     // Head object that contains the first person camera
     public Transform head;
+    public Collider movementLimiter;
 
     //////////////////// Private Variables /////////////////////
-    [Header("Runtime Variables")]
+    [Header("Player Variables")]
     ///     // Player horizontal look sensitivity
     [SerializeField] private float _lookSensX = 0.1f;
     // Player vertical look sensitivity
     [SerializeField] private float _lookSensY = 0.1f;
+    // Player's starting health
+    [SerializeField] private float _health = 100;
     // Default movement speed
     [SerializeField] private float _walkSpeed = 1.5f;
     // Default speed multiplier for when the player is running
     [SerializeField] private float _runSpeedMultiplier = 2;
+    // Stimulant Upgrade Multiplier
+    [SerializeField] private float stimMultiplier = 2;
     // Amount of force added to the player when jumping
     [SerializeField] private float _jumpForce = 5;
     // Maximum distance within which the player can interact with other objects
     [SerializeField] private float _interactDistance = 5;
+    // Minimum speed the player can travel in the air
+    [SerializeField] private float _minAirSpeed = 3;
+    // Amount of acceleration player input has in the air
+    [SerializeField] private float _midairAcceleration = 10;
+    // Maximum slope the player can walk on
+    [SerializeField] private float maxSlopeAngle = 45;
+    
     
     // Player Heads Up Display
     private HUDController HUD;
@@ -43,8 +53,8 @@ public class PlayerController : MonoBehaviour
     private Vector2 _lookVector;
     // Keeps track of whether the player is currently sprinting or not
     private bool _isSprinting;
-    // Keeps track of whether the player is on the ground or not
-    private bool _isGrounded;
+    // Maximum speed the player can travel in the air
+    private float _maxAirSpeed;
     // Horizontal look velocity with sensitivity applied
     private float _lookX;
     // Vertical look velocity with sensitivity applied
@@ -54,8 +64,6 @@ public class PlayerController : MonoBehaviour
     // Upgrade bools
     private bool armorUpActivated = false;
     private bool stimulantUpActivated = false;
-    // Stimulant Upgrade Multiplier
-    private float stimMultiplier = 3;
 
     ///////////////////////////////// Monobehvaior Methods ////////////////////////////////
 
@@ -104,26 +112,41 @@ public class PlayerController : MonoBehaviour
 
         ///////////////// Move update /////////////////
         // If the player is on the ground
-        if (_isGrounded)
+        if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, _playerHeight/1.8f))
         {
-            // Set the players speed depending on whether they are sprinting or not
-            float _speed = _isSprinting ? _walkSpeed * _runSpeedMultiplier : _walkSpeed;
+            float slopeAngle = Vector3.Angle(hit.normal, Vector3.up);
 
-            HUD.AnimateWeapon(_rb.linearVelocity.magnitude);
+            if (slopeAngle < maxSlopeAngle) {
+                // Set the players speed depending on whether they are sprinting or not
+                float _speed = _isSprinting ? _walkSpeed * _runSpeedMultiplier : _walkSpeed;
 
-            // Check if stimulant is activated
-            if (stimulantUpActivated)
-            {
-                // Increase speed by multiplying by the multiplier
-                _speed += _walkSpeed * stimMultiplier;
+                HUD.AnimateWeapon(_rb.linearVelocity.magnitude);
+
+                // Check if stimulant is activated
+                if (stimulantUpActivated)
+                {
+                    // Increase speed by multiplying by the multiplier
+                    _speed *= stimMultiplier;
+                } // Speed goes back to normal once stimulantUpActivated is false
+
+                // Change the raw input into player velocity by adding player speed
+                Vector3 velocity = _movementVector * _speed;
+                // Get the local vector to reflect changes in player rotation
+                Vector3 localVelocity = transform.TransformDirection(new Vector3(velocity.x, _rb.linearVelocity.y, velocity.y));
+                // Get the normal of the ground we are standing on
+                Vector3 groundNormal = hit.normal;
+
+                // Step 2: Project velocity onto the slope plane
+                Vector3 slopeDirection = Vector3.ProjectOnPlane(localVelocity, groundNormal);
+
+                _rb.linearVelocity = slopeDirection;
             }
-            // Speed goes back to normal once stimulantUpActivated is false
-            // Change the raw input into player velocity by adding player speed
-            Vector3 velocity = _movementVector * _speed;
-            // Get the local vector to reflect changes in player rotation
-            Vector3 localVelocity = transform.TransformDirection(new Vector3(velocity.x, _rb.linearVelocity.y, velocity.y));
-            // Set the rigidbody's velocity to the new local velocity
-            _rb.linearVelocity = localVelocity;
+        } else {
+            if (_rb.linearVelocity.magnitude < _maxAirSpeed || _rb.linearVelocity.magnitude < _minAirSpeed) {
+                Vector3 velocity = _movementVector * _midairAcceleration;
+                Vector3 localVelocity = transform.TransformDirection(new Vector3(velocity.x, _rb.linearVelocity.y, velocity.y));
+                _rb.AddForce(localVelocity);
+            }
         }
     }
 
@@ -137,35 +160,6 @@ public class PlayerController : MonoBehaviour
             collider.gameObject.TryGetComponent(out PickupController pickup);
 
             pickup.PickupObject();
-        }
-    }
-
-    // Called every time the player continues to collide with another object
-    void OnCollisionStay(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            ///////////////// Grounded Check /////////////////
-            RaycastHit hit;
-            // Get the distance to the floor below the player
-            float distance = _playerHeight / 1.8f;
-            // Raycast downwards 
-            Physics.Raycast(gameObject.transform.position, Vector3.down, out hit, distance);
-            // Check if the player is standing on something
-            if (hit.collider != null)
-            {
-                _isGrounded = true;
-            }
-        }
-    }
-
-    // Called when the player stops contacting another object
-    void OnCollisionExit(Collision collision)
-    {
-        // Check if the player has left the ground
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            _isGrounded = false;
         }
     }
 
@@ -244,10 +238,10 @@ public class PlayerController : MonoBehaviour
     public void OnJump()
     {
         // Checks if the player is on the ground
-        if (_isGrounded)
-        {
+        if (Physics.Raycast(transform.position, Vector3.down, 1.1f)) {
             // Add an sudden upwards force
             _rb.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
+            _maxAirSpeed = _rb.linearVelocity.magnitude;
         }
     }
     

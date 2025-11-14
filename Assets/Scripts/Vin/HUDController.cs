@@ -4,7 +4,6 @@
 // Description: Controller to show health, ammo, and upgrades on the HUD
 
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,6 +24,12 @@ public class HUDController : MonoBehaviour
     [SerializeField] private int recoilAnimFrames = 24;
     [SerializeField] private float damageAnimLen = 0.5f;
     [SerializeField] private int damageIndicatorMaxAlpha = 50;
+    [SerializeField] private Color[] upgradeColors = {
+        new Color(1, 0.5f, 0.5f),   // Armor
+        new Color(0.5f, 1, 0.5f),   // Stim
+        new Color(0.5f, 0.6f, 1),   // Invisibility
+        new Color(1, 0.8f, 0.4f)    // Max Ammo
+    };
 
     [Header("HUD")]
     public Image healthBar;
@@ -32,8 +37,8 @@ public class HUDController : MonoBehaviour
     public Image cooldownBar;
     public Image tempPickupCooldownBar;
     public Image tempPickupCooldownBG;
-    // References the text boxes for light, medium, and heavy ammo
-    public TextMeshProUGUI[] inventoryAmmo = new TextMeshProUGUI[3];
+    public Image hudTint;
+    public TMP_Text tempPickupText;
     //total ammo
     public GameObject loadoutAmmoContainer;
     //mag ammo
@@ -48,6 +53,8 @@ public class HUDController : MonoBehaviour
     public GameObject upgradeDotContainer;
     //comment later goober
     public Image[] upgradeSlots = new Image[9];
+    // References the text boxes for light, medium, and heavy ammo
+    public TextMeshProUGUI[] inventoryAmmo = new TextMeshProUGUI[3];
 
 
     //// Private variables ////
@@ -57,13 +64,14 @@ public class HUDController : MonoBehaviour
     private int[] ammoCaps = new int[3];
     // Upgrade text stored in list
     private string[] upgradesString = new string[4];
-
     private Vector3 weaponStartPos;
     private bool indicatingDamage;
     private float playerMoveDistance = 0;
     private Coroutine currentCooldown;
     private Coroutine currentRecoilCoroutine;
     private Coroutine currentTempCoroutine;
+    private Color healthBarColor;
+    private Color bulletColor;
 
 
 
@@ -95,6 +103,13 @@ public class HUDController : MonoBehaviour
         // Make sure upgrade tints are disabled
         tempPickupCooldownBar.enabled = false;
         tempPickupCooldownBG.enabled = false;
+        tempPickupText.enabled = false;
+        hudTint.enabled = false;
+
+        // Save original color of the healthbar for later restoration
+        healthBarColor = healthBar.color;
+
+        bulletColor = Color.white;
 
         weaponStartPos = weaponSpriteContainer.GetComponent<RectTransform>().position;
         Debug.Log("WeaponStartPos: " + weaponStartPos);
@@ -231,7 +246,7 @@ public class HUDController : MonoBehaviour
             if (i < ammo)
             {
                 //visible ammo icon
-                magazineAmmoContainer.transform.GetChild(i).GetComponent<Image>().color = new Color(255, 255, 255, 1);
+                magazineAmmoContainer.transform.GetChild(i).GetComponent<Image>().color = bulletColor;
             }
             else
             {
@@ -293,41 +308,59 @@ public class HUDController : MonoBehaviour
     
     public void SetUpgrade(int upgradeType, float upgradeDuration)
     {
-        // Deactivate any running upgrades before starting another upgrade
-        DeactivateUpgrades();
+        if (currentTempCoroutine != null) {
+            StopCoroutine(currentTempCoroutine);
+            // Deactivate any running upgrades before starting another upgrade
+            DeactivateUpgrades();
+        }
 
         tempPickupCooldownBar.enabled = true;
         tempPickupCooldownBG.enabled = true;
+        tempPickupText.enabled = true;
+
+        Color tint;
+        tint.a = 20;
+
+        tempPickupCooldownBar.color = upgradeColors[upgradeType];
+        tempPickupText.color = upgradeColors[upgradeType];
 
         // Activate upgrades and HUD tints
         switch (upgradeType)
         {
             // Armor
             case 0:
-                tempPickupCooldownBar.color = new Color(220, 255, 245);
+                healthBar.color = upgradeColors[upgradeType];
+                tempPickupText.text = "Shields Active";
                 PlayerController.instance.ActivateUpgrade(upgradeType);
                 break;
             // Stimulant
             case 1:
-                tempPickupCooldownBar.color = new Color(220, 255, 220);
+                hudTint.enabled = true;
+                tint = upgradeColors[upgradeType];
+                tint.a = 0.01f;
+                hudTint.color = tint;
+                tempPickupText.text = "Speed-Up Active";
                 PlayerController.instance.ActivateUpgrade(upgradeType);
                 break;
             // Invisibility
             case 2:
-                tempPickupCooldownBar.color = new Color(220, 220, 255);
+                hudTint.enabled = true;
+                tint = upgradeColors[upgradeType];
+                tint.a = 0.01f;
+                hudTint.color = tint;
+                tempPickupText.text = "Invisibility Active";
                 EnemyController.ActivateUpgrade(upgradeType);
                 break;
             // Unlimited Magazine
             case 3:
-                tempPickupCooldownBar.color = new Color(245, 255, 220);
+                bulletColor = upgradeColors[upgradeType];
+                LoadMagazineDisplay(WeaponActionController.instance.currentWeapon);
+                tempPickupText.text = "Unlimited Ammo Active";
                 WeaponActionController.instance.ActivateUpgrade(upgradeType);
                 break;
         }
-        if (currentTempCoroutine != null) {
-            StopCoroutine(currentTempCoroutine);
-        }
-        currentTempCoroutine = StartCoroutine(TempUpgradeCountdown(upgradeDuration));
 
+        currentTempCoroutine = StartCoroutine(TempUpgradeCountdown(upgradeDuration));
     }
 
     private IEnumerator TempUpgradeCountdown(float time)
@@ -336,30 +369,35 @@ public class HUDController : MonoBehaviour
 
         while (time > 0)
         {
-            Debug.Log("Time: " + time);
             time = time - Time.deltaTime;
             tempPickupCooldownBar.fillAmount = time/totalTime;
             yield return null;
         }
         tempPickupCooldownBar.enabled = false;
         tempPickupCooldownBG.enabled = false;
+        tempPickupText.enabled = false;
         DeactivateUpgrades();
+        currentTempCoroutine = null;
     }
 
     // This deactivates any running upgrades, and disables the tint image
     public void DeactivateUpgrades() {
-        // Deactivate armor and stim upgrade after timer runs out
+        hudTint.enabled = false;
+        // Deactivate armor upgrade
         PlayerController.instance.DeactivateUpgrade(0);
+        healthBar.color = healthBarColor;
+        // Deactivate stimulant upgrade
         PlayerController.instance.DeactivateUpgrade(1);
-        // Deactivate shield upgrade after timer runs out
+        // Deactivate invisibility upgrade
         EnemyController.DeactivateUpgrade(2);
-        // Deactivate ammo upgrade after timer runs out
+        // Deactivate ammo upgrade
         WeaponActionController.instance.DeactivateUpgrade(3);
+        bulletColor = Color.white;
+        LoadMagazineDisplay(WeaponActionController.instance.currentWeapon);
     }
 
     public void IndicateDamage()
     {
-        Debug.Log("Damage Indication Starting...");
         damageIndicator.enabled = true;
         if (!indicatingDamage) {
             indicatingDamage = true;
@@ -372,11 +410,9 @@ public class HUDController : MonoBehaviour
         while (transparency > 0)
         {
             damageIndicator.color = new Color(damageIndicator.color.r, damageIndicator.color.g, damageIndicator.color.b, transparency--/100);
-            Debug.Log("Damage indicator transparency: " + transparency);
             yield return new WaitForSecondsRealtime(timeDelta);
         }
         indicatingDamage = false;
         if (damageIndicator != null) damageIndicator.enabled = false;
-        Debug.Log("Damage Indication Done!");
     }
 }

@@ -15,6 +15,7 @@ public class Weapon
         FIRE_SELECT = weapon.FIRE_SELECT;
         STAGE = weapon.STAGE;
         AMMO_TYPE = weapon.AMMO_TYPE;
+        AOE_RADIUS = weapon.AOE_RADIUS;
 
         damage = weapon.DAMAGE;
         fireRate = weapon.FIRE_RATE;
@@ -45,6 +46,7 @@ public class Weapon
     // The type of fire behavior the weapon has
     public WeaponTemplate.FireSelect FIRE_SELECT { get; private set; }
     // The type of ammo the weapon accepts
+    public int AOE_RADIUS;
     public WeaponTemplate.AmmoType AMMO_TYPE { get; private set; }
     // 
     public WeaponTemplate.Stage STAGE { get; private set; }

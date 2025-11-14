@@ -72,10 +72,10 @@ public class InventoryManager : MonoBehaviour
 
         while (val != start) {
             //loops back around the three slots here
-            if (val > 2)
+            if (val > playerInventory.highestWeaponType)
                 val = 0;
             else if (val < 0)
-                val = 2;
+                val = playerInventory.highestWeaponType;
 
             if (playerInventory.GetWeapon(val) != null) {
                 //sets gun here
@@ -88,7 +88,7 @@ public class InventoryManager : MonoBehaviour
                 break;
             }
             //increment here
-            val -= inc;
+            val += inc;
         }
     }
 }
@@ -99,6 +99,7 @@ public class Inventory
     //All weapon items are stored [Light, Medium, Heavy]
     public int[] ammo = new int[3];
     public int[] AMMO_CAPS = new int[3];
+    public int highestWeaponType;
 
     private Weapon[] Weapons = new Weapon[3];
     private InventoryManager.upVal[] upgrades = new InventoryManager.upVal[9];
@@ -156,6 +157,8 @@ public class Inventory
 
     public void AddWeapon(WeaponTemplate weapon)
     {
+        if ((int)weapon.AMMO_TYPE > highestWeaponType) highestWeaponType = (int)weapon.AMMO_TYPE;
+
         //replaces whatever is in the slot
         Weapons[(int)weapon.AMMO_TYPE] = new Weapon(weapon, GetUpgrades(weapon));
         HUDController.instance.SetUpgrades();
