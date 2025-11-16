@@ -1,14 +1,15 @@
-// Main Contributors: Moth Harper, Kris Herbert
+// Main Contributors: Moth Harper, Kris Herbert 
 // Secondary Contributor: Mark Klitsch
 // Reviewer: Gabriel Heiser
 // Description: Controls the basic enemy behavior via a state machine
 
+using System;
 using System.Collections;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyController : MonoBehaviour, IDamageable
+public class EnemyParent : MonoBehaviour, IDamageable
 {
 
     // The toggle for Moth's makeshift debug mode
@@ -48,6 +49,8 @@ public class EnemyController : MonoBehaviour, IDamageable
     [Header("Line of Sight Variables")]
     // the eye level for the enemy to "see" from
     [SerializeField] protected Transform _eyeTransform;
+    // the maximum distance the enemy can see the player from; for performance reasons
+    [SerializeField] protected float _maxSightDistance;
     // how often the enemy checks if it can see the player
     [SerializeField, Min(0.001f)] float _sightCheckingInterval;
     // the layermask for raycasting to the player, allows enemies to see through certain objects
@@ -63,10 +66,10 @@ public class EnemyController : MonoBehaviour, IDamageable
     [SerializeField] protected int _maxRoamingDuration;
     // How many times an enemy can attempt to find a spot to wander to
     [SerializeField] protected int _pathfindingAttempts;
-    // The timers keeping track of how long the enemy is in it's current state
-    protected float _idleTimer;
-    protected float _roamingTimer;
-    protected float _attackingTimer;
+    // Time duration of the attack wind up
+    [SerializeField] protected float _windUpTime;
+    // boolean to track whether the enemy is on attack cooldown
+    protected bool _isOnCooldown;
     // The enum of possible states
     protected enum EnemyState { idle, roaming, chasing, attacking }
     // The current state of the enemy
@@ -80,23 +83,15 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     // SOUNDS
     [Header("SFX")]
+    [SerializeField] protected AudioClip _windUpAudio;
     [SerializeField] protected AudioClip _attackAudio;
     [SerializeField] protected AudioClip _damageAudio;
     [SerializeField] protected AudioClip _deathAudio;
+
     // INVISIBILITY SHIELD
     private static bool shieldUpActivated = false;
 
-    #region FUNCTIONS
 
-    // void Awake()
-    // {
-    //     if (instance == null)
-    //         instance = this;
-    //     else
-    //         Destroy(gameObject);
-    // }
-
-    // UNITY LIFECYCYLE FUNCTIONS
     protected virtual void Start()
     {
         // Set enemy health to the base health
@@ -116,76 +111,13 @@ public class EnemyController : MonoBehaviour, IDamageable
         _navMeshAgent.speed = _moveSpeed;
 
         // Start checking for line of sight
-        StartCoroutine(LineOfSight());
+        StartCoroutine(nameof(LineOfSight));
+
+        // Start state machine
+        StartCoroutine(nameof(IdleBehavior));
     }
 
-    protected virtual void Update()
-    {
-        // Run the expected behavior each frame
-        switch (_enemyState)
-        {
-            case EnemyState.idle:
-                DoIdle();
-                break;
-            case EnemyState.roaming:
-                DoRoaming();
-                break;
-            case EnemyState.chasing:
-                DoChasing();
-                break;
-            case EnemyState.attacking:
-                DoAttacking();
-                break;
-            default:
-                break;
-        }
-    }
-
-    // STATE MACHINE BEHAVIOR FUNCTIONS
-    /** Moth Harper
-     * Behavior for idling state */
-    protected virtual void DoIdle()
-    {
-        // if the player is visible, set the state to chasing
-        if (_lineOfSight)
-        {
-            _enemyState = EnemyState.chasing;
-            _animator.SetBool("isWalking", true);
-            return;
-        }
-        // if the idle timer is over, roam or restart idling
-        if (_idleTimer <= 0)
-        {
-            // if a random spot is found, get ready to roam towards it
-            if (RandomSpot(transform.position, _roamingRange, out Vector3 _destination))
-            {
-                // set navmeshagent's destination
-                _navMeshAgent.SetDestination(_destination);
-                // set the state timer to the maximum roaming time
-                _roamingTimer = _maxRoamingDuration;
-                // change the state
-                _enemyState = EnemyState.roaming;
-                _animator.SetBool("isWalking", true);
-
-                // print debug statement
-                if (DEBUG_MODE) print(gameObject.name + ": Set state to roaming");
-                if (DEBUG_MODE) print(gameObject.name + ": Set destination to " + _destination);
-            }
-            // if not, restart the idle state
-            else
-            {
-                _idleTimer = _idleDuration;
-
-                // print debug statement
-                if (DEBUG_MODE) print(gameObject.name + ": Restarted idle");
-            }
-            return;
-        }
-
-        // countdown idle timer
-        _idleTimer -= Time.deltaTime;
-    }
-
+    #region NAVIGATION AND SIGHT FUNCTIONS
     /** Moth Harper*
      * Check if enemy can see player */
     IEnumerator LineOfSight()
@@ -197,25 +129,32 @@ public class EnemyController : MonoBehaviour, IDamageable
             // find the distance to the target
             float distance = direction.magnitude;
 
-            // set lineOfSight to false by default
+            // it is assumed by default that line of sight does not exist
             _lineOfSight = false;
 
-            // debug ray
-            if (DEBUG_MODE) Debug.DrawRay(_eyeTransform.position, direction);
 
-            // raycast towards the target
-            if (Physics.Raycast(_eyeTransform.position, direction, out RaycastHit hit, distance + 1f, _layerMask))
+            // If invisibility shield is activated, line of sight does not exist
+            if (shieldUpActivated)
+            {
+                _lineOfSight = false;
+            }
+            // If player is beyond max seeing distance, line of sight does not exist
+            else if (distance > _maxSightDistance)
+            {
+                _lineOfSight = false;
+            }
+            // Raycast towards the target. if nothing is hit before the player, line of sight does exist
+            else if (Physics.Raycast(_eyeTransform.position, direction, out RaycastHit hit, distance + 1f, _layerMask))
             {
                 // if raycast hits something, see if it's the player
                 if (hit.collider.CompareTag("Player"))
                 {
-                    // if it's the player, set the lineOfSight boolean to true
+                    // if it's the player, line of sight exists
                     _lineOfSight = true;
                 }
             }
 
             // Wait to repeat
-            if (DEBUG_MODE) print(gameObject.name + ": Line of Sight: " + _lineOfSight);
             yield return new WaitForSeconds(_sightCheckingInterval);
         }
     }
@@ -243,106 +182,176 @@ public class EnemyController : MonoBehaviour, IDamageable
         result = Vector3.zero;
         return false;
     }
+    #endregion
+
+    #region STATE MACHINE BEHAVIOR FUNCTIONS
+    /** Moth Harper
+     * Behavior for idling state */
+    protected virtual IEnumerator IdleBehavior()
+    {
+        // START IDLE
+        // change the state
+        _enemyState = EnemyState.idle;
+        // change the animation
+        _animator.SetBool("isWalking", false);
+
+        // DURING IDLE
+        float idleTimer = _idleDuration * UnityEngine.Random.Range(0.75f, 1.25f);
+        while (idleTimer > 0f)
+        {
+            // change state if line of sight exists
+            if (_lineOfSight)
+            {
+                StartCoroutine(nameof(ChasingBehavior));
+                StopCoroutine(nameof(IdleBehavior));
+            }
+
+            // decrease timer
+            idleTimer -= Time.deltaTime;
+            // loop next frame
+            yield return null;
+        }
+
+        // END IDLE
+        // if a random spot is found, get ready to roam towards it
+        if (RandomSpot(transform.position, _roamingRange, out Vector3 _destination))
+        {
+            // set navmeshagent's destination
+            _navMeshAgent.SetDestination(_destination);
+            // change the state
+            StartCoroutine(nameof(RoamingBehavior));
+        }
+        // if not, restart the idle state
+        else
+        {
+            // Start new coroutine
+            StartCoroutine(nameof(IdleBehavior));
+        }
+    }
 
     /** Moth Harper
      * Behavior for roaming state */
-    protected virtual void DoRoaming()
+    protected virtual IEnumerator RoamingBehavior()
     {
-        // if the player is visible, set the state to chasing
-        if (_lineOfSight)
+        // START ROAMING
+        // change state
+        _enemyState = EnemyState.roaming;
+        // change animator
+        _animator.SetBool("isWalking", true);
+
+        // DURING ROAMING
+        // destination has already been set, so just go towards it
+        float roamingTimer = _maxRoamingDuration;
+        while (roamingTimer > 0 && _navMeshAgent.remainingDistance > 0)
         {
-            _enemyState = EnemyState.chasing;
-            _animator.SetBool("isWalking", true);
-            return;
+            // change state if line of sight exists
+            if (_lineOfSight)
+            {
+                StartCoroutine(nameof(ChasingBehavior));
+                StopCoroutine(nameof(RoamingBehavior));
+            }
+
+            // decrease timer
+            roamingTimer -= Time.deltaTime;
+            // loop next frame
+            yield return null;
         }
+
+        // END ROAMING
+        // clear the navmeshagent's path
+        _navMeshAgent.ResetPath();
         // If done navigating or if navigating for too long (in case of being stuck), return to idle mode
-        if ((_navMeshAgent.remainingDistance <= 0) | (_roamingTimer <= 0))
-        {
-            // clear the navmeshagent's path
-            _navMeshAgent.ResetPath();
-            // set the state timer to idling time with some random variation
-            _idleTimer = _idleDuration * UnityEngine.Random.Range(0.75f, 1.25f);
-            // set the state
-            _enemyState = EnemyState.idle;
-
-            // print debug statement
-            if (DEBUG_MODE) print(gameObject.name + ": Set state to idle");
-            if (DEBUG_MODE) print(gameObject.name + ": Idling for duration of " + _idleTimer);
-            return;
-        }
-
-        // countdown roaming timer
-        _roamingTimer -= Time.deltaTime;
+        StartCoroutine(nameof(IdleBehavior));
     }
 
     /** Kris Herbert and Moth Harper
      * Behavior for chasing state */
-    protected virtual void DoChasing()
+    protected virtual IEnumerator ChasingBehavior()
     {
-        // If invisibility shield is activated, interrupt the DoChasing process
-        if(!shieldUpActivated)
+        // START CHASING
+        // change state
+        _enemyState = EnemyState.chasing;
+        // change animator
+        _animator.SetBool("isWalking", true);
+
+        while (true)
         {
-            
-            if ((Vector3.Distance(transform.position, _playerTransform.position) <= _attackDistance) && (_attackingTimer <= 0))
+            /** Moth Harper and Kris Herbert
+            * if close enough to player and not on cooldown, attack them */
+            if ((Vector3.Distance(transform.position, _playerTransform.position) <= _attackDistance) && !_isOnCooldown)
             {
+                // END CHASING - CAN ATTACK
                 // clear path
                 _navMeshAgent.ResetPath();
-                // set attack timer
-                _attackingTimer = _attackCooldown;
                 // change state
-                _enemyState = EnemyState.attacking;
-                return;
+                StartCoroutine(nameof(AttackingBehavior));
+                StopCoroutine(nameof(ChasingBehavior));
             }
-
             /**
             * Kris Herbert
             * _lineOfSight uses a raycast to check if it can see the player
             * if true than it will change EnemyState to start chasing the player
             * if it's false then it will return to the idle EnemyState.
             */
-
-            if (_lineOfSight == true)
+            else if (!_lineOfSight)
             {
-                this._navMeshAgent.SetDestination(_playerTransform.position);
+                // END CHASING - NO LINE OF SIGHT
+                StartCoroutine(nameof(IdleBehavior));
+                StopCoroutine(nameof(ChasingBehavior));
             }
             else
             {
-                _idleTimer = _idleDuration;
-                _enemyState = EnemyState.idle;
+                // DO CHASING
+                this._navMeshAgent.SetDestination(_playerTransform.position);
+                yield return null;
             }
         }
     }
 
-    // behavior for attacking state
-    // Specified in subclasses
-    protected virtual void DoAttacking()
+    /** Moth Harper and probably Kris Herbert, I can't remember
+    * Behavior for attacking state*/
+    protected virtual IEnumerator AttackingBehavior()
     {
-        // If attack state was just initiated, attack the player
-        if (_attackingTimer == _attackCooldown)
+        // START ATTACK
+        _enemyState = EnemyState.attacking;
+        // start cooldown so enemy does not attack twice
+        _isOnCooldown = true;
+
+        // WIND UP BEHAVIOR
+        // play attack sound for actual attack
+        SoundManager.instance.PlayFXAudio(_attackAudio, transform, pitchFluctuation: 0.2f);
+        // change animation
+        _animator.SetTrigger("triggerAttack");
+        yield return new WaitForSeconds(_windUpTime);
+
+        // ACTUAL ATTACK
+        AttackHit();
+
+        // COOLDOWN
+        float attackingTimer = _attackCooldown;
+        while (_isOnCooldown)
         {
-            // Initial attack beahvior
-            InitialAttack();
+            AttackCooldown();
+
+            attackingTimer -= Time.deltaTime;
+            if (attackingTimer <= 0)
+            {
+                _isOnCooldown = false;
+            }
+            print("cooldowning!");
+            yield return null;
         }
-        // If the cooldown is up, return to chasing
-        else if (_attackingTimer <= 0)
-        {
-            _enemyState = EnemyState.chasing;
-            _animator.SetBool("isWalking", true);
-            return;
-        }
-        // Decrease the attacking timer
-        _attackingTimer -= Time.deltaTime;
-        
-        // Cooldown behavior
-        AttackCooldown();
+
+        // END ATTACK
+        StartCoroutine(nameof(ChasingBehavior));
+        StopCoroutine(nameof(AttackingBehavior));
     }
 
-    // Initial attack beahvior
-    protected virtual void InitialAttack()
+    // Actual attack beahvior
+    protected virtual void AttackHit()
     {
-        SoundManager.instance.PlayFXAudio(_attackAudio, transform, pitchFluctuation: 0.2f);
-        PlayerDamage();
-        _animator.SetTrigger("triggerAttack");
+        // if still close enough to player, deal damage
+        if (Vector3.Distance(transform.position, _playerTransform.position) <= _attackDistance) PlayerDamage();
     }
 
     // Cooldown behavior
@@ -351,7 +360,9 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     }
 
-    // OTHER FUNCTIONS
+    #endregion
+
+    #region OTHER FUNCTIONS
     /** Kris Herbert
      * Function to deal damage to the enemy when the player shoots an enemy. */
     // Moth Harper expansion: attack to damageable interface
@@ -404,7 +415,5 @@ public class EnemyController : MonoBehaviour, IDamageable
     {
         shieldUpActivated = false;
     }
-
-
     #endregion
 }
