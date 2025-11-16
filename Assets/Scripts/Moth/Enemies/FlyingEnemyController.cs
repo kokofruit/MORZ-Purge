@@ -37,27 +37,32 @@ public class FlyingEnemyController : EnemyControllerParent
         // START CHASING
         // change animator
         _animator.SetBool("isWalking", true);
+        print("chasing");
 
         while (true)
         {
             // Calculate the distance between the enemy and player
             float playerDistance = Vector3.Distance(transform.position, _playerTransform.position);
 
+            // PART OF DO CHASING
             // if the enemy is close to swoop, lower to the ground
-            if (playerDistance <= _swoopDistance)
+            if (playerDistance <= _swoopDistance && !_isOnCooldown)
             {
+                print("first if");
                 _navMeshAgent.baseOffset = Mathf.MoveTowards(_navMeshAgent.baseOffset, 0, _swoopSpeed * Time.deltaTime);
+                yield return null;
+            }
 
-                /** Moth Harper and Kris Herbert
+            /** Moth Harper and Kris Herbert
                 * if close enough to player and not on cooldown, attack them */
-                if ((Vector3.Distance(transform.position, _playerTransform.position) <= _attackDistance) && !_isOnCooldown)
-                {
-                    // END CHASING - CAN ATTACK
-                    // clear path
-                    _navMeshAgent.ResetPath();
-                    // change state
-                    ChangeState(nameof(AttackingBehavior));
-                }
+            if (Vector3.Distance(transform.position, _playerTransform.position) <= _attackDistance && !_isOnCooldown)
+            {
+                print("second if");
+                // END CHASING - CAN ATTACK
+                // clear path
+                _navMeshAgent.ResetPath();
+                // change state
+                ChangeState(nameof(AttackingBehavior));
             }
             /**
             * Kris Herbert
@@ -67,14 +72,18 @@ public class FlyingEnemyController : EnemyControllerParent
             */
             else if (!_lineOfSight)
             {
+                print("idling");
                 // END CHASING - NO LINE OF SIGHT
                 ChangeState(nameof(IdleBehavior));
             }
             else
             {
-                // DO CHASING
+                // OTHER PART OF DO CHASING
+                // move towards player
                 this._navMeshAgent.SetDestination(_playerTransform.position);
+                // wait for next frame
                 yield return null;
+                print("setting dest");
             }
         }
     }
@@ -97,7 +106,6 @@ public class FlyingEnemyController : EnemyControllerParent
 
     protected virtual void Flee()
     {
-        Vector3 direction = _eyeTransform.position - _playerTransform.position;
         // run away from player
         if (RandomSpot(_playerTransform.position, _swoopDistance, out Vector3 hit))
         {
