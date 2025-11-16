@@ -69,7 +69,7 @@ MonoBehaviour:
   _deathAudio: {fileID: 8300000, guid: 769da6eac8632514b944c7e32af11055, type: 3}
   _flyingHeight: 2
   _swoopDistance: 6
-  _swoopSpeed: 3
+  _swoopSpeed: 5
 --- !u!114 &4404179622309038449
 MonoBehaviour:
   m_ObjectHideFlags: 0

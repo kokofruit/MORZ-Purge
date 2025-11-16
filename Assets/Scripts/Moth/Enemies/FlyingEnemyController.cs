@@ -45,8 +45,8 @@ public class FlyingEnemyController : EnemyControllerParent
             float playerDistance = Vector3.Distance(transform.position, _playerTransform.position);
 
             // PART OF DO CHASING
-            // if the enemy is close to swoop, lower to the ground
-            if (playerDistance <= _swoopDistance && !_isOnCooldown)
+            // if the enemy is close enough to swoop, lower to the ground
+            if (playerDistance <= _swoopDistance)
             {
                 print("first if");
                 _navMeshAgent.baseOffset = Mathf.MoveTowards(_navMeshAgent.baseOffset, 0, _swoopSpeed * Time.deltaTime);
@@ -54,8 +54,8 @@ public class FlyingEnemyController : EnemyControllerParent
             }
 
             /** Moth Harper and Kris Herbert
-                * if close enough to player and not on cooldown, attack them */
-            if (Vector3.Distance(transform.position, _playerTransform.position) <= _attackDistance && !_isOnCooldown)
+                * if close enough to player, low enough to ground, and not on cooldown, attack them */
+            if (Vector3.Distance(transform.position, _playerTransform.position) <= _attackDistance && _navMeshAgent.baseOffset <= 1f && !_isOnCooldown)
             {
                 print("second if");
                 // END CHASING - CAN ATTACK
