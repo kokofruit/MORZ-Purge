@@ -70,10 +70,8 @@ public class EnemyParent : MonoBehaviour, IDamageable
     [SerializeField] protected float _windUpTime;
     // boolean to track whether the enemy is on attack cooldown
     protected bool _isOnCooldown;
-    // The enum of possible states
-    protected enum EnemyState { idle, roaming, chasing, attacking }
-    // The current state of the enemy
-    [SerializeField] protected EnemyState _enemyState = EnemyState.idle;
+    private Coroutine _coroutineState;
+
 
     // COMPONENTS
     protected NavMeshAgent _navMeshAgent;
@@ -110,11 +108,8 @@ public class EnemyParent : MonoBehaviour, IDamageable
         // Set stats
         _navMeshAgent.speed = _moveSpeed;
 
-        // Start checking for line of sight
-        StartCoroutine(nameof(LineOfSight));
-
         // Start state machine
-        StartCoroutine(nameof(IdleBehavior));
+        ChangeState(nameof(IdleBehavior));
     }
 
     #region NAVIGATION AND SIGHT FUNCTIONS
@@ -185,13 +180,19 @@ public class EnemyParent : MonoBehaviour, IDamageable
     #endregion
 
     #region STATE MACHINE BEHAVIOR FUNCTIONS
+    protected void ChangeState(string functionName)
+    {
+        if (DEBUG_MODE) print("Changing state to " + functionName);
+        StopAllCoroutines();
+        StartCoroutine(nameof(LineOfSight));
+        _coroutineState = StartCoroutine(functionName);
+    }
+
     /** Moth Harper
      * Behavior for idling state */
     protected virtual IEnumerator IdleBehavior()
     {
         // START IDLE
-        // change the state
-        _enemyState = EnemyState.idle;
         // change the animation
         _animator.SetBool("isWalking", false);
 
@@ -202,8 +203,7 @@ public class EnemyParent : MonoBehaviour, IDamageable
             // change state if line of sight exists
             if (_lineOfSight)
             {
-                StartCoroutine(nameof(ChasingBehavior));
-                StopCoroutine(nameof(IdleBehavior));
+                ChangeState(nameof(ChasingBehavior));
             }
 
             // decrease timer
@@ -219,13 +219,13 @@ public class EnemyParent : MonoBehaviour, IDamageable
             // set navmeshagent's destination
             _navMeshAgent.SetDestination(_destination);
             // change the state
-            StartCoroutine(nameof(RoamingBehavior));
+            ChangeState(nameof(RoamingBehavior));
         }
         // if not, restart the idle state
         else
         {
             // Start new coroutine
-            StartCoroutine(nameof(IdleBehavior));
+            ChangeState(nameof(IdleBehavior));
         }
     }
 
@@ -234,8 +234,6 @@ public class EnemyParent : MonoBehaviour, IDamageable
     protected virtual IEnumerator RoamingBehavior()
     {
         // START ROAMING
-        // change state
-        _enemyState = EnemyState.roaming;
         // change animator
         _animator.SetBool("isWalking", true);
 
@@ -247,8 +245,7 @@ public class EnemyParent : MonoBehaviour, IDamageable
             // change state if line of sight exists
             if (_lineOfSight)
             {
-                StartCoroutine(nameof(ChasingBehavior));
-                StopCoroutine(nameof(RoamingBehavior));
+                ChangeState(nameof(ChasingBehavior));
             }
 
             // decrease timer
@@ -261,7 +258,7 @@ public class EnemyParent : MonoBehaviour, IDamageable
         // clear the navmeshagent's path
         _navMeshAgent.ResetPath();
         // If done navigating or if navigating for too long (in case of being stuck), return to idle mode
-        StartCoroutine(nameof(IdleBehavior));
+        ChangeState(nameof(IdleBehavior));
     }
 
     /** Kris Herbert and Moth Harper
@@ -269,8 +266,6 @@ public class EnemyParent : MonoBehaviour, IDamageable
     protected virtual IEnumerator ChasingBehavior()
     {
         // START CHASING
-        // change state
-        _enemyState = EnemyState.chasing;
         // change animator
         _animator.SetBool("isWalking", true);
 
@@ -284,8 +279,7 @@ public class EnemyParent : MonoBehaviour, IDamageable
                 // clear path
                 _navMeshAgent.ResetPath();
                 // change state
-                StartCoroutine(nameof(AttackingBehavior));
-                StopCoroutine(nameof(ChasingBehavior));
+                ChangeState(nameof(AttackingBehavior));
             }
             /**
             * Kris Herbert
@@ -296,8 +290,7 @@ public class EnemyParent : MonoBehaviour, IDamageable
             else if (!_lineOfSight)
             {
                 // END CHASING - NO LINE OF SIGHT
-                StartCoroutine(nameof(IdleBehavior));
-                StopCoroutine(nameof(ChasingBehavior));
+                ChangeState(nameof(IdleBehavior));
             }
             else
             {
@@ -313,7 +306,6 @@ public class EnemyParent : MonoBehaviour, IDamageable
     protected virtual IEnumerator AttackingBehavior()
     {
         // START ATTACK
-        _enemyState = EnemyState.attacking;
         // start cooldown so enemy does not attack twice
         _isOnCooldown = true;
 
@@ -321,7 +313,6 @@ public class EnemyParent : MonoBehaviour, IDamageable
         // play attack sound for actual attack
         SoundManager.instance.PlayFXAudio(_attackAudio, transform, pitchFluctuation: 0.2f);
         // change animation
-        _animator.SetTrigger("triggerAttack");
         yield return new WaitForSeconds(_windUpTime);
 
         // ACTUAL ATTACK
@@ -329,22 +320,18 @@ public class EnemyParent : MonoBehaviour, IDamageable
 
         // COOLDOWN
         float attackingTimer = _attackCooldown;
-        while (_isOnCooldown)
+        while (attackingTimer > 0)
         {
             AttackCooldown();
-
             attackingTimer -= Time.deltaTime;
-            if (attackingTimer <= 0)
-            {
-                _isOnCooldown = false;
-            }
-            print("cooldowning!");
             yield return null;
         }
 
         // END ATTACK
-        StartCoroutine(nameof(ChasingBehavior));
-        StopCoroutine(nameof(AttackingBehavior));
+        // allow attacks again
+        _isOnCooldown = false;
+        // change states
+        ChangeState(nameof(ChasingBehavior));
     }
 
     // Actual attack beahvior
