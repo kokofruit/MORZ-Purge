@@ -15,9 +15,9 @@ public class SuckerController : FlyingEnemyController
     }
 
     // Ovverrides the Sucker's InitialAttack to use the FlyingEnemyController's InitialAttack function but then also call the LifeDrain function after.
-    protected override void InitialAttack()
+    protected override void AttackHit()
     {
-        base.InitialAttack();
+        base.AttackHit();
         // Add attack sound to the enemy
         LifeDrain();   
     }

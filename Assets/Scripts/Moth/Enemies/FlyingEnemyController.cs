@@ -3,11 +3,12 @@
 // Reviewer: 
 // Description: Controls the flying enemies by modifying chasing and attacking behavior
 
+using System.Collections;
 using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class FlyingEnemyController : EnemyController
+public class FlyingEnemyController : EnemyControllerParent
 {
     [Header("Flying Enemy Variables")]
     // the normal height the enemy flies at, controls the base offset
@@ -31,52 +32,57 @@ public class FlyingEnemyController : EnemyController
     /** Kris Herbert and Moth Harper
      * Behavior for chasing state
      * Customized for flying enemies */
-    protected override void DoChasing()
+    protected override IEnumerator ChasingBehavior()
     {
-        // Calculate the distance between the enemy and player
-        float playerDistance = Vector3.Distance(transform.position, _playerTransform.position);
+        // START CHASING
+        // change animator
+        _animator.SetBool("isWalking", true);
 
-        // if the enemy is close to swoop, lower to the ground
-        if (playerDistance <= _swoopDistance)
+        while (true)
         {
-            _navMeshAgent.baseOffset = Mathf.MoveTowards(_navMeshAgent.baseOffset, 0, _swoopSpeed * Time.deltaTime);
+            // Calculate the distance between the enemy and player
+            float playerDistance = Vector3.Distance(transform.position, _playerTransform.position);
 
-            /** Moth Harper and Kris Herbert
-            * if close enough to player and not on cooldown, attack them */
-            if ((playerDistance <= _attackDistance) && (_attackingTimer <= 0))
+            // if the enemy is close to swoop, lower to the ground
+            if (playerDistance <= _swoopDistance)
             {
-                _attackingTimer = _attackCooldown;
-                _enemyState = EnemyState.attacking;
-                return;
+                _navMeshAgent.baseOffset = Mathf.MoveTowards(_navMeshAgent.baseOffset, 0, _swoopSpeed * Time.deltaTime);
+
+                /** Moth Harper and Kris Herbert
+                * if close enough to player and not on cooldown, attack them */
+                if ((Vector3.Distance(transform.position, _playerTransform.position) <= _attackDistance) && !_isOnCooldown)
+                {
+                    // END CHASING - CAN ATTACK
+                    // clear path
+                    _navMeshAgent.ResetPath();
+                    // change state
+                    ChangeState(nameof(AttackingBehavior));
+                }
             }
-        }
-
-        /**
-        * Kris Herbert
-        * _lineOfSight uses a raycast to check if it can see the player
-        * if true than it will change EnemyState to start chasing the player
-        * if it's false then it will return to the idle EnemyState.
-        */
-
-        if (_lineOfSight == true)
-        {
-            this._navMeshAgent.SetDestination(_playerTransform.position);
-        }
-        else
-        {
-            _idleTimer = _idleDuration;
-            _enemyState = EnemyState.idle;
+            /**
+            * Kris Herbert
+            * _lineOfSight uses a raycast to check if it can see the player
+            * if true than it will change EnemyState to start chasing the player
+            * if it's false then it will return to the idle EnemyState.
+            */
+            else if (!_lineOfSight)
+            {
+                // END CHASING - NO LINE OF SIGHT
+                ChangeState(nameof(IdleBehavior));
+            }
+            else
+            {
+                // DO CHASING
+                this._navMeshAgent.SetDestination(_playerTransform.position);
+                yield return null;
+            }
         }
     }
 
-    protected override void InitialAttack()
+    protected override void AttackHit()
     {
-        base.InitialAttack();
+        base.AttackHit();
 
-        // damage player
-        PlayerDamage();
-        // sound testing
-        //SoundManager.instance.PlayFXAudio(_testSound, transform);
         // print debug statement
         if (DEBUG_MODE) print(gameObject.name + ": Attack!");
         // flee from player

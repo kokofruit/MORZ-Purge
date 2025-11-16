@@ -58,11 +58,12 @@ MonoBehaviour:
   _moveSpeed: 30
   _roamingRange: 20
   _eyeTransform: {fileID: 7654907420084245735}
+  _maxSightDistance: 50
   _sightCheckingInterval: 2
   _idleDuration: 15
   _maxRoamingDuration: 10
   _pathfindingAttempts: 30
-  _enemyState: 0
+  _windUpTime: 0
   _attackAudio: {fileID: 8300000, guid: e29e82c2620b1194bbdd846966a82fb3, type: 3}
   _damageAudio: {fileID: 8300000, guid: 32079a4d688353d41b07089f3e962bf7, type: 3}
   _deathAudio: {fileID: 8300000, guid: 769da6eac8632514b944c7e32af11055, type: 3}

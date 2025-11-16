@@ -260,7 +260,7 @@ public class HUDController : MonoBehaviour
         else if (upgradeType == 2)
         {
             // Activate upgrade
-            EnemyController.ActivateUpgrade(upgradeType);
+            EnemyControllerParent.ActivateUpgrade(upgradeType);
             shieldUpgradeImg.enabled = true;
         }
         else if (upgradeType == 3)
@@ -283,7 +283,7 @@ public class HUDController : MonoBehaviour
         armorUpgradeImg.enabled = false;
 
         // Deactivate shield upgrade after timer runs out
-        EnemyController.DeactivateUpgrade(2);
+        EnemyControllerParent.DeactivateUpgrade(2);
         // Deactivate screen tint
         shieldUpgradeImg.enabled = false;
 

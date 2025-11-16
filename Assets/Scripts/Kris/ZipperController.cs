@@ -11,8 +11,8 @@ public class ZipperController : FlyingEnemyController
         base.Start();
     }
 
-    protected override void InitialAttack()
+    protected override void AttackHit()
     {
-        base.InitialAttack();
+        base.AttackHit();
     }
 }
