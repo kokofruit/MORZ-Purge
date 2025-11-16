@@ -37,8 +37,7 @@ public class FlyingEnemyController : EnemyControllerParent
         // START CHASING
         // change animator
         _animator.SetBool("isWalking", true);
-        print("chasing");
-
+        
         while (true)
         {
             // Calculate the distance between the enemy and player
@@ -48,7 +47,6 @@ public class FlyingEnemyController : EnemyControllerParent
             // if the enemy is close enough to swoop, lower to the ground
             if (playerDistance <= _swoopDistance)
             {
-                print("first if");
                 _navMeshAgent.baseOffset = Mathf.MoveTowards(_navMeshAgent.baseOffset, 0, _swoopSpeed * Time.deltaTime);
                 yield return null;
             }
@@ -57,7 +55,6 @@ public class FlyingEnemyController : EnemyControllerParent
                 * if close enough to player, low enough to ground, and not on cooldown, attack them */
             if (Vector3.Distance(transform.position, _playerTransform.position) <= _attackDistance && _navMeshAgent.baseOffset <= 1f && !_isOnCooldown)
             {
-                print("second if");
                 // END CHASING - CAN ATTACK
                 // clear path
                 _navMeshAgent.ResetPath();
@@ -72,7 +69,6 @@ public class FlyingEnemyController : EnemyControllerParent
             */
             else if (!_lineOfSight)
             {
-                print("idling");
                 // END CHASING - NO LINE OF SIGHT
                 ChangeState(nameof(IdleBehavior));
             }
@@ -83,7 +79,6 @@ public class FlyingEnemyController : EnemyControllerParent
                 this._navMeshAgent.SetDestination(_playerTransform.position);
                 // wait for next frame
                 yield return null;
-                print("setting dest");
             }
         }
     }
