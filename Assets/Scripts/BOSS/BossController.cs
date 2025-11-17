@@ -68,7 +68,7 @@ public class BossController : MonoBehaviour, IDamageable
         // Cache own components
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _animator = GetComponentInChildren<Animator>();
-        
+
         // Cache player transform
         _playerTransform = FindAnyObjectByType<PlayerController>().transform;
 
@@ -113,6 +113,9 @@ public class BossController : MonoBehaviour, IDamageable
         _attacks.Add(LaunchEggs);
         _attacks.Add(TendrilBarrage);
     }
+    
+    // TODO: function for boss physically moving between phase locations
+    // maybe block off area for boss and maybe player somehow?
     #endregion
 
     // Choose a random attack and then execute it
@@ -152,7 +155,7 @@ public class BossController : MonoBehaviour, IDamageable
          */
         float timeBeforeNextAttack = 3f;
         // for performance reasons. higher number -> better performance. lower number -> more precise destination
-        float destinationIterationModifier = 2.5f; 
+        float destinationIterationModifier = 2.5f;
 
         // find direction towards player
         Vector3 direction = _playerTransform.position - transform.position;
@@ -175,7 +178,7 @@ public class BossController : MonoBehaviour, IDamageable
         _navMeshAgent.SetDestination(destinationCandidate);
 
         // TODO: start charge noise. like a growl maybe?
-        
+
         // do nothing until finished charging
         while (Vector3.Distance(transform.position, destinationCandidate) > 0f)
         {
@@ -198,10 +201,18 @@ public class BossController : MonoBehaviour, IDamageable
     {
         /*
          * boss slams area near player
+         * cause stalactites to fall
          * deal set player damage
          * reset after slam
          */
         float timeBeforeNextAttack = 3f;
+
+        // "slam" in place probably because oh boy trajectory is something
+        // hurt within a radius
+        // spawn stalactites at random locations. amount can be static or based on phase
+            // maybe make a random location function that can be used for this, spawn bugs, and tendril barrage
+        // stalactites will have their own script to fall, hurt player on contact while falling, then break/destroy after colliding with the ground
+
 
         // cooldown and then choose next attack
         yield return new WaitForSeconds(timeBeforeNextAttack);
@@ -242,12 +253,14 @@ public class BossController : MonoBehaviour, IDamageable
     }
 
     #endregion
-    
+
     #region Phase Two Attacks
 
     private IEnumerator TendrilSweep()
     {
         float timeBeforeNextAttack = 3f;
+
+        // create a tendril centered at the boss that will "sweep" (rotate) around the boss
 
         // cooldown and then choose next attack
         yield return new WaitForSeconds(timeBeforeNextAttack);
@@ -258,18 +271,25 @@ public class BossController : MonoBehaviour, IDamageable
     {
         float timeBeforeNextAttack = 3f;
 
+        // choose random spots around the ground to have enemies spawn at
+        // TODO: figure out how they spawn. eggs? fall in? emerge from ground? i will be mildly sad if they just appear
+        // spawn pool could be based on phase (2 vs 3)
+
         // cooldown and then choose next attack
         yield return new WaitForSeconds(timeBeforeNextAttack);
         ChooseNextAttack();
     }
 
     #endregion
-    
+
     #region Phase Three Attacks
 
     private IEnumerator LaunchEggs()
     {
         float timeBeforeNextAttack = 3f;
+
+        // like glob attack, but eggs have a change of spawning enemies on contact with ground
+        // maybe add a preventative measure to make sure nothing spawns too close to the player
 
         // cooldown and then choose next attack
         yield return new WaitForSeconds(timeBeforeNextAttack);
@@ -279,6 +299,10 @@ public class BossController : MonoBehaviour, IDamageable
     private IEnumerator TendrilBarrage()
     {
         float timeBeforeNextAttack = 3f;
+        
+        // tendrils appear at random locations on ground
+        // they start with just the tip ;) poking out so the player knows where to avoid
+        // after a short period, they burst out and do contact damage
 
         // cooldown and then choose next attack
         yield return new WaitForSeconds(timeBeforeNextAttack);
@@ -338,6 +362,6 @@ public class BossController : MonoBehaviour, IDamageable
             PlayerDamage(_currentContactDamage);
         }
     }
-    
+
     #endregion
 }
