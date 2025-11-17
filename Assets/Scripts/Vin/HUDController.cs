@@ -39,6 +39,7 @@ public class HUDController : MonoBehaviour
     public Image tempPickupCooldownBG;
     public Image hudTint;
     public TMP_Text tempPickupText;
+    public GameObject pickupNotice;
     //total ammo
     public GameObject loadoutAmmoContainer;
     //mag ammo
@@ -414,5 +415,14 @@ public class HUDController : MonoBehaviour
         }
         indicatingDamage = false;
         if (damageIndicator != null) damageIndicator.enabled = false;
+    }
+
+    public void DisplayPickupNotice(bool state) {
+        if (state) {
+            pickupNotice.SetActive(true);
+        }
+        else {
+            pickupNotice.SetActive(false);
+        }
     }
 }

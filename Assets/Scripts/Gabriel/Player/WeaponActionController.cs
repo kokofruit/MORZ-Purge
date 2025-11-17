@@ -48,10 +48,12 @@ public class WeaponActionController : MonoBehaviour
                 
                 RaycastHit hit;
                 // Fire a "Bullet" (Raycast) in the direction the player is looking and get out the first object hit
-                Physics.Raycast(PlayerController.instance.head.position, PlayerController.instance.head.forward, out hit, currentWeapon.RANGE);
+                Physics.Raycast(PlayerController.instance.head.position, PlayerController.instance.head.forward, out hit, currentWeapon.RANGE, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
+
                 // Check to make sure the bullet hit something
                 if (hit.collider != null)
                 {
+                    Debug.Log("" + hit.collider.gameObject.name);
                     if (currentWeapon.FIRE_SELECT == WeaponTemplate.FireSelect.AOE)
                     {
                         Collider[] c = Physics.OverlapSphere(hit.point, currentWeapon.AOE_RADIUS);

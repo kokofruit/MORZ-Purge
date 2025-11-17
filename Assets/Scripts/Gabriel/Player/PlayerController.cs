@@ -64,6 +64,7 @@ public class PlayerController : MonoBehaviour
     // Upgrade bools
     private bool armorUpActivated = false;
     private bool stimulantUpActivated = false;
+    private PickupController availablePickup;
 
     ///////////////////////////////// Monobehvaior Methods ////////////////////////////////
 
@@ -110,11 +111,32 @@ public class PlayerController : MonoBehaviour
         // Change head's vertical rotation to reflect player input
         head.localRotation = Quaternion.Euler(-_lookY, 0, 0);
 
+        ///////////////// Pickup update /////////////////
+        RaycastHit hit;
+        Physics.Raycast(head.position, head.forward, out hit, _interactDistance);
+
+        if (availablePickup == null) {
+            if (hit.collider != null) {
+                if (hit.collider.CompareTag("Pickup")) {
+                    Debug.Log("Pickup Found");
+                    hit.collider.TryGetComponent(out PickupController pickupController);
+                    availablePickup = pickupController;
+                    HUDController.instance.DisplayPickupNotice(true);
+                }
+            }
+        }
+        else if (hit.collider?.gameObject != availablePickup?.gameObject) {
+            availablePickup = null;
+            HUDController.instance.DisplayPickupNotice(false);
+            Debug.Log("PickupDropped");
+        }
+
         ///////////////// Move update /////////////////
         // If the player is on the ground
-        if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, _playerHeight/1.8f))
+        RaycastHit ground;
+        if (Physics.Raycast(transform.position, Vector3.down, out ground, _playerHeight/1.8f))
         {
-            float slopeAngle = Vector3.Angle(hit.normal, Vector3.up);
+            float slopeAngle = Vector3.Angle(ground.normal, Vector3.up);
 
             if (slopeAngle < maxSlopeAngle) {
                 // Set the players speed depending on whether they are sprinting or not
@@ -134,7 +156,7 @@ public class PlayerController : MonoBehaviour
                 // Get the local vector to reflect changes in player rotation
                 Vector3 localVelocity = transform.TransformDirection(new Vector3(velocity.x, _rb.linearVelocity.y, velocity.y));
                 // Get the normal of the ground we are standing on
-                Vector3 groundNormal = hit.normal;
+                Vector3 groundNormal = ground.normal;
 
                 // Step 2: Project velocity onto the slope plane
                 Vector3 slopeDirection = Vector3.ProjectOnPlane(localVelocity, groundNormal);
@@ -159,7 +181,7 @@ public class PlayerController : MonoBehaviour
             // Get out the pickup object's pickup controller script
             collider.gameObject.TryGetComponent(out PickupController pickup);
 
-            pickup.PickupObject();
+            PickupObject(pickup);
         }
     }
 
@@ -176,9 +198,7 @@ public class PlayerController : MonoBehaviour
     {
         _health += amount;
         if (_health > MAX_HEALTH)
-        {
             _health = MAX_HEALTH;
-        }
 
         // Update health bar with new health amount
         HUD.DisplayHealth(_health);
@@ -187,12 +207,10 @@ public class PlayerController : MonoBehaviour
     public void SubtractHealth(float amount)
     {
         // Check to make sure invincibility armor isn't active
-        if (!armorUpActivated)
-        {
+        if (!armorUpActivated) {
             _health -= amount;
 
-            if (_health < 0)
-            {
+            if (_health < 0) {
                 GameManager.instance.PlayerDied();
                 return;
             }
@@ -250,44 +268,33 @@ public class PlayerController : MonoBehaviour
     public void ActivateUpgrade(int upgradeType)
     {
         // If upgrade is armor, set armor activated to true
-        if (upgradeType == 0)
-        {
+        if (upgradeType == 0) {
             armorUpActivated = true;
         }
         // If upgrade is stim, set stim activated to true
-        else if (upgradeType == 1)
-        {
+        else if (upgradeType == 1) {
             stimulantUpActivated = true;
         }
     }
 
     public void DeactivateUpgrade(int upgradeType)
     {
-        if(upgradeType == 0)
-        {
+        if(upgradeType == 0) {
             armorUpActivated = false;
         }
-        else if (upgradeType == 1)
-        {
+        else if (upgradeType == 1) {
             stimulantUpActivated = false;
         }
     }
 
+    private void PickupObject(PickupController pickup)
+    {
+        HUDController.instance.DisplayPickupNotice(false);
+        pickup.PickupObject();
+    }
+
     public void OnInteract()
     {
-        RaycastHit hit;
-        Physics.Raycast(head.position, head.forward, out hit, _interactDistance);
-        //Debug.Log(hit);
-
-        //if raycast hits
-        if (hit.collider != null)
-            //and hits a pickup
-            if (hit.collider.CompareTag("Pickup"))
-            {
-                //pickup
-                hit.collider.TryGetComponent(out PickupController pickup);
-                pickup.PickupObject();
-                //later dropping gun will be implemented in PickupObject()
-            }
+        if (availablePickup != null) PickupObject(availablePickup);
     }
 }
