@@ -47,13 +47,13 @@ public class DialogueManager : MonoBehaviour
 
         // Set the dialogue index to be displayed based off of what the current scene is
         // CHANGE SCENE NAMES IN FINAL BUILD
-        if (currentScene.name == "Kris Level 1")
+        if (currentScene.name == "Kris Level 1")// change level names to which level the main branch calls them
             index = 0;
-        else if (currentScene.name == "Kris Level 2")
+        else if (currentScene.name == "Kris Level 2")// change level names to which level the main branch calls them
             index = 2;
-        else if (currentScene.name == "Kris Level 3")
+        else if (currentScene.name == "Kris Level 3")// change level names to which level the main branch calls them
             index = 4;
-        else if (currentScene.name == "Boss")
+        else if (currentScene.name == "Boss")// change level names to which level the main branch calls them
             index = 6;
 
         // On scene load, display start of level dialogue
@@ -86,5 +86,13 @@ public class DialogueManager : MonoBehaviour
         dialogBox.text = "";
     }
 
+    public void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.CompareTag("Player"))
+        {
+            index = 8;
+            OnDisplay(index);
+        }
+    }
 
 }
