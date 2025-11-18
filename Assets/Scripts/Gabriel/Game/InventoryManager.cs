@@ -198,7 +198,8 @@ public class Inventory
             {
                 Debug.Log(i);
                 //adds upgrades
-                upgrades[i].upgradeValues[(int)upgrade.UPGRADE_TYPE] += upgrade.AMOUNT;
+                if (upgrades[i].upgradeValues[(int)upgrade.UPGRADE_TYPE] == 0)
+                    upgrades[i].upgradeValues[(int)upgrade.UPGRADE_TYPE] += upgrade.AMOUNT;
                 //determines which of the 2 all upgrades are added
                 int slot = upgrade.SLOT==1 ? 1:2;
                 upgrades[i].upgradeValues[4] += slot;
