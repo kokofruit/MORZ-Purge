@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 6700747981022673425}
   - component: {fileID: 7145680798935092379}
   - component: {fileID: 8116262335971621024}
-  - component: {fileID: 581850053958066119}
   - component: {fileID: 8430345422874038584}
+  - component: {fileID: 950866168071511370}
   m_Layer: 0
   m_Name: ArmorUpgradePickup
   m_TagString: Pickup
@@ -88,19 +88,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &581850053958066119
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4960916048164898547}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57a9985279eef8c4ea62bdec57dd47d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  upgradeDuration: 5
 --- !u!65 &8430345422874038584
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -122,3 +109,17 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &950866168071511370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4960916048164898547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce53115e9ce00f74dadbe95847ad46cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeDuration: 10
+  upgradeType: 0
