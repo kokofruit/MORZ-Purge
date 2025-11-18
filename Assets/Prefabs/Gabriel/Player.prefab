@@ -357,6 +357,7 @@ MonoBehaviour:
   movementLimiter: {fileID: 0}
   _lookSensX: 0.1
   _lookSensY: 0.1
+  zoomSensDivisor: 2.5
   _health: 100
   _walkSpeed: 4
   _runSpeedMultiplier: 2

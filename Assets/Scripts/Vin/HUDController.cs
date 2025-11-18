@@ -73,6 +73,7 @@ public class HUDController : MonoBehaviour
     private Coroutine currentTempCoroutine;
     private Color healthBarColor;
     private Color bulletColor;
+    private Image currentFirePoint;
 
 
 
@@ -155,6 +156,23 @@ public class HUDController : MonoBehaviour
                 //turn off others
                 weaponSpriteContainer.transform.GetChild(i).gameObject.SetActive(false);
         }
+        currentFirePoint = weaponSpriteContainer.transform.GetChild(idx).GetChild(0).GetComponent<Image>();
+    }
+    
+    public void DisplayWeaponFire()
+    {
+        StartCoroutine("FireAnim");
+    }
+
+    private IEnumerator FireAnim()
+    {
+        RectTransform fireRect = currentFirePoint.GetComponent<RectTransform>();
+        fireRect.rotation = Quaternion.Euler(0, 0, Random.Range(0f, 360f));
+        float scaleVal = Random.Range(0.8f, 1.2f);
+        fireRect.localScale = new Vector3(scaleVal, scaleVal, scaleVal);
+        currentFirePoint.enabled = true;
+        yield return new WaitForSeconds(0.05f);
+        currentFirePoint.enabled = false;
     }
 
     public void resetDistance() {
@@ -350,14 +368,14 @@ public class HUDController : MonoBehaviour
                 tint.a = 0.01f;
                 hudTint.color = tint;
                 tempPickupText.text = "Invisibility Active";
-                EnemyController.ActivateUpgrade(upgradeType);
+                EnemyController.ActivateUpgrade();
                 break;
             // Unlimited Magazine
             case 3:
                 bulletColor = upgradeColors[upgradeType];
                 LoadMagazineDisplay(WeaponActionController.instance.currentWeapon);
                 tempPickupText.text = "Unlimited Ammo Active";
-                WeaponActionController.instance.ActivateUpgrade(upgradeType);
+                WeaponActionController.instance.ActivateUpgrade();
                 break;
         }
 
@@ -390,9 +408,9 @@ public class HUDController : MonoBehaviour
         // Deactivate stimulant upgrade
         PlayerController.instance.DeactivateUpgrade(1);
         // Deactivate invisibility upgrade
-        EnemyController.DeactivateUpgrade(2);
+        EnemyController.DeactivateUpgrade();
         // Deactivate ammo upgrade
-        WeaponActionController.instance.DeactivateUpgrade(3);
+        WeaponActionController.instance.DeactivateUpgrade();
         bulletColor = Color.white;
         LoadMagazineDisplay(WeaponActionController.instance.currentWeapon);
     }

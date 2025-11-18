@@ -48,6 +48,8 @@ public class InventoryManager : MonoBehaviour
     {
         playerInventory = inventory;
 
+        playerInventory.ClearCooldowns();
+
         WeaponActionController.instance.currentWeapon = playerInventory.GetWeapon(0);
         
         HUDController.instance.SetWeaponImage(3 * (int)playerInventory.GetWeapon(0).STAGE + (int)playerInventory.GetWeapon(0).AMMO_TYPE);
@@ -212,5 +214,12 @@ public class Inventory
         Weapons[(int)upgrade.AMMO_TYPE]?.AddUpgrades(upgrades[(int)upgrade.AMMO_TYPE * 3 + (int)Weapons[(int)upgrade.AMMO_TYPE].STAGE].upgradeValues);
         HUDController.instance.SetUpgrades();
         HUDController.instance.LoadMagazineDisplay(WeaponActionController.instance.currentWeapon);
+    }
+
+    public void ClearCooldowns()
+    {
+        foreach (Weapon w in Weapons) {
+            w?.SetCoolingStatus(false);
+        }
     }
 }

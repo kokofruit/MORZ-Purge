@@ -45,6 +45,7 @@ public class WeaponActionController : MonoBehaviour
             else if (_isAttacking && Time.time >= _nextShotTime && !currentWeapon.GetCooldownStatus())
             {
                 HUDController.instance.AnimateRecoil();
+                HUDController.instance.DisplayWeaponFire();
                 
                 RaycastHit hit;
                 // Fire a "Bullet" (Raycast) in the direction the player is looking and get out the first object hit
@@ -158,12 +159,12 @@ public class WeaponActionController : MonoBehaviour
     /* Vin Lettich
      * Functions to deal with unlimited ammo upgrade
     /*************************/
-    public void ActivateUpgrade(int upgradeType)
+    public void ActivateUpgrade()
     {
         ammoUpActivated = true;
     }
 
-    public void DeactivateUpgrade(int upgradeType)
+    public void DeactivateUpgrade()
     {
         ammoUpActivated = false;
     }

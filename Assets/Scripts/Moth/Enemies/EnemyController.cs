@@ -397,12 +397,12 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     /* Vin Lettich
      * Functions to deal with invisibility shield (interrupting the DoChasing for 10s) */
-    public static void ActivateUpgrade(int upgradeType)
+    public static void ActivateUpgrade()
     {
         shieldUpActivated = true;
     }
 
-    public static void DeactivateUpgrade(int upgradeType)
+    public static void DeactivateUpgrade()
     {
         shieldUpActivated = false;
     }

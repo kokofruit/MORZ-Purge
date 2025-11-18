@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _lookSensX = 0.1f;
     // Player vertical look sensitivity
     [SerializeField] private float _lookSensY = 0.1f;
+    [SerializeField] private float zoomSensDivisor = 2.5f;
     // Player's starting health
     [SerializeField] private float _health = 100;
     // Default movement speed
@@ -53,6 +54,8 @@ public class PlayerController : MonoBehaviour
     private Vector2 _lookVector;
     // Keeps track of whether the player is currently sprinting or not
     private bool _isSprinting;
+    // Tracks if the player is zooming the camera
+    private bool isZooming;
     // Maximum speed the player can travel in the air
     private float _maxAirSpeed;
     // Horizontal look velocity with sensitivity applied
@@ -99,9 +102,12 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         ///////////////// Look update /////////////////
+        float XSens = isZooming ? _lookSensX/zoomSensDivisor : _lookSensX;
+        float YSens = isZooming ? _lookSensY/zoomSensDivisor : _lookSensY;
+        
         // Apply the players look sensitivity preferences to the raw input vectors
-        _lookX += _lookVector.x * _lookSensX;
-        _lookY += _lookVector.y * _lookSensY;
+        _lookX += _lookVector.x * XSens;
+        _lookY += _lookVector.y * YSens;
 
         // Clamp the players looking range to straight up and down
         _lookY = Mathf.Clamp(_lookY, -90, 90);
@@ -225,6 +231,36 @@ public class PlayerController : MonoBehaviour
         return _rb.linearVelocity.magnitude;
     }
 
+    /* Vin Lettich
+     * Functions to deal with armor and stimulant upgrades */
+    public void ActivateUpgrade(int upgradeType)
+    {
+        // If upgrade is armor, set armor activated to true
+        if (upgradeType == 0) {
+            armorUpActivated = true;
+        }
+        // If upgrade is stim, set stim activated to true
+        else if (upgradeType == 1) {
+            stimulantUpActivated = true;
+        }
+    }
+
+    public void DeactivateUpgrade(int upgradeType)
+    {
+        if(upgradeType == 0) {
+            armorUpActivated = false;
+        }
+        else if (upgradeType == 1) {
+            stimulantUpActivated = false;
+        }
+    }
+
+    private void PickupObject(PickupController pickup)
+    {
+        HUDController.instance.DisplayPickupNotice(false);
+        pickup.PickupObject();
+    }
+
     ///////////////////////////////// Input  Management ////////////////////////////////
 
     // Movement input from the input manager
@@ -262,39 +298,22 @@ public class PlayerController : MonoBehaviour
             _maxAirSpeed = _rb.linearVelocity.magnitude;
         }
     }
-    
-    /* Vin Lettich
-     * Functions to deal with armor and stimulant upgrades */
-    public void ActivateUpgrade(int upgradeType)
-    {
-        // If upgrade is armor, set armor activated to true
-        if (upgradeType == 0) {
-            armorUpActivated = true;
-        }
-        // If upgrade is stim, set stim activated to true
-        else if (upgradeType == 1) {
-            stimulantUpActivated = true;
-        }
-    }
-
-    public void DeactivateUpgrade(int upgradeType)
-    {
-        if(upgradeType == 0) {
-            armorUpActivated = false;
-        }
-        else if (upgradeType == 1) {
-            stimulantUpActivated = false;
-        }
-    }
-
-    private void PickupObject(PickupController pickup)
-    {
-        HUDController.instance.DisplayPickupNotice(false);
-        pickup.PickupObject();
-    }
 
     public void OnInteract()
     {
         if (availablePickup != null) PickupObject(availablePickup);
+    }
+
+    public void OnZoom(InputValue input)
+    {
+        float value = input.Get<float>();
+        if (value == 1) {
+            head.GetChild(0).GetComponent<Camera>().fieldOfView = 30;
+            isZooming = true;
+        }
+        else {
+            head.GetChild(0).GetComponent<Camera>().fieldOfView = 60;
+            isZooming = false;
+        }
     }
 }
