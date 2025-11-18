@@ -116,7 +116,8 @@ public class EnemyControllerParent : MonoBehaviour, IDamageable
         _navMeshAgent.speed = _moveSpeed;
 
         // Start state machine
-        ChangeState(nameof(IdleBehavior));
+        //ChangeState(nameof(IdleBehavior));
+        SetState(IdleBehavior);
     }
 
     #region NAVIGATION AND SIGHT FUNCTIONS
@@ -189,10 +190,38 @@ public class EnemyControllerParent : MonoBehaviour, IDamageable
     #region STATE MACHINE BEHAVIOR FUNCTIONS
     protected void ChangeState(string functionName)
     {
-        if (DEBUG_MODE) print("Changing state to " + functionName);
-        StopAllCoroutines();
-        StartCoroutine(nameof(LineOfSight));
-        _coroutineState = StartCoroutine(functionName);
+        print(typeof(EnemyControllerParent).GetMethod("ChangeState", System.Reflection.BindingFlags.FlattenHierarchy));
+        if (this.GetType().GetMethod(functionName) != null)
+        {
+            if (DEBUG_MODE) print("Changing state to " + functionName);
+            // stop old state
+            StopAllCoroutines();
+            // start new
+            StartCoroutine(nameof(LineOfSight));
+            _coroutineState = StartCoroutine(functionName);
+        }
+        else
+        {
+            Debug.LogError("The requested state is an invalid coroutine!");
+        }
+    }
+
+    protected void SetState(Func<IEnumerator> coroutine)
+    {
+        // error proofing
+        if (coroutine.Method == null)
+        {
+            Debug.LogError("That coroutine doesn't exist, man.");
+            return;
+        }
+
+        print(nameof(coroutine));
+
+        //// stop old state
+        //StopAllCoroutines();
+        //// start new
+        //StartCoroutine(nameof(LineOfSight));
+        //_coroutineState = StartCoroutine(nameof(coroutine));
     }
 
     /** Moth Harper
@@ -379,13 +408,15 @@ public class EnemyControllerParent : MonoBehaviour, IDamageable
     // In event of enemy death
     public void Die()
     {
+        // make a satisfying bug pop, then destroy it afterwards
         GameObject bugsplosion = Instantiate(_bugDeathExplosion.gameObject, transform.GetChild(0).position, quaternion.identity);
-        int randInt = UnityEngine.Random.Range(0, 50);
-        if (randInt < PickupSpawnerManager.instance.tempPickupObjects.Length)
-        {
-            Instantiate(PickupSpawnerManager.instance.tempPickupObjects[randInt], transform.position, transform.rotation);
-        }
         Destroy(bugsplosion, 0.5f);
+        // spawn a pickup, possibly
+        if (PickupSpawnerManager.instance.SpawnFromEnemyDeath(out GameObject pickup))
+        {
+            Instantiate(pickup, transform.position, quaternion.identity);
+        }
+        // stop coroutines and destroy the bug
         StopAllCoroutines();
         Destroy(gameObject);
     }
