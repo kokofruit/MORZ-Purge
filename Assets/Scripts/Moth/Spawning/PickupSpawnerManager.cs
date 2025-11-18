@@ -54,8 +54,8 @@ public class PickupSpawnerManager : MonoBehaviour
         foreach (GameObject g in _upgradeObjects ) {
             if (availableSpawners.Count < 1)
                 return;
-            int index = Random.Range(0, availableSpawners.Count);
-            availableSpawners[0].GetComponent<PickupSpawnerController>()?.CreatePickup(g);
+            // int index = Random.Range(0, availableSpawners.Count);
+            availableSpawners[0].GetComponent<PickupSpawnerController>()?.CreatePickup();
             availableSpawners.RemoveAt(0);
         }
 
@@ -74,14 +74,14 @@ public class PickupSpawnerManager : MonoBehaviour
         for (int i = 0; i < ammoAmount; i++)
         {
             int index = Random.Range(0, availableSpawners.Count);
-            availableSpawners[index].GetComponent<PickupSpawnerController>()?.CreatePickup(_pickupObjects[(i % 3 == 0) ? 1 : (i % 2 == 0) ? 3 : 2]);
+            availableSpawners[index].GetComponent<PickupSpawnerController>()?.CreatePickup();
             availableSpawners.RemoveAt(index);
         }
         // create health pickups
         for (int i = 0; i < healthAmout; i++)
         {
             int index = Random.Range(0, availableSpawners.Count);
-            availableSpawners[index].GetComponent<PickupSpawnerController>()?.CreatePickup(_pickupObjects[0]);
+            availableSpawners[index].GetComponent<PickupSpawnerController>()?.CreatePickup();
             availableSpawners.RemoveAt(index);
         }
     }

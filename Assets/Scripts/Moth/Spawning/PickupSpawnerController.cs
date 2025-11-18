@@ -13,7 +13,7 @@ public class PickupSpawnerController : MonoBehaviour
         Instantiate(_spawnTable.ChooseItem(UnityEngine.Random.value), transform.position, quaternion.identity);
     }
     
-    public void CreatePickup(GameObject pickup)
+    public void CreatePickup()
     {
         SpawnPickup();
         // Instantiate(pickup, transform.position, quaternion.identity);

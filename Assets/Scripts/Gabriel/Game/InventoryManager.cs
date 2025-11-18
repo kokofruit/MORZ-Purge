@@ -9,6 +9,7 @@ public class InventoryManager : MonoBehaviour
 {
     // Static instance for other scripts to reference
     public static InventoryManager instance;
+    public bool DEBUG_MODE = false;
     // Definitions for the maximum capacity for each ammo type in the player's inventory
     public int LIGHT_AMMO_CAP;
     public int MEDIUM_AMMO_CAP;
@@ -192,22 +193,22 @@ public class Inventory
         //see constructor for explanation on math
         int upgradeIndex = (int)upgrade.AMMO_TYPE * 3 + (int)upgrade.STAGE;
         //4 Stage types:All loop through all stages of an ammo type, anything else apply to that stage of that ammo type 
-        if (upgrade.STAGE == WeaponTemplate.Stage.all)
-        {
-            for (int i = (int)upgrade.AMMO_TYPE; i < upgradeIndex; i++)
-            {
-                Debug.Log(i);
+        if (upgrade.STAGE == WeaponTemplate.Stage.all) {
+            for (int weaponIdx = (int)upgrade.AMMO_TYPE; weaponIdx < upgradeIndex; weaponIdx++) {
+                Debug.Log(weaponIdx);
                 //adds upgrades
-                if (upgrades[i].upgradeValues[(int)upgrade.UPGRADE_TYPE] == 0)
-                    upgrades[i].upgradeValues[(int)upgrade.UPGRADE_TYPE] += upgrade.AMOUNT;
+                if (upgrades[weaponIdx].upgradeValues[(int)upgrade.UPGRADE_TYPE] == 0) {
+                    upgrades[weaponIdx].upgradeValues[(int)upgrade.UPGRADE_TYPE] += upgrade.AMOUNT;
+                    if(InventoryManager.instance.DEBUG_MODE) Debug.Log("Added " + upgrade.AMOUNT + " to " + upgrade.UPGRADE_TYPE + " for weapon in slot " + weaponIdx);
+                }
+
                 //determines which of the 2 all upgrades are added
                 int slot = upgrade.SLOT==1 ? 1:2;
-                upgrades[i].upgradeValues[4] += slot;
+                upgrades[weaponIdx].upgradeValues[4] += slot;
                 Debug.Log(slot);
             }
         }
-        else
-        {
+        else {
             //adds upgrades
             upgrades[upgradeIndex].upgradeValues[(int)upgrade.UPGRADE_TYPE] += upgrade.AMOUNT;
             //unique upgrade slot covered
