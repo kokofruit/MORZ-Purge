@@ -17,12 +17,12 @@ public class Weapon
         AMMO_TYPE = weapon.AMMO_TYPE;
         AOE_RADIUS = weapon.AOE_RADIUS;
 
-        damage = weapon.DAMAGE;
-        fireRate = weapon.FIRE_RATE;
-        magSize = weapon.MAG_SIZE;
-        cooldown = weapon.COOLDOWN;
+        BASE_DAMAGE = weapon.DAMAGE;
+        BASE_FIRE_RATE = weapon.FIRE_RATE;
+        BASE_MAG_SIZE = weapon.MAG_SIZE;
+        BASE_COOLDOWN = weapon.COOLDOWN;
 
-        ammo = magSize;
+        ammo = BASE_MAG_SIZE;
         AddUpgrades(upgradeValues);
 
         HUDController.instance.LoadMagazineDisplay(this);
@@ -30,16 +30,18 @@ public class Weapon
 
     public void AddUpgrades(float[] upgradeValues)
     {
-        damage += upgradeValues[0];
-        fireRate += upgradeValues[1];
-        magSize += (int)upgradeValues[2];
-        cooldown -= upgradeValues[3];
+        damage = BASE_DAMAGE + upgradeValues[0];
+        fireRate = BASE_FIRE_RATE + upgradeValues[1];
+        magSize = BASE_MAG_SIZE + (int)upgradeValues[2];
+        cooldown = BASE_COOLDOWN - upgradeValues[3];
     }
 
+    private int BASE_MAG_SIZE;
     // The maximum number of bullets the weapon can hold in its magazine
     public int magSize { get; private set; }
     // The number of actual bullets currently in the weapons magazine
     public int ammo { get; private set; }
+    private float BASE_DAMAGE;
     public float damage { get; private set; }
     // The effective distance the weapon will be able to hit its target
     public int RANGE { get; private set; }
@@ -50,8 +52,10 @@ public class Weapon
     public WeaponTemplate.AmmoType AMMO_TYPE { get; private set; }
     // 
     public WeaponTemplate.Stage STAGE { get; private set; }
+    private float BASE_FIRE_RATE;
     // The number of bullets the weapon will fire in a second
     public float fireRate { get; private set; }
+    private float BASE_COOLDOWN;
     // The length of the reload cooldown in seconds
     public float cooldown { get; private set; }
     // Stores the cooling state of the weapon

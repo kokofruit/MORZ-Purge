@@ -368,7 +368,7 @@ public class HUDController : MonoBehaviour
                 tint.a = 0.01f;
                 hudTint.color = tint;
                 tempPickupText.text = "Invisibility Active";
-                EnemyController.ActivateUpgrade();
+                EnemyControllerParent.ActivateUpgrade();
                 break;
             // Unlimited Magazine
             case 3:
@@ -408,7 +408,7 @@ public class HUDController : MonoBehaviour
         // Deactivate stimulant upgrade
         PlayerController.instance.DeactivateUpgrade(1);
         // Deactivate invisibility upgrade
-        EnemyController.DeactivateUpgrade();
+        EnemyControllerParent.DeactivateUpgrade();
         // Deactivate ammo upgrade
         WeaponActionController.instance.DeactivateUpgrade();
         bulletColor = Color.white;

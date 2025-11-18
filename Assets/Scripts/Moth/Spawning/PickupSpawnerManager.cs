@@ -26,6 +26,11 @@ public class PickupSpawnerManager : MonoBehaviour
     // the chance of spawning a pickup when the player destroys a breakable object
     [SerializeField, Range(0, 1)] private float _breakableSpawnRate;
 
+    // the chance of spawning a pickup from an enemy death
+    [SerializeField, Range(0, 1)] private float _enemyDeathSpawnRate;
+    // the loot table for spawning from an enemy death
+    [SerializeField] private SpawnTable _enemyDeathSpawnTable;
+
     private List<PickupSpawnerController> _spawners;
 
     // Set the instance or destroy if it's a duplicate
@@ -54,8 +59,8 @@ public class PickupSpawnerManager : MonoBehaviour
         foreach (GameObject g in _upgradeObjects ) {
             if (availableSpawners.Count < 1)
                 return;
-            int index = Random.Range(0, availableSpawners.Count);
-            availableSpawners[0].GetComponent<PickupSpawnerController>()?.CreatePickup(g);
+            // int index = Random.Range(0, availableSpawners.Count);
+            availableSpawners[0].GetComponent<PickupSpawnerController>()?.CreatePickup();
             availableSpawners.RemoveAt(0);
         }
 
@@ -74,35 +79,43 @@ public class PickupSpawnerManager : MonoBehaviour
         for (int i = 0; i < ammoAmount; i++)
         {
             int index = Random.Range(0, availableSpawners.Count);
-            availableSpawners[index].GetComponent<PickupSpawnerController>()?.CreatePickup(_pickupObjects[(i % 3 == 0) ? 1 : (i % 2 == 0) ? 3 : 2]);
+            availableSpawners[index].GetComponent<PickupSpawnerController>()?.CreatePickup();
             availableSpawners.RemoveAt(index);
         }
         // create health pickups
         for (int i = 0; i < healthAmout; i++)
         {
             int index = Random.Range(0, availableSpawners.Count);
-            availableSpawners[index].GetComponent<PickupSpawnerController>()?.CreatePickup(_pickupObjects[0]);
+            availableSpawners[index].GetComponent<PickupSpawnerController>()?.CreatePickup();
             availableSpawners.RemoveAt(index);
         }
     }
 
-    public bool SpawnFromBreakable(out GameObject pickup)
+    public bool SpawnFromBreakable(SpawnTable spawnTable, out GameObject pickup)
     {
         // runs at a chance determined by the breakable spawn rate 
         if (Random.value <= _breakableSpawnRate)
         {
-            // possibly return an ammo pickup
-            if (Random.value <= _ammoToHealthRatio)
-            {
-                // return a random type of ammo
-                int ammoType = Random.Range(1, 4);
-                pickup = _pickupObjects[ammoType];
-            }
-            // otherwise, return a health pickup
-            else
-            {
-                pickup = _pickupObjects[0];
-            }
+            // retrive a random pickup
+            pickup = spawnTable.ChooseItem(Random.value);
+            // return true
+            return true;
+        }
+        // if not spawning a pickup, return false and a null value
+        else
+        {
+            pickup = null;
+            return false;
+        }
+    }
+
+    public bool SpawnFromEnemyDeath(out GameObject pickup)
+    {
+        // runs at a chance determined by the breakable spawn rate 
+        if (Random.value <= _enemyDeathSpawnRate)
+        {
+            // retrive a random pickup
+            pickup = _enemyDeathSpawnTable.ChooseItem(Random.value);
             // return true
             return true;
         }

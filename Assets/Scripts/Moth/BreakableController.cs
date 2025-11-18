@@ -14,6 +14,8 @@ public class BreakableController : MonoBehaviour, IDamageable
     [SerializeField] Material _particleMaterial;
     // determines whether this breakable has the chance to spawn a pickup
     [SerializeField] bool _canSpawnPickups;
+    // The selection of items to spawn
+    [SerializeField] private SpawnTable _spawnTable;
 
     // Using the interface, take damage and die if health falls below zero.
     void IDamageable.TakeDamage(float damage)
@@ -58,7 +60,7 @@ public class BreakableController : MonoBehaviour, IDamageable
         }
 
         // Possibly spawn a random pickup, if enabled
-        if (_canSpawnPickups && PickupSpawnerManager.instance.SpawnFromBreakable(out GameObject pickup))
+        if (_canSpawnPickups && PickupSpawnerManager.instance.SpawnFromBreakable(_spawnTable, out GameObject pickup))
         {
             Instantiate(pickup, transform.position, quaternion.identity);
         }

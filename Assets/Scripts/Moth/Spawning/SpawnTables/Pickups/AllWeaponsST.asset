@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e419dc01299284f4389356e4261cc086, type: 3}
+  m_Name: AllWeaponsST
+  m_EditorClassIdentifier: 
+  spawnTableEntries:
+  - spawnObject: {fileID: 3008523399120371892, guid: 975fb2d969827b640bcedc0910a04702, type: 3}
+    spawnChance: 0.125
+  - spawnObject: {fileID: 3883844770714908084, guid: b70e7f4dd97f74e4b8fe6952bd83bf07, type: 3}
+    spawnChance: 0.125
+  - spawnObject: {fileID: 7111207198069066877, guid: d2f8ee2ffa8063b4382f97e545c0093f, type: 3}
+    spawnChance: 0.125
+  - spawnObject: {fileID: 9057342129616246152, guid: 780c82f96b994404eb6d414065d64089, type: 3}
+    spawnChance: 0.125
+  - spawnObject: {fileID: 7839490648046540495, guid: c5be7c1774b44af4a9e5263cada60b59, type: 3}
+    spawnChance: 0.125
+  - spawnObject: {fileID: 8288945144516291869, guid: 6d93a2abd43c7764595bb85a09db8f6b, type: 3}
+    spawnChance: 0.125
+  - spawnObject: {fileID: 8288945144516291869, guid: 3128280b8aa92fe498e307646940df2e, type: 3}
+    spawnChance: 0.125
+  - spawnObject: {fileID: 5460825695069110428, guid: 54cf756b9251d8c438d27b7d571c4c6e, type: 3}
+    spawnChance: 0.125

@@ -6,12 +6,6 @@ using UnityEngine;
 
 public class ChomperController : MeleeEnemyContoller
 {
-    protected override void InitialAttack()
-    {
-        base.InitialAttack();
-        _animator.SetTrigger("triggerAttack");
-    }
-
     // Pursue the player while in cooldown
     protected override void AttackCooldown()
     {

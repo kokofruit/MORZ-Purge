@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e419dc01299284f4389356e4261cc086, type: 3}
+  m_Name: GroundBugsST
+  m_EditorClassIdentifier: 
+  spawnTableEntries:
+  - spawnObject: {fileID: 2325259227681129849, guid: 180f03ae965f12b499aa3a5c79ad7e37, type: 3}
+    spawnChance: 0.4
+  - spawnObject: {fileID: 1625208117185856178, guid: b5225fab23cb83142a9d8775d6ee5e24, type: 3}
+    spawnChance: 0.3
+  - spawnObject: {fileID: 6377917487719104797, guid: beab27ce7eecd254e849814e099f363c, type: 3}
+    spawnChance: 0.15
+  - spawnObject: {fileID: 6377917487719104797, guid: fb1b76356706b2a40b3cd9477a07b7d3, type: 3}
+    spawnChance: 0.15

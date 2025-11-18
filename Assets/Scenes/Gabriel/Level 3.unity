@@ -3846,6 +3846,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PICKUP SPAWNER (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 2330329948147379686, guid: 7333e78426260514ba9302de1601419e, type: 3}
+      propertyPath: _spawnTable
+      value: 
+      objectReference: {fileID: 11400000, guid: 007956a03df3f1b48b6b36adeddfcbb0, type: 2}
     - target: {fileID: 5324259774751795999, guid: 7333e78426260514ba9302de1601419e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -68.9
@@ -12771,6 +12775,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PICKUP SPAWNER (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 2330329948147379686, guid: 7333e78426260514ba9302de1601419e, type: 3}
+      propertyPath: _spawnTable
+      value: 
+      objectReference: {fileID: 11400000, guid: 007956a03df3f1b48b6b36adeddfcbb0, type: 2}
     - target: {fileID: 5324259774751795999, guid: 7333e78426260514ba9302de1601419e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -11.13
@@ -13550,6 +13558,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PICKUP SPAWNER (13)
       objectReference: {fileID: 0}
+    - target: {fileID: 2330329948147379686, guid: 7333e78426260514ba9302de1601419e, type: 3}
+      propertyPath: _spawnTable
+      value: 
+      objectReference: {fileID: 11400000, guid: 007956a03df3f1b48b6b36adeddfcbb0, type: 2}
     - target: {fileID: 5324259774751795999, guid: 7333e78426260514ba9302de1601419e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 29.8
@@ -19406,6 +19418,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PICKUP SPAWNER (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 2330329948147379686, guid: 7333e78426260514ba9302de1601419e, type: 3}
+      propertyPath: _spawnTable
+      value: 
+      objectReference: {fileID: 11400000, guid: 007956a03df3f1b48b6b36adeddfcbb0, type: 2}
     - target: {fileID: 5324259774751795999, guid: 7333e78426260514ba9302de1601419e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -8.7
@@ -21066,6 +21082,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PICKUP SPAWNER (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 2330329948147379686, guid: 7333e78426260514ba9302de1601419e, type: 3}
+      propertyPath: _spawnTable
+      value: 
+      objectReference: {fileID: 11400000, guid: 007956a03df3f1b48b6b36adeddfcbb0, type: 2}
     - target: {fileID: 5324259774751795999, guid: 7333e78426260514ba9302de1601419e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 72.1
@@ -40615,6 +40635,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PICKUP SPAWNER (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 2330329948147379686, guid: 7333e78426260514ba9302de1601419e, type: 3}
+      propertyPath: _spawnTable
+      value: 
+      objectReference: {fileID: 11400000, guid: 007956a03df3f1b48b6b36adeddfcbb0, type: 2}
     - target: {fileID: 5324259774751795999, guid: 7333e78426260514ba9302de1601419e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.35
@@ -48600,6 +48624,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PICKUP SPAWNER (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2330329948147379686, guid: 7333e78426260514ba9302de1601419e, type: 3}
+      propertyPath: _spawnTable
+      value: 
+      objectReference: {fileID: 11400000, guid: 007956a03df3f1b48b6b36adeddfcbb0, type: 2}
     - target: {fileID: 5324259774751795999, guid: 7333e78426260514ba9302de1601419e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -16.33
@@ -63576,6 +63604,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PICKUP SPAWNER (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 2330329948147379686, guid: 7333e78426260514ba9302de1601419e, type: 3}
+      propertyPath: _spawnTable
+      value: 
+      objectReference: {fileID: 11400000, guid: 007956a03df3f1b48b6b36adeddfcbb0, type: 2}
     - target: {fileID: 5324259774751795999, guid: 7333e78426260514ba9302de1601419e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -18.4
@@ -68935,6 +68967,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PICKUP SPAWNER (14)
       objectReference: {fileID: 0}
+    - target: {fileID: 2330329948147379686, guid: 7333e78426260514ba9302de1601419e, type: 3}
+      propertyPath: _spawnTable
+      value: 
+      objectReference: {fileID: 11400000, guid: 007956a03df3f1b48b6b36adeddfcbb0, type: 2}
     - target: {fileID: 5324259774751795999, guid: 7333e78426260514ba9302de1601419e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -21.84
@@ -71156,6 +71192,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PICKUP SPAWNER (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 2330329948147379686, guid: 7333e78426260514ba9302de1601419e, type: 3}
+      propertyPath: _spawnTable
+      value: 
+      objectReference: {fileID: 11400000, guid: 007956a03df3f1b48b6b36adeddfcbb0, type: 2}
     - target: {fileID: 5324259774751795999, guid: 7333e78426260514ba9302de1601419e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.6
@@ -79909,6 +79949,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PICKUP SPAWNER (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 2330329948147379686, guid: 7333e78426260514ba9302de1601419e, type: 3}
+      propertyPath: _spawnTable
+      value: 
+      objectReference: {fileID: 11400000, guid: 007956a03df3f1b48b6b36adeddfcbb0, type: 2}
     - target: {fileID: 5324259774751795999, guid: 7333e78426260514ba9302de1601419e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 34.43
@@ -84257,6 +84301,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PICKUP SPAWNER (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 2330329948147379686, guid: 7333e78426260514ba9302de1601419e, type: 3}
+      propertyPath: _spawnTable
+      value: 
+      objectReference: {fileID: 11400000, guid: 007956a03df3f1b48b6b36adeddfcbb0, type: 2}
     - target: {fileID: 5324259774751795999, guid: 7333e78426260514ba9302de1601419e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 89
@@ -99332,6 +99380,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PICKUP SPAWNER (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 2330329948147379686, guid: 7333e78426260514ba9302de1601419e, type: 3}
+      propertyPath: _spawnTable
+      value: 
+      objectReference: {fileID: 11400000, guid: 007956a03df3f1b48b6b36adeddfcbb0, type: 2}
     - target: {fileID: 5324259774751795999, guid: 7333e78426260514ba9302de1601419e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -53
@@ -102504,6 +102556,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PICKUP SPAWNER (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 2330329948147379686, guid: 7333e78426260514ba9302de1601419e, type: 3}
+      propertyPath: _spawnTable
+      value: 
+      objectReference: {fileID: 11400000, guid: 007956a03df3f1b48b6b36adeddfcbb0, type: 2}
     - target: {fileID: 5324259774751795999, guid: 7333e78426260514ba9302de1601419e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 9.3
@@ -105579,6 +105635,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PICKUP SPAWNER
       objectReference: {fileID: 0}
+    - target: {fileID: 2330329948147379686, guid: 7333e78426260514ba9302de1601419e, type: 3}
+      propertyPath: _spawnTable
+      value: 
+      objectReference: {fileID: 11400000, guid: 007956a03df3f1b48b6b36adeddfcbb0, type: 2}
     - target: {fileID: 5324259774751795999, guid: 7333e78426260514ba9302de1601419e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.88
