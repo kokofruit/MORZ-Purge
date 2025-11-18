@@ -48,29 +48,32 @@ public class FlyingEnemyController : EnemyControllerParent
             if (playerDistance <= _swoopDistance)
             {
                 _navMeshAgent.baseOffset = Mathf.MoveTowards(_navMeshAgent.baseOffset, 0, _swoopSpeed * Time.deltaTime);
-                yield return null;
             }
 
-            /** Moth Harper and Kris Herbert
-                * if close enough to player, low enough to ground, and not on cooldown, attack them */
-            if (Vector3.Distance(transform.position, _playerTransform.position) <= _attackDistance && _navMeshAgent.baseOffset <= 1f && !_isOnCooldown)
-            {
-                // END CHASING - CAN ATTACK
-                // clear path
-                _navMeshAgent.ResetPath();
-                // change state
-                ChangeState(nameof(AttackingBehavior));
-            }
             /**
             * Kris Herbert
             * _lineOfSight uses a raycast to check if it can see the player
             * if true than it will change EnemyState to start chasing the player
             * if it's false then it will return to the idle EnemyState.
             */
-            else if (!_lineOfSight)
+            if (!_lineOfSight)
             {
                 // END CHASING - NO LINE OF SIGHT
-                ChangeState(nameof(IdleBehavior));
+                SetState(IdleBehavior);
+                yield return null;
+                break;
+            }
+            /** Moth Harper and Kris Herbert
+                * if close enough to player, low enough to ground, and not on cooldown, attack them */
+            else if (Vector3.Distance(transform.position, _playerTransform.position) <= _attackDistance && _navMeshAgent.baseOffset <= 1f && !_isOnCooldown)
+            {
+                // END CHASING - CAN ATTACK
+                // clear path
+                _navMeshAgent.ResetPath();
+                // change state
+                SetState(AttackingBehavior);
+                yield return null;
+                break;
             }
             else
             {

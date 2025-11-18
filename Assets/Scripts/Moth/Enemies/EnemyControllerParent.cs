@@ -116,7 +116,7 @@ public class EnemyControllerParent : MonoBehaviour, IDamageable
         _navMeshAgent.speed = _moveSpeed;
 
         // Start state machine
-        //ChangeState(nameof(IdleBehavior));
+        StartCoroutine(nameof(LineOfSight));
         SetState(IdleBehavior);
     }
 
@@ -188,40 +188,21 @@ public class EnemyControllerParent : MonoBehaviour, IDamageable
     #endregion
 
     #region STATE MACHINE BEHAVIOR FUNCTIONS
-    protected void ChangeState(string functionName)
-    {
-        print(typeof(EnemyControllerParent).GetMethod("ChangeState", System.Reflection.BindingFlags.FlattenHierarchy));
-        if (this.GetType().GetMethod(functionName) != null)
-        {
-            if (DEBUG_MODE) print("Changing state to " + functionName);
-            // stop old state
-            StopAllCoroutines();
-            // start new
-            StartCoroutine(nameof(LineOfSight));
-            _coroutineState = StartCoroutine(functionName);
-        }
-        else
-        {
-            Debug.LogError("The requested state is an invalid coroutine!");
-        }
-    }
-
     protected void SetState(Func<IEnumerator> coroutine)
     {
         // error proofing
         if (coroutine.Method == null)
         {
-            Debug.LogError("That coroutine doesn't exist, man.");
+            Debug.LogError("That coroutine doesn't exist, man. - " + coroutine);
             return;
         }
 
-        print(nameof(coroutine));
+        if (DEBUG_MODE) print("Setting state to: " + coroutine.Method.Name);
 
-        //// stop old state
-        //StopAllCoroutines();
-        //// start new
-        //StartCoroutine(nameof(LineOfSight));
-        //_coroutineState = StartCoroutine(nameof(coroutine));
+        // stop old state
+        if (_coroutineState != null) StopCoroutine(_coroutineState);
+        // start new
+        _coroutineState = StartCoroutine(coroutine.Method.Name);
     }
 
     /** Moth Harper
@@ -239,13 +220,17 @@ public class EnemyControllerParent : MonoBehaviour, IDamageable
             // change state if line of sight exists
             if (_lineOfSight)
             {
-                ChangeState(nameof(ChasingBehavior));
+                SetState(ChasingBehavior);
+                yield return null;
+                break;
             }
-
-            // decrease timer
-            idleTimer -= Time.deltaTime;
-            // loop next frame
-            yield return null;
+            else
+            {
+                // decrease timer
+                idleTimer -= Time.deltaTime;
+                // loop next frame
+                yield return null;
+            }
         }
 
         // END IDLE
@@ -255,13 +240,13 @@ public class EnemyControllerParent : MonoBehaviour, IDamageable
             // set navmeshagent's destination
             _navMeshAgent.SetDestination(_destination);
             // change the state
-            ChangeState(nameof(RoamingBehavior));
+            SetState(RoamingBehavior);
         }
         // if not, restart the idle state
         else
         {
             // Start new coroutine
-            ChangeState(nameof(IdleBehavior));
+            SetState(IdleBehavior);
         }
     }
 
@@ -281,20 +266,24 @@ public class EnemyControllerParent : MonoBehaviour, IDamageable
             // change state if line of sight exists
             if (_lineOfSight)
             {
-                ChangeState(nameof(ChasingBehavior));
+                SetState(ChasingBehavior);
+                yield return null;
+                break;
             }
-
-            // decrease timer
-            roamingTimer -= Time.deltaTime;
-            // loop next frame
-            yield return null;
+            else
+            {
+                // decrease timer
+                roamingTimer -= Time.deltaTime;
+                // loop next frame
+                yield return null;
+            }
         }
 
         // END ROAMING
         // clear the navmeshagent's path
         _navMeshAgent.ResetPath();
         // If done navigating or if navigating for too long (in case of being stuck), return to idle mode
-        ChangeState(nameof(IdleBehavior));
+        SetState(IdleBehavior);
     }
 
     /** Kris Herbert and Moth Harper
@@ -307,26 +296,30 @@ public class EnemyControllerParent : MonoBehaviour, IDamageable
 
         while (true)
         {
-            /** Moth Harper and Kris Herbert
-            * if close enough to player and not on cooldown, attack them */
-            if ((Vector3.Distance(transform.position, _playerTransform.position) <= _attackDistance) && !_isOnCooldown)
-            {
-                // END CHASING - CAN ATTACK
-                // clear path
-                _navMeshAgent.ResetPath();
-                // change state
-                ChangeState(nameof(AttackingBehavior));
-            }
             /**
             * Kris Herbert
             * _lineOfSight uses a raycast to check if it can see the player
             * if true than it will change EnemyState to start chasing the player
             * if it's false then it will return to the idle EnemyState.
             */
-            else if (!_lineOfSight)
+            if (!_lineOfSight)
             {
                 // END CHASING - NO LINE OF SIGHT
-                ChangeState(nameof(IdleBehavior));
+                SetState(IdleBehavior);
+                yield return null;
+                break;
+            }
+            /** Moth Harper and Kris Herbert
+            * if close enough to player and not on cooldown, attack them */
+            else if ((Vector3.Distance(transform.position, _playerTransform.position) <= _attackDistance) && !_isOnCooldown)
+            {
+                // END CHASING - CAN ATTACK
+                // clear path
+                _navMeshAgent.ResetPath();
+                // change state
+                SetState(AttackingBehavior);
+                yield return null;
+                break;
             }
             else
             {
@@ -367,7 +360,7 @@ public class EnemyControllerParent : MonoBehaviour, IDamageable
         // allow attacks again
         _isOnCooldown = false;
         // change states
-        ChangeState(nameof(ChasingBehavior));
+        SetState(ChasingBehavior);
     }
 
     // Actual attack beahvior
@@ -377,7 +370,7 @@ public class EnemyControllerParent : MonoBehaviour, IDamageable
         if (Vector3.Distance(transform.position, _playerTransform.position) <= _attackDistance) PlayerDamage();
     }
 
-    // Cooldown behavior
+    // Cooldown behavior - empty for children to use
     protected virtual void AttackCooldown()
     {
 
