@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1237486500085797168}
   - component: {fileID: 222509735547222785}
   m_Layer: 0
-  m_Name: SpeedTrigger
+  m_Name: PistolHollowPointRounds
   m_TagString: Pickup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

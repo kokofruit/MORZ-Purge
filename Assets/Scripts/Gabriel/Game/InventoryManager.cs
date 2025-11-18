@@ -172,7 +172,7 @@ public class Inventory
 
     public float[] GetUpgrades(WeaponTemplate weapon)
     {
-        return upgrades[3 * (int)weapon.STAGE + (int)weapon.AMMO_TYPE].upgradeValues;
+        return upgrades[3 * (int)weapon.AMMO_TYPE + (int)weapon.STAGE].upgradeValues;
     }
 
     public void GetUpgradeSlots(ref float[] slots) {
@@ -194,12 +194,15 @@ public class Inventory
         //4 Stage types:All loop through all stages of an ammo type, anything else apply to that stage of that ammo type 
         if (upgrade.STAGE == WeaponTemplate.Stage.all)
         {
-            for (int i = (int)upgrade.AMMO_TYPE; i < upgradeIndex; i += 3)
+            for (int i = (int)upgrade.AMMO_TYPE; i < upgradeIndex; i++)
             {
+                Debug.Log(i);
                 //adds upgrades
                 upgrades[i].upgradeValues[(int)upgrade.UPGRADE_TYPE] += upgrade.AMOUNT;
                 //determines which of the 2 all upgrades are added
-                upgrades[i].upgradeValues[4] += upgrade.SLOT==1 ? 2:1;
+                int slot = upgrade.SLOT==1 ? 1:2;
+                upgrades[i].upgradeValues[4] += slot;
+                Debug.Log(slot);
             }
         }
         else

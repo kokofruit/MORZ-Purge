@@ -43,7 +43,6 @@ public class PickupController : MonoBehaviour
 
     public virtual void PickupObject()
     {
-        Debug.Log("Picked up: " + gameObject.name);
         Destroy(gameObject);
     }
 }

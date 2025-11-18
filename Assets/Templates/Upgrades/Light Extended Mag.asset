@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f09b9b0369a83ab4fb781b63bde973e8, type: 3}
-  m_Name: ShotgunSlugShells
+  m_Name: Light Extended Mag
   m_EditorClassIdentifier: 
-  AMOUNT: 2
-  AMMO_TYPE: 2
-  STAGE: 0
-  UPGRADE_TYPE: 0
-  SLOT: 2
+  AMOUNT: 6
+  AMMO_TYPE: 0
+  STAGE: 3
+  UPGRADE_TYPE: 2
+  upgradeInfoText: All Light Gun Mag Capacities Up!
+  SLOT: 0

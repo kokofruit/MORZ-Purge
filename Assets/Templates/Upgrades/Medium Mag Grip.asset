@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f09b9b0369a83ab4fb781b63bde973e8, type: 3}
-  m_Name: HeavyRecoilReducer
+  m_Name: Medium Mag Grip
   m_EditorClassIdentifier: 
-  AMOUNT: 1
-  AMMO_TYPE: 2
+  AMOUNT: 1.5
+  AMMO_TYPE: 1
   STAGE: 3
-  UPGRADE_TYPE: 1
+  UPGRADE_TYPE: 3
+  upgradeInfoText: All Medium Gun Reload Speeds Up!
   SLOT: 1

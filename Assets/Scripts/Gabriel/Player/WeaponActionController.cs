@@ -58,7 +58,6 @@ public class WeaponActionController : MonoBehaviour
                 // Check to make sure the bullet hit something
                 if (hit.collider != null)
                 {
-                    Debug.Log("" + hit.collider.gameObject.name);
                     if (currentWeapon.FIRE_SELECT == WeaponTemplate.FireSelect.AOE)
                     {
                         Collider[] c = Physics.OverlapSphere(hit.point, currentWeapon.AOE_RADIUS);

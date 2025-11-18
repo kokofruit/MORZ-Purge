@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DAMAGE: 4
   COOLDOWN: 4
-  RANGE: 50
+  RANGE: 70
   FIRE_RATE: 7
   AMMO_TYPE: 1
   STAGE: 1
