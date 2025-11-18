@@ -60,9 +60,9 @@ public class BreakableController : MonoBehaviour, IDamageable
         }
 
         // Possibly spawn a random pickup, if enabled
-        if (_canSpawnPickups && PickupSpawnerManager.instance.SpawnFromBreakable(out GameObject pickup))
+        if (_canSpawnPickups && PickupSpawnerManager.instance.SpawnFromBreakable(_spawnTable, out GameObject pickup))
         {
-            Instantiate(_spawnTable.ChooseItem(UnityEngine.Random.value), transform.position, quaternion.identity);
+            Instantiate(pickup, transform.position, quaternion.identity);
         }
 
         // Destroy self
