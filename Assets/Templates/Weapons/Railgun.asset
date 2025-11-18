@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DAMAGE: 50
   COOLDOWN: 6
-  RANGE: 60
+  RANGE: 100
   FIRE_RATE: 2
   AMMO_TYPE: 2
   STAGE: 2
   FIRE_SELECT: 0
+  AOE_RADIUS: 0
   MAG_SIZE: 12

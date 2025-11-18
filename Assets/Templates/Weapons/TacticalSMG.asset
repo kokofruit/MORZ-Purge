@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9026bc7339770f4d8cc619eeb750f2e, type: 3}
   m_Name: TacticalSMG
   m_EditorClassIdentifier: 
-  DAMAGE: 3
-  COOLDOWN: 3
-  RANGE: 30
-  FIRE_RATE: 8
+  DAMAGE: 4
+  COOLDOWN: 2
+  RANGE: 50
+  FIRE_RATE: 12
   AMMO_TYPE: 0
   STAGE: 2
   FIRE_SELECT: 1
-  MAG_SIZE: 24
+  AOE_RADIUS: 0
+  MAG_SIZE: 28

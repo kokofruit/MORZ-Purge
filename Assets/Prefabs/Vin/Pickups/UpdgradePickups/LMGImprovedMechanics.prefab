@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1237486500085797168}
   - component: {fileID: 222509735547222785}
   m_Layer: 0
-  m_Name: ImprovedMechanics
+  m_Name: LMGImprovedMechanics
   m_TagString: Pickup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -121,4 +121,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3484769132fcf3748a1c2f3a28e93ec8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upgrade: {fileID: 11400000, guid: 8423b9a480a737a42829aa1af764dba7, type: 2}
+  upgrade: {fileID: 11400000, guid: e263d75989ea11d4d82d4df5f6e3894d, type: 2}

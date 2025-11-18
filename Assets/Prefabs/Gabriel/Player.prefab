@@ -323,7 +323,7 @@ Rigidbody:
   m_GameObject: {fileID: 7813069223567444817}
   serializedVersion: 4
   m_Mass: 10
-  m_Drag: 0
+  m_Drag: 1
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -354,12 +354,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   head: {fileID: 0}
+  movementLimiter: {fileID: 0}
   _lookSensX: 0.1
   _lookSensY: 0.1
+  zoomSensDivisor: 2.5
+  _health: 100
   _walkSpeed: 4
   _runSpeedMultiplier: 2
-  _jumpForce: 50
+  stimMultiplier: 2
+  _jumpForce: 60
   _interactDistance: 5
+  _minAirSpeed: 3
+  _midairAcceleration: 15
+  maxSlopeAngle: 40
 --- !u!114 &6476566804834447122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -372,4 +379,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6cc58e1feaa64549a68385354dc523a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeapon:
+    AOE_RADIUS: 0
   hitMarker: {fileID: 0}
+  _weaponAudio:
+  - {fileID: 8300000, guid: f11424ec1d30a134f97854a2aa48603b, type: 3}
+  - {fileID: 8300000, guid: a82d216853cd87249ae763054df49109, type: 3}
+  - {fileID: 8300000, guid: 3a2d66bb51e838a45a1b79ce083510e0, type: 3}
+  - {fileID: 8300000, guid: 5697d1ffa8ce7fc4c83032ada8a58a18, type: 3}
+  - {fileID: 8300000, guid: f5c009497bec6ff468b707f2641057e9, type: 3}
+  - {fileID: 8300000, guid: fd32139f36cc79342a1bd924d50b34c5, type: 3}
+  - {fileID: 8300000, guid: 4687369cb42ce95478468169e8d5265b, type: 3}
+  - {fileID: 8300000, guid: 55809ffc9ae2af84c856ae6252d4a51d, type: 3}
+  - {fileID: 8300000, guid: 721426425e8610f48b4d2ed6466bbcad, type: 3}

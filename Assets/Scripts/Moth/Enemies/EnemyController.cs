@@ -9,9 +9,6 @@ using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour, IDamageable
 {
-    // Static instance of the enemy for other scripts to reference
-    public static EnemyController instance;
-
     // The toggle for Moth's makeshift debug mode
     [SerializeField] protected bool DEBUG_MODE;
 
@@ -88,6 +85,8 @@ public class EnemyController : MonoBehaviour, IDamageable
     private static bool shieldUpActivated = false;
 
     #region FUNCTIONS
+    // the proud work of Vin
+    // LOOK AT IT
 
     // void Awake()
     // {
@@ -366,8 +365,6 @@ public class EnemyController : MonoBehaviour, IDamageable
 
         if (_health <= 0)
         {
-            // Play sound when dying
-            SoundManager.instance.PlayFXAudio(_deathAudio, transform, pitchFluctuation: 0.2f);
             Die();
         }
     }
@@ -377,6 +374,8 @@ public class EnemyController : MonoBehaviour, IDamageable
     public void Die()
     {
         GameObject bugsplosion = Instantiate(_bugDeathExplosion.gameObject, transform.GetChild(0).position, quaternion.identity);
+        // Play sound when dying
+        SoundManager.instance.PlayFXAudio(_deathAudio, transform, pitchFluctuation: 0.2f);
         int randInt = UnityEngine.Random.Range(0, 50);
         if (randInt < PickupSpawnerManager.instance.tempPickupObjects.Length)
         {
@@ -392,17 +391,17 @@ public class EnemyController : MonoBehaviour, IDamageable
     protected void PlayerDamage()
     {
         if (DEBUG_MODE) print(gameObject.name + "Damaged player by: " + _calculatedDamage);
-        _playerTransform.GetComponent<PlayerController>().SubtractHealth(_calculatedDamage);
+        PlayerController.instance.SubtractHealth(_calculatedDamage);
     }
 
     /* Vin Lettich
      * Functions to deal with invisibility shield (interrupting the DoChasing for 10s) */
-    public static void ActivateUpgrade(int upgradeType)
+    public static void ActivateUpgrade()
     {
         shieldUpActivated = true;
     }
 
-    public static void DeactivateUpgrade(int upgradeType)
+    public static void DeactivateUpgrade()
     {
         shieldUpActivated = false;
     }

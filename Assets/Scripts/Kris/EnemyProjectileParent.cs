@@ -15,7 +15,7 @@ public class EnemyProjectileParent : MonoBehaviour
     protected virtual void Start()
     {
         // Finds the PlayerController class and allows other functions to call functions from that class that affects the player.
-        _controller = FindAnyObjectByType<PlayerController>();
+        _controller = PlayerController.instance;
         // Sets a timer on when the projectile copy is removed fromn the game based on a preset time.
         Invoke("RemoveProjectile", _maxTime);
     }

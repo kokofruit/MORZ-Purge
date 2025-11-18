@@ -11,24 +11,39 @@ public class PlayerController : MonoBehaviour
     //////////////////// Public Variables /////////////////////
     // Static instance of the player for other scripts to reference
     public static PlayerController instance;
-    // Player's starting health
-    public float _health { get; private set; } = 100;
     // Head object that contains the first person camera
     public Transform head;
+    public Collider movementLimiter;
 
     //////////////////// Private Variables /////////////////////
+    [Header("Player Variables")]
     ///     // Player horizontal look sensitivity
     [SerializeField] private float _lookSensX = 0.1f;
     // Player vertical look sensitivity
     [SerializeField] private float _lookSensY = 0.1f;
+    [SerializeField] private float zoomSensDivisor = 2.5f;
+    // Player's starting health
+    [SerializeField] private float _health = 100;
     // Default movement speed
     [SerializeField] private float _walkSpeed = 1.5f;
     // Default speed multiplier for when the player is running
     [SerializeField] private float _runSpeedMultiplier = 2;
+    // Stimulant Upgrade Multiplier
+    [SerializeField] private float stimMultiplier = 2;
     // Amount of force added to the player when jumping
     [SerializeField] private float _jumpForce = 5;
     // Maximum distance within which the player can interact with other objects
     [SerializeField] private float _interactDistance = 5;
+    // Minimum speed the player can travel in the air
+    [SerializeField] private float _minAirSpeed = 3;
+    // Amount of acceleration player input has in the air
+    [SerializeField] private float _midairAcceleration = 10;
+    // Maximum slope the player can walk on
+    [SerializeField] private float maxSlopeAngle = 45;
+    
+    
+    // Player Heads Up Display
+    private HUDController HUD;
     // Player rigidbody
     private Rigidbody _rb;
     // Store the players height for runtime calculations
@@ -39,8 +54,10 @@ public class PlayerController : MonoBehaviour
     private Vector2 _lookVector;
     // Keeps track of whether the player is currently sprinting or not
     private bool _isSprinting;
-    // Keeps track of whether the player is on the ground or not
-    private bool _isGrounded;
+    // Tracks if the player is zooming the camera
+    private bool isZooming;
+    // Maximum speed the player can travel in the air
+    private float _maxAirSpeed;
     // Horizontal look velocity with sensitivity applied
     private float _lookX;
     // Vertical look velocity with sensitivity applied
@@ -50,8 +67,7 @@ public class PlayerController : MonoBehaviour
     // Upgrade bools
     private bool armorUpActivated = false;
     private bool stimulantUpActivated = false;
-    // Stimulant Upgrade Multiplier
-    private float stimMultiplier = 3;
+    private PickupController availablePickup;
 
     ///////////////////////////////// Monobehvaior Methods ////////////////////////////////
 
@@ -73,21 +89,25 @@ public class PlayerController : MonoBehaviour
         head = transform.Find("Head");
         _rb = GetComponent<Rigidbody>();
         _playerHeight = transform.localScale.y * 2;
+        HUD = HUDController.instance;
 
         // Lock the cursor to the center of the screen during gameplay
         Cursor.lockState = CursorLockMode.Locked;
 
         // Set the players health to full
-        HUDController.instance.SetMaxHealth();
+        HUD.SetMaxHealth();
     }
 
     // Update is called once per frame
     void Update()
     {
         ///////////////// Look update /////////////////
+        float XSens = isZooming ? _lookSensX/zoomSensDivisor : _lookSensX;
+        float YSens = isZooming ? _lookSensY/zoomSensDivisor : _lookSensY;
+        
         // Apply the players look sensitivity preferences to the raw input vectors
-        _lookX += _lookVector.x * _lookSensX;
-        _lookY += _lookVector.y * _lookSensY;
+        _lookX += _lookVector.x * XSens;
+        _lookY += _lookVector.y * YSens;
 
         // Clamp the players looking range to straight up and down
         _lookY = Mathf.Clamp(_lookY, -90, 90);
@@ -97,25 +117,64 @@ public class PlayerController : MonoBehaviour
         // Change head's vertical rotation to reflect player input
         head.localRotation = Quaternion.Euler(-_lookY, 0, 0);
 
+        ///////////////// Pickup update /////////////////
+        RaycastHit hit;
+        Physics.Raycast(head.position, head.forward, out hit, _interactDistance);
+
+        if (availablePickup == null) {
+            if (hit.collider != null) {
+                if (hit.collider.CompareTag("Pickup")) {
+                    Debug.Log("Pickup Found");
+                    hit.collider.TryGetComponent(out PickupController pickupController);
+                    availablePickup = pickupController;
+                    HUDController.instance.DisplayPickupNotice(true);
+                }
+            }
+        }
+        else if (hit.collider?.gameObject != availablePickup?.gameObject) {
+            availablePickup = null;
+            HUDController.instance.DisplayPickupNotice(false);
+            Debug.Log("PickupDropped");
+        }
+
         ///////////////// Move update /////////////////
         // If the player is on the ground
-        if (_isGrounded)
+        RaycastHit ground;
+        if (Physics.Raycast(transform.position, Vector3.down, out ground, _playerHeight/1.8f))
         {
-            // Set the players speed depending on whether they are sprinting or not
-            float _speed = _isSprinting ? _walkSpeed * _runSpeedMultiplier : _walkSpeed;
-            // Check if stimulant is activated
-            if (stimulantUpActivated)
-            {
-                // Increase speed by multiplying by the multiplier
-                _speed += _walkSpeed * stimMultiplier;
+            float slopeAngle = Vector3.Angle(ground.normal, Vector3.up);
+
+            if (slopeAngle < maxSlopeAngle) {
+                // Set the players speed depending on whether they are sprinting or not
+                float _speed = _isSprinting ? _walkSpeed * _runSpeedMultiplier : _walkSpeed;
+
+                HUD.AnimateWeapon(_rb.linearVelocity.magnitude);
+
+                // Check if stimulant is activated
+                if (stimulantUpActivated)
+                {
+                    // Increase speed by multiplying by the multiplier
+                    _speed *= stimMultiplier;
+                } // Speed goes back to normal once stimulantUpActivated is false
+
+                // Change the raw input into player velocity by adding player speed
+                Vector3 velocity = _movementVector * _speed;
+                // Get the local vector to reflect changes in player rotation
+                Vector3 localVelocity = transform.TransformDirection(new Vector3(velocity.x, _rb.linearVelocity.y, velocity.y));
+                // Get the normal of the ground we are standing on
+                Vector3 groundNormal = ground.normal;
+
+                // Step 2: Project velocity onto the slope plane
+                Vector3 slopeDirection = Vector3.ProjectOnPlane(localVelocity, groundNormal);
+
+                _rb.linearVelocity = slopeDirection;
             }
-            // Speed goes back to normal once stimulantUpActivated is false
-            // Change the raw input into player velocity by adding player speed
-            Vector3 velocity = _movementVector * _speed;
-            // Get the local vector to reflect changes in player rotation
-            Vector3 localVelocity = transform.TransformDirection(new Vector3(velocity.x, _rb.linearVelocity.y, velocity.y));
-            // Set the rigidbody's velocity to the new local velocity
-            _rb.linearVelocity = localVelocity;
+        } else {
+            if (_rb.linearVelocity.magnitude < _maxAirSpeed || _rb.linearVelocity.magnitude < _minAirSpeed) {
+                Vector3 velocity = _movementVector * _midairAcceleration;
+                Vector3 localVelocity = transform.TransformDirection(new Vector3(velocity.x, _rb.linearVelocity.y, velocity.y));
+                _rb.AddForce(localVelocity);
+            }
         }
     }
 
@@ -128,36 +187,7 @@ public class PlayerController : MonoBehaviour
             // Get out the pickup object's pickup controller script
             collider.gameObject.TryGetComponent(out PickupController pickup);
 
-            pickup.PickupObject();
-        }
-    }
-
-    // Called every time the player continues to collide with another object
-    void OnCollisionStay(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            ///////////////// Grounded Check /////////////////
-            RaycastHit hit;
-            // Get the distance to the floor below the player
-            float distance = _playerHeight / 1.8f;
-            // Raycast downwards 
-            Physics.Raycast(gameObject.transform.position, Vector3.down, out hit, distance);
-            // Check if the player is standing on something
-            if (hit.collider != null)
-            {
-                _isGrounded = true;
-            }
-        }
-    }
-
-    // Called when the player stops contacting another object
-    void OnCollisionExit(Collision collision)
-    {
-        // Check if the player has left the ground
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            _isGrounded = false;
+            PickupObject(pickup);
         }
     }
 
@@ -174,29 +204,61 @@ public class PlayerController : MonoBehaviour
     {
         _health += amount;
         if (_health > MAX_HEALTH)
-        {
             _health = MAX_HEALTH;
-        }
 
         // Update health bar with new health amount
-        HUDController.instance.DisplayHealth(_health);
+        HUD.DisplayHealth(_health);
     }
 
     public void SubtractHealth(float amount)
     {
         // Check to make sure invincibility armor isn't active
-        if(!armorUpActivated)
-        {
+        if (!armorUpActivated) {
             _health -= amount;
 
-            if (_health < 0)
-            {
+            if (_health < 0) {
                 GameManager.instance.PlayerDied();
+                return;
             }
-
             // Update health bar with new health amount
-            HUDController.instance.DisplayHealth(_health);
+            HUD.DisplayHealth(_health);
+            HUD.IndicateDamage();
         }
+    }
+    
+    public float GetVelocity()
+    {
+        return _rb.linearVelocity.magnitude;
+    }
+
+    /* Vin Lettich
+     * Functions to deal with armor and stimulant upgrades */
+    public void ActivateUpgrade(int upgradeType)
+    {
+        // If upgrade is armor, set armor activated to true
+        if (upgradeType == 0) {
+            armorUpActivated = true;
+        }
+        // If upgrade is stim, set stim activated to true
+        else if (upgradeType == 1) {
+            stimulantUpActivated = true;
+        }
+    }
+
+    public void DeactivateUpgrade(int upgradeType)
+    {
+        if(upgradeType == 0) {
+            armorUpActivated = false;
+        }
+        else if (upgradeType == 1) {
+            stimulantUpActivated = false;
+        }
+    }
+
+    private void PickupObject(PickupController pickup)
+    {
+        HUDController.instance.DisplayPickupNotice(false);
+        pickup.PickupObject();
     }
 
     ///////////////////////////////// Input  Management ////////////////////////////////
@@ -205,6 +267,7 @@ public class PlayerController : MonoBehaviour
     public void OnMove(InputValue input)
     {
         _movementVector = input.Get<Vector2>();
+        if (_rb.linearVelocity.magnitude < 0.1f) HUD.resetDistance();
     }
 
     // Look input from the input manager
@@ -229,56 +292,28 @@ public class PlayerController : MonoBehaviour
     public void OnJump()
     {
         // Checks if the player is on the ground
-        if (_isGrounded)
-        {
+        if (Physics.Raycast(transform.position, Vector3.down, 1.1f)) {
             // Add an sudden upwards force
             _rb.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
-        }
-    }
-    
-    /* Vin Lettich
-     * Functions to deal with armor and stimulant upgrades */
-    public void ActivateUpgrade(int upgradeType)
-    {
-        // If upgrade is armor, set armor activated to true
-        if (upgradeType == 0)
-        {
-            armorUpActivated = true;
-        }
-        // If upgrade is stim, set stim activated to true
-        else if (upgradeType == 1)
-        {
-            stimulantUpActivated = true;
-        }
-    }
-
-    public void DeactivateUpgrade(int upgradeType)
-    {
-        if(upgradeType == 0)
-        {
-            armorUpActivated = false;
-        }
-        else if (upgradeType == 1)
-        {
-            stimulantUpActivated = false;
+            _maxAirSpeed = _rb.linearVelocity.magnitude;
         }
     }
 
     public void OnInteract()
     {
-        RaycastHit hit;
-        Physics.Raycast(head.position, head.forward, out hit, _interactDistance);
-        //Debug.Log(hit);
+        if (availablePickup != null) PickupObject(availablePickup);
+    }
 
-        //if raycast hits
-        if (hit.collider != null)
-            //and hits a pickup
-            if (hit.collider.CompareTag("Pickup"))
-            {
-                //pickup
-                hit.collider.TryGetComponent(out PickupController pickup);
-                pickup.PickupObject();
-                //later dropping gun will be implemented in PickupObject()
-            }
+    public void OnZoom(InputValue input)
+    {
+        float value = input.Get<float>();
+        if (value == 1) {
+            head.GetChild(0).GetComponent<Camera>().fieldOfView = 30;
+            isZooming = true;
+        }
+        else {
+            head.GetChild(0).GetComponent<Camera>().fieldOfView = 60;
+            isZooming = false;
+        }
     }
 }

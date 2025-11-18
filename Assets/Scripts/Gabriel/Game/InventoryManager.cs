@@ -48,6 +48,8 @@ public class InventoryManager : MonoBehaviour
     {
         playerInventory = inventory;
 
+        playerInventory.ClearCooldowns();
+
         WeaponActionController.instance.currentWeapon = playerInventory.GetWeapon(0);
         
         HUDController.instance.SetWeaponImage(3 * (int)playerInventory.GetWeapon(0).STAGE + (int)playerInventory.GetWeapon(0).AMMO_TYPE);
@@ -72,10 +74,10 @@ public class InventoryManager : MonoBehaviour
 
         while (val != start) {
             //loops back around the three slots here
-            if (val > 2)
+            if (val > playerInventory.highestWeaponType)
                 val = 0;
             else if (val < 0)
-                val = 2;
+                val = playerInventory.highestWeaponType;
 
             if (playerInventory.GetWeapon(val) != null) {
                 //sets gun here
@@ -88,7 +90,7 @@ public class InventoryManager : MonoBehaviour
                 break;
             }
             //increment here
-            val -= inc;
+            val += inc;
         }
     }
 }
@@ -99,6 +101,7 @@ public class Inventory
     //All weapon items are stored [Light, Medium, Heavy]
     public int[] ammo = new int[3];
     public int[] AMMO_CAPS = new int[3];
+    public int highestWeaponType;
 
     private Weapon[] Weapons = new Weapon[3];
     private InventoryManager.upVal[] upgrades = new InventoryManager.upVal[9];
@@ -156,6 +159,8 @@ public class Inventory
 
     public void AddWeapon(WeaponTemplate weapon)
     {
+        if ((int)weapon.AMMO_TYPE > highestWeaponType) highestWeaponType = (int)weapon.AMMO_TYPE;
+
         //replaces whatever is in the slot
         Weapons[(int)weapon.AMMO_TYPE] = new Weapon(weapon, GetUpgrades(weapon));
         HUDController.instance.SetUpgrades();
@@ -167,7 +172,7 @@ public class Inventory
 
     public float[] GetUpgrades(WeaponTemplate weapon)
     {
-        return upgrades[3 * (int)weapon.STAGE + (int)weapon.AMMO_TYPE].upgradeValues;
+        return upgrades[3 * (int)weapon.AMMO_TYPE + (int)weapon.STAGE].upgradeValues;
     }
 
     public void GetUpgradeSlots(ref float[] slots) {
@@ -189,12 +194,15 @@ public class Inventory
         //4 Stage types:All loop through all stages of an ammo type, anything else apply to that stage of that ammo type 
         if (upgrade.STAGE == WeaponTemplate.Stage.all)
         {
-            for (int i = (int)upgrade.AMMO_TYPE; i < upgradeIndex; i += 3)
+            for (int i = (int)upgrade.AMMO_TYPE; i < upgradeIndex; i++)
             {
+                Debug.Log(i);
                 //adds upgrades
                 upgrades[i].upgradeValues[(int)upgrade.UPGRADE_TYPE] += upgrade.AMOUNT;
                 //determines which of the 2 all upgrades are added
-                upgrades[i].upgradeValues[4] += upgrade.SLOT==1 ? 2:1;
+                int slot = upgrade.SLOT==1 ? 1:2;
+                upgrades[i].upgradeValues[4] += slot;
+                Debug.Log(slot);
             }
         }
         else
@@ -209,5 +217,12 @@ public class Inventory
         Weapons[(int)upgrade.AMMO_TYPE]?.AddUpgrades(upgrades[(int)upgrade.AMMO_TYPE * 3 + (int)Weapons[(int)upgrade.AMMO_TYPE].STAGE].upgradeValues);
         HUDController.instance.SetUpgrades();
         HUDController.instance.LoadMagazineDisplay(WeaponActionController.instance.currentWeapon);
+    }
+
+    public void ClearCooldowns()
+    {
+        foreach (Weapon w in Weapons) {
+            w?.SetCoolingStatus(false);
+        }
     }
 }
