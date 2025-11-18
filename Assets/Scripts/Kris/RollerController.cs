@@ -13,8 +13,8 @@ public class RollerController : RangedEnemyController
 
     // Overrides the Rollers InitialAttack to use the RangedEnemeyController InitialAttack
     // Playes enemies attack sound
-    protected override void InitialAttack()
+    protected override void AttackHit()
     {
-        base.InitialAttack();
+        base.AttackHit();
     }
 }

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e419dc01299284f4389356e4261cc086, type: 3}
+  m_Name: AllTempsST
+  m_EditorClassIdentifier: 
+  spawnTableEntries:
+  - spawnObject: {fileID: 4738255665729767998, guid: 5f19c4f29eef265429dac0df2382b9fc, type: 3}
+    spawnChance: 0.25
+  - spawnObject: {fileID: 4960916048164898547, guid: f50393975e6ddcc459fa62ceef009091, type: 3}
+    spawnChance: 0.25
+  - spawnObject: {fileID: 425713655969822630, guid: d31b8cf45946330489299785e37311dd, type: 3}
+    spawnChance: 0.25
+  - spawnObject: {fileID: 465931389687658882, guid: fbfbab66e3d8f1e4eae1108fcb239c04, type: 3}
+    spawnChance: 0.25

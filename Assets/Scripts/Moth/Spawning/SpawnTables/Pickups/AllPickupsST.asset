@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e419dc01299284f4389356e4261cc086, type: 3}
+  m_Name: AllPickupsST
+  m_EditorClassIdentifier: 
+  spawnTableEntries:
+  - spawnObject: {fileID: 5526421096704420483, guid: 38326e4bd04ec654ba4cb3875f1aa784, type: 3}
+    spawnChance: 0.013
+  - spawnObject: {fileID: 5526421096704420483, guid: de7e53e0113f2034383df00309767d50, type: 3}
+    spawnChance: 0.013
+  - spawnObject: {fileID: 8507116704940421409, guid: 309978700feac5647a4dc86fad890e12, type: 3}
+    spawnChance: 0.013
+  - spawnObject: {fileID: 5526421096704420483, guid: 11a844d9d19c6074bad439d6fd25b9e9, type: 3}
+    spawnChance: 0.013
+  - spawnObject: {fileID: 5526421096704420483, guid: f5c48a1b14d5d054db90f5ec93855f2e, type: 3}
+    spawnChance: 0.013
+  - spawnObject: {fileID: 5526421096704420483, guid: b9aefff250baf444ea26ff9009bb8252, type: 3}
+    spawnChance: 0.013
+  - spawnObject: {fileID: 6739900255255755843, guid: a19a7545c239b104ca0bbf8c381a2b51, type: 3}
+    spawnChance: 0.013
+  - spawnObject: {fileID: 9153752645653231045, guid: eb4c884d821879d4da74351017ff8078, type: 3}
+    spawnChance: 0.013
+  - spawnObject: {fileID: 5526421096704420483, guid: 8f3798f8f7d152441ada501b1014d50c, type: 3}
+    spawnChance: 0.013
+  - spawnObject: {fileID: 6211069821198526969, guid: e1846ce35694201449735eb0a4e13245, type: 3}
+    spawnChance: 0.013
+  - spawnObject: {fileID: 9076714827259702562, guid: d608923c87eccf041831d94d751c36a6, type: 3}
+    spawnChance: 0.013
+  - spawnObject: {fileID: 5526421096704420483, guid: 128f27fc6012b9e4ca66ff251c067b15, type: 3}
+    spawnChance: 0.013
+  - spawnObject: {fileID: 4955583321521085889, guid: f2f65fc676479a446b3d4a3e242f6724, type: 3}
+    spawnChance: 0.013
+  - spawnObject: {fileID: 5526421096704420483, guid: 0de652b3e96f3a84495b1b63840af58d, type: 3}
+    spawnChance: 0.013
+  - spawnObject: {fileID: 5526421096704420483, guid: bdf2e77cf21fc6945902622f12104f62, type: 3}
+    spawnChance: 0.013
+  - spawnObject: {fileID: 6883110562916348441, guid: 3229d5c3335d38a439abe4c80383fbaa, type: 3}
+    spawnChance: 0.207
+  - spawnObject: {fileID: 3505227149932339712, guid: 1bac284df98c0bf4c820f8ac5b578145, type: 3}
+    spawnChance: 0.066
+  - spawnObject: {fileID: 3505227149932339712, guid: fa77cf354a1679e48ab8e939cd3d46ac, type: 3}
+    spawnChance: 0.066
+  - spawnObject: {fileID: 5526421096704420483, guid: bdf2e77cf21fc6945902622f12104f62, type: 3}
+    spawnChance: 0.066
+  - spawnObject: {fileID: 3008523399120371892, guid: 975fb2d969827b640bcedc0910a04702, type: 3}
+    spawnChance: 0.025
+  - spawnObject: {fileID: 3883844770714908084, guid: b70e7f4dd97f74e4b8fe6952bd83bf07, type: 3}
+    spawnChance: 0.025
+  - spawnObject: {fileID: 7111207198069066877, guid: d2f8ee2ffa8063b4382f97e545c0093f, type: 3}
+    spawnChance: 0.025
+  - spawnObject: {fileID: 9057342129616246152, guid: 780c82f96b994404eb6d414065d64089, type: 3}
+    spawnChance: 0.025
+  - spawnObject: {fileID: 7839490648046540495, guid: c5be7c1774b44af4a9e5263cada60b59, type: 3}
+    spawnChance: 0.025
+  - spawnObject: {fileID: 8288945144516291869, guid: 6d93a2abd43c7764595bb85a09db8f6b, type: 3}
+    spawnChance: 0.025
+  - spawnObject: {fileID: 8288945144516291869, guid: 3128280b8aa92fe498e307646940df2e, type: 3}
+    spawnChance: 0.025
+  - spawnObject: {fileID: 5460825695069110428, guid: 54cf756b9251d8c438d27b7d571c4c6e, type: 3}
+    spawnChance: 0.025
+  - spawnObject: {fileID: 4738255665729767998, guid: 5f19c4f29eef265429dac0df2382b9fc, type: 3}
+    spawnChance: 0.05
+  - spawnObject: {fileID: 4960916048164898547, guid: f50393975e6ddcc459fa62ceef009091, type: 3}
+    spawnChance: 0.05
+  - spawnObject: {fileID: 5460825695069110428, guid: 54cf756b9251d8c438d27b7d571c4c6e, type: 3}
+    spawnChance: 0.05
+  - spawnObject: {fileID: 5460825695069110428, guid: 54cf756b9251d8c438d27b7d571c4c6e, type: 3}
+    spawnChance: 0.05
