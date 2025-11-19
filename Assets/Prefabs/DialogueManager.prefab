@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7869258643767900329
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6011496633648181777}
+  - component: {fileID: 5564196630933354021}
+  - component: {fileID: 4999230904401701442}
+  m_Layer: 0
+  m_Name: DialogueManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6011496633648181777
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7869258643767900329}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 54.5, y: 28.5, z: -114.4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5564196630933354021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7869258643767900329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0da3b9b908cb5504986f4c2055de471a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogChoices:
+  - {fileID: 11400000, guid: 4b158df2066972240b9a03c8392ae01a, type: 2}
+  - {fileID: 11400000, guid: 3d355eff16b21644dad1096e08a63768, type: 2}
+  - {fileID: 11400000, guid: 77eef7e4efdcf134c91aaadf51dca910, type: 2}
+  - {fileID: 11400000, guid: c259927ffd8b7e1408764b4a05e25ea2, type: 2}
+  - {fileID: 11400000, guid: 2fce280688d79ab4e90cb39d5a286eef, type: 2}
+  - {fileID: 11400000, guid: b35e6fbb6925fe5479e5f9211908bf10, type: 2}
+  - {fileID: 11400000, guid: 82b0b1016edb0b64ab39e2eb7a34da7d, type: 2}
+  - {fileID: 11400000, guid: 53f1574a032ea9043bbcded4f93f311f, type: 2}
+  - {fileID: 11400000, guid: f30d1ec3de01f3e46829eb28a330560a, type: 2}
+  dialogBox: {fileID: 0}
+--- !u!65 &4999230904401701442
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7869258643767900329}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 50, y: 50, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
