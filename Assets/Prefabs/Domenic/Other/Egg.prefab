@@ -68,41 +68,19 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7ff0dea57e6601d4d94b496c13b81a8a, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4575573112858699501}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7ff0dea57e6601d4d94b496c13b81a8a, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 2738737629331475059}
     - targetCorrespondingSourceObject: {fileID: -5117700066308340382, guid: 7ff0dea57e6601d4d94b496c13b81a8a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6305838626188641574}
+    - targetCorrespondingSourceObject: {fileID: -5117700066308340382, guid: 7ff0dea57e6601d4d94b496c13b81a8a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4152947302361482874}
   m_SourcePrefab: {fileID: 100100000, guid: 7ff0dea57e6601d4d94b496c13b81a8a, type: 3}
 --- !u!1 &5284894266808542491 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 7ff0dea57e6601d4d94b496c13b81a8a, type: 3}
   m_PrefabInstance: {fileID: 5014439894388447306}
   m_PrefabAsset: {fileID: 0}
---- !u!64 &4575573112858699501
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5284894266808542491}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
 --- !u!114 &2738737629331475059
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,5 +122,27 @@ MonoBehaviour:
   _particleSystemPrefab: {fileID: 4566029627841721403, guid: a0efe2123618c264ebda8cdfb688d3da, type: 3}
   _particleMaterial: {fileID: 0}
   _breakSound: {fileID: 8300000, guid: b3c3e11038c2bb948b4bb603e294384e, type: 3}
-  _canSpawnPickups: 0
-  _spawnTable: {fileID: 0}
+  _canSpawnPickups: 1
+  _spawnTable: {fileID: 11400000, guid: dbe3a8799995361429fd6b5962385db0, type: 2}
+--- !u!64 &4152947302361482874
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9037766105948544296}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 289301614986012343, guid: 7ff0dea57e6601d4d94b496c13b81a8a, type: 3}
