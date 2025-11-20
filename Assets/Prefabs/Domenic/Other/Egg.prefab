@@ -48,6 +48,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -24.207
       objectReference: {fileID: 0}
+    - target: {fileID: -5117700066308340382, guid: 7ff0dea57e6601d4d94b496c13b81a8a, type: 3}
+      propertyPath: m_Name
+      value: Egg
+      objectReference: {fileID: 0}
     - target: {fileID: -2571118854743697038, guid: 7ff0dea57e6601d4d94b496c13b81a8a, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -65,6 +69,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7ff0dea57e6601d4d94b496c13b81a8a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4575573112858699501}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7ff0dea57e6601d4d94b496c13b81a8a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2738737629331475059}
+    - targetCorrespondingSourceObject: {fileID: -5117700066308340382, guid: 7ff0dea57e6601d4d94b496c13b81a8a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6305838626188641574}
   m_SourcePrefab: {fileID: 100100000, guid: 7ff0dea57e6601d4d94b496c13b81a8a, type: 3}
 --- !u!1 &5284894266808542491 stripped
 GameObject:
@@ -93,3 +103,46 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!114 &2738737629331475059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5284894266808542491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SerializedVersion: 0
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
+--- !u!1 &9037766105948544296 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -5117700066308340382, guid: 7ff0dea57e6601d4d94b496c13b81a8a, type: 3}
+  m_PrefabInstance: {fileID: 5014439894388447306}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6305838626188641574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9037766105948544296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01f57ca826c222744b5b3e7b9ac1d1f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _health: 1
+  _particleSystemPrefab: {fileID: 4566029627841721403, guid: a0efe2123618c264ebda8cdfb688d3da, type: 3}
+  _particleMaterial: {fileID: 0}
+  _breakSound: {fileID: 8300000, guid: b3c3e11038c2bb948b4bb603e294384e, type: 3}
+  _canSpawnPickups: 0
+  _spawnTable: {fileID: 0}
