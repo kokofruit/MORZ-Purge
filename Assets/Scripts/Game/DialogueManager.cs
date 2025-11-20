@@ -49,22 +49,8 @@ public class DialogueManager : MonoBehaviour
 
     void Awake()
     {
-        // Get the current scene
-        Scene currentScene = SceneManager.GetActiveScene();
-
-        // Set the dialogue index to be displayed based off of what the current scene is
-        // CHANGE SCENE NAMES IN FINAL BUILD
-        if (currentScene.name == "Level 1")// change level names to which level the main branch calls them
-            index = 0;
-        else if (currentScene.name == "Level 2")// change level names to which level the main branch calls them
-            index = 2;
-        else if (currentScene.name == "Level 3")// change level names to which level the main branch calls them
-            index = 4;
-        else if (currentScene.name == "Boss")// change level names to which level the main branch calls them
-            index = 6;
-
         // On scene load, display start of level dialogue
-        OnDisplay(index);
+        OnDisplay(GetStartCurrentScene());
 
         // Get HUDController
         HUDController = FindAnyObjectByType<HUDController>();
@@ -78,6 +64,42 @@ public class DialogueManager : MonoBehaviour
     {
         dialogText = dialogChoices[index];
         StartCoroutine(TypeDialog(dialogText.dialogueText));
+    }
+
+    public int GetStartCurrentScene()
+    {
+        // Get the current scene
+        Scene currentScene = SceneManager.GetActiveScene();
+
+        // Set the dialogue index to be displayed based off of what the current scene is
+        // CHANGE SCENE NAMES IN FINAL BUILD
+        if (currentScene.name == "Level 1")// change level names to which level the main branch calls them
+            index = 0;
+        else if (currentScene.name == "Level 2")// change level names to which level the main branch calls them
+            index = 2;
+        else if (currentScene.name == "Level 3")// change level names to which level the main branch calls them
+            index = 4;
+        else if (currentScene.name == "Boss")// change level names to which level the main branch calls them
+            index = 6;
+        return index;
+    }
+
+    public int GetEndCurrentScene()
+    {
+        // Get the current scene
+        Scene currentScene = SceneManager.GetActiveScene();
+
+        // Set the dialogue index to be displayed based off of what the current scene is
+        // CHANGE SCENE NAMES IN FINAL BUILD
+        if (currentScene.name == "Level 1")// change level names to which level the main branch calls them
+            index = 1;
+        else if (currentScene.name == "Level 2")// change level names to which level the main branch calls them
+            index = 3;
+        else if (currentScene.name == "Level 3")// change level names to which level the main branch calls them
+            index = 5;
+        else if (currentScene.name == "Boss")// change level names to which level the main branch calls them
+            index = 7;
+        return index;
     }
 
     // Coroutine to type out given dialogue

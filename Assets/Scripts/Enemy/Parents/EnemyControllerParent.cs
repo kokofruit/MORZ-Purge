@@ -121,6 +121,9 @@ public class EnemyControllerParent : MonoBehaviour, IDamageable
         // Start state machine
         StartCoroutine(nameof(LineOfSight));
         SetState(IdleBehavior);
+
+        // Get DialogueManager
+        DialogueManager = FindAnyObjectByType<DialogueManager>();
     }
 
     #region NAVIGATION AND SIGHT FUNCTIONS
