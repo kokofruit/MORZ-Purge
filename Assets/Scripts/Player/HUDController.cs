@@ -40,6 +40,8 @@ public class HUDController : MonoBehaviour
     public Image hudTint;
     public TMP_Text tempPickupText;
     public GameObject pickupNotice;
+    // Reference bug death counter
+    public TextMeshProUGUI bugDeathCounter;
     //total ammo
     public GameObject loadoutAmmoContainer;
     //mag ammo
@@ -115,6 +117,15 @@ public class HUDController : MonoBehaviour
 
         weaponStartPos = weaponSpriteContainer.GetComponent<RectTransform>().position;
         Debug.Log("WeaponStartPos: " + weaponStartPos);
+
+        // Set bug death counter
+        bugDeathCounter.text = "0/50";
+    }
+
+    // Setting bug death counter
+    public void SetBugDeathCount(int bugDeathCount)
+    {
+        bugDeathCounter.text = bugDeathCount.ToString() + "/50";
     }
 
     // Setting max health

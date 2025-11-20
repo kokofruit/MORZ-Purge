@@ -23,10 +23,16 @@ public class DialogueManager : MonoBehaviour
     // public references
     public List<DialogueTemplate> dialogChoices;
     public TMP_Text dialogBox;
+    // BUG COUNTER
+    public int bugDeathCount = 0;
+    // Cap for bugs needed to progress level
+    public int bugDeathCap = 50;
 
     // private variables
     private DialogueTemplate dialogText;
     private int index;
+    private HUDController HUDController;
+    private CubeOfWinning CubeOfWinning;
 
     // Indexes for dialogChoices
     /*
@@ -59,6 +65,12 @@ public class DialogueManager : MonoBehaviour
 
         // On scene load, display start of level dialogue
         OnDisplay(index);
+
+        // Get HUDController
+        HUDController = FindAnyObjectByType<HUDController>();
+
+        // Get CubeOfWinning
+        CubeOfWinning = FindAnyObjectByType<CubeOfWinning>();
     }
 
     // Send the dialogue option to the coroutine to be displayed
@@ -93,6 +105,18 @@ public class DialogueManager : MonoBehaviour
         {
             index = 8;
             OnDisplay(index);
+        }
+    }
+
+    public void SetBugDeathCounter()
+    {
+        bugDeathCount++;
+        HUDController.SetBugDeathCount(bugDeathCount);
+        // If bug deaths hit cap
+        if (bugDeathCount >= bugDeathCap)
+        {
+            // ALLOW PLAYER TO ACCESS NEXT LEVEL
+            CubeOfWinning.MakeAvailable();
         }
     }
 
