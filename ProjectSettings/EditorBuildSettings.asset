@@ -12,11 +12,11 @@ EditorBuildSettings:
     path: Assets/Scenes/Level 1.unity
     guid: 35de71893b9210846817bf863f62bf90
   - enabled: 1
-    path: Assets/Scenes/Gabriel/Level 2.unity
-    guid: a40d2e8fde2ee6a4981f50af77f8bcc8
+    path: Assets/Scenes/Level 2.unity
+    guid: cbaf03894c83df541ae18f056ff926a7
   - enabled: 1
-    path: Assets/Scenes/Gabriel/Level 3.unity
-    guid: 56b0abfe9770e5e4888d17618c96f2cf
+    path: Assets/Scenes/Level 3.unity
+    guid: 1f19e5093899b8243b5aa5e3cb9f75d9
   - enabled: 1
     path: Assets/Scenes/WinScreen.unity
     guid: b7a3012d30f629543a0d6b82ceed6bb0
