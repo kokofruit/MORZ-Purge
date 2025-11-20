@@ -151,6 +151,59 @@ MonoBehaviour:
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 1582823c042512b40a7f2a3909e008c7, type: 2}
   m_BuildHeightMesh: 0
+--- !u!1 &85251159
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 85251161}
+  - component: {fileID: 85251160}
+  m_Layer: 0
+  m_Name: Entrance_Boundary
+  m_TagString: Boundary
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &85251160
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 85251159}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &85251161
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 85251159}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.1675476, y: -0.14524849, z: 0.03235447, w: 0.97456855}
+  m_LocalPosition: {x: 53.43, y: 33.81, z: -99.03}
+  m_LocalScale: {x: 29.972261, y: 22.259413, z: 1.4773}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 19.632, y: -16.802, z: 0.875}
 --- !u!1 &95852206 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1515210068961197831, guid: 71b1ade77c9d38848ab920a3469ad60f, type: 3}
@@ -28190,3 +28243,4 @@ SceneRoots:
   - {fileID: 491583308}
   - {fileID: 1979448553}
   - {fileID: 702020980}
+  - {fileID: 85251161}
