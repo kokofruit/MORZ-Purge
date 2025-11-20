@@ -22,10 +22,17 @@ public class DialogueManager : MonoBehaviour
     // public references
     public List<DialogueTemplate> dialogChoices;
     public TMP_Text dialogBox;
+    // BUG COUNTER
+    public int bugDeathCount = 0;
+    // public variables
+    // Cap for bugs needed to progress level
+    public int bugDeathCap = 50;
 
     // private variables
     private DialogueTemplate dialogText;
     private int index;
+    private HUDController HUDController;
+    private CubeOfWinning CubeOfWinning;
 
     // Indexes for dialogChoices
     /*
@@ -47,17 +54,23 @@ public class DialogueManager : MonoBehaviour
 
         // Set the dialogue index to be displayed based off of what the current scene is
         // CHANGE SCENE NAMES IN FINAL BUILD
-        if (currentScene.name == "Kris Level 1")// change level names to which level the main branch calls them
+        if (currentScene.name == "Level 1")// change level names to which level the main branch calls them
             index = 0;
-        else if (currentScene.name == "Kris Level 2")// change level names to which level the main branch calls them
+        else if (currentScene.name == "Level 2")// change level names to which level the main branch calls them
             index = 2;
-        else if (currentScene.name == "Kris Level 3")// change level names to which level the main branch calls them
+        else if (currentScene.name == "Level 3")// change level names to which level the main branch calls them
             index = 4;
         else if (currentScene.name == "Boss")// change level names to which level the main branch calls them
             index = 6;
 
         // On scene load, display start of level dialogue
         OnDisplay(index);
+
+        // Get HUDController
+        HUDController = FindAnyObjectByType<HUDController>();
+
+        // Get CubeOfWinning
+        CubeOfWinning = FindAnyObjectByType<CubeOfWinning>();
     }
 
     // Send the dialogue option to the coroutine to be displayed
@@ -92,6 +105,18 @@ public class DialogueManager : MonoBehaviour
         {
             index = 8;
             OnDisplay(index);
+        }
+    }
+
+    public void SetBugDeathCounter()
+    {
+        bugDeathCount++;
+        HUDController.SetBugDeathCount(bugDeathCount);
+        // If bug deaths hit cap
+        if (bugDeathCount >= bugDeathCap)
+        {
+            // ALLOW PLAYER TO ACCESS NEXT LEVEL
+            CubeOfWinning.MakeAvailable();
         }
     }
 

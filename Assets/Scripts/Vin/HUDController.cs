@@ -28,6 +28,8 @@ public class HUDController : MonoBehaviour
     public Image armorUpgradeImg;
     public Image stimUpgradeImg;
     public Image ammoUpgradeImg;
+    // Reference bug death counter
+    public TextMeshProUGUI bugDeathCounter;
 
     //Overarching UI objects containing changing sprites
     //total ammo
@@ -86,6 +88,15 @@ public class HUDController : MonoBehaviour
         stimUpgradeImg.enabled = false;
         ammoUpgradeImg.enabled = false;
 
+        // Set bug death counter
+        bugDeathCounter.text = "0/50";
+
+    }
+
+    // Setting bug death counter
+    public void SetBugDeathCount(int bugDeathCount)
+    {
+        bugDeathCounter.text = bugDeathCount.ToString() + "/50";
     }
 
     // Setting max health

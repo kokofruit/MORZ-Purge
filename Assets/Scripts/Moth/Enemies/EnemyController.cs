@@ -84,8 +84,15 @@ public class EnemyController : MonoBehaviour, IDamageable
     [SerializeField] protected AudioClip _attackAudio;
     [SerializeField] protected AudioClip _damageAudio;
     [SerializeField] protected AudioClip _deathAudio;
+
     // INVISIBILITY SHIELD
     private static bool shieldUpActivated = false;
+
+    // HUDController reference
+    private HUDController HUDController;
+
+    // Dialogue Manager reference
+    private DialogueManager DialogueManager;
 
     #region FUNCTIONS
 
@@ -115,6 +122,12 @@ public class EnemyController : MonoBehaviour, IDamageable
 
         // Set stats
         _navMeshAgent.speed = _moveSpeed;
+
+        // Get HUDController
+        HUDController = FindAnyObjectByType<HUDController>();
+        
+        // Get DialogueManager
+        DialogueManager = FindAnyObjectByType<DialogueManager>();
 
         // Start checking for line of sight
         StartCoroutine(LineOfSight());
@@ -378,6 +391,10 @@ public class EnemyController : MonoBehaviour, IDamageable
     // In event of enemy death
     public void Die()
     {
+        // PUT HERE BY VIN
+        // Update bug death counter
+        DialogueManager.SetBugDeathCounter();
+
         GameObject bugsplosion = Instantiate(_bugDeathExplosion.gameObject, transform.GetChild(0).position, quaternion.identity);
         int randInt = UnityEngine.Random.Range(0, 50);
         if (randInt < PickupSpawnerManager.instance.tempPickupObjects.Length)
