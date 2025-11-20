@@ -47,6 +47,13 @@ public class BossController : BossBody
     [SerializeField] private float _tendrilNavSampleRange = 3f;
     [SerializeField] private AudioClip _tendrilSlamAudio;
 
+    //TENDRIL BARRAGE
+    [Header("Tendril Barrage")]
+    [SerializeField] private GameObject _tendrilBarragePrefab;
+    [SerializeField] private float _tendrilBarrageSpawnRadius = 5f;
+    [SerializeField] private float _tendrilBarrageNavSampleRange = 3f;
+    [SerializeField] private AudioClip _tendrilBarrageAudio;
+
     // SOUNDS
     [Header("SFX")]
     [SerializeField] private AudioClip _attackAudio;
@@ -92,7 +99,7 @@ public class BossController : BossBody
        // _attacks.Add(ShootGlob);
 
 
-        _attacks.Add(TendrilSlam);
+        _attacks.Add(TendrilBarrage);
         // Start attack cycle
         ChooseNextAttack();
     }
@@ -323,13 +330,35 @@ public class BossController : BossBody
     private IEnumerator TendrilBarrage()
     {
         float timeBeforeNextAttack = 3f;
-        
+
         // tendrils appear at random locations on ground
         // they start with just the tip ;) poking out so the player knows where to avoid
         // after a short period, they burst out and do contact damage
 
-        // cooldown and then choose next attack
-        yield return new WaitForSeconds(timeBeforeNextAttack);
+        //Play audio
+        // SoundManager.instance.PlayFXAudio(_tendrilSlamAudio, transform, pitchFluctuation: 0.2f);
+
+        //Pick a random position near the player
+        Vector3 randomOffset = UnityEngine.Random.insideUnitSphere * _tendrilBarrageSpawnRadius;
+        randomOffset.y = 0f;
+
+        Vector3 desiredPosition = _playerTransform.position + randomOffset;
+
+        //Sample position on the NavMesh
+        if (NavMesh.SamplePosition(desiredPosition, out NavMeshHit hit, _tendrilBarrageNavSampleRange, NavMesh.AllAreas))
+        {
+            //Spawn tendril at valid navmesh point
+            GameObject tendril = Instantiate(_tendrilBarragePrefab, hit.position, Quaternion.identity);
+            tendril.transform.LookAt(_playerTransform.position);
+            tendril.transform.rotation = Quaternion.Euler(-90f, tendril.transform.rotation.eulerAngles.y + 90f, 0f);
+
+            //Set contact damage
+            _currentContactDamage = _baseContactDamage;
+        }
+
+
+            // cooldown and then choose next attack
+            yield return new WaitForSeconds(timeBeforeNextAttack);
         ChooseNextAttack();
     }
 
