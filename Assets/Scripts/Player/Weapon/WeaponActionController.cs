@@ -13,6 +13,7 @@ public class WeaponActionController : MonoBehaviour
     public static WeaponActionController instance;
     public Weapon currentWeapon;
     public Image hitMarker;
+    public GameObject explosion;
 
     private float _hitMarkerDisplayTime = .05f;
     // Weapon controller runtime variables
@@ -60,6 +61,8 @@ public class WeaponActionController : MonoBehaviour
                 {
                     if (currentWeapon.FIRE_SELECT == WeaponTemplate.FireSelect.AOE)
                     {
+                        Instantiate(explosion, hit.point, Quaternion.identity);
+                        
                         Collider[] c = Physics.OverlapSphere(hit.point, currentWeapon.AOE_RADIUS);
                         foreach (Collider o in c)
                         {

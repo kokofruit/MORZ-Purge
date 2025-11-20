@@ -2058,6 +2058,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 6476566804834447122, guid: f540abf0223495047a1dc9d7593c6684, type: 3}
+      propertyPath: explosion
+      value: 
+      objectReference: {fileID: 3457101852014820101, guid: af9c9a0da72f2e7449b531948704c66a, type: 3}
+    - target: {fileID: 6476566804834447122, guid: f540abf0223495047a1dc9d7593c6684, type: 3}
       propertyPath: hitMarker
       value: 
       objectReference: {fileID: 1891537640}

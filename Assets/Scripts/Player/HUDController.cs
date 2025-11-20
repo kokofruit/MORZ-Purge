@@ -183,7 +183,7 @@ public class HUDController : MonoBehaviour
     {
         if (currentRecoilCoroutine == null) {
             playerMoveDistance += playerSpeed;
-            weaponSpriteContainer.GetComponent<RectTransform>().position = weaponStartPos + new Vector3(_weaponAnimAmp * Mathf.Sin(_weaponAnimSpeed / 2 * playerMoveDistance), _weaponAnimAmp * Mathf.Sin(_weaponAnimSpeed * playerMoveDistance), 0f);
+            weaponSpriteContainer.GetComponent<RectTransform>().position = weaponStartPos + new Vector3(_weaponAnimAmp * Mathf.Sin(_weaponAnimSpeed / 2 * playerMoveDistance * Time.deltaTime), _weaponAnimAmp * Mathf.Sin(_weaponAnimSpeed * playerMoveDistance * Time.deltaTime), 0f);
         }
     }
 
