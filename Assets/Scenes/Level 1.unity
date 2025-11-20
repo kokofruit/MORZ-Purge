@@ -168,7 +168,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cec0452439b75a2458fcbb0c3aee44c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnTable: {fileID: 11400000, guid: 007956a03df3f1b48b6b36adeddfcbb0, type: 2}
 --- !u!1 &140851256
 GameObject:
   m_ObjectHideFlags: 0
@@ -322,7 +321,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cec0452439b75a2458fcbb0c3aee44c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnTable: {fileID: 11400000, guid: 007956a03df3f1b48b6b36adeddfcbb0, type: 2}
 --- !u!1001 &243731943
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -471,7 +469,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cec0452439b75a2458fcbb0c3aee44c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnTable: {fileID: 11400000, guid: 007956a03df3f1b48b6b36adeddfcbb0, type: 2}
 --- !u!1 &376958800
 GameObject:
   m_ObjectHideFlags: 0
@@ -667,7 +664,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cec0452439b75a2458fcbb0c3aee44c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnTable: {fileID: 11400000, guid: 007956a03df3f1b48b6b36adeddfcbb0, type: 2}
 --- !u!1 &490143653 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7934056426457455750, guid: b06c8d648d2d2c1458b7e28656b2c10e, type: 3}
@@ -746,6 +742,10 @@ PrefabInstance:
     - target: {fileID: 9153752645653231045, guid: eb4c884d821879d4da74351017ff8078, type: 3}
       propertyPath: m_Name
       value: LightMagGrip
+      objectReference: {fileID: 0}
+    - target: {fileID: 9153752645653231045, guid: eb4c884d821879d4da74351017ff8078, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -939,6 +939,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShotgunPickup (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8288945144516291869, guid: 3128280b8aa92fe498e307646940df2e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1016,6 +1020,10 @@ PrefabInstance:
     - target: {fileID: 7111207198069066877, guid: d2f8ee2ffa8063b4382f97e545c0093f, type: 3}
       propertyPath: m_Name
       value: MiniSMGPickup
+      objectReference: {fileID: 0}
+    - target: {fileID: 7111207198069066877, guid: d2f8ee2ffa8063b4382f97e545c0093f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7376516142261550280, guid: d2f8ee2ffa8063b4382f97e545c0093f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1114,6 +1122,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SMGImprovedMechanics
       objectReference: {fileID: 0}
+    - target: {fileID: 5526421096704420483, guid: f5c48a1b14d5d054db90f5ec93855f2e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1136,7 +1148,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cec0452439b75a2458fcbb0c3aee44c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnTable: {fileID: 11400000, guid: 007956a03df3f1b48b6b36adeddfcbb0, type: 2}
 --- !u!1 &827399593 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 105503669520892817, guid: b06c8d648d2d2c1458b7e28656b2c10e, type: 3}
@@ -1215,6 +1226,10 @@ PrefabInstance:
     - target: {fileID: 7839490648046540495, guid: c5be7c1774b44af4a9e5263cada60b59, type: 3}
       propertyPath: m_Name
       value: RocketauncherPickup
+      objectReference: {fileID: 0}
+    - target: {fileID: 7839490648046540495, guid: c5be7c1774b44af4a9e5263cada60b59, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1367,6 +1382,10 @@ PrefabInstance:
     - target: {fileID: 5460825695069110428, guid: 54cf756b9251d8c438d27b7d571c4c6e, type: 3}
       propertyPath: m_Name
       value: TacticalSMGPickup
+      objectReference: {fileID: 0}
+    - target: {fileID: 5460825695069110428, guid: 54cf756b9251d8c438d27b7d571c4c6e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8759417774438198238, guid: 54cf756b9251d8c438d27b7d571c4c6e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1565,7 +1584,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cec0452439b75a2458fcbb0c3aee44c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnTable: {fileID: 11400000, guid: 007956a03df3f1b48b6b36adeddfcbb0, type: 2}
 --- !u!114 &1125043830 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1099235087678178552, guid: 2e0f48a916624284bab5e136ea54697d, type: 3}
@@ -1628,6 +1646,10 @@ PrefabInstance:
     - target: {fileID: 9057342129616246152, guid: 780c82f96b994404eb6d414065d64089, type: 3}
       propertyPath: m_Name
       value: RailgunPickup
+      objectReference: {fileID: 0}
+    - target: {fileID: 9057342129616246152, guid: 780c82f96b994404eb6d414065d64089, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1721,7 +1743,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cec0452439b75a2458fcbb0c3aee44c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnTable: {fileID: 11400000, guid: 007956a03df3f1b48b6b36adeddfcbb0, type: 2}
 --- !u!1001 &1211060659
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1771,12 +1792,36 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2717184170425545322, guid: ac869b19f5da8824093e715731634f15, type: 3}
+      propertyPath: _pickupAmount
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2717184170425545322, guid: ac869b19f5da8824093e715731634f15, type: 3}
+      propertyPath: _breakableSpawnRate
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2717184170425545322, guid: ac869b19f5da8824093e715731634f15, type: 3}
       propertyPath: _healthPickupPrefab
       value: 
       objectReference: {fileID: 6883110562916348441, guid: 3229d5c3335d38a439abe4c80383fbaa, type: 3}
     - target: {fileID: 2717184170425545322, guid: ac869b19f5da8824093e715731634f15, type: 3}
+      propertyPath: _regularPickupTable
+      value: 
+      objectReference: {fileID: 11400000, guid: 007956a03df3f1b48b6b36adeddfcbb0, type: 2}
+    - target: {fileID: 2717184170425545322, guid: ac869b19f5da8824093e715731634f15, type: 3}
+      propertyPath: _enemyDeathSpawnRate
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2717184170425545322, guid: ac869b19f5da8824093e715731634f15, type: 3}
+      propertyPath: _enemyDeathSpawnTable
+      value: 
+      objectReference: {fileID: 11400000, guid: 0d258b722df074540bff5515e0b17c00, type: 2}
+    - target: {fileID: 2717184170425545322, guid: ac869b19f5da8824093e715731634f15, type: 3}
       propertyPath: _pickupObjects.Array.size
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2717184170425545322, guid: ac869b19f5da8824093e715731634f15, type: 3}
+      propertyPath: _upgradeTables.Array.size
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2717184170425545322, guid: ac869b19f5da8824093e715731634f15, type: 3}
       propertyPath: _upgradeObjects.Array.size
@@ -1798,6 +1843,18 @@ PrefabInstance:
       propertyPath: '_pickupObjects.Array.data[3]'
       value: 
       objectReference: {fileID: 3505227149932339712, guid: 7032d4d5db875c34b8acbc587dbb9240, type: 3}
+    - target: {fileID: 2717184170425545322, guid: ac869b19f5da8824093e715731634f15, type: 3}
+      propertyPath: '_upgradeTables.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: fb1eb31d6013d034b9e1b742bb4cda97, type: 2}
+    - target: {fileID: 2717184170425545322, guid: ac869b19f5da8824093e715731634f15, type: 3}
+      propertyPath: '_upgradeTables.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: b124adb1449ea404ba4f9bd57a08ec22, type: 2}
+    - target: {fileID: 2717184170425545322, guid: ac869b19f5da8824093e715731634f15, type: 3}
+      propertyPath: '_upgradeTables.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 042e2c721adc9734cb2ce1d5a5e9df51, type: 2}
     - target: {fileID: 2717184170425545322, guid: ac869b19f5da8824093e715731634f15, type: 3}
       propertyPath: tempPickupObjects.Array.size
       value: 4
@@ -1938,7 +1995,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cec0452439b75a2458fcbb0c3aee44c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnTable: {fileID: 11400000, guid: 007956a03df3f1b48b6b36adeddfcbb0, type: 2}
 --- !u!1001 &1274206844
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1950,6 +2006,10 @@ PrefabInstance:
     - target: {fileID: 3883844770714908084, guid: b70e7f4dd97f74e4b8fe6952bd83bf07, type: 3}
       propertyPath: m_Name
       value: LMGPickup
+      objectReference: {fileID: 0}
+    - target: {fileID: 3883844770714908084, guid: b70e7f4dd97f74e4b8fe6952bd83bf07, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5371675092677655235, guid: b70e7f4dd97f74e4b8fe6952bd83bf07, type: 3}
       propertyPath: m_LocalPosition.x
@@ -25603,6 +25663,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AssaultRiflePickup
       objectReference: {fileID: 0}
+    - target: {fileID: 3008523399120371892, guid: 975fb2d969827b640bcedc0910a04702, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8743953716406409372, guid: 975fb2d969827b640bcedc0910a04702, type: 3}
       propertyPath: m_LocalPosition.x
       value: 34.85733
@@ -25735,7 +25799,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cec0452439b75a2458fcbb0c3aee44c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnTable: {fileID: 11400000, guid: 007956a03df3f1b48b6b36adeddfcbb0, type: 2}
 --- !u!4 &1633675928 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4297682030612318322, guid: 71b1ade77c9d38848ab920a3469ad60f, type: 3}
@@ -25790,7 +25853,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cec0452439b75a2458fcbb0c3aee44c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnTable: {fileID: 11400000, guid: 007956a03df3f1b48b6b36adeddfcbb0, type: 2}
 --- !u!114 &1891537640 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 977779826998750455, guid: 2e0f48a916624284bab5e136ea54697d, type: 3}
@@ -25854,6 +25916,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SemiRiflePickup (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8288945144516291869, guid: 6d93a2abd43c7764595bb85a09db8f6b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -25916,6 +25982,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LightExtendedMag
       objectReference: {fileID: 0}
+    - target: {fileID: 6739900255255755843, guid: a19a7545c239b104ca0bbf8c381a2b51, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -25943,7 +26013,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cec0452439b75a2458fcbb0c3aee44c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnTable: {fileID: 11400000, guid: 007956a03df3f1b48b6b36adeddfcbb0, type: 2}
 --- !u!1001 &3281215489321112465
 PrefabInstance:
   m_ObjectHideFlags: 0
