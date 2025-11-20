@@ -12,6 +12,8 @@ public class BreakableController : MonoBehaviour, IDamageable
     [SerializeField] private GameObject _particleSystemPrefab;
     // The material for the particles to sample from
     [SerializeField] Material _particleMaterial;
+    // Optional sound to play
+    [SerializeField] AudioClip _breakSound;
     // determines whether this breakable has the chance to spawn a pickup
     [SerializeField] bool _canSpawnPickups;
     // The selection of items to spawn
@@ -57,6 +59,12 @@ public class BreakableController : MonoBehaviour, IDamageable
             newPartSystem.Play();
             // destroy when done
             Destroy(newExplosion, newPartSystem.main.duration);
+        }
+
+        // Play a sound if provided
+        if (_breakSound != null)
+        {
+            SoundManager.instance.PlayFXAudio(_breakSound, transform.position, pitchFluctuation: 0.2f);
         }
 
         // Possibly spawn a random pickup, if enabled
