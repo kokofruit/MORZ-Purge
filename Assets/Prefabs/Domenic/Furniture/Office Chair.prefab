@@ -3585,7 +3585,7 @@ MonoBehaviour:
   _health: 1
   _particleSystemPrefab: {fileID: 4566029627841721403, guid: a0efe2123618c264ebda8cdfb688d3da, type: 3}
   _particleMaterial: {fileID: 0}
-  _breakSound: {fileID: 0}
+  _breakSound: {fileID: 8300000, guid: 130b3f4a46860cf44aa7e4b8bc65467f, type: 3}
   _canSpawnPickups: 0
   _spawnTable: {fileID: 0}
 --- !u!1 &7555911023700856634
@@ -3820,7 +3820,7 @@ MonoBehaviour:
   _health: 1
   _particleSystemPrefab: {fileID: 4566029627841721403, guid: a0efe2123618c264ebda8cdfb688d3da, type: 3}
   _particleMaterial: {fileID: 0}
-  _breakSound: {fileID: 0}
+  _breakSound: {fileID: 8300000, guid: 130b3f4a46860cf44aa7e4b8bc65467f, type: 3}
   _canSpawnPickups: 0
   _spawnTable: {fileID: 0}
 --- !u!1 &8139727880094867358
