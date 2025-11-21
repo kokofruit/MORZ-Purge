@@ -71,5 +71,56 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: -208595431880416365, guid: 87391eeb4b8578341ac840b1d440c6eb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1700457402859756637}
+    - targetCorrespondingSourceObject: {fileID: -208595431880416365, guid: 87391eeb4b8578341ac840b1d440c6eb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7832671811919259956}
   m_SourcePrefab: {fileID: 100100000, guid: 87391eeb4b8578341ac840b1d440c6eb, type: 3}
+--- !u!1 &176452892086869447 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -208595431880416365, guid: 87391eeb4b8578341ac840b1d440c6eb, type: 3}
+  m_PrefabInstance: {fileID: 9180598247714078292}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &1700457402859756637
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 176452892086869447}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -3329902420748629119, guid: 87391eeb4b8578341ac840b1d440c6eb, type: 3}
+--- !u!114 &7832671811919259956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 176452892086869447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01f57ca826c222744b5b3e7b9ac1d1f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _health: 1
+  _particleSystemPrefab: {fileID: 4566029627841721403, guid: a0efe2123618c264ebda8cdfb688d3da, type: 3}
+  _particleMaterial: {fileID: 0}
+  _breakSound: {fileID: 8300000, guid: a1182d45e9dba434c806f6dc7f2c96d7, type: 3}
+  _canSpawnPickups: 0
+  _spawnTable: {fileID: 0}
