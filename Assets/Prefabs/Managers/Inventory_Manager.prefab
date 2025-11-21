@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6908264356979409622}
   - component: {fileID: 7585061392160352167}
-  - component: {fileID: 4902087267934223882}
   m_Layer: 0
   m_Name: Inventory_Manager
   m_TagString: Untagged
@@ -45,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05c6226b24f06ee46847b9562c965f51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DEBUG_MODE: 0
   LIGHT_AMMO_CAP: 320
   MEDIUM_AMMO_CAP: 260
   HEAVY_AMMO_CAP: 40
@@ -52,15 +52,4 @@ MonoBehaviour:
   playerInventory:
     ammo: 000000000000000000000000
     AMMO_CAPS: 000000000000000000000000
---- !u!114 &4902087267934223882
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2927535202864240092}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 082ae8cfe2925e149bd2f3f8ce1a0aee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+    highestWeaponType: 0

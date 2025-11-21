@@ -50,9 +50,8 @@ public class PickupSpawnerManager : MonoBehaviour
         // Make a list of all available spawners in the scene
         List <PickupSpawnerController> availableSpawners = FindObjectsByType<PickupSpawnerController>(FindObjectsSortMode.None).ToList();
 
-        // some error proofing
-        if (_pickupAmount == 0) return;
-        if (_pickupAmount > availableSpawners.Count) _pickupAmount = availableSpawners.Count;
+        // more error proofing yippee
+        if (_upgradeTables[level].spawnTableEntries.Count > availableSpawners.Count) return;
 
         // spawn one of each upgrade
         if (level < _upgradeTables.Length) // error proofing again
@@ -72,6 +71,9 @@ public class PickupSpawnerManager : MonoBehaviour
                 availableSpawners.RemoveAt(index);
             }
         }
+
+        // some error proofing
+        if (_pickupAmount > availableSpawners.Count) _pickupAmount = availableSpawners.Count;
 
         // spawn at other pickups
         for (int i = 0; i < _pickupAmount; i++)
