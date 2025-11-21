@@ -107,7 +107,7 @@ public class EnemyControllerParent : MonoBehaviour, IDamageable
         _animator = GetComponentInChildren<Animator>();
 
         // Cache player transform
-        _playerTransform = FindAnyObjectByType<PlayerController>().transform;
+        _playerTransform = PlayerController.instance.transform;
 
         // Get the animator
         _animator = transform.GetComponentInChildren<Animator>();
@@ -116,7 +116,7 @@ public class EnemyControllerParent : MonoBehaviour, IDamageable
         _navMeshAgent.speed = _moveSpeed;
 
         // Start state machine
-        StartCoroutine(nameof(LineOfSight));
+        // StartCoroutine(nameof(LineOfSight));
         SetState(IdleBehavior);
     }
 
@@ -131,7 +131,7 @@ public class EnemyControllerParent : MonoBehaviour, IDamageable
             if (DEBUG_MODE) print(_coroutineState);
 
             // find the direction to the target
-            Vector3 direction = _playerTransform.position - _eyeTransform.position;
+            Vector3 direction = PlayerController.instance.head.position - _eyeTransform.position;
             // find the distance to the target
             float distance = direction.magnitude;
 
@@ -152,7 +152,7 @@ public class EnemyControllerParent : MonoBehaviour, IDamageable
             // Raycast towards the target. if nothing is hit before the player, line of sight does exist
             else if (Physics.Raycast(_eyeTransform.position, direction, out RaycastHit hit, distance + 1f, _layerMask))
             {
-                if (DEBUG_MODE) Debug.DrawRay(_eyeTransform.position, _playerTransform.position, Color.red, 1f);
+                if (DEBUG_MODE) Debug.DrawRay(_eyeTransform.position, direction, Color.red, 1f);
 
                 // if raycast hits something, see if it's the player
                 if (hit.collider.CompareTag("Player"))
@@ -206,7 +206,9 @@ public class EnemyControllerParent : MonoBehaviour, IDamageable
         if (DEBUG_MODE) print("Setting state to: " + coroutine.Method.Name);
 
         // stop old state
-        if (_coroutineState != null) StopCoroutine(_coroutineState);
+        // if (_coroutineState != null) StopCoroutine(_coroutineState);
+        StopAllCoroutines();
+        StartCoroutine(nameof(LineOfSight));
         // start new
         _coroutineState = StartCoroutine(coroutine.Method.Name);
     }
@@ -312,7 +314,6 @@ public class EnemyControllerParent : MonoBehaviour, IDamageable
                 // END CHASING - NO LINE OF SIGHT
                 SetState(IdleBehavior);
                 yield return null;
-                break;
             }
             /** Moth Harper and Kris Herbert
             * if close enough to player and not on cooldown, attack them */
@@ -324,7 +325,6 @@ public class EnemyControllerParent : MonoBehaviour, IDamageable
                 // change state
                 SetState(AttackingBehavior);
                 yield return null;
-                break;
             }
             else
             {
