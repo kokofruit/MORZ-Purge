@@ -17,7 +17,7 @@ public class RangedEnemyController : EnemyControllerParent
     protected override void AttackHit()
     {
         // instantiate a projectile
-        EnemyProjectileParent projectile = Instantiate(_projectilePrefab, transform.forward + _eyeTransform.position, Quaternion.identity).GetComponent<EnemyProjectileParent>();
+        EnemyProjectileParent projectile = Instantiate(_projectilePrefab, _eyeTransform.position, Quaternion.identity).GetComponent<EnemyProjectileParent>();
         // add force towards the player
         Vector3 direction = _playerTransform.position - projectile.transform.position;
         projectile.AddForce(direction.normalized * _projectileForce);

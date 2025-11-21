@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2932761009637243414}
   - component: {fileID: 4404179622309038449}
   - component: {fileID: 7838662412711957683}
-  - component: {fileID: 2657913012246621473}
+  - component: {fileID: 9059178473472655783}
   m_Layer: 6
   m_Name: StingerPrefab
   m_TagString: Enemy
@@ -93,7 +93,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -101,8 +101,8 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 1
   m_ObstacleAvoidanceType: 4
---- !u!136 &2657913012246621473
-CapsuleCollider:
+--- !u!65 &9059178473472655783
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -119,10 +119,8 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.6
-  m_Height: 1.75
-  m_Direction: 1
+  serializedVersion: 3
+  m_Size: {x: 1.2, y: 1.75, z: 0.5}
   m_Center: {x: 0, y: 0.875, z: 0}
 --- !u!1 &3192739476905438236
 GameObject:
