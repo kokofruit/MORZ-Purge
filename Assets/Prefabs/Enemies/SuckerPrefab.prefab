@@ -51,6 +51,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DEBUG_MODE: 0
   _baseHealth: 6
+  _health: 0
   _bugDeathExplosion: {fileID: 6709580774957103173, guid: 1299c3f0212f10a458dc6b9ba8f91bdf, type: 3}
   _baseDamage: 5
   _attackDistance: 3
@@ -69,7 +70,7 @@ MonoBehaviour:
   _deathAudio: {fileID: 8300000, guid: 5d71636f91de8924db6fc4c7b30abe1f, type: 3}
   _flyingHeight: 2
   _swoopDistance: 6
-  _swoopSpeed: 0.025
+  _swoopSpeed: 2
   _lifeGained: 5
 --- !u!114 &4404179622309038449
 MonoBehaviour:
