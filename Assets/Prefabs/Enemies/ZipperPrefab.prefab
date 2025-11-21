@@ -91,7 +91,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1625208117185856178}
   m_Enabled: 1
   m_AgentTypeID: 1479372276
-  m_Radius: 0.5
+  m_Radius: 0.75
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -123,10 +123,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.875
-  m_Height: 1.75
+  m_Radius: 0.75
+  m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0, y: 1.125, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &5289284453049956001
 GameObject:
   m_ObjectHideFlags: 0
@@ -204,7 +204,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1496193870, guid: e71d3d889dfa07c4497fc04e15c42ea3, type: 3}
+  m_Sprite: {fileID: 2011252267, guid: e71d3d889dfa07c4497fc04e15c42ea3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
