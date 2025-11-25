@@ -684,6 +684,10 @@ MonoBehaviour:
   _tendrilSpawnRadius: 5
   _tendrilNavSampleRange: 3
   _tendrilSlamAudio: {fileID: 0}
+  _tendrilBarragePrefab: {fileID: 2038614137441660513, guid: 25c2ffcd085190f4ab23ca7edd016ecc, type: 3}
+  _tendrilBarrageSpawnRadius: 5
+  _tendrilBarrageNavSampleRange: 3
+  _tendrilBarrageAudio: {fileID: 0}
   _attackAudio: {fileID: 0}
   _damageAudio: {fileID: 0}
   _deathAudio: {fileID: 0}
