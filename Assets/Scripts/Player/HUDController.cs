@@ -117,15 +117,13 @@ public class HUDController : MonoBehaviour
 
         weaponStartPos = weaponSpriteContainer.GetComponent<RectTransform>().position;
         Debug.Log("WeaponStartPos: " + weaponStartPos);
-
-        // Set bug death counter
-        bugDeathCounter.text = "0/50";
     }
 
     // Setting bug death counter
-    public void SetBugDeathCount(int bugDeathCount)
+    public void SetBugDeathCount(int bugDeathCount, int bugDeathCap)
     {
-        bugDeathCounter.text = bugDeathCount.ToString() + "/50";
+        bugDeathCounter.text = bugDeathCount.ToString() + "/" + bugDeathCap.ToString();
+        Debug.Log(bugDeathCount.ToString() + "/" + bugDeathCap.ToString());
     }
 
     // Setting max health

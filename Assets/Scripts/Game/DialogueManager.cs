@@ -14,8 +14,7 @@ using UnityEngine.SceneManagement;
 
 /*
  * TODO:
- * End level dialogue when player kills all (or a certain number) of aliens
- * Wrong way dialogue (waiting for boundary implementation)
+ * Increase bugCap on level 2 & 3
  */
 
 public class DialogueManager : MonoBehaviour
@@ -26,13 +25,14 @@ public class DialogueManager : MonoBehaviour
     // BUG COUNTER
     public int bugDeathCount = 0;
     // Cap for bugs needed to progress level
-    public int bugDeathCap = 50;
+    public int bugDeathCap;
 
     // private variables
     private DialogueTemplate dialogText;
     private int index;
     private HUDController HUDController;
     private CubeOfWinning CubeOfWinning;
+    private bool boxCleared = true;
 
     // Indexes for dialogChoices
     /*
@@ -57,47 +57,66 @@ public class DialogueManager : MonoBehaviour
 
         // Get CubeOfWinning
         CubeOfWinning = FindAnyObjectByType<CubeOfWinning>();
+
+        // Reset bug death tracker each time scene loads
+        HUDController.SetBugDeathCount(bugDeathCount, bugDeathCap);
     }
 
     // Send the dialogue option to the coroutine to be displayed
     public void OnDisplay(int index)
     {
         dialogText = dialogChoices[index];
-        StartCoroutine(TypeDialog(dialogText.dialogueText));
+        // makes sure text box is cleared instead of overwriting dialogue
+        if (boxCleared)
+        {
+            StartCoroutine(TypeDialog(dialogText.dialogueText));
+        }
     }
 
+    // Gets the scene and displays start dialogue
     public int GetStartCurrentScene()
     {
         // Get the current scene
         Scene currentScene = SceneManager.GetActiveScene();
 
         // Set the dialogue index to be displayed based off of what the current scene is
-        // CHANGE SCENE NAMES IN FINAL BUILD
-        if (currentScene.name == "Level 1")// change level names to which level the main branch calls them
+        if (currentScene.name == "Level 1")
+        {
             index = 0;
-        else if (currentScene.name == "Level 2")// change level names to which level the main branch calls them
+            bugDeathCap = 50;   // bugDeathCap starts lower at level 1
+        }
+        else if (currentScene.name == "Level 2")
+        {
             index = 2;
-        else if (currentScene.name == "Level 3")// change level names to which level the main branch calls them
+            bugDeathCap = 70;   // bugDeathCap starts 20 higher at level 2
+        }
+        else if (currentScene.name == "Level 3")
+        {
             index = 4;
-        else if (currentScene.name == "Boss")// change level names to which level the main branch calls them
+            bugDeathCap = 90;   // bugDeathCap starts 20 higher at level 3
+        }
+        else if (currentScene.name == "Boss")
+        {
             index = 6;
+            bugDeathCap = 100;   // bugDeathCap starts 10 higher at Boss level
+        }
         return index;
     }
 
+    // Gets the scene and displays end dialogue
     public int GetEndCurrentScene()
     {
         // Get the current scene
         Scene currentScene = SceneManager.GetActiveScene();
 
         // Set the dialogue index to be displayed based off of what the current scene is
-        // CHANGE SCENE NAMES IN FINAL BUILD
-        if (currentScene.name == "Level 1")// change level names to which level the main branch calls them
+        if (currentScene.name == "Level 1")
             index = 1;
-        else if (currentScene.name == "Level 2")// change level names to which level the main branch calls them
+        else if (currentScene.name == "Level 2")
             index = 3;
-        else if (currentScene.name == "Level 3")// change level names to which level the main branch calls them
+        else if (currentScene.name == "Level 3")
             index = 5;
-        else if (currentScene.name == "Boss")// change level names to which level the main branch calls them
+        else if (currentScene.name == "Boss")
             index = 7;
         return index;
     }
@@ -105,6 +124,7 @@ public class DialogueManager : MonoBehaviour
     // Coroutine to type out given dialogue
     IEnumerator TypeDialog(string message)
     {
+        boxCleared = false;
         // Slight delay when player loads in scene cuz it looks nice
         yield return new WaitForSeconds(.5f);
         foreach (char c in message)
@@ -114,11 +134,11 @@ public class DialogueManager : MonoBehaviour
             // Wait for a randomized short moment before appending the next character
             yield return new WaitForSeconds(Random.Range(0.03f, 0.05f));
         }
-
         // Wait to reset the dialogue box
         yield return new WaitForSeconds(2f);
         // Reset the dialogue box
         dialogBox.text = "";
+        boxCleared = true;
     }
 
     public void OnCollisionEnter(Collision collision)
@@ -133,7 +153,7 @@ public class DialogueManager : MonoBehaviour
     public void SetBugDeathCounter()
     {
         bugDeathCount++;
-        HUDController.SetBugDeathCount(bugDeathCount);
+        HUDController.SetBugDeathCount(bugDeathCount, bugDeathCap);
         // If bug deaths hit cap
         if (bugDeathCount >= bugDeathCap)
         {
