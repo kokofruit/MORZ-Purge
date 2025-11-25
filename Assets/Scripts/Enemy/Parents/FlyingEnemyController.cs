@@ -61,7 +61,6 @@ public class FlyingEnemyController : EnemyControllerParent
                 // END CHASING - NO LINE OF SIGHT
                 SetState(IdleBehavior);
                 yield return null;
-                break;
             }
             /** Moth Harper and Kris Herbert
                 * if close enough to player, low enough to ground, and not on cooldown, attack them */
@@ -73,7 +72,6 @@ public class FlyingEnemyController : EnemyControllerParent
                 // change state
                 SetState(AttackingBehavior);
                 yield return null;
-                break;
             }
             else
             {

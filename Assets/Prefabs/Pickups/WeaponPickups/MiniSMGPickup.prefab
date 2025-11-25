@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7771267670614933002}
   - component: {fileID: 5217989721788730705}
   - component: {fileID: 2564532470196943975}
+  - component: {fileID: -7455562189306188365}
   m_Layer: 0
   m_Name: MiniSMGPickup
   m_TagString: Pickup
@@ -122,3 +123,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon: {fileID: 11400000, guid: 2345def786dca794c8762f3aadd7138c, type: 2}
+--- !u!114 &-7455562189306188365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7111207198069066877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SerializedVersion: 0
+  m_OverrideArea: 0
+  m_Area: 0
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 1
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff

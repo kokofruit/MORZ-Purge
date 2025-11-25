@@ -18,6 +18,11 @@ public class EnemyProjectileParent : MonoBehaviour
         _controller = PlayerController.instance;
         // Sets a timer on when the projectile copy is removed fromn the game based on a preset time.
         Invoke("RemoveProjectile", _maxTime);
+        // Start particle effects if they exist
+        if (TryGetComponent(out ParticleSystem particleSystem))
+        {
+            particleSystem.Play();
+        }
     }
 
     protected virtual void Awake()

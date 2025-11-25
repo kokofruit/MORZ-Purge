@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4405422957194591741}
   - component: {fileID: 4404179622309038449}
   - component: {fileID: 7838662412711957683}
-  - component: {fileID: 2657913012246621473}
+  - component: {fileID: 8557538694657152060}
   m_Layer: 6
   m_Name: ZipperPrefab
   m_TagString: Enemy
@@ -51,6 +51,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DEBUG_MODE: 0
   _baseHealth: 5
+  _health: 0
   _bugDeathExplosion: {fileID: 6709580774957103173, guid: 1299c3f0212f10a458dc6b9ba8f91bdf, type: 3}
   _baseDamage: 5
   _attackDistance: 3
@@ -69,7 +70,7 @@ MonoBehaviour:
   _deathAudio: {fileID: 8300000, guid: 769da6eac8632514b944c7e32af11055, type: 3}
   _flyingHeight: 2
   _swoopDistance: 6
-  _swoopSpeed: 5
+  _swoopSpeed: 3
 --- !u!114 &4404179622309038449
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -91,12 +92,12 @@ NavMeshAgent:
   m_GameObject: {fileID: 1625208117185856178}
   m_Enabled: 1
   m_AgentTypeID: 1479372276
-  m_Radius: 0.5
+  m_Radius: 0.75
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 0
-  m_StoppingDistance: 0
+  m_StoppingDistance: 1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -104,8 +105,8 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 1
   m_ObstacleAvoidanceType: 4
---- !u!136 &2657913012246621473
-CapsuleCollider:
+--- !u!65 &8557538694657152060
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -122,10 +123,8 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 1
-  m_Height: 2
-  m_Direction: 1
+  serializedVersion: 3
+  m_Size: {x: 1.5, y: 2, z: 0.5}
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &5289284453049956001
 GameObject:
@@ -204,7 +203,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1496193870, guid: e71d3d889dfa07c4497fc04e15c42ea3, type: 3}
+  m_Sprite: {fileID: 2011252267, guid: e71d3d889dfa07c4497fc04e15c42ea3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -262,7 +261,7 @@ Transform:
   m_GameObject: {fileID: 8229539191817999775}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.25, z: 0}
+  m_LocalPosition: {x: 0, y: 1.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

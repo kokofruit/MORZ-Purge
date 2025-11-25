@@ -160,7 +160,8 @@ public class GameManager : MonoBehaviour
 
     public void StartLevel()
     {
-        PickupSpawnerManager.instance?.SpawnPickups();
+        // spawn pickups in the level; pass in level index but convert 1-3 to 0-2 for list index reasons
+        PickupSpawnerManager.instance?.SpawnPickups(_currentLevel - 1);
         Time.timeScale = 1;
         LoadPlayerData();
     }

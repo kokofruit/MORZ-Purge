@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6308000073062820561}
   - component: {fileID: 8077303127474823747}
   - component: {fileID: 3163185291405039948}
+  - component: {fileID: 6183264820922784074}
   m_Layer: 0
   m_Name: TacticalSMGPickup
   m_TagString: Pickup
@@ -122,3 +123,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon: {fileID: 11400000, guid: e85d4f5dff638944488d999a45683aa4, type: 2}
+--- !u!114 &6183264820922784074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5460825695069110428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SerializedVersion: 0
+  m_OverrideArea: 0
+  m_Area: 0
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 1
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff

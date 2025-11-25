@@ -21,7 +21,7 @@ public class EnemyControllerParent : MonoBehaviour, IDamageable
     // The base health of the enemy
     [SerializeField] protected int _baseHealth;
     // The current health of the enemy
-    protected float _health;
+    [SerializeField] protected float _health;
     // The explosion created when the bug dies
     [SerializeField] protected ParticleSystem _bugDeathExplosion;
 
@@ -107,7 +107,7 @@ public class EnemyControllerParent : MonoBehaviour, IDamageable
         _animator = GetComponentInChildren<Animator>();
 
         // Cache player transform
-        _playerTransform = FindAnyObjectByType<PlayerController>().transform;
+        _playerTransform = PlayerController.instance.transform;
 
         // Get the animator
         _animator = transform.GetComponentInChildren<Animator>();
@@ -116,7 +116,7 @@ public class EnemyControllerParent : MonoBehaviour, IDamageable
         _navMeshAgent.speed = _moveSpeed;
 
         // Start state machine
-        StartCoroutine(nameof(LineOfSight));
+        // StartCoroutine(nameof(LineOfSight));
         SetState(IdleBehavior);
     }
 
@@ -127,8 +127,11 @@ public class EnemyControllerParent : MonoBehaviour, IDamageable
     {
         while (true)
         {
+            //desperation
+            if (DEBUG_MODE) print(_coroutineState);
+
             // find the direction to the target
-            Vector3 direction = _playerTransform.position - _eyeTransform.position;
+            Vector3 direction = PlayerController.instance.head.position - _eyeTransform.position;
             // find the distance to the target
             float distance = direction.magnitude;
 
@@ -149,6 +152,8 @@ public class EnemyControllerParent : MonoBehaviour, IDamageable
             // Raycast towards the target. if nothing is hit before the player, line of sight does exist
             else if (Physics.Raycast(_eyeTransform.position, direction, out RaycastHit hit, distance + 1f, _layerMask))
             {
+                if (DEBUG_MODE) Debug.DrawRay(_eyeTransform.position, direction, Color.red, 1f);
+
                 // if raycast hits something, see if it's the player
                 if (hit.collider.CompareTag("Player"))
                 {
@@ -197,10 +202,13 @@ public class EnemyControllerParent : MonoBehaviour, IDamageable
             return;
         }
 
+        if (DEBUG_MODE) print("Line of sight: " + _lineOfSight);
         if (DEBUG_MODE) print("Setting state to: " + coroutine.Method.Name);
 
         // stop old state
-        if (_coroutineState != null) StopCoroutine(_coroutineState);
+        // if (_coroutineState != null) StopCoroutine(_coroutineState);
+        StopAllCoroutines();
+        StartCoroutine(nameof(LineOfSight));
         // start new
         _coroutineState = StartCoroutine(coroutine.Method.Name);
     }
@@ -222,7 +230,6 @@ public class EnemyControllerParent : MonoBehaviour, IDamageable
             {
                 SetState(ChasingBehavior);
                 yield return null;
-                break;
             }
             else
             {
@@ -261,7 +268,7 @@ public class EnemyControllerParent : MonoBehaviour, IDamageable
         // DURING ROAMING
         // destination has already been set, so just go towards it
         float roamingTimer = _maxRoamingDuration;
-        while (roamingTimer > 0 && _navMeshAgent.remainingDistance > 0)
+        while (roamingTimer > 0 && _navMeshAgent.remainingDistance > _navMeshAgent.stoppingDistance)
         {
             // change state if line of sight exists
             if (_lineOfSight)
@@ -307,7 +314,6 @@ public class EnemyControllerParent : MonoBehaviour, IDamageable
                 // END CHASING - NO LINE OF SIGHT
                 SetState(IdleBehavior);
                 yield return null;
-                break;
             }
             /** Moth Harper and Kris Herbert
             * if close enough to player and not on cooldown, attack them */
@@ -319,7 +325,6 @@ public class EnemyControllerParent : MonoBehaviour, IDamageable
                 // change state
                 SetState(AttackingBehavior);
                 yield return null;
-                break;
             }
             else
             {
@@ -342,6 +347,7 @@ public class EnemyControllerParent : MonoBehaviour, IDamageable
         // play attack sound for actual attack
         SoundManager.instance.PlayFXAudio(_attackAudio, transform, pitchFluctuation: 0.2f);
         // change animation
+        _animator.SetTrigger("triggerAttack");
         yield return new WaitForSeconds(_windUpTime);
 
         // ACTUAL ATTACK
