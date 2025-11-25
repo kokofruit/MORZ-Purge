@@ -126,7 +126,7 @@ MonoBehaviour:
   _particleSystemPrefab: {fileID: 4566029627841721403, guid: a0efe2123618c264ebda8cdfb688d3da, type: 3}
   _particleMaterial: {fileID: 0}
   _breakSound: {fileID: 8300000, guid: 130b3f4a46860cf44aa7e4b8bc65467f, type: 3}
-  _canSpawnPickups: 1
+  _spawnChance: 0.4
   _spawnTable: {fileID: 11400000, guid: 007956a03df3f1b48b6b36adeddfcbb0, type: 2}
 --- !u!208 &5023283653128840655
 NavMeshObstacle:

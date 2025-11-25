@@ -91,24 +91,6 @@ public class PickupSpawnerManager : MonoBehaviour
         }
     }
 
-    public bool SpawnFromBreakable(SpawnTable spawnTable, out GameObject pickup)
-    {
-        // runs at a chance determined by the breakable spawn rate 
-        if (Random.value <= _breakableSpawnRate)
-        {
-            // retrive a random pickup
-            pickup = spawnTable.ChooseItem(Random.value);
-            // return true
-            return true;
-        }
-        // if not spawning a pickup, return false and a null value
-        else
-        {
-            pickup = null;
-            return false;
-        }
-    }
-
     public bool SpawnFromEnemyDeath(out GameObject pickup)
     {
         // runs at a chance determined by the breakable spawn rate 

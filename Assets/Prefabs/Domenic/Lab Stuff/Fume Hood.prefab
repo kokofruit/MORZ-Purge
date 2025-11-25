@@ -111,7 +111,7 @@ MonoBehaviour:
   _particleSystemPrefab: {fileID: 4566029627841721403, guid: a0efe2123618c264ebda8cdfb688d3da, type: 3}
   _particleMaterial: {fileID: 0}
   _breakSound: {fileID: 8300000, guid: 130b3f4a46860cf44aa7e4b8bc65467f, type: 3}
-  _canSpawnPickups: 1
+  _spawnChance: 0.2
   _spawnTable: {fileID: 11400000, guid: 007956a03df3f1b48b6b36adeddfcbb0, type: 2}
 --- !u!65 &6241838743157169226
 BoxCollider:
@@ -1105,7 +1105,7 @@ MonoBehaviour:
   _particleSystemPrefab: {fileID: 4566029627841721403, guid: a0efe2123618c264ebda8cdfb688d3da, type: 3}
   _particleMaterial: {fileID: 0}
   _breakSound: {fileID: 8300000, guid: 130b3f4a46860cf44aa7e4b8bc65467f, type: 3}
-  _canSpawnPickups: 1
+  _spawnChance: 0.2
   _spawnTable: {fileID: 11400000, guid: 007956a03df3f1b48b6b36adeddfcbb0, type: 2}
 --- !u!65 &7837860103692444583
 BoxCollider:
@@ -1339,7 +1339,7 @@ MonoBehaviour:
   _particleSystemPrefab: {fileID: 4566029627841721403, guid: a0efe2123618c264ebda8cdfb688d3da, type: 3}
   _particleMaterial: {fileID: 0}
   _breakSound: {fileID: 8300000, guid: a1182d45e9dba434c806f6dc7f2c96d7, type: 3}
-  _canSpawnPickups: 0
+  _spawnChance: 0
   _spawnTable: {fileID: 0}
 --- !u!1 &3337716706091634667
 GameObject:
@@ -2484,7 +2484,7 @@ MonoBehaviour:
   _particleSystemPrefab: {fileID: 4566029627841721403, guid: a0efe2123618c264ebda8cdfb688d3da, type: 3}
   _particleMaterial: {fileID: 0}
   _breakSound: {fileID: 8300000, guid: 130b3f4a46860cf44aa7e4b8bc65467f, type: 3}
-  _canSpawnPickups: 1
+  _spawnChance: 0.2
   _spawnTable: {fileID: 11400000, guid: 007956a03df3f1b48b6b36adeddfcbb0, type: 2}
 --- !u!65 &7080512168102972739
 BoxCollider:
@@ -3485,7 +3485,7 @@ MonoBehaviour:
   _particleSystemPrefab: {fileID: 4566029627841721403, guid: a0efe2123618c264ebda8cdfb688d3da, type: 3}
   _particleMaterial: {fileID: 0}
   _breakSound: {fileID: 8300000, guid: 130b3f4a46860cf44aa7e4b8bc65467f, type: 3}
-  _canSpawnPickups: 1
+  _spawnChance: 0.2
   _spawnTable: {fileID: 11400000, guid: 007956a03df3f1b48b6b36adeddfcbb0, type: 2}
 --- !u!65 &8252606413500977004
 BoxCollider:
@@ -4096,7 +4096,7 @@ MonoBehaviour:
   _particleSystemPrefab: {fileID: 4566029627841721403, guid: a0efe2123618c264ebda8cdfb688d3da, type: 3}
   _particleMaterial: {fileID: 0}
   _breakSound: {fileID: 8300000, guid: a1182d45e9dba434c806f6dc7f2c96d7, type: 3}
-  _canSpawnPickups: 0
+  _spawnChance: 0
   _spawnTable: {fileID: 0}
 --- !u!1 &8617183160112356039
 GameObject:
