@@ -23,10 +23,16 @@ public class DialogueManager : MonoBehaviour
     // public references
     public List<DialogueTemplate> dialogChoices;
     public TMP_Text dialogBox;
+    // BUG COUNTER
+    public int bugDeathCount = 0;
+    // Cap for bugs needed to progress level
+    public int bugDeathCap = 50;
 
     // private variables
     private DialogueTemplate dialogText;
     private int index;
+    private HUDController HUDController;
+    private CubeOfWinning CubeOfWinning;
 
     // Indexes for dialogChoices
     /*
@@ -43,6 +49,25 @@ public class DialogueManager : MonoBehaviour
 
     void Awake()
     {
+        // On scene load, display start of level dialogue
+        OnDisplay(GetStartCurrentScene());
+
+        // Get HUDController
+        HUDController = FindAnyObjectByType<HUDController>();
+
+        // Get CubeOfWinning
+        CubeOfWinning = FindAnyObjectByType<CubeOfWinning>();
+    }
+
+    // Send the dialogue option to the coroutine to be displayed
+    public void OnDisplay(int index)
+    {
+        dialogText = dialogChoices[index];
+        StartCoroutine(TypeDialog(dialogText.dialogueText));
+    }
+
+    public int GetStartCurrentScene()
+    {
         // Get the current scene
         Scene currentScene = SceneManager.GetActiveScene();
 
@@ -56,16 +81,25 @@ public class DialogueManager : MonoBehaviour
             index = 4;
         else if (currentScene.name == "Boss")// change level names to which level the main branch calls them
             index = 6;
-
-        // On scene load, display start of level dialogue
-        OnDisplay(index);
+        return index;
     }
 
-    // Send the dialogue option to the coroutine to be displayed
-    public void OnDisplay(int index)
+    public int GetEndCurrentScene()
     {
-        dialogText = dialogChoices[index];
-        StartCoroutine(TypeDialog(dialogText.dialogueText));
+        // Get the current scene
+        Scene currentScene = SceneManager.GetActiveScene();
+
+        // Set the dialogue index to be displayed based off of what the current scene is
+        // CHANGE SCENE NAMES IN FINAL BUILD
+        if (currentScene.name == "Level 1")// change level names to which level the main branch calls them
+            index = 1;
+        else if (currentScene.name == "Level 2")// change level names to which level the main branch calls them
+            index = 3;
+        else if (currentScene.name == "Level 3")// change level names to which level the main branch calls them
+            index = 5;
+        else if (currentScene.name == "Boss")// change level names to which level the main branch calls them
+            index = 7;
+        return index;
     }
 
     // Coroutine to type out given dialogue
@@ -93,6 +127,18 @@ public class DialogueManager : MonoBehaviour
         {
             index = 8;
             OnDisplay(index);
+        }
+    }
+
+    public void SetBugDeathCounter()
+    {
+        bugDeathCount++;
+        HUDController.SetBugDeathCount(bugDeathCount);
+        // If bug deaths hit cap
+        if (bugDeathCount >= bugDeathCap)
+        {
+            // ALLOW PLAYER TO ACCESS NEXT LEVEL
+            CubeOfWinning.MakeAvailable();
         }
     }
 

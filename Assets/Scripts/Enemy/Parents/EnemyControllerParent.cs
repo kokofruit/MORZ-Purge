@@ -95,6 +95,9 @@ public class EnemyControllerParent : MonoBehaviour, IDamageable
 
     // INVISIBILITY SHIELD
     private static bool shieldUpActivated = false;
+
+    // Dialogue Manager reference
+    private DialogueManager DialogueManager;
     #endregion
 
     protected virtual void Start()
@@ -118,6 +121,9 @@ public class EnemyControllerParent : MonoBehaviour, IDamageable
         // Start state machine
         StartCoroutine(nameof(LineOfSight));
         SetState(IdleBehavior);
+
+        // Get DialogueManager
+        DialogueManager = FindAnyObjectByType<DialogueManager>();
     }
 
     #region NAVIGATION AND SIGHT FUNCTIONS
@@ -412,6 +418,9 @@ public class EnemyControllerParent : MonoBehaviour, IDamageable
         // stop coroutines and destroy the bug
         StopAllCoroutines();
         Destroy(gameObject);
+        // PUT HERE BY VIN
+        // Update bug death counter
+        DialogueManager.SetBugDeathCounter();
     }
 
     /** Kris Herbert
