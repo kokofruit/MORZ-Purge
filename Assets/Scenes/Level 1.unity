@@ -28129,6 +28129,70 @@ PrefabInstance:
       propertyPath: dialogBox
       value: 
       objectReference: {fileID: 1125043830}
+    - target: {fileID: 5564196630933354021, guid: dd1b4c18fa7bac64cbd96bf1b243e90e, type: 3}
+      propertyPath: upgrades.Array.size
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5564196630933354021, guid: dd1b4c18fa7bac64cbd96bf1b243e90e, type: 3}
+      propertyPath: 'upgrades.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 1aa862fb28c013942a28d3341f9c2a4c, type: 2}
+    - target: {fileID: 5564196630933354021, guid: dd1b4c18fa7bac64cbd96bf1b243e90e, type: 3}
+      propertyPath: 'upgrades.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 7c147042bd385584fbf8747ff22ca538, type: 2}
+    - target: {fileID: 5564196630933354021, guid: dd1b4c18fa7bac64cbd96bf1b243e90e, type: 3}
+      propertyPath: 'upgrades.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 641afcc790f5b6146a5c2cbec4cc7a54, type: 2}
+    - target: {fileID: 5564196630933354021, guid: dd1b4c18fa7bac64cbd96bf1b243e90e, type: 3}
+      propertyPath: 'upgrades.Array.data[3]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 9461b1690b45c554d97754bc7659f4b1, type: 2}
+    - target: {fileID: 5564196630933354021, guid: dd1b4c18fa7bac64cbd96bf1b243e90e, type: 3}
+      propertyPath: 'upgrades.Array.data[4]'
+      value: 
+      objectReference: {fileID: 11400000, guid: d4d6cdde6324be7498faca460023cd2d, type: 2}
+    - target: {fileID: 5564196630933354021, guid: dd1b4c18fa7bac64cbd96bf1b243e90e, type: 3}
+      propertyPath: 'upgrades.Array.data[5]'
+      value: 
+      objectReference: {fileID: 11400000, guid: e263d75989ea11d4d82d4df5f6e3894d, type: 2}
+    - target: {fileID: 5564196630933354021, guid: dd1b4c18fa7bac64cbd96bf1b243e90e, type: 3}
+      propertyPath: 'upgrades.Array.data[6]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 28b902a07b0cb9749a0130f8e0ddbe3c, type: 2}
+    - target: {fileID: 5564196630933354021, guid: dd1b4c18fa7bac64cbd96bf1b243e90e, type: 3}
+      propertyPath: 'upgrades.Array.data[7]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 6115e024c3d89c844866e213aba8a3cb, type: 2}
+    - target: {fileID: 5564196630933354021, guid: dd1b4c18fa7bac64cbd96bf1b243e90e, type: 3}
+      propertyPath: 'upgrades.Array.data[8]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 9cc29cdcdb53a4e4c89ccaa73784d8e4, type: 2}
+    - target: {fileID: 5564196630933354021, guid: dd1b4c18fa7bac64cbd96bf1b243e90e, type: 3}
+      propertyPath: 'upgrades.Array.data[9]'
+      value: 
+      objectReference: {fileID: 11400000, guid: c5d221464563a954596b834f2899cd02, type: 2}
+    - target: {fileID: 5564196630933354021, guid: dd1b4c18fa7bac64cbd96bf1b243e90e, type: 3}
+      propertyPath: 'upgrades.Array.data[10]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 4b4194273fdf8414e8b01d09d821a6f3, type: 2}
+    - target: {fileID: 5564196630933354021, guid: dd1b4c18fa7bac64cbd96bf1b243e90e, type: 3}
+      propertyPath: 'upgrades.Array.data[11]'
+      value: 
+      objectReference: {fileID: 11400000, guid: e6a385b07e7618948b6ffe0ae0dcf8ac, type: 2}
+    - target: {fileID: 5564196630933354021, guid: dd1b4c18fa7bac64cbd96bf1b243e90e, type: 3}
+      propertyPath: 'upgrades.Array.data[12]'
+      value: 
+      objectReference: {fileID: 11400000, guid: db880fda45f83894f9e3766d2337562d, type: 2}
+    - target: {fileID: 5564196630933354021, guid: dd1b4c18fa7bac64cbd96bf1b243e90e, type: 3}
+      propertyPath: 'upgrades.Array.data[13]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 8423b9a480a737a42829aa1af764dba7, type: 2}
+    - target: {fileID: 5564196630933354021, guid: dd1b4c18fa7bac64cbd96bf1b243e90e, type: 3}
+      propertyPath: 'upgrades.Array.data[14]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 85e899ce63a453e4fb4875aeeff846c4, type: 2}
     - target: {fileID: 6011496633648181777, guid: dd1b4c18fa7bac64cbd96bf1b243e90e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 54.5

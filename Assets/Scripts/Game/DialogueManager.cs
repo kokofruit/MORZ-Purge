@@ -21,7 +21,9 @@ using UnityEngine.SceneManagement;
 public class DialogueManager : MonoBehaviour
 {
     // public references
+    public static DialogueManager instance;
     public List<DialogueTemplate> dialogChoices;
+    public List<UpgradeTemplate> upgradeChoices;
     public TMP_Text dialogBox;
     // BUG COUNTER
     public int bugDeathCount = 0;
@@ -30,6 +32,7 @@ public class DialogueManager : MonoBehaviour
 
     // private variables
     private DialogueTemplate dialogText;
+    private UpgradeTemplate upgradeText;
     private int index;
     private HUDController HUDController;
     private CubeOfWinning CubeOfWinning;
@@ -45,6 +48,24 @@ public class DialogueManager : MonoBehaviour
      * 6 - Boss Start
      * 7 - Boss End
      * 8 - Out of Bounds
+     */
+
+    /** Indexes for upgrades
+     * 0 - AP Rounds
+     * 1 - Big Ammo
+     * 2 - Heay Recoil Reducer
+     * 3 - Light Extended Mag
+     * 4 - Light Mag Grip
+     * 5 - LMG Improved Mechanics
+     * 6 - Load Assist
+     * 7 - Medium Extended Mag
+     * 8 - Medium Mag Grip
+     * 9 - Pistol Hollow Point Rounds
+     * 10 - Powerful Rockets
+     * 11 - Shotgun Slug Shells
+     * 12 - SMG Hollow Point Rounds
+     * 13 - SMG Improved Mechanics
+     * 14 -  Voltage Amp
      */
 
     void Awake()
@@ -64,6 +85,12 @@ public class DialogueManager : MonoBehaviour
     {
         dialogText = dialogChoices[index];
         StartCoroutine(TypeDialog(dialogText.dialogueText));
+    }
+
+    public void UpgradeDisplay(int index)
+    {
+        upgradeText = upgradeChoices[index];
+        StartCoroutine(TypeDialog(upgradeText.upgradeInfoText));
     }
 
     public int GetStartCurrentScene()
@@ -141,5 +168,4 @@ public class DialogueManager : MonoBehaviour
             CubeOfWinning.MakeAvailable();
         }
     }
-
 }
