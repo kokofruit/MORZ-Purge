@@ -43,7 +43,7 @@ Camera:
   m_GameObject: {fileID: 1811583333219153225}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
+  m_ClearFlags: 4
   m_BackGroundColor: {r: 0.38679248, g: 0.38679248, b: 0.38679248, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -75,7 +75,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 0}
+  m_TargetTexture: {fileID: 8400000, guid: cebff00404bb26047a0c2065cd94417f, type: 2}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
@@ -382,6 +382,7 @@ MonoBehaviour:
   currentWeapon:
     AOE_RADIUS: 0
   hitMarker: {fileID: 0}
+  explosion: {fileID: 3457101852014820101, guid: af9c9a0da72f2e7449b531948704c66a, type: 3}
   _weaponAudio:
   - {fileID: 8300000, guid: f11424ec1d30a134f97854a2aa48603b, type: 3}
   - {fileID: 8300000, guid: a82d216853cd87249ae763054df49109, type: 3}
