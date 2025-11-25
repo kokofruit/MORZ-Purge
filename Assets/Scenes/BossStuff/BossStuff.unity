@@ -175,7 +175,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: c6665a9f245ffa646b4b8b79f0bdacdd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -670,7 +670,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec93c085a689d3e418681f16a3ef9bd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 500
   _baseContactDamage: 5
   _phaseTwoTrigger: 0
   _phaseThreeTrigger: 0
@@ -681,6 +680,14 @@ MonoBehaviour:
   _globPrefab: {fileID: 948437041128951277, guid: 42a58116d445be245bcc1f71daa13de4, type: 3}
   _globSource: {fileID: 126908814}
   _globAudio: {fileID: 8300000, guid: 3eb5bef8f0eac894f9150c8b35d457e3, type: 3}
+  _tendrilPrefab: {fileID: 360560678568311096, guid: 4449de91a213dad44892e5c460ccf330, type: 3}
+  _tendrilSpawnRadius: 5
+  _tendrilNavSampleRange: 3
+  _tendrilSlamAudio: {fileID: 0}
+  _tendrilBarragePrefab: {fileID: 2038614137441660513, guid: 25c2ffcd085190f4ab23ca7edd016ecc, type: 3}
+  _tendrilBarrageSpawnRadius: 5
+  _tendrilBarrageNavSampleRange: 3
+  _tendrilBarrageAudio: {fileID: 0}
   _attackAudio: {fileID: 0}
   _damageAudio: {fileID: 0}
   _deathAudio: {fileID: 0}
@@ -1071,7 +1078,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 3281215489321112465}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -1082,7 +1089,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 3281215489321112465}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -3380,7 +3387,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 3281215489321112465}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -3391,7 +3398,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 3281215489321112465}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 

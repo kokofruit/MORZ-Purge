@@ -1,4 +1,4 @@
-// Main Contributors: Mark Klitsch, Moth Harper
+// Main Contributors: Mark Klitsch, Moth Harper, Domenic Cannella
 // Reviewer: Vin, Phil
 // Description: Basic behavior for the boss parent
 
@@ -17,12 +17,9 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class BossController : MonoBehaviour, IDamageable
+public class BossController : BossBody
 {
-    // HEALTH & DAMAGE
-    [SerializeField] private float _health;
-    [SerializeField] private float _baseContactDamage;
-    private float _currentContactDamage;
+    
 
     // PHASE INFO
     [Header("Phase Variables")]
@@ -42,6 +39,20 @@ public class BossController : MonoBehaviour, IDamageable
     [SerializeField] private GameObject _globPrefab;
     [SerializeField] private Transform _globSource;
     [SerializeField] private AudioClip _globAudio;
+
+    //TENDRIL SLAM
+    [Header("Tendril Slam")]
+    [SerializeField] private GameObject _tendrilPrefab;
+    [SerializeField] private float _tendrilSpawnRadius = 5f;
+    [SerializeField] private float _tendrilNavSampleRange = 3f;
+    [SerializeField] private AudioClip _tendrilSlamAudio;
+
+    //TENDRIL BARRAGE
+    [Header("Tendril Barrage")]
+    [SerializeField] private GameObject _tendrilBarragePrefab;
+    [SerializeField] private float _tendrilBarrageSpawnRadius = 5f;
+    [SerializeField] private float _tendrilBarrageNavSampleRange = 3f;
+    [SerializeField] private AudioClip _tendrilBarrageAudio;
 
     // SOUNDS
     [Header("SFX")]
@@ -72,9 +83,6 @@ public class BossController : MonoBehaviour, IDamageable
         // Cache player transform
         _playerTransform = FindAnyObjectByType<PlayerController>().transform;
 
-        // set contact damage
-        _currentContactDamage = _baseContactDamage;
-
         // TEMPORARY
         Invoke(nameof(StartPhaseOne), 3f);
     }
@@ -86,10 +94,12 @@ public class BossController : MonoBehaviour, IDamageable
         _phaseIndex = 1;
 
         // Add phase one attacks to attack list
-        _attacks.Add(ChargeAttack);
+        //_attacks.Add(ChargeAttack);
         // _attacks.Add(BodySlam);
-        _attacks.Add(ShootGlob);
+       // _attacks.Add(ShootGlob);
 
+
+        _attacks.Add(TendrilBarrage);
         // Start attack cycle
         ChooseNextAttack();
     }
@@ -100,7 +110,7 @@ public class BossController : MonoBehaviour, IDamageable
         _phaseIndex = 2;
 
         // Add phase two attacks to attack list
-        _attacks.Add(TendrilSweep);
+        _attacks.Add(TendrilSlam);
         _attacks.Add(SpawnBugs);
     }
 
@@ -256,14 +266,35 @@ public class BossController : MonoBehaviour, IDamageable
 
     #region Phase Two Attacks
 
-    private IEnumerator TendrilSweep()
+    private IEnumerator TendrilSlam()
     {
         float timeBeforeNextAttack = 3f;
 
-        // create a tendril centered at the boss that will "sweep" (rotate) around the boss
+        //Play audio
+       // SoundManager.instance.PlayFXAudio(_tendrilSlamAudio, transform, pitchFluctuation: 0.2f);
 
-        // cooldown and then choose next attack
+        //Pick a random position near the player
+        Vector3 randomOffset = UnityEngine.Random.insideUnitSphere * _tendrilSpawnRadius;
+        randomOffset.y = 0f;
+
+        Vector3 desiredPosition = _playerTransform.position + randomOffset;
+
+        //Sample position on the NavMesh
+        if (NavMesh.SamplePosition(desiredPosition, out NavMeshHit hit, _tendrilNavSampleRange, NavMesh.AllAreas))
+        {
+            //Spawn tendril at valid navmesh point
+            GameObject tendril =Instantiate(_tendrilPrefab, hit.position, Quaternion.identity);
+            tendril.transform.LookAt(_playerTransform.position);
+            tendril.transform.rotation = Quaternion.Euler(-90f, tendril.transform.rotation.eulerAngles.y + 90f, 0f);
+
+            //Set contact damage
+            _currentContactDamage = _baseContactDamage;
+
+
+        }
+
         yield return new WaitForSeconds(timeBeforeNextAttack);
+
         ChooseNextAttack();
     }
 
@@ -299,43 +330,42 @@ public class BossController : MonoBehaviour, IDamageable
     private IEnumerator TendrilBarrage()
     {
         float timeBeforeNextAttack = 3f;
-        
+
         // tendrils appear at random locations on ground
         // they start with just the tip ;) poking out so the player knows where to avoid
         // after a short period, they burst out and do contact damage
 
-        // cooldown and then choose next attack
-        yield return new WaitForSeconds(timeBeforeNextAttack);
+        //Play audio
+        // SoundManager.instance.PlayFXAudio(_tendrilSlamAudio, transform, pitchFluctuation: 0.2f);
+
+        //Pick a random position near the player
+        Vector3 randomOffset = UnityEngine.Random.insideUnitSphere * _tendrilBarrageSpawnRadius;
+        randomOffset.y = 0f;
+
+        Vector3 desiredPosition = _playerTransform.position + randomOffset;
+
+        //Sample position on the NavMesh
+        if (NavMesh.SamplePosition(desiredPosition, out NavMeshHit hit, _tendrilBarrageNavSampleRange, NavMesh.AllAreas))
+        {
+            //Spawn tendril at valid navmesh point
+            GameObject tendril = Instantiate(_tendrilBarragePrefab, hit.position, Quaternion.identity);
+            tendril.transform.LookAt(_playerTransform.position);
+            tendril.transform.rotation = Quaternion.Euler(-90f, tendril.transform.rotation.eulerAngles.y + 90f, 0f);
+
+            //Set contact damage
+            _currentContactDamage = _baseContactDamage;
+        }
+
+
+            // cooldown and then choose next attack
+            yield return new WaitForSeconds(timeBeforeNextAttack);
         ChooseNextAttack();
     }
 
     #endregion
 
-    #region Damage (Taking and Giving)
-    public void TakeDamage(float damage)
-    {
-        // subtract health
-        _health -= damage / (GameManager.instance.GetDifficulty() / 2 + 0.5f);
 
-        // Play sound when taking damage
-        // possibly play randomly instead of every hit
-        //SoundManager.instance.PlayFXAudio(_damageAudio, transform, pitchFluctuation: 0.2f);
-
-        // trigger the next phase if needed
-        if ((_phaseIndex == 1) && (_health <= _phaseTwoTrigger))
-        {
-            StartPhaseTwo();
-        }
-        if ((_phaseIndex == 2) && (_health <= _phaseThreeTrigger))
-        {
-            StartPhaseThree();
-        }
-        // die if health is below zero
-        else if ((_phaseIndex == 3) && (_health <= _phaseThreeTrigger))
-        {
-            Die();
-        }
-    }
+    
 
     // In the event of Boss death
     public void Die()
@@ -347,21 +377,4 @@ public class BossController : MonoBehaviour, IDamageable
         StopAllCoroutines();
         Destroy(gameObject);
     }
-
-    // damage the player
-    private void PlayerDamage(float baseDamage)
-    {
-        _playerTransform.GetComponent<PlayerController>().SubtractHealth(baseDamage * GameManager.instance.GetDifficulty() / 2);
-    }
-
-    // Damage player on collision
-    void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            PlayerDamage(_currentContactDamage);
-        }
-    }
-
-    #endregion
 }
