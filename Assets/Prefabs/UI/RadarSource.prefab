@@ -53,7 +53,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 15
+  m_Radius: 0.00001
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2049526351743843113
 MonoBehaviour:
@@ -73,8 +73,8 @@ MonoBehaviour:
   _radarUI: {fileID: 0}
   _sweepCircleUI: {fileID: 0}
   _pingUIPrefab: {fileID: 8288601570430480364, guid: d9b5e24eb66f04f4c8ad73b47253e2a2, type: 3}
-  _enemyPingSprite: {fileID: 21300000, guid: 234f475890bcdc54f8d621a263fa2cb8, type: 3}
-  _pickUpPingSprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  _enemyPingSprite: {fileID: 21300000, guid: a1599d748f8fc334c82ed6498e6f3548, type: 3}
+  _pickUpPingSprite: {fileID: 21300000, guid: 17f4958e2aec6484ba32c4f8041d5f0c, type: 3}
 --- !u!54 &4043527860348806608
 Rigidbody:
   m_ObjectHideFlags: 0

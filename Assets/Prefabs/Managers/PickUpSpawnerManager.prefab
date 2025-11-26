@@ -44,7 +44,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8209c198152d07409ea513ba9acc76d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ammoPickupPrefab: {fileID: 0}
-  _healthPickupPrefab: {fileID: 0}
-  _pickupAmount: 5
-  _ammoToHealthRatio: 0.51
+  _pickupAmount: 6
+  _upgradeTables:
+  - {fileID: 11400000, guid: fb1eb31d6013d034b9e1b742bb4cda97, type: 2}
+  - {fileID: 11400000, guid: b124adb1449ea404ba4f9bd57a08ec22, type: 2}
+  - {fileID: 11400000, guid: 042e2c721adc9734cb2ce1d5a5e9df51, type: 2}
+  _regularPickupTable: {fileID: 11400000, guid: 007956a03df3f1b48b6b36adeddfcbb0, type: 2}
+  _breakableSpawnRate: 0.2
+  _enemyDeathSpawnRate: 0.2
+  _enemyDeathSpawnTable: {fileID: 11400000, guid: 0d258b722df074540bff5515e0b17c00, type: 2}

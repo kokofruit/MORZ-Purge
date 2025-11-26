@@ -55,7 +55,7 @@ public class EnemySpawnerController : MonoBehaviour
                 // increase the count of successful spawns
                 enemiesSpawned++;
             }
-            print("attempt");
+            
             // increase the count of all attempts
             spawningAttempts++;
         }
