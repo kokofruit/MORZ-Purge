@@ -1993,6 +1993,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5488583625176291473, guid: f540abf0223495047a1dc9d7593c6684, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6476566804834447122, guid: f540abf0223495047a1dc9d7593c6684, type: 3}
       propertyPath: explosion
       value: 
