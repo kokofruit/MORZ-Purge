@@ -95,6 +95,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7641980219699476346}
+  - component: {fileID: 648265225629655267}
   m_Layer: 0
   m_Name: Light
   m_TagString: Untagged
@@ -119,6 +120,26 @@ Transform:
   - {fileID: 2494253857043644303}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &648265225629655267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6874321441686061949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SerializedVersion: 0
+  m_OverrideArea: 0
+  m_Area: 0
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 1
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &7283606142456547763
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,5 +266,5 @@ MonoBehaviour:
   _particleSystemPrefab: {fileID: 4566029627841721403, guid: a0efe2123618c264ebda8cdfb688d3da, type: 3}
   _particleMaterial: {fileID: 2100000, guid: c89982267ede6834b9c7a2fe48f298dd, type: 2}
   _breakSound: {fileID: 8300000, guid: a1182d45e9dba434c806f6dc7f2c96d7, type: 3}
-  _canSpawnPickups: 0
+  _spawnChance: 0
   _spawnTable: {fileID: 0}
