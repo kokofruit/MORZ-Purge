@@ -51,7 +51,9 @@ public class PickupSpawnerManager : MonoBehaviour
         List <PickupSpawnerController> availableSpawners = FindObjectsByType<PickupSpawnerController>(FindObjectsSortMode.None).ToList();
 
         // more error proofing yippee
-        if (_upgradeTables[level].spawnTableEntries.Count > availableSpawners.Count) return;
+        level = Mathf.Clamp(level, 0, _upgradeTables.Length - 1); // keep level index inside range of list
+        if (_upgradeTables.Length == 0) return; // stop if the list is empty
+        if (_upgradeTables[level].spawnTableEntries.Count > availableSpawners.Count) return; // stop if there's not enough spawners
 
         // spawn one of each upgrade
         if (level < _upgradeTables.Length) // error proofing again
