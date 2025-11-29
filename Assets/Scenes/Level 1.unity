@@ -2375,10 +2375,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3031262659255892121, guid: f540abf0223495047a1dc9d7593c6684, type: 3}
-      propertyPath: head
-      value: 
-      objectReference: {fileID: 1293201963}
+    - target: {fileID: 5488583625176291473, guid: f540abf0223495047a1dc9d7593c6684, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6476566804834447122, guid: f540abf0223495047a1dc9d7593c6684, type: 3}
       propertyPath: explosion
       value: 
@@ -27720,10 +27720,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4912382182984150391, guid: 2e0f48a916624284bab5e136ea54697d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4949484788180079964, guid: 2e0f48a916624284bab5e136ea54697d, type: 3}
-      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4957960138760580914, guid: 2e0f48a916624284bab5e136ea54697d, type: 3}
