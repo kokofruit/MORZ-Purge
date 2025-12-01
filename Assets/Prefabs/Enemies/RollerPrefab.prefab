@@ -81,7 +81,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DEBUG_MODE: 0
-  _baseHealth: 25
+  _baseHealth: 16
+  _health: 0
   _bugDeathExplosion: {fileID: 6709580774957103173, guid: 1299c3f0212f10a458dc6b9ba8f91bdf, type: 3}
   _baseDamage: 0
   _attackDistance: 15
