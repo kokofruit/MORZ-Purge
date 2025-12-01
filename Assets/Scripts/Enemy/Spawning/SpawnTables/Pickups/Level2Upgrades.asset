@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e419dc01299284f4389356e4261cc086, type: 3}
+  m_Name: Level2Upgrades
+  m_EditorClassIdentifier: 
+  spawnTableEntries:
+  - spawnObject: {fileID: 5526421096704420483, guid: 38326e4bd04ec654ba4cb3875f1aa784, type: 3}
+    spawnChance: 0.2
+  - spawnObject: {fileID: 5526421096704420483, guid: de7e53e0113f2034383df00309767d50, type: 3}
+    spawnChance: 0.2
+  - spawnObject: {fileID: 8507116704940421409, guid: 309978700feac5647a4dc86fad890e12, type: 3}
+    spawnChance: 0.2
+  - spawnObject: {fileID: 5526421096704420483, guid: 11a844d9d19c6074bad439d6fd25b9e9, type: 3}
+    spawnChance: 0.2
+  - spawnObject: {fileID: 5526421096704420483, guid: f5c48a1b14d5d054db90f5ec93855f2e, type: 3}
+    spawnChance: 0.2

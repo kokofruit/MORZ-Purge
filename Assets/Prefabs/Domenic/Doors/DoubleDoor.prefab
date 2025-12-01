@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4999766437771648595}
   - component: {fileID: 2663821846894395748}
   - component: {fileID: 7046541628248681514}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: DoubleDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}

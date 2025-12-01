@@ -38,7 +38,6 @@ public class EnemySpawnerManager : MonoBehaviour
         // spawn at every spawner that activates at level start
         foreach (EnemySpawnerController spawner in FindObjectsByType<EnemySpawnerController>(FindObjectsSortMode.None))
         {
-            print(spawner);
             if (spawner.spawnAtStart)
             {
                 spawner.SpawnEnemies();

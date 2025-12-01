@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3579865005072262356}
   m_Layer: 6
-  m_Name: GameObject
+  m_Name: EnemyEyePoint
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 1736101381538952468}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0.197, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 8160520240315021106}
   - component: {fileID: 4737314653000514258}
   - component: {fileID: 7861087807491701673}
-  - component: {fileID: 172688249608675843}
+  - component: {fileID: 2484976023274615739}
   m_Layer: 6
   m_Name: RollerPrefab
   m_TagString: Enemy
@@ -81,7 +81,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DEBUG_MODE: 0
-  _baseHealth: 40
+  _baseHealth: 25
   _bugDeathExplosion: {fileID: 6709580774957103173, guid: 1299c3f0212f10a458dc6b9ba8f91bdf, type: 3}
   _baseDamage: 0
   _attackDistance: 15
@@ -121,20 +121,20 @@ NavMeshAgent:
   m_GameObject: {fileID: 6377917487719104797}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.4375
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 2
+  m_Height: 0.875
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!65 &172688249608675843
+--- !u!65 &2484976023274615739
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -153,8 +153,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 2.3546047, z: 1}
-  m_Center: {x: 0, y: 0.67730236, z: 0}
+  m_Size: {x: 0.75, y: 0.875, z: 0.5}
+  m_Center: {x: 0, y: 0.4375, z: 0}
 --- !u!1 &7541618467757191787
 GameObject:
   m_ObjectHideFlags: 0

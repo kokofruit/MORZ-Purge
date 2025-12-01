@@ -12,16 +12,14 @@ public class PickupSpawnerManager : MonoBehaviour
     // the singleton instance
     public static PickupSpawnerManager instance;
 
-    // NOT ENOUGH BALLS
-    [SerializeField] private GameObject[] _pickupObjects;
-    //Upgrade Objects
-    [SerializeField] private GameObject[] _upgradeObjects;
-
-    [SerializeField] public GameObject[] tempPickupObjects;
     // the amount of pickups desired
     [SerializeField, Min(0)] private int _pickupAmount;
-    // the amount of ammo vs health pickups
-    [SerializeField, Range(0, 1)] private float _ammoToHealthRatio;
+
+    // Upgrade pickups
+    [SerializeField] private SpawnTable[] _upgradeTables;
+
+    // Ammo and health pickups
+    [SerializeField] private SpawnTable _regularPickupTable;
 
     // the chance of spawning a pickup when the player destroys a breakable object
     [SerializeField, Range(0, 1)] private float _breakableSpawnRate;
@@ -30,8 +28,6 @@ public class PickupSpawnerManager : MonoBehaviour
     [SerializeField, Range(0, 1)] private float _enemyDeathSpawnRate;
     // the loot table for spawning from an enemy death
     [SerializeField] private SpawnTable _enemyDeathSpawnTable;
-
-    private List<PickupSpawnerController> _spawners;
 
     // Set the instance or destroy if it's a duplicate
     private void Awake()
@@ -44,68 +40,54 @@ public class PickupSpawnerManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        // Make persistent
+        DontDestroyOnLoad(gameObject);
     }
 
-    public void SpawnPickups()
+    public void SpawnPickups(int level)
     {
-        // Find all spawners in the scene and add them into the list
-        _spawners = FindObjectsByType<PickupSpawnerController>(FindObjectsSortMode.None).ToList();
+        // Make a list of all available spawners in the scene
+        List <PickupSpawnerController> availableSpawners = FindObjectsByType<PickupSpawnerController>(FindObjectsSortMode.None).ToList();
 
+        // more error proofing yippee
+        if (_upgradeTables[level].spawnTableEntries.Count > availableSpawners.Count) return;
 
-        // create a list of unused spawners
-        List<PickupSpawnerController> availableSpawners = _spawners;
+        // spawn one of each upgrade
+        if (level < _upgradeTables.Length) // error proofing again
+        {
+            foreach (SpawnTableEntry upgradePickup in _upgradeTables[level].spawnTableEntries)
+            {
+                // error proofing again again
+                if (availableSpawners.Count < 1) return;
 
-        //spawn one of each upgrade
-        foreach (GameObject g in _upgradeObjects ) {
-            if (availableSpawners.Count < 1)
-                return;
-            // int index = Random.Range(0, availableSpawners.Count);
-            availableSpawners[0].GetComponent<PickupSpawnerController>()?.CreatePickup();
-            availableSpawners.RemoveAt(0);
+                // choose a random spawner to spawn at
+                int index = Random.Range(0, availableSpawners.Count);
+
+                // tell spawner to spawn the upgrade
+                availableSpawners[index].SpawnPickup(upgradePickup.spawnObject);
+
+                // remove spawner from available options
+                availableSpawners.RemoveAt(index);
+            }
         }
 
         // some error proofing
-        if (_pickupAmount == 0) return;
         if (_pickupAmount > availableSpawners.Count) _pickupAmount = availableSpawners.Count;
 
-
-
-
-        // set amounts for each pickup
-        int ammoAmount = (int)Mathf.Round(_ammoToHealthRatio * _pickupAmount);
-        int healthAmout = _pickupAmount - ammoAmount;
-
-        // create ammo pickups
-        for (int i = 0; i < ammoAmount; i++)
+        // spawn at other pickups
+        for (int i = 0; i < _pickupAmount; i++)
         {
+            // choose a random spawner and spawn at it
             int index = Random.Range(0, availableSpawners.Count);
-            availableSpawners[index].GetComponent<PickupSpawnerController>()?.CreatePickup();
-            availableSpawners.RemoveAt(index);
-        }
-        // create health pickups
-        for (int i = 0; i < healthAmout; i++)
-        {
-            int index = Random.Range(0, availableSpawners.Count);
-            availableSpawners[index].GetComponent<PickupSpawnerController>()?.CreatePickup();
-            availableSpawners.RemoveAt(index);
-        }
-    }
 
-    public bool SpawnFromBreakable(SpawnTable spawnTable, out GameObject pickup)
-    {
-        // runs at a chance determined by the breakable spawn rate 
-        if (Random.value <= _breakableSpawnRate)
-        {
-            // retrive a random pickup
-            pickup = spawnTable.ChooseItem(Random.value);
-            // return true
-            return true;
-        }
-        // if not spawning a pickup, return false and a null value
-        else
-        {
-            pickup = null;
-            return false;
+            // get a random pickup (ammo or health)
+            GameObject pickup = _regularPickupTable.ChooseItem(Random.value);
+            // tell spawner to spawn the pickup
+            availableSpawners[index].SpawnPickup(pickup);
+
+            // remove spawner from available options
+            availableSpawners.RemoveAt(index);
         }
     }
 

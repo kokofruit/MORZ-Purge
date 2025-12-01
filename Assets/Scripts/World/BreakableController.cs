@@ -14,8 +14,8 @@ public class BreakableController : MonoBehaviour, IDamageable
     [SerializeField] Material _particleMaterial;
     // Optional sound to play
     [SerializeField] AudioClip _breakSound;
-    // determines whether this breakable has the chance to spawn a pickup
-    [SerializeField] bool _canSpawnPickups;
+    // determines whether the chance this breakable has at spawning a pickup; make it zero for no chance
+    [SerializeField, Range(0,1)] private float _spawnChance;
     // The selection of items to spawn
     [SerializeField] private SpawnTable _spawnTable;
 
@@ -67,9 +67,12 @@ public class BreakableController : MonoBehaviour, IDamageable
             SoundManager.instance.PlayFXAudio(_breakSound, transform.position, pitchFluctuation: 0.2f);
         }
 
-        // Possibly spawn a random pickup, if enabled
-        if (_canSpawnPickups && PickupSpawnerManager.instance.SpawnFromBreakable(_spawnTable, out GameObject pickup))
+        // Possibly spawn a random pickup at a provided chance
+        if (UnityEngine.Random.value <= _spawnChance)
         {
+            // retrive a random pickup
+            GameObject pickup = _spawnTable.ChooseItem(UnityEngine.Random.value);
+            // instantiate pickup
             Instantiate(pickup, transform.position, quaternion.identity);
         }
 
