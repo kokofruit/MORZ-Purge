@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.AI;
 
 public class BossController : BossBody
@@ -26,6 +27,7 @@ public class BossController : BossBody
     [SerializeField] private float _phaseTwoTrigger;
     [SerializeField] private float _phaseThreeTrigger;
     private int _phaseIndex;
+    private bool _isDying=false;
 
     // CHARGE ATTACK
     [Header("Charge Attack")]
@@ -76,9 +78,11 @@ public class BossController : BossBody
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        _die = new UnityEvent();
+        _die.AddListener(Die);
         // Cache own components
         _navMeshAgent = GetComponent<NavMeshAgent>();
-        _animator = GetComponentInChildren<Animator>();
+        _animator = GetComponent<Animator>();
 
         // Cache player transform
         _playerTransform = FindAnyObjectByType<PlayerController>().transform;
@@ -90,16 +94,17 @@ public class BossController : BossBody
     #region Phase Changes
     public void StartPhaseOne()
     {
+
         // set phase index
         _phaseIndex = 1;
 
         // Add phase one attacks to attack list
-        //_attacks.Add(ChargeAttack);
-        // _attacks.Add(BodySlam);
+        _attacks.Add(ChargeAttack);
+         _attacks.Add(BodySlam);
        // _attacks.Add(ShootGlob);
 
 
-        _attacks.Add(TendrilBarrage);
+        //_attacks.Add(TendrilBarrage);
         // Start attack cycle
         ChooseNextAttack();
     }
@@ -163,47 +168,17 @@ public class BossController : BossBody
          * deal set player damage
          * when hit wall/player reset back
          */
-        float timeBeforeNextAttack = 3f;
-        // for performance reasons. higher number -> better performance. lower number -> more precise destination
-        float destinationIterationModifier = 2.5f;
+        float timeBeforeNextAttack = 4.5f;
 
-        // find direction towards player
-        Vector3 direction = _playerTransform.position - transform.position;
-        direction = new Vector3(direction.x, 0, direction.z);
-        direction = direction.normalized;
-
-        // iteratively search for farthest reachable point in that direction
-        Vector3 destinationCandidate = transform.position;
-        while (NavMesh.SamplePosition(destinationCandidate + (direction * destinationIterationModifier), out NavMeshHit hit, 0.5f, _navMeshAgent.areaMask))
-        {
-            destinationCandidate = hit.position;
-        }
-
-        // set speed
-        _navMeshAgent.speed = _chargeSpeed;
-        // set contact damage
-        _currentContactDamage = _chargeContactDamage;
-
-        // set destination to that direction
-        _navMeshAgent.SetDestination(destinationCandidate);
-
-        // TODO: start charge noise. like a growl maybe?
-
-        // do nothing until finished charging
-        while (Vector3.Distance(transform.position, destinationCandidate) > 0f)
-        {
-            yield return null;
-        }
-
-        // TODO: collision noise?
-
-        // once done charging, reset speed
-        _navMeshAgent.speed = 0f;
+        _animator.SetTrigger("Charge");
+  
         // reset contact damage
         _baseContactDamage = _chargeContactDamage;
 
         // cooldown and then choose next attack
         yield return new WaitForSeconds(timeBeforeNextAttack);
+        _animator.ResetTrigger("Charge");
+
         ChooseNextAttack();
     }
 
@@ -215,17 +190,21 @@ public class BossController : BossBody
          * deal set player damage
          * reset after slam
          */
-        float timeBeforeNextAttack = 3f;
+        float timeBeforeNextAttack = 4.5f;
 
         // "slam" in place probably because oh boy trajectory is something
         // hurt within a radius
         // spawn stalactites at random locations. amount can be static or based on phase
-            // maybe make a random location function that can be used for this, spawn bugs, and tendril barrage
+        // maybe make a random location function that can be used for this, spawn bugs, and tendril barrage
         // stalactites will have their own script to fall, hurt player on contact while falling, then break/destroy after colliding with the ground
 
+        _animator.SetTrigger("BodySlam");
 
         // cooldown and then choose next attack
         yield return new WaitForSeconds(timeBeforeNextAttack);
+
+        _animator.ResetTrigger("BodySlam");
+
         ChooseNextAttack();
     }
 
@@ -370,11 +349,18 @@ public class BossController : BossBody
     // In the event of Boss death
     public void Die()
     {
+        //bool to prevent the Die() method from running a lot
+        if (_isDying) return;
+        _isDying = true;
+
         // Play sound on death
         SoundManager.instance.PlayFXAudio(_deathAudio, transform, pitchFluctuation: 0.2f);
 
-        // stop function executions and destroy self
+        //Play Death Animation
+        _animator.SetTrigger("Death");
+
+        // stop function executions and destroy self after 5 seconds
         StopAllCoroutines();
-        Destroy(gameObject);
+        Destroy(gameObject,5f);
     }
 }

@@ -2,6 +2,8 @@
 // Description: Health and Damage for boss
 
 using UnityEngine;
+using UnityEngine.Events;
+
 
 public class BossBody : MonoBehaviour,IDamageable
 {
@@ -9,6 +11,8 @@ public class BossBody : MonoBehaviour,IDamageable
     [SerializeField] private static float _health;
     [SerializeField] protected float _baseContactDamage;
     protected float _currentContactDamage;
+
+    protected static UnityEvent _die;
 
     private void PlayerDamage(float baseDamage)
     {
@@ -35,6 +39,10 @@ public class BossBody : MonoBehaviour,IDamageable
         // subtract health
         _health -= damage / (GameManager.instance.GetDifficulty() / 2 + 0.5f);
 
+        if (_health < 0)
+        {
+            _die.Invoke();
+        }
         // Play sound when taking damage
         // possibly play randomly instead of every hit
         //SoundManager.instance.PlayFXAudio(_damageAudio, transform, pitchFluctuation: 0.2f);
