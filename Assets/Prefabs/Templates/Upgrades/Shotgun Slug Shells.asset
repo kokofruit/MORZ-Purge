@@ -17,4 +17,5 @@ MonoBehaviour:
   STAGE: 0
   UPGRADE_TYPE: 0
   upgradeInfoText: Shotgun Damage Up!
+  index: 11
   SLOT: 2

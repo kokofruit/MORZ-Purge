@@ -17,4 +17,5 @@ MonoBehaviour:
   STAGE: 0
   UPGRADE_TYPE: 0
   upgradeInfoText: Pistol Damage Up!
+  index: 9
   SLOT: 2

@@ -70,6 +70,9 @@ public class DialogueManager : MonoBehaviour
 
     void Awake()
     {
+        // Used for UpgradePickup text display.
+        instance = this;
+   
         // On scene load, display start of level dialogue
         OnDisplay(GetStartCurrentScene());
 
@@ -93,6 +96,8 @@ public class DialogueManager : MonoBehaviour
             StartCoroutine(TypeDialog(dialogText.dialogueText));
         }
     }
+
+    // Sends the picked up upgrade description to coroutine to be displayed.
     public void UpgradeDisplay(int index)
     {
         upgradeText = upgradeChoices[index];

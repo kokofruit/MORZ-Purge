@@ -17,4 +17,5 @@ MonoBehaviour:
   STAGE: 3
   UPGRADE_TYPE: 3
   upgradeInfoText: All Light Gun Reload Speeds Up!
+  index: 4
   SLOT: 1

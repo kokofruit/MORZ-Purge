@@ -17,4 +17,5 @@ MonoBehaviour:
   STAGE: 3
   UPGRADE_TYPE: 3
   upgradeInfoText: All Heavy Gun Reload Speeds Up!
+  index: 6
   SLOT: 0
