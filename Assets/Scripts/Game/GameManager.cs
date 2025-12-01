@@ -160,6 +160,7 @@ public class GameManager : MonoBehaviour
 
     public void StartLevel()
     {
+        Debug.Log("sahdkasjhd");
         // spawn pickups in the level; pass in level index but convert 1-3 to 0-2 for list index reasons
         PickupSpawnerManager.instance?.SpawnPickups(_currentLevel - 1);
         Time.timeScale = 1;
@@ -225,6 +226,11 @@ public class GameManager : MonoBehaviour
         if (state) Cursor.lockState = CursorLockMode.None;
         //lock mouse to screen
         else Cursor.lockState = CursorLockMode.Locked;
+
+        // Play pause menu music when paused
+        if (state) SoundManager.instance.PlayMenuMusic();
+        // Return to the last song playing before the pause menu music played
+        else SoundManager.instance.ReturnToLastSong();
 
         //set time to move
         Time.timeScale = state ? 0 : 1;

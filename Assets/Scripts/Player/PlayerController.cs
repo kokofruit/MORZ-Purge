@@ -39,7 +39,8 @@ public class PlayerController : MonoBehaviour
     // Amount of acceleration player input has in the air
     [SerializeField] private float _midairAcceleration = 10;
     // Maximum slope the player can walk on
-    [SerializeField] private float maxSlopeAngle = 45;
+    [SerializeField] private float _maxSlopeAngle = 45;
+    [SerializeField] private AudioSource _musicSource;
     
     
     // Player Heads Up Display
@@ -73,10 +74,7 @@ public class PlayerController : MonoBehaviour
 
     void Awake()
     {
-        if (instance == null)
-            instance = this;
-        else
-            Destroy(gameObject);
+        instance = this;
     }
 
     // Start is called before the first frame update
@@ -90,6 +88,7 @@ public class PlayerController : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
         _playerHeight = transform.localScale.y * 2;
         HUD = HUDController.instance;
+        _musicSource = head.gameObject.GetComponentInChildren<AudioSource>();
 
         // Lock the cursor to the center of the screen during gameplay
         Cursor.lockState = CursorLockMode.Locked;
@@ -144,18 +143,13 @@ public class PlayerController : MonoBehaviour
         {
             float slopeAngle = Vector3.Angle(ground.normal, Vector3.up);
 
-            if (slopeAngle < maxSlopeAngle) {
+            if (slopeAngle < _maxSlopeAngle) {
                 // Set the players speed depending on whether they are sprinting or not
                 float _speed = _isSprinting ? _walkSpeed * _runSpeedMultiplier : _walkSpeed;
+                
+                if (stimulantUpActivated) _speed *= stimMultiplier;
 
                 HUD.AnimateWeapon(_rb.linearVelocity.magnitude);
-
-                // Check if stimulant is activated
-                if (stimulantUpActivated)
-                {
-                    // Increase speed by multiplying by the multiplier
-                    _speed *= stimMultiplier;
-                } // Speed goes back to normal once stimulantUpActivated is false
 
                 // Change the raw input into player velocity by adding player speed
                 Vector3 velocity = _movementVector * _speed;
@@ -170,7 +164,8 @@ public class PlayerController : MonoBehaviour
                 _rb.linearVelocity = slopeDirection;
             }
         } else {
-            if (_rb.linearVelocity.magnitude < _maxAirSpeed || _rb.linearVelocity.magnitude < _minAirSpeed) {
+            float _airSpeedLimit = stimulantUpActivated ? _maxAirSpeed *= stimMultiplier : _maxAirSpeed;
+            if (_rb.linearVelocity.magnitude < _airSpeedLimit || _rb.linearVelocity.magnitude < _minAirSpeed) {
                 Vector3 velocity = _movementVector * _midairAcceleration;
                 Vector3 localVelocity = transform.TransformDirection(new Vector3(velocity.x, _rb.linearVelocity.y, velocity.y));
                 _rb.AddForce(localVelocity);
@@ -259,6 +254,11 @@ public class PlayerController : MonoBehaviour
     {
         HUDController.instance.DisplayPickupNotice(false);
         pickup.PickupObject();
+    }
+
+    public AudioSource GetMusicSource()
+    {
+        return _musicSource;
     }
 
     ///////////////////////////////// Input  Management ////////////////////////////////

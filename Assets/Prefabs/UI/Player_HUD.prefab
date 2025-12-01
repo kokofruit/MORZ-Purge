@@ -413,7 +413,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: -1
+  m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!1 &327943007583763343
 GameObject:
@@ -1006,7 +1006,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: -1
+  m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!1 &671220224071023500
 GameObject:
@@ -2315,7 +2315,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: -1
+  m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!1 &2083558914195435143
 GameObject:
@@ -2770,7 +2770,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: -1
+  m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!1 &2638038373153033812
 GameObject:
@@ -3369,6 +3369,7 @@ GameObject:
   - component: {fileID: 1164177775723085329}
   - component: {fileID: 44842651554457366}
   - component: {fileID: 4851710341414539988}
+  - component: {fileID: 7365793769018548764}
   m_Layer: 5
   m_Name: CameraRenderImage
   m_TagString: Untagged
@@ -3430,6 +3431,29 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+--- !u!223 &7365793769018548764
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3134042489009411078}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 1
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: -2
+  m_TargetDisplay: 0
 --- !u!1 &3166914507819685571
 GameObject:
   m_ObjectHideFlags: 0
@@ -4969,7 +4993,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: -1
+  m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!1 &4658060319466639244
 GameObject:
@@ -5439,7 +5463,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: -1
+  m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!1 &5189989064599955851
 GameObject:
@@ -5554,7 +5578,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: -1
+  m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!1 &5299041997945608714
 GameObject:
@@ -7023,7 +7047,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: -1
+  m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!1 &6242638800640227436
 GameObject:
@@ -7890,7 +7914,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: -1
+  m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!1 &7291180520002550590
 GameObject:
