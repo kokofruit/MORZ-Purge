@@ -1095,6 +1095,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9a8ecc7c6f43e6644931fbb2987946cb, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5472560928045251105}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9a8ecc7c6f43e6644931fbb2987946cb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1980157597986222700}
   m_SourcePrefab: {fileID: 100100000, guid: 9a8ecc7c6f43e6644931fbb2987946cb, type: 3}
 --- !u!4 &548171335135128344 stripped
 Transform:
@@ -1168,14 +1171,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _baseContactDamage: 5
-  _phaseTwoTrigger: 0
-  _phaseThreeTrigger: 0
+  _phaseIndex: 1
+  _attackSpeed: 5
+  _phaseDoor: {fileID: 0}
   _chargeSpeed: 25
   _chargeContactDamage: 15
   _chargeAudio: {fileID: 0}
   _globForce: 1000
   _globPrefab: {fileID: 948437041128951277, guid: 42a58116d445be245bcc1f71daa13de4, type: 3}
-  _globSource: {fileID: 0}
+  _globSource: {fileID: 9039141068580892853}
   _globAudio: {fileID: 8300000, guid: 3eb5bef8f0eac894f9150c8b35d457e3, type: 3}
   _tendrilPrefab: {fileID: 360560678568311096, guid: 4449de91a213dad44892e5c460ccf330, type: 3}
   _tendrilSpawnRadius: 5
@@ -1189,6 +1193,18 @@ MonoBehaviour:
   _damageAudio: {fileID: 0}
   _deathAudio: {fileID: 0}
   _debugText: {fileID: 0}
+--- !u!114 &1980157597986222700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 773207449472957110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65170d94935baa34a88cd73b211ec199, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &2385764459182404895 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -6385992227107507464, guid: 9a8ecc7c6f43e6644931fbb2987946cb, type: 3}
