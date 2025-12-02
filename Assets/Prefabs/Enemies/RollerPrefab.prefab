@@ -81,7 +81,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DEBUG_MODE: 0
-  _baseHealth: 25
+  _baseHealth: 16
   _health: 0
   _bugDeathExplosion: {fileID: 6709580774957103173, guid: 1299c3f0212f10a458dc6b9ba8f91bdf, type: 3}
   _baseDamage: 0
@@ -95,7 +95,7 @@ MonoBehaviour:
   _idleDuration: 5
   _maxRoamingDuration: 10
   _pathfindingAttempts: 30
-  _windUpTime: 0.192
+  _windUpTime: 0.5
   _attackAudio: {fileID: 8300000, guid: 753fad3e28b630b4b8864cb678c8f306, type: 3}
   _damageAudio: {fileID: 8300000, guid: f1fc23382efb54c478ea7ce32f404aa7, type: 3}
   _deathAudio: {fileID: 8300000, guid: 2801b2db3f059e740aa51e022162ea6a, type: 3}

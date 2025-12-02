@@ -3,13 +3,10 @@
 // Reviewer: 
 // Description: Controls story dialogue that appears on screen
 
-using NUnit.Framework;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using UnityEngine.UI;
-using UnityEditor.Rendering;
 using UnityEngine.SceneManagement;
 
 /*

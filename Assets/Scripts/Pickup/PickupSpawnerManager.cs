@@ -47,6 +47,8 @@ public class PickupSpawnerManager : MonoBehaviour
 
     public void SpawnPickups(int level)
     {
+        if (level < 0) return;
+
         // Make a list of all available spawners in the scene
         List <PickupSpawnerController> availableSpawners = FindObjectsByType<PickupSpawnerController>(FindObjectsSortMode.None).ToList();
 
