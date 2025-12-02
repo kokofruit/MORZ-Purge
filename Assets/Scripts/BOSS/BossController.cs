@@ -25,6 +25,7 @@ public class BossController : BossBody
 
     // PHASE INFO
     [Header("Phase Variables")]
+    [SerializeField] private int _startHealth = 30;
     [SerializeField] private int _phaseIndex = 1;
     [SerializeField] private float _attackSpeed = 5f;
     [SerializeField] private BreakableController _phaseDoor;
@@ -57,6 +58,20 @@ public class BossController : BossBody
     [SerializeField] private float _tendrilBarrageNavSampleRange = 3f;
     [SerializeField] private AudioClip _tendrilBarrageAudio;
 
+    //SPAWN ATTACK
+    [Header("Spawn Attack")]
+    [SerializeField] private SpawnTable _spawnTable;
+    [SerializeField] private float _SpawnerSpawnRadius = 5f;
+    [SerializeField] private float _SpawnerNavSampleRange = 3f;
+    [SerializeField] private int _spawnAmount = 10;
+
+    //EGG SPAWN ATTACK
+    [Header("Egg_Spawn Attack")]
+    [SerializeField] private GameObject _eggPrefab;
+    [SerializeField] private float _eggSpawnRadius = 5f;
+    [SerializeField] private float _eggNavSampleRange = 3f;
+    [SerializeField] private int _eggSpawnAmount = 10;
+
     // SOUNDS
     [Header("SFX")]
     [SerializeField] private AudioClip _attackAudio;
@@ -72,6 +87,7 @@ public class BossController : BossBody
 
     // COMPONENTS
     private NavMeshAgent _navMeshAgent;
+    [SerializeField] private Animator _spriteAnimator;
     private Animator _animator;
     private Transform _playerTransform;
     private BillboardController9000 _billboardController;
@@ -79,6 +95,7 @@ public class BossController : BossBody
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        _health = _startHealth;
         _die = new UnityEvent();
         _die.AddListener(Die);
         // Cache own components
@@ -112,6 +129,7 @@ public class BossController : BossBody
         _attacks.Add(ChargeAttack);
          _attacks.Add(BodySlam);
         _attacks.Add(ShootGlob);
+        _attacks.Add(SpawnBugs);
 
         // Start attack cycle
         ChooseNextAttack();
@@ -122,7 +140,6 @@ public class BossController : BossBody
 
         // Add phase two attacks to attack list
         _attacks.Add(TendrilSlam);
-        _attacks.Add(SpawnBugs);
 
         StartPhaseOne();
     }
@@ -174,7 +191,9 @@ public class BossController : BossBody
          */
         float timeBeforeNextAttack = _attackSpeed;
 
+        //play animation
         _animator.SetTrigger("Charge");
+        _spriteAnimator.SetBool("chargeBool", true);
 
 
         float delay = UnityEngine.Random.Range(0.1f,0.2f);
@@ -197,6 +216,7 @@ public class BossController : BossBody
         // cooldown and then choose next attack
         yield return new WaitForSeconds(timeBeforeNextAttack);
         _animator.ResetTrigger("Charge");
+        _spriteAnimator.SetBool("chargeBool", false);
 
         ChooseNextAttack();
     }
@@ -211,14 +231,9 @@ public class BossController : BossBody
          */
         float timeBeforeNextAttack = _attackSpeed;
 
-
-        // "slam" in place probably because oh boy trajectory is something
-        // hurt within a radius
-        // spawn stalactites at random locations. amount can be static or based on phase
-        // maybe make a random location function that can be used for this, spawn bugs, and tendril barrage
-        // stalactites will have their own script to fall, hurt player on contact while falling, then break/destroy after colliding with the ground
-
+        //play animation
         _animator.SetTrigger("BodySlam");
+        _spriteAnimator.SetTrigger("slamTrigger");
 
         float delay = UnityEngine.Random.Range(0.1f, 0.2f);
 
@@ -239,8 +254,9 @@ public class BossController : BossBody
         // cooldown and then choose next attack
         yield return new WaitForSeconds(timeBeforeNextAttack);
 
+        //reset animation
         _animator.ResetTrigger("BodySlam");
-
+        _spriteAnimator.ResetTrigger("slamTrigger");
         ChooseNextAttack();
     }
 
@@ -257,14 +273,24 @@ public class BossController : BossBody
         // play sound
         SoundManager.instance.PlayFXAudio(_globAudio, transform, pitchFluctuation: 0.2f);
 
+        //play animation
+        _spriteAnimator.SetBool("globBool", true);
+        yield return new WaitForSeconds(.5f);
+
         // spawn three projectiles
         for (int projectileCount = 0; projectileCount < globAmount; projectileCount++)
         {
+            _spriteAnimator.SetTrigger("globTrigger");
+
             // instantiate projectile
             EnemyProjectileParent projectile = Instantiate(_globPrefab, _globSource.position, Quaternion.identity).GetComponent<EnemyProjectileParent>();
 
             // calculate direction towards player
-            Vector3 direction = _playerTransform.position - transform.position;
+            //this is a stupid way of fixing an even stupider problem
+            //With Love, Mark and Phill(mainly phills(me) stupid brine)
+            Vector3 direction = new Vector3(_playerTransform.position.x, _playerTransform.position.y-28, _playerTransform.position.z);
+            direction =  direction - transform.position;
+           
             // apply force
             projectile.AddForce(direction.normalized * _globForce);
 
@@ -272,6 +298,9 @@ public class BossController : BossBody
             yield return new WaitForSeconds(timeBetweenGlobs);
         }
 
+        //reset animation
+        _spriteAnimator.SetBool("globBool", false);
+        _spriteAnimator.ResetTrigger("globTrigger");
         // cooldown and then choose next attack (subtract glob time since it was just waited)
         yield return new WaitForSeconds(timeBeforeNextAttack - timeBetweenGlobs);
         ChooseNextAttack();
@@ -285,8 +314,11 @@ public class BossController : BossBody
     {
         float timeBeforeNextAttack = _attackSpeed*0.6f;
 
+        //play animation
+        _spriteAnimator.SetTrigger("tendrilTrigger");
+
         //Play audio
-       // SoundManager.instance.PlayFXAudio(_tendrilSlamAudio, transform, pitchFluctuation: 0.2f);
+        // SoundManager.instance.PlayFXAudio(_tendrilSlamAudio, transform, pitchFluctuation: 0.2f);
 
         //Pick a random position near the player
         Vector3 randomOffset = UnityEngine.Random.insideUnitSphere * _tendrilSpawnRadius;
@@ -306,20 +338,44 @@ public class BossController : BossBody
             _currentContactDamage = _baseContactDamage;
         }
 
+        //reset animation
+        _spriteAnimator.ResetTrigger("tendrilTrigger");
         yield return new WaitForSeconds(timeBeforeNextAttack);
 
         ChooseNextAttack();
     }
 
     private IEnumerator SpawnBugs()
-    {
-        float timeBeforeNextAttack = _attackSpeed * 0.6f;
+    { 
+        float timeBeforeNextAttack = _attackSpeed / 2;
 
-        // choose random spots around the ground to have enemies spawn at
-        // TODO: figure out how they spawn. eggs? fall in? emerge from ground? i will be mildly sad if they just appear
-        // spawn pool could be based on phase (2 vs 3)
+        // play sound
+        //SoundManager.instance.PlayFXAudio(_globAudio, transform, pitchFluctuation: 0.2f);
 
-        // cooldown and then choose next attack
+        //play animation
+        _spriteAnimator.SetTrigger("tendrilTrigger");
+        yield return new WaitForSeconds(.5f);
+
+        // spawn three projectiles
+        for (int spawnCount = 0; spawnCount < _spawnAmount; spawnCount++)
+        {
+            //Pick a random position near the boss
+            Vector3 randomOffset = UnityEngine.Random.insideUnitSphere * _SpawnerSpawnRadius;
+            randomOffset.y = 0f;
+
+            Vector3 desiredPosition = _globSource.position + randomOffset;
+            
+            //Sample position on the NavMesh
+            if (NavMesh.SamplePosition(desiredPosition, out NavMeshHit hit, _SpawnerNavSampleRange, NavMesh.AllAreas))
+            {
+                //Spawn spawners at valid navmesh point
+                Instantiate(_spawnTable.ChooseItem(UnityEngine.Random.Range(0f , 1f)), hit.position, Quaternion.identity);
+            }
+        }
+
+        //reset animation
+        _spriteAnimator.ResetTrigger("tendrilTrigger");
+        // cooldown and then choose next attack (subtract glob time since it was just waited)
         yield return new WaitForSeconds(timeBeforeNextAttack);
         ChooseNextAttack();
     }
@@ -330,12 +386,35 @@ public class BossController : BossBody
 
     private IEnumerator LaunchEggs()
     {
-        float timeBeforeNextAttack = _attackSpeed * 0.6f;
+        float timeBeforeNextAttack = _attackSpeed / 2;
 
-        // like glob attack, but eggs have a change of spawning enemies on contact with ground
-        // maybe add a preventative measure to make sure nothing spawns too close to the player
+        // play sound
+        //SoundManager.instance.PlayFXAudio(_globAudio, transform, pitchFluctuation: 0.2f);
 
-        // cooldown and then choose next attack
+        //play animation
+        _spriteAnimator.SetTrigger("tendrilTrigger");
+        yield return new WaitForSeconds(.5f);
+
+        // spawn three projectiles
+        for (int spawnCount = 0; spawnCount < _eggSpawnAmount; spawnCount++)
+        {
+            //Pick a random position near the boss
+            Vector3 randomOffset = UnityEngine.Random.insideUnitSphere * _eggSpawnRadius;
+            randomOffset.y = 0f;
+
+            Vector3 desiredPosition = _globSource.position + randomOffset;
+
+            //Sample position on the NavMesh
+            if (NavMesh.SamplePosition(desiredPosition, out NavMeshHit hit, _eggNavSampleRange, NavMesh.AllAreas))
+            {
+                //Spawn spawners at valid navmesh point
+                Instantiate(_eggPrefab, hit.position, Quaternion.identity);
+            }
+        }
+
+        //reset animation
+        _spriteAnimator.ResetTrigger("tendrilTrigger");
+        // cooldown and then choose next attack (subtract glob time since it was just waited)
         yield return new WaitForSeconds(timeBeforeNextAttack);
         ChooseNextAttack();
     }
@@ -347,6 +426,9 @@ public class BossController : BossBody
         // tendrils appear at random locations on ground
         // they start with just the tip ;) poking out so the player knows where to avoid
         // after a short period, they burst out and do contact damage
+
+        //play animation
+        _spriteAnimator.SetTrigger("tendrilTrigger");
 
         //Play audio
         // SoundManager.instance.PlayFXAudio(_tendrilSlamAudio, transform, pitchFluctuation: 0.2f);
@@ -369,9 +451,11 @@ public class BossController : BossBody
             _currentContactDamage = _baseContactDamage;
         }
 
+        //reset animation
+        _spriteAnimator.ResetTrigger("tendrilTrigger");
 
-            // cooldown and then choose next attack
-            yield return new WaitForSeconds(timeBeforeNextAttack);
+        // cooldown and then choose next attack
+        yield return new WaitForSeconds(timeBeforeNextAttack);
         ChooseNextAttack();
     }
 
@@ -388,14 +472,15 @@ public class BossController : BossBody
         _isDying = true;
 
         // Play sound on death
-        SoundManager.instance.PlayFXAudio(_deathAudio, transform, pitchFluctuation: 0.2f);
+        //SoundManager.instance.PlayFXAudio(_deathAudio, transform, pitchFluctuation: 0.2f);
 
         //Play Death Animation
         _animator.SetTrigger("Death");
 
         // stop function executions and destroy self after 5 seconds
         StopAllCoroutines();
-        Destroy(gameObject,5f);
+        Destroy(gameObject,4.7f);
+        //break rock to go to next stage of boss.
         _phaseDoor.Die();
 
     }

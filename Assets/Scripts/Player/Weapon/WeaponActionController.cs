@@ -4,6 +4,7 @@
 // Description: Handles the player input for weapon behaviors and translates them into gameplay actions.
 
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -59,10 +60,11 @@ public class WeaponActionController : MonoBehaviour
                 // Check to make sure the bullet hit something
                 if (hit.collider != null)
                 {
+
                     if (currentWeapon.FIRE_SELECT == WeaponTemplate.FireSelect.AOE)
                     {
                         Instantiate(explosions[(int)currentWeapon.STAGE], hit.point, Quaternion.identity);
-                        
+
                         Collider[] c = Physics.OverlapSphere(hit.point, currentWeapon.AOE_RADIUS);
                         foreach (Collider o in c)
                         {
@@ -88,7 +90,22 @@ public class WeaponActionController : MonoBehaviour
                         damageableInterface.TakeDamage(currentWeapon.damage);
                         // display the hitmarker image
                         StartCoroutine(nameof(DisplayHit));
+
                     }
+                    // this is to apply damage to the boss.
+                    else if (hit.collider.GetComponentInParent<IDamageable>() != null)
+                    {
+                        IDamageable d = hit.collider.GetComponentInParent<IDamageable>();
+                        if (d != null)
+                        {
+                            d.TakeDamage(currentWeapon.damage);
+                            StartCoroutine(nameof(DisplayHit));
+
+                        }
+
+                    }
+
+
                     // Old Stuff:
                     // else if (hit.collider.tag == "Enemy")
                     // {

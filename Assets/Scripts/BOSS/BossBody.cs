@@ -8,7 +8,7 @@ using UnityEngine.Events;
 public class BossBody : MonoBehaviour,IDamageable
 {
     // HEALTH & DAMAGE
-    [SerializeField] private static float _health;
+    [SerializeField] protected static float _health;
     [SerializeField] protected float _baseContactDamage;
     protected float _currentContactDamage;
 

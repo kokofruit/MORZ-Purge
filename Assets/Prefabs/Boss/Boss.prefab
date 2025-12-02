@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3547350919503285041}
   - component: {fileID: 3413399992886106181}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bone.009_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -65,7 +65,7 @@ GameObject:
   - component: {fileID: 5732407633669545348}
   - component: {fileID: 4730299449658420230}
   - component: {fileID: 4480193942936959933}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Quad (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -82,7 +82,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.002, y: 0.002, z: 0.009999994}
+  m_LocalScale: {x: 0.015, y: 0.015, z: 0.015}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 800515996512488680}
@@ -128,10 +128,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
+  m_SortingLayerID: -544933437
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d06f9d9701e060f48a5b31bd0ddf0b06, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ef72585c3d2348d4699f15e1f534f6fb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -164,7 +164,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5463073983950311580}
   - component: {fileID: 1194685774650395367}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bone.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -219,7 +219,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2834912516472978634}
   - component: {fileID: 4719773136602035641}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bone.007
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -275,7 +275,7 @@ GameObject:
   - component: {fileID: 1734620157847501501}
   - component: {fileID: 7156687274397072970}
   - component: {fileID: 2122138524805582617}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Quad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -292,7 +292,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.002, y: 0.002, z: 0.009999997}
+  m_LocalScale: {x: 0.015, y: 0.015, z: 0.015}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8024340208802436715}
@@ -338,10 +338,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
+  m_SortingLayerID: -544933437
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d06f9d9701e060f48a5b31bd0ddf0b06, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ef72585c3d2348d4699f15e1f534f6fb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -374,7 +374,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7876850820130475675}
   - component: {fileID: 1303867625774697700}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bone.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -429,7 +429,7 @@ GameObject:
   m_Component:
   - component: {fileID: 800515996512488680}
   - component: {fileID: 2634905749711264839}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bone.009
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -485,7 +485,7 @@ GameObject:
   - component: {fileID: 7734680465818997753}
   - component: {fileID: 3600497287930656005}
   - component: {fileID: 4738859540269130200}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Quad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -502,7 +502,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.002, y: 0.002, z: 0.010000001}
+  m_LocalScale: {x: 0.015, y: 0.015, z: 0.015}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3583586472058450724}
@@ -548,10 +548,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
+  m_SortingLayerID: -544933437
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d06f9d9701e060f48a5b31bd0ddf0b06, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ef72585c3d2348d4699f15e1f534f6fb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -583,7 +583,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3316622850274428530}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Boss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -616,7 +616,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3058366949730806064}
   - component: {fileID: 2644187999544676652}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bone.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -671,7 +671,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3583586472058450724}
   - component: {fileID: 7289563852062896012}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bone.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -729,7 +729,7 @@ GameObject:
   - component: {fileID: 1366324009848008249}
   - component: {fileID: 556672976932503973}
   - component: {fileID: 6282852350949116392}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Boss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -814,13 +814,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _baseContactDamage: 5
+  _startHealth: 30
   _phaseIndex: 1
   _attackSpeed: 5
   _phaseDoor: {fileID: 0}
   _chargeSpeed: 25
   _chargeContactDamage: 15
   _chargeAudio: {fileID: 0}
-  _globForce: 1000
+  _globForce: 1750
   _globPrefab: {fileID: 948437041128951277, guid: 42a58116d445be245bcc1f71daa13de4, type: 3}
   _globSource: {fileID: 3547350919503285041}
   _globAudio: {fileID: 8300000, guid: 3eb5bef8f0eac894f9150c8b35d457e3, type: 3}
@@ -832,10 +833,19 @@ MonoBehaviour:
   _tendrilBarrageSpawnRadius: 5
   _tendrilBarrageNavSampleRange: 3
   _tendrilBarrageAudio: {fileID: 0}
+  _spawnTable: {fileID: 0}
+  _SpawnerSpawnRadius: 15
+  _SpawnerNavSampleRange: 3
+  _spawnAmount: 5
+  _eggPrefab: {fileID: 5284894266808542491, guid: ca5e9006dd653d44a81d20070353e01c, type: 3}
+  _eggSpawnRadius: 30
+  _eggNavSampleRange: 3
+  _eggSpawnAmount: 10
   _attackAudio: {fileID: 0}
   _damageAudio: {fileID: 0}
   _deathAudio: {fileID: 0}
   _debugText: {fileID: 0}
+  _spriteAnimator: {fileID: 9075252064848700652}
 --- !u!114 &6282852350949116392
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -859,7 +869,7 @@ GameObject:
   - component: {fileID: 2304870742138403606}
   - component: {fileID: 5153466544021225953}
   - component: {fileID: 1344724816374013302}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Quad (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -876,7 +886,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.002, y: 0.002, z: 0.009999998}
+  m_LocalScale: {x: 0.015, y: 0.015, z: 0.015}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3329137687274201486}
@@ -922,10 +932,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
+  m_SortingLayerID: -544933437
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d06f9d9701e060f48a5b31bd0ddf0b06, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ef72585c3d2348d4699f15e1f534f6fb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -958,7 +968,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8024340208802436715}
   - component: {fileID: 9113378135639259315}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bone.006
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1014,7 +1024,7 @@ GameObject:
   - component: {fileID: 1407396176350915153}
   - component: {fileID: 5178968337534177882}
   - component: {fileID: 4158208478532256247}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Quad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1031,7 +1041,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.002, y: 0.002, z: 0.009999995}
+  m_LocalScale: {x: 0.015, y: 0.015, z: 0.015}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3461135380800674394}
@@ -1077,10 +1087,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
+  m_SortingLayerID: -544933437
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d06f9d9701e060f48a5b31bd0ddf0b06, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ef72585c3d2348d4699f15e1f534f6fb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1113,7 +1123,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3461135380800674394}
   - component: {fileID: 8980175296444879258}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bone.008
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1169,7 +1179,8 @@ GameObject:
   - component: {fileID: 5200328676420451833}
   - component: {fileID: 2155894122956635617}
   - component: {fileID: 5323742515534123210}
-  m_Layer: 0
+  - component: {fileID: 9075252064848700652}
+  m_Layer: 6
   m_Name: Quad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1185,8 +1196,8 @@ Transform:
   m_GameObject: {fileID: 6180584888278396853}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.002, y: 0.002, z: 0.009999994}
+  m_LocalPosition: {x: 0, y: 0, z: -0.001}
+  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3547350919503285041}
@@ -1232,10 +1243,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
+  m_SortingLayerID: -544933437
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d06f9d9701e060f48a5b31bd0ddf0b06, type: 3}
+  m_Sprite: {fileID: 1345116129, guid: 08f174c7be9929d408d4f8055868eb2b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1258,6 +1269,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c80f4fe29776d346b890cb0aa55776d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &9075252064848700652
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6180584888278396853}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 37f7bd3138b0bda4f8f8491e0950f1ec, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6224833523826338318
 GameObject:
   m_ObjectHideFlags: 0
@@ -1269,7 +1302,7 @@ GameObject:
   - component: {fileID: 5328891223608035625}
   - component: {fileID: 6075952397240105979}
   - component: {fileID: 815087118441148365}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Quad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1286,7 +1319,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.002, y: 0.002, z: 0.01}
+  m_LocalScale: {x: 0.015, y: 0.015, z: 0.015}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3058366949730806064}
@@ -1332,10 +1365,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
+  m_SortingLayerID: -544933437
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d06f9d9701e060f48a5b31bd0ddf0b06, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ef72585c3d2348d4699f15e1f534f6fb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1368,7 +1401,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7379888197734052515}
   - component: {fileID: 3541683827734729171}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1422,7 +1455,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3329137687274201486}
   - component: {fileID: 3484629753022388047}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bone.005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1478,7 +1511,7 @@ GameObject:
   - component: {fileID: 4618760351791077955}
   - component: {fileID: 5924142166815350904}
   - component: {fileID: 6178026515707108338}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Quad (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1495,7 +1528,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.002, y: 0.002, z: 0.01}
+  m_LocalScale: {x: 0.015, y: 0.015, z: 0.015}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5463073983950311580}
@@ -1541,10 +1574,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
+  m_SortingLayerID: -544933437
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d06f9d9701e060f48a5b31bd0ddf0b06, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ef72585c3d2348d4699f15e1f534f6fb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1578,7 +1611,7 @@ GameObject:
   - component: {fileID: 466227739642679021}
   - component: {fileID: 826386235122867260}
   - component: {fileID: 6109588835209541976}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Quad (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1595,7 +1628,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.002, y: 0.002, z: 0.010000001}
+  m_LocalScale: {x: 0.015, y: 0.015, z: 0.015}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7876850820130475675}
@@ -1641,10 +1674,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
+  m_SortingLayerID: -544933437
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d06f9d9701e060f48a5b31bd0ddf0b06, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ef72585c3d2348d4699f15e1f534f6fb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1678,7 +1711,7 @@ GameObject:
   - component: {fileID: 5578259948082489714}
   - component: {fileID: 4296737306573086650}
   - component: {fileID: 2809564265293967906}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Quad (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1695,7 +1728,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.002, y: 0.002, z: 0.009999996}
+  m_LocalScale: {x: 0.015, y: 0.015, z: 0.015}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2834912516472978634}
@@ -1741,10 +1774,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
+  m_SortingLayerID: -544933437
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d06f9d9701e060f48a5b31bd0ddf0b06, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ef72585c3d2348d4699f15e1f534f6fb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
