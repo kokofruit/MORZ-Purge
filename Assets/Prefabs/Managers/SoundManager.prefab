@@ -46,3 +46,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _soundPlayerPrefab: {fileID: 8640501301982665759, guid: f2677e1a13c6e8a47bd9b0d7948b6304, type: 3}
   _fxMixer: {fileID: 4075582761942666513, guid: ac0b790b913910945bad235a14558dbf, type: 2}
+  _musicMixer: {fileID: -2586023016208762204, guid: ac0b790b913910945bad235a14558dbf, type: 2}
+  _battleMusic: {fileID: 8300000, guid: eb58345cf2cf0b148bbc506e1f8df43e, type: 3}
+  _menuMusic: {fileID: 8300000, guid: fa68c475c672a6f4b88f7c38694ca751, type: 3}
