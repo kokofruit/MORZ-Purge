@@ -22,19 +22,9 @@ public class CubeOfWinning : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player") && available)
         {
-            StartCoroutine(Timer());
+            GameManager.instance?.GoToNextLevel();
         }
         else
-            // BUG: REPEATING TEXT
             DialogueManager.OnDisplay(8);
-    }
-
-    IEnumerator Timer()
-    {
-        // Get the current scene for which index
-        index = DialogueManager.GetEndCurrentScene();
-        DialogueManager.OnDisplay(index);
-        yield return new WaitForSeconds(10f);
-        GameManager.instance?.GoToNextLevel();
     }
 }

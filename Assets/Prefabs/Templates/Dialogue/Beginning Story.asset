@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0de0bee7c5975114b98f4c4f45192a3b, type: 3}
+  m_Name: Beginning Story
+  m_EditorClassIdentifier: 
+  dialogueText: "For a long time, humanity thought they were the only inhabitants
+    of Zorapterra, until the mining corporation, Human Planetary Services, breached
+    an unknown alien species\u2019 home. The aliens ravaged the humans on the planet
+    and pushed them off. It is now up to you, a soldier sent by H.P.S. to retake
+    the planet\u2019s caves and send the aliens into extinction for humanity\u2019s
+    sake."
+  displayDuration: 5

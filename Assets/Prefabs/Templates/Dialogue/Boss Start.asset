@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueText: "Lieutenant \u2013 \u201CIt seems that traversing this deep into
     the caves is disrupting our communication\u2026 you may need to head back above
-    ground and come back another \u2013 WHAT THE #$1* IS THAT?-\""
+    ground and come back another \u2013\""
   displayDuration: 5
