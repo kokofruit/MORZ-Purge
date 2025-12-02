@@ -64,7 +64,7 @@ MonoBehaviour:
   _idleDuration: 10
   _maxRoamingDuration: 10
   _pathfindingAttempts: 30
-  _windUpTime: 0.5
+  _windUpTime: 0.1
   _attackAudio: {fileID: 8300000, guid: 477173221f46b4149bb5d14570f2c536, type: 3}
   _damageAudio: {fileID: 8300000, guid: 05b9c375213994f4c9ad505b45d1efd1, type: 3}
   _deathAudio: {fileID: 8300000, guid: 5d71636f91de8924db6fc4c7b30abe1f, type: 3}
