@@ -17,4 +17,5 @@ MonoBehaviour:
   STAGE: 0
   UPGRADE_TYPE: 0
   upgradeInfoText: Rifle Damage Up!
+  index: 1
   SLOT: 2

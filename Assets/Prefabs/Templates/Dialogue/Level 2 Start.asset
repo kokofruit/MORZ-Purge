@@ -16,3 +16,4 @@ MonoBehaviour:
     species of aliens further down into the caves. Oh- and watch out- there are some
     lava pits scattered around. Good luck.\u201D"
   displayDuration: 5
+  voiceLine: {fileID: 8300000, guid: 8af58e4298e777a429e4e017f31b593f, type: 3}

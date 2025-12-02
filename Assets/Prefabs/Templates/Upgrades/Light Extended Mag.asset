@@ -17,4 +17,5 @@ MonoBehaviour:
   STAGE: 3
   UPGRADE_TYPE: 2
   upgradeInfoText: All Light Gun Mag Capacities Up!
+  index: 3
   SLOT: 0

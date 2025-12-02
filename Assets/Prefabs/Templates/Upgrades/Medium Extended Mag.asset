@@ -17,4 +17,5 @@ MonoBehaviour:
   STAGE: 3
   UPGRADE_TYPE: 2
   upgradeInfoText: All Medium Gun Mag Capacities Up!
+  index: 7
   SLOT: 0

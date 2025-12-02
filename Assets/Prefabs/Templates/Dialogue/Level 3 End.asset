@@ -16,3 +16,4 @@ MonoBehaviour:
     these aliens from our territory. There looks to be more aliens ahead. You\u2019ll
     have to go deeper and finish this once and for all.\""
   displayDuration: 5
+  voiceLine: {fileID: 8300000, guid: 089cd14b1dfb801459013e20c9f3a259, type: 3}

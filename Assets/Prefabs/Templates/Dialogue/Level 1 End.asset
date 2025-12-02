@@ -16,3 +16,4 @@ MonoBehaviour:
     the caves and clear out more aliens so they can\u2019t reclaim the building.
     Another team will head to the subsurface facility and stand guard.\u201D "
   displayDuration: 5
+  voiceLine: {fileID: 8300000, guid: c666e597db5e34f4588d92a777dc6f59, type: 3}

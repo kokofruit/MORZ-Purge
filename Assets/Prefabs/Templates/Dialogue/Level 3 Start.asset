@@ -16,3 +16,4 @@ MonoBehaviour:
     You should be nearing the end of the caves, but that means you have to watch
     out for acid pits, and of course\u2026 more aliens.\""
   displayDuration: 5
+  voiceLine: {fileID: 8300000, guid: f70a43b770d5c314fa6baa9a888063e8, type: 3}

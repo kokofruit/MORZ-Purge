@@ -17,4 +17,5 @@ MonoBehaviour:
   STAGE: 3
   UPGRADE_TYPE: 3
   upgradeInfoText: All Medium Gun Reload Speeds Up!
+  index: 8
   SLOT: 1

@@ -17,4 +17,5 @@ MonoBehaviour:
   STAGE: 2
   UPGRADE_TYPE: 1
   upgradeInfoText: Tactical SMG Fire Rate Up!
+  index: 13
   SLOT: 2

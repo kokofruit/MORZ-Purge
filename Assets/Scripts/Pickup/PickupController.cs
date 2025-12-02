@@ -13,7 +13,7 @@ public class PickupController : MonoBehaviour
     private float yPosition;
     private float addHeight = .75f;
     private float raycastDistance = 10f;
-
+    
     void Start()
     {
         // Raycast to the ground to spawn above it

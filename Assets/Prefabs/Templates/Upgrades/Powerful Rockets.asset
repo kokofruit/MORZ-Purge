@@ -17,4 +17,5 @@ MonoBehaviour:
   STAGE: 1
   UPGRADE_TYPE: 0
   upgradeInfoText: Rocket Launcher Damage Up!
+  index: 10
   SLOT: 2

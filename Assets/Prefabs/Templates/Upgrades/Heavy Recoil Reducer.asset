@@ -17,4 +17,5 @@ MonoBehaviour:
   STAGE: 3
   UPGRADE_TYPE: 1
   upgradeInfoText: All Heavy Gun Fire Rates Up!
+  index: 2
   SLOT: 1

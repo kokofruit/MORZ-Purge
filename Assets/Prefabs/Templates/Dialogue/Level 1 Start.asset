@@ -18,3 +18,4 @@ MonoBehaviour:
     some equipment and experimental enhancements that were left behind that you can
     use.\u201D"
   displayDuration: 5
+  voiceLine: {fileID: 8300000, guid: 953449707e62f0d48adc782234a410d2, type: 3}
