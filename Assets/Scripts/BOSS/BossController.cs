@@ -100,6 +100,7 @@ public class BossController : BossBody
 
 
         _attacks.Add(TendrilBarrage);
+        _attacks.Add(TendrilSlam);
         // Start attack cycle
         ChooseNextAttack();
     }
