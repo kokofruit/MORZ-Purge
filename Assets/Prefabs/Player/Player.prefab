@@ -464,7 +464,8 @@ MonoBehaviour:
   _interactDistance: 5
   _minAirSpeed: 3
   _midairAcceleration: 15
-  maxSlopeAngle: 40
+  _maxSlopeAngle: 45
+  _musicSource: {fileID: 0}
 --- !u!114 &6476566804834447122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -480,7 +481,10 @@ MonoBehaviour:
   currentWeapon:
     AOE_RADIUS: 0
   hitMarker: {fileID: 0}
-  explosion: {fileID: 3457101852014820101, guid: af9c9a0da72f2e7449b531948704c66a, type: 3}
+  explosions:
+  - {fileID: 3457101852014820101, guid: cc1717382c43e234592fce274ff61298, type: 3}
+  - {fileID: 3457101852014820101, guid: af9c9a0da72f2e7449b531948704c66a, type: 3}
+  - {fileID: 3457101852014820101, guid: 27094bf94ff1817409143716535e07a7, type: 3}
   _weaponAudio:
   - {fileID: 8300000, guid: f11424ec1d30a134f97854a2aa48603b, type: 3}
   - {fileID: 8300000, guid: a82d216853cd87249ae763054df49109, type: 3}
