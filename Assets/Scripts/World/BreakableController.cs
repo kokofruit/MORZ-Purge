@@ -31,7 +31,7 @@ public class BreakableController : MonoBehaviour, IDamageable
     }
 
     // When the breakable "dies", it will destroy the gameobject and create particles with a certain texture
-    void Die()
+    public void Die()
     {
         // Instantiate a particle system
         GameObject newExplosion = Instantiate(_particleSystemPrefab, transform.position, quaternion.identity);
