@@ -15,3 +15,4 @@ MonoBehaviour:
   dialogueText: "Lieutenant \u2013 \u201CWhere are you going soldier?! Turn back
     around!\""
   displayDuration: 5
+  voiceLine: {fileID: 8300000, guid: e27585acbdafda743997ae0b95b6548e, type: 3}

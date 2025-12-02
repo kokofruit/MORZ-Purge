@@ -30,7 +30,7 @@ public class DialogueManager : MonoBehaviour
     private CubeOfWinning CubeOfWinning;
     private bool boxCleared = true;
     private int currScene;
-
+    
     // Indexes for dialogChoices
     /*
      * 0 - Level 1 Start
@@ -92,6 +92,12 @@ public class DialogueManager : MonoBehaviour
         // makes sure text box is cleared instead of overwriting dialogue
         if (boxCleared)
         {
+            if (dialogText.voiceLine != null)
+            {
+                AudioSource audioSource = GetComponent<AudioSource>();
+                audioSource.clip = dialogText.voiceLine;
+                audioSource.Play();
+            }
             StartCoroutine(TypeDialog(dialogText.dialogueText));
         }
     }
@@ -112,7 +118,7 @@ public class DialogueManager : MonoBehaviour
         // Set the dialogue index to be displayed based off of what the current scene is
         if (currentScene.name == "Level 1")
         {
-            storyBackground.SetActive(false);
+            // storyBackground.SetActive(false);
             index = 0;
             bugDeathCap = 50;   // bugDeathCap starts lower at level 1
         }
@@ -176,14 +182,14 @@ public class DialogueManager : MonoBehaviour
         boxCleared = true;
     }
 
-    //public void OnCollisionEnter(Collision collision)
-    //{
-    //    if (collision.gameObject.CompareTag("Player"))
-    //    {
-    //        index = 8;
-    //        OnDisplay(index);
-    //    }
-    //}
+    public void OnCollisionEnter(Collision collision)
+    {
+       if (collision.gameObject.CompareTag("Player"))
+       {
+           index = 8;
+           OnDisplay(index);
+       }
+    }
 
     public void SetBugDeathCounter()
     {

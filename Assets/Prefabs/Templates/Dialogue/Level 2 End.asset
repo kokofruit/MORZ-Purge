@@ -16,3 +16,4 @@ MonoBehaviour:
     caves to clear out as many aliens as possible. The team on the subsurface is
     standing guard for you.\u201D"
   displayDuration: 5
+  voiceLine: {fileID: 8300000, guid: da9e12bd7c863da40976d01861c3a5ec, type: 3}

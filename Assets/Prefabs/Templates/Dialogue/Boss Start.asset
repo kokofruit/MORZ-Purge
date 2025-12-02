@@ -16,3 +16,4 @@ MonoBehaviour:
     the caves is disrupting our communication\u2026 you may need to head back above
     ground and come back another \u2013\""
   displayDuration: 5
+  voiceLine: {fileID: 8300000, guid: cdacd653986ba9f4ba8dac3a28f5bb9a, type: 3}

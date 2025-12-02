@@ -17,3 +17,4 @@ MonoBehaviour:
     it possible for humans to safely return. Get yourself back to Earth... you\u2019ve
     earned a long vacation.\""
   displayDuration: 5
+  voiceLine: {fileID: 8300000, guid: 0169230a978f87c4797f0dbad7625727, type: 3}
