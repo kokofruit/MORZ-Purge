@@ -480,6 +480,12 @@ public class BossController : BossBody
         // stop function executions and destroy self after 5 seconds
         StopAllCoroutines();
         Destroy(gameObject,4.7f);
+
+        // put here by VIN
+        // if rock is rock of the cosmos, play end dialogue
+        if (_phaseDoor.name == "Rockofthecosmos")
+            DialogueManager.instance.BossDied();
+
         //break rock to go to next stage of boss.
         _phaseDoor.Die();
 
