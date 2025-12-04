@@ -195,23 +195,20 @@ public class BossController : BossBody
         _animator.SetTrigger("Charge");
         _spriteAnimator.SetBool("chargeBool", true);
 
-
-        float delay = UnityEngine.Random.Range(0.1f,0.2f);
-
-        yield return new WaitForSeconds(1.8f-delay);
+        yield return new WaitForSeconds(1f);
   
         // set charge damage
         _currentContactDamage = _chargeContactDamage;
 
         _billboardController.enabled = false;
-        yield return new WaitForSeconds(.8f+delay);
+        yield return new WaitForSeconds(3f);
 
         _billboardController.enabled = true;
 
 
         // reset contact damage
         _currentContactDamage = _baseContactDamage;
-        timeBeforeNextAttack -= (2.6f);
+        timeBeforeNextAttack -= (4f);
 
         // cooldown and then choose next attack
         yield return new WaitForSeconds(timeBeforeNextAttack);
@@ -235,21 +232,19 @@ public class BossController : BossBody
         _animator.SetTrigger("BodySlam");
         _spriteAnimator.SetTrigger("slamTrigger");
 
-        float delay = UnityEngine.Random.Range(0.1f, 0.2f);
-
-        yield return new WaitForSeconds(2.2f-delay);
+        yield return new WaitForSeconds(1.2f);
 
         // set charge damage
         _currentContactDamage = _chargeContactDamage;
 
         _billboardController.enabled = false;
-        yield return new WaitForSeconds(.8f+delay);
+        yield return new WaitForSeconds(2.8f);
 
         _billboardController.enabled = true;
 
         // reset contact damage
         _currentContactDamage = _baseContactDamage;
-        timeBeforeNextAttack -= (3f);
+        timeBeforeNextAttack -= (4f);
 
         // cooldown and then choose next attack
         yield return new WaitForSeconds(timeBeforeNextAttack);
