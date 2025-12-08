@@ -29,34 +29,30 @@ public class BossController : BossBody
     [SerializeField] private int _phaseIndex = 1;
     [SerializeField] private float _attackSpeed = 5f;
     [SerializeField] private BreakableController _phaseDoor;
-    private bool _isDying=false;
+    private bool _isDying = false;
 
     // CHARGE ATTACK
     [Header("Charge Attack")]
     [SerializeField] private float _chargeSpeed;
     [SerializeField] private float _chargeContactDamage;
-    [SerializeField] private AudioClip _chargeAudio;
 
     // GLOB ATTACK
     [Header("Glob Attack")]
     [SerializeField] private float _globForce;
     [SerializeField] private GameObject _globPrefab;
     [SerializeField] private Transform _globSource;
-    [SerializeField] private AudioClip _globAudio;
 
     //TENDRIL SLAM
     [Header("Tendril Slam")]
     [SerializeField] private GameObject _tendrilPrefab;
     [SerializeField] private float _tendrilSpawnRadius = 5f;
     [SerializeField] private float _tendrilNavSampleRange = 3f;
-    [SerializeField] private AudioClip _tendrilSlamAudio;
 
     //TENDRIL BARRAGE
     [Header("Tendril Barrage")]
     [SerializeField] private GameObject _tendrilBarragePrefab;
     [SerializeField] private float _tendrilBarrageSpawnRadius = 5f;
     [SerializeField] private float _tendrilBarrageNavSampleRange = 3f;
-    [SerializeField] private AudioClip _tendrilBarrageAudio;
 
     //SPAWN ATTACK
     [Header("Spawn Attack")]
@@ -74,8 +70,11 @@ public class BossController : BossBody
 
     // SOUNDS
     [Header("SFX")]
-    [SerializeField] private AudioClip _attackAudio;
-    [SerializeField] private AudioClip _damageAudio;
+    [SerializeField] private AudioClip _phaseChangeAudio;
+    [SerializeField] private AudioClip _chargeAudio;
+    [SerializeField] private AudioClip _bodySlamAudio;
+    [SerializeField] private AudioClip _globAudio;
+    [SerializeField] private AudioClip _tendrilSlamAudio;
     [SerializeField] private AudioClip _deathAudio;
 
     // DEBUG TEXT
@@ -106,6 +105,10 @@ public class BossController : BossBody
         // Cache player transform
         _playerTransform = FindAnyObjectByType<PlayerController>().transform;
 
+
+        // play sound
+        SoundManager.instance.PlayFXAudio(_phaseChangeAudio, transform, pitchFluctuation: 0.2f);
+
         switch (_phaseIndex)
         {
             case 1:
@@ -124,10 +127,11 @@ public class BossController : BossBody
     #region Phase Changes
     public void StartPhaseOne()
     {
+        
 
         // Add phase one attacks to attack list
         _attacks.Add(ChargeAttack);
-         _attacks.Add(BodySlam);
+        _attacks.Add(BodySlam);
         _attacks.Add(ShootGlob);
         _attacks.Add(SpawnBugs);
 
@@ -152,7 +156,7 @@ public class BossController : BossBody
 
         StartPhaseTwo();
     }
-    
+
     // TODO: function for boss physically moving between phase locations
     // maybe block off area for boss and maybe player somehow?
     #endregion
@@ -195,8 +199,11 @@ public class BossController : BossBody
         _animator.SetTrigger("Charge");
         _spriteAnimator.SetBool("chargeBool", true);
 
+        // play sound
+        SoundManager.instance.PlayFXAudio(_chargeAudio, transform, pitchFluctuation: 0.2f);
+
         yield return new WaitForSeconds(1f);
-  
+
         // set charge damage
         _currentContactDamage = _chargeContactDamage;
 
@@ -232,6 +239,9 @@ public class BossController : BossBody
         _animator.SetTrigger("BodySlam");
         _spriteAnimator.SetTrigger("slamTrigger");
 
+        // play sound
+        SoundManager.instance.PlayFXAudio(_bodySlamAudio, transform, pitchFluctuation: 0.2f);
+
         yield return new WaitForSeconds(1.2f);
 
         // set charge damage
@@ -263,10 +273,7 @@ public class BossController : BossBody
          */
         int globAmount = 3;
         float timeBetweenGlobs = 0.5f;
-        float timeBeforeNextAttack = _attackSpeed/2;
-
-        // play sound
-        SoundManager.instance.PlayFXAudio(_globAudio, transform, pitchFluctuation: 0.2f);
+        float timeBeforeNextAttack = _attackSpeed / 2;
 
         //play animation
         _spriteAnimator.SetBool("globBool", true);
@@ -276,6 +283,8 @@ public class BossController : BossBody
         for (int projectileCount = 0; projectileCount < globAmount; projectileCount++)
         {
             _spriteAnimator.SetTrigger("globTrigger");
+            // play sound
+            SoundManager.instance.PlayFXAudio(_globAudio, transform, pitchFluctuation: 0.2f);
 
             // instantiate projectile
             EnemyProjectileParent projectile = Instantiate(_globPrefab, _globSource.position, Quaternion.identity).GetComponent<EnemyProjectileParent>();
@@ -283,9 +292,9 @@ public class BossController : BossBody
             // calculate direction towards player
             //this is a stupid way of fixing an even stupider problem
             //With Love, Mark and Phill(mainly phills(me) stupid brine)
-            Vector3 direction = new Vector3(_playerTransform.position.x, _playerTransform.position.y-28, _playerTransform.position.z);
-            direction =  direction - transform.position;
-           
+            Vector3 direction = new Vector3(_playerTransform.position.x, _playerTransform.position.y - 28, _playerTransform.position.z);
+            direction = direction - transform.position;
+
             // apply force
             projectile.AddForce(direction.normalized * _globForce);
 
@@ -307,13 +316,13 @@ public class BossController : BossBody
 
     private IEnumerator TendrilSlam()
     {
-        float timeBeforeNextAttack = _attackSpeed*0.6f;
+        float timeBeforeNextAttack = _attackSpeed * 0.6f;
 
         //play animation
         _spriteAnimator.SetTrigger("tendrilTrigger");
 
         //Play audio
-        // SoundManager.instance.PlayFXAudio(_tendrilSlamAudio, transform, pitchFluctuation: 0.2f);
+        SoundManager.instance.PlayFXAudio(_tendrilSlamAudio, transform, pitchFluctuation: 0.2f);
 
         //Pick a random position near the player
         Vector3 randomOffset = UnityEngine.Random.insideUnitSphere * _tendrilSpawnRadius;
@@ -325,7 +334,7 @@ public class BossController : BossBody
         if (NavMesh.SamplePosition(desiredPosition, out NavMeshHit hit, _tendrilNavSampleRange, NavMesh.AllAreas))
         {
             //Spawn tendril at valid navmesh point
-            GameObject tendril =Instantiate(_tendrilPrefab, hit.position, Quaternion.identity);
+            GameObject tendril = Instantiate(_tendrilPrefab, hit.position, Quaternion.identity);
             tendril.transform.LookAt(_playerTransform.position);
             tendril.transform.rotation = Quaternion.Euler(-90f, tendril.transform.rotation.eulerAngles.y + 90f, 0f);
 
@@ -341,11 +350,11 @@ public class BossController : BossBody
     }
 
     private IEnumerator SpawnBugs()
-    { 
+    {
         float timeBeforeNextAttack = _attackSpeed / 2;
 
         // play sound
-        //SoundManager.instance.PlayFXAudio(_globAudio, transform, pitchFluctuation: 0.2f);
+        SoundManager.instance.PlayFXAudio(_tendrilSlamAudio, transform, pitchFluctuation: 0.2f);
 
         //play animation
         _spriteAnimator.SetTrigger("tendrilTrigger");
@@ -359,12 +368,12 @@ public class BossController : BossBody
             randomOffset.y = 0f;
 
             Vector3 desiredPosition = _globSource.position + randomOffset;
-            
+
             //Sample position on the NavMesh
             if (NavMesh.SamplePosition(desiredPosition, out NavMeshHit hit, _SpawnerNavSampleRange, NavMesh.AllAreas))
             {
                 //Spawn spawners at valid navmesh point
-                Instantiate(_spawnTable.ChooseItem(UnityEngine.Random.Range(0f , 1f)), hit.position, Quaternion.identity);
+                Instantiate(_spawnTable.ChooseItem(UnityEngine.Random.Range(0f, 1f)), hit.position, Quaternion.identity);
             }
         }
 
@@ -384,7 +393,7 @@ public class BossController : BossBody
         float timeBeforeNextAttack = _attackSpeed / 2;
 
         // play sound
-        //SoundManager.instance.PlayFXAudio(_globAudio, transform, pitchFluctuation: 0.2f);
+        SoundManager.instance.PlayFXAudio(_globAudio, transform, pitchFluctuation: 0.2f);
 
         //play animation
         _spriteAnimator.SetTrigger("tendrilTrigger");
@@ -426,7 +435,7 @@ public class BossController : BossBody
         _spriteAnimator.SetTrigger("tendrilTrigger");
 
         //Play audio
-        // SoundManager.instance.PlayFXAudio(_tendrilSlamAudio, transform, pitchFluctuation: 0.2f);
+        SoundManager.instance.PlayFXAudio(_tendrilSlamAudio, transform, pitchFluctuation: 0.2f);
 
         //Pick a random position near the player
         Vector3 randomOffset = UnityEngine.Random.insideUnitSphere * _tendrilBarrageSpawnRadius;
@@ -457,7 +466,7 @@ public class BossController : BossBody
     #endregion
 
 
-    
+
 
     // In the event of Boss death
     public void Die()
@@ -467,14 +476,14 @@ public class BossController : BossBody
         _isDying = true;
 
         // Play sound on death
-        //SoundManager.instance.PlayFXAudio(_deathAudio, transform, pitchFluctuation: 0.2f);
+        SoundManager.instance.PlayFXAudio(_deathAudio, transform, pitchFluctuation: 0.2f);
 
         //Play Death Animation
         _animator.SetTrigger("Death");
 
         // stop function executions and destroy self after 5 seconds
         StopAllCoroutines();
-        Destroy(gameObject,4.7f);
+        Destroy(gameObject, 4.7f);
 
         // put here by VIN
         // if rock is rock of the cosmos, play end dialogue

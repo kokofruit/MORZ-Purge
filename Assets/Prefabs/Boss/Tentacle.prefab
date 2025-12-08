@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7394792595577004255}
   - component: {fileID: 976200038348992341}
-  - component: {fileID: 9036295072679119213}
   - component: {fileID: 649205223693691316}
   m_Layer: 0
   m_Name: Quad
@@ -27,13 +26,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 22569987612509441}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.016, y: 0.016, z: 0.016}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5953634715158646896}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!212 &976200038348992341
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -89,18 +88,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &9036295072679119213
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 22569987612509441}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c80f4fe29776d346b890cb0aa55776d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &649205223693691316
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -132,7 +119,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1898778350425876962}
   - component: {fileID: 1245752635013636977}
-  - component: {fileID: 5373538595483536786}
   - component: {fileID: 4198219452642180124}
   m_Layer: 0
   m_Name: Quad
@@ -149,13 +135,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 579108709314328332}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.016, y: 0.016, z: 0.016}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2608042878254045022}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!212 &1245752635013636977
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -211,18 +197,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5373538595483536786
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 579108709314328332}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c80f4fe29776d346b890cb0aa55776d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &4198219452642180124
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -254,7 +228,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8764742651319934551}
   - component: {fileID: 6891363578890562921}
-  - component: {fileID: 5042655278002034269}
   - component: {fileID: 6278092059763467853}
   m_Layer: 0
   m_Name: Quad
@@ -271,13 +244,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2794177970236719505}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.016, y: 0.016, z: 0.016}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2431339940110024674}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!212 &6891363578890562921
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -333,18 +306,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5042655278002034269
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2794177970236719505}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c80f4fe29776d346b890cb0aa55776d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &6278092059763467853
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -376,7 +337,6 @@ GameObject:
   m_Component:
   - component: {fileID: 165764284509638613}
   - component: {fileID: 5154197708096976171}
-  - component: {fileID: 4618109629699935984}
   - component: {fileID: 3030964749565018339}
   m_Layer: 0
   m_Name: Quad
@@ -393,13 +353,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6021697152134903130}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.016, y: 0.016, z: 0.016}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3340794992254139643}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!212 &5154197708096976171
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -455,18 +415,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4618109629699935984
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6021697152134903130}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c80f4fe29776d346b890cb0aa55776d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &3030964749565018339
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -498,7 +446,6 @@ GameObject:
   m_Component:
   - component: {fileID: 55773417150955999}
   - component: {fileID: 915497879917591998}
-  - component: {fileID: 678694175081828318}
   - component: {fileID: 4956770924186246361}
   m_Layer: 0
   m_Name: Quad
@@ -515,13 +462,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6867248627258270847}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.016, y: 0.016, z: 0.016}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6432746470165678787}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!212 &915497879917591998
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -577,18 +524,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &678694175081828318
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6867248627258270847}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c80f4fe29776d346b890cb0aa55776d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &4956770924186246361
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -620,7 +555,6 @@ GameObject:
   m_Component:
   - component: {fileID: 9078265027476199305}
   - component: {fileID: 1211201552639514480}
-  - component: {fileID: 9196848005137619103}
   - component: {fileID: 1058899976247258366}
   m_Layer: 0
   m_Name: Quad
@@ -637,13 +571,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8491703158825248927}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.016, y: 0.016, z: 0.016}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4510936911539973950}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!212 &1211201552639514480
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -699,18 +633,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &9196848005137619103
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8491703158825248927}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c80f4fe29776d346b890cb0aa55776d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &1058899976247258366
 BoxCollider:
   m_ObjectHideFlags: 0

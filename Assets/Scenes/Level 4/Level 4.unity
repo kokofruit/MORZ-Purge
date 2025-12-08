@@ -1198,9 +1198,21 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 556672976932503973, guid: 58d34144b5427e54cbc057ee2d1a4625, type: 3}
+      propertyPath: _globAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: 9fa153d72103fd5489139b580e881c64, type: 3}
+    - target: {fileID: 556672976932503973, guid: 58d34144b5427e54cbc057ee2d1a4625, type: 3}
       propertyPath: _phaseDoor
       value: 
       objectReference: {fileID: 1660756357}
+    - target: {fileID: 556672976932503973, guid: 58d34144b5427e54cbc057ee2d1a4625, type: 3}
+      propertyPath: _awakeAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: ed9f026cdf642cc479d7f976e22e767c, type: 3}
+    - target: {fileID: 556672976932503973, guid: 58d34144b5427e54cbc057ee2d1a4625, type: 3}
+      propertyPath: _deathAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: ed9f026cdf642cc479d7f976e22e767c, type: 3}
     - target: {fileID: 556672976932503973, guid: 58d34144b5427e54cbc057ee2d1a4625, type: 3}
       propertyPath: _phaseIndex
       value: 1
@@ -1214,9 +1226,29 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 556672976932503973, guid: 58d34144b5427e54cbc057ee2d1a4625, type: 3}
+      propertyPath: _chargeAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: 7e13d3a09a416154c924df6c52289804, type: 3}
+    - target: {fileID: 556672976932503973, guid: 58d34144b5427e54cbc057ee2d1a4625, type: 3}
       propertyPath: _startHealth
       value: 650
       objectReference: {fileID: 0}
+    - target: {fileID: 556672976932503973, guid: 58d34144b5427e54cbc057ee2d1a4625, type: 3}
+      propertyPath: _bodySlamAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: 5de3392229cb9e541b45453e2dd03181, type: 3}
+    - target: {fileID: 556672976932503973, guid: 58d34144b5427e54cbc057ee2d1a4625, type: 3}
+      propertyPath: _phaseChangeAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: af139adc7bd912045a60fce185dc8b02, type: 3}
+    - target: {fileID: 556672976932503973, guid: 58d34144b5427e54cbc057ee2d1a4625, type: 3}
+      propertyPath: _tendrilSlamAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: ac29b2f2595af0442a0d034cb674fd03, type: 3}
+    - target: {fileID: 556672976932503973, guid: 58d34144b5427e54cbc057ee2d1a4625, type: 3}
+      propertyPath: _tendrilBarrageAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: ac29b2f2595af0442a0d034cb674fd03, type: 3}
     - target: {fileID: 3316622850274428530, guid: 58d34144b5427e54cbc057ee2d1a4625, type: 3}
       propertyPath: m_LocalScale.x
       value: 3
@@ -4287,9 +4319,21 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 556672976932503973, guid: 58d34144b5427e54cbc057ee2d1a4625, type: 3}
+      propertyPath: _globAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: 9fa153d72103fd5489139b580e881c64, type: 3}
+    - target: {fileID: 556672976932503973, guid: 58d34144b5427e54cbc057ee2d1a4625, type: 3}
       propertyPath: _phaseDoor
       value: 
       objectReference: {fileID: 839860346}
+    - target: {fileID: 556672976932503973, guid: 58d34144b5427e54cbc057ee2d1a4625, type: 3}
+      propertyPath: _awakeAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: ed9f026cdf642cc479d7f976e22e767c, type: 3}
+    - target: {fileID: 556672976932503973, guid: 58d34144b5427e54cbc057ee2d1a4625, type: 3}
+      propertyPath: _deathAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: ed9f026cdf642cc479d7f976e22e767c, type: 3}
     - target: {fileID: 556672976932503973, guid: 58d34144b5427e54cbc057ee2d1a4625, type: 3}
       propertyPath: _phaseIndex
       value: 2
@@ -4303,6 +4347,10 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 556672976932503973, guid: 58d34144b5427e54cbc057ee2d1a4625, type: 3}
+      propertyPath: _chargeAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: 7e13d3a09a416154c924df6c52289804, type: 3}
+    - target: {fileID: 556672976932503973, guid: 58d34144b5427e54cbc057ee2d1a4625, type: 3}
       propertyPath: _spawnAmount
       value: 7
       objectReference: {fileID: 0}
@@ -4310,6 +4358,22 @@ PrefabInstance:
       propertyPath: _startHealth
       value: 800
       objectReference: {fileID: 0}
+    - target: {fileID: 556672976932503973, guid: 58d34144b5427e54cbc057ee2d1a4625, type: 3}
+      propertyPath: _bodySlamAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: 5de3392229cb9e541b45453e2dd03181, type: 3}
+    - target: {fileID: 556672976932503973, guid: 58d34144b5427e54cbc057ee2d1a4625, type: 3}
+      propertyPath: _phaseChangeAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: af139adc7bd912045a60fce185dc8b02, type: 3}
+    - target: {fileID: 556672976932503973, guid: 58d34144b5427e54cbc057ee2d1a4625, type: 3}
+      propertyPath: _tendrilSlamAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: ac29b2f2595af0442a0d034cb674fd03, type: 3}
+    - target: {fileID: 556672976932503973, guid: 58d34144b5427e54cbc057ee2d1a4625, type: 3}
+      propertyPath: _tendrilBarrageAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: ac29b2f2595af0442a0d034cb674fd03, type: 3}
     - target: {fileID: 3316622850274428530, guid: 58d34144b5427e54cbc057ee2d1a4625, type: 3}
       propertyPath: m_LocalScale.x
       value: 5
@@ -5591,9 +5655,21 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 556672976932503973, guid: 58d34144b5427e54cbc057ee2d1a4625, type: 3}
+      propertyPath: _globAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: 9fa153d72103fd5489139b580e881c64, type: 3}
+    - target: {fileID: 556672976932503973, guid: 58d34144b5427e54cbc057ee2d1a4625, type: 3}
       propertyPath: _phaseDoor
       value: 
       objectReference: {fileID: 1908800554}
+    - target: {fileID: 556672976932503973, guid: 58d34144b5427e54cbc057ee2d1a4625, type: 3}
+      propertyPath: _awakeAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: ed9f026cdf642cc479d7f976e22e767c, type: 3}
+    - target: {fileID: 556672976932503973, guid: 58d34144b5427e54cbc057ee2d1a4625, type: 3}
+      propertyPath: _deathAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: ed9f026cdf642cc479d7f976e22e767c, type: 3}
     - target: {fileID: 556672976932503973, guid: 58d34144b5427e54cbc057ee2d1a4625, type: 3}
       propertyPath: _phaseIndex
       value: 3
@@ -5607,6 +5683,10 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 556672976932503973, guid: 58d34144b5427e54cbc057ee2d1a4625, type: 3}
+      propertyPath: _chargeAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: 7e13d3a09a416154c924df6c52289804, type: 3}
+    - target: {fileID: 556672976932503973, guid: 58d34144b5427e54cbc057ee2d1a4625, type: 3}
       propertyPath: _spawnAmount
       value: 7
       objectReference: {fileID: 0}
@@ -5614,6 +5694,22 @@ PrefabInstance:
       propertyPath: _startHealth
       value: 1050
       objectReference: {fileID: 0}
+    - target: {fileID: 556672976932503973, guid: 58d34144b5427e54cbc057ee2d1a4625, type: 3}
+      propertyPath: _bodySlamAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: 5de3392229cb9e541b45453e2dd03181, type: 3}
+    - target: {fileID: 556672976932503973, guid: 58d34144b5427e54cbc057ee2d1a4625, type: 3}
+      propertyPath: _phaseChangeAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: af139adc7bd912045a60fce185dc8b02, type: 3}
+    - target: {fileID: 556672976932503973, guid: 58d34144b5427e54cbc057ee2d1a4625, type: 3}
+      propertyPath: _tendrilSlamAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: ac29b2f2595af0442a0d034cb674fd03, type: 3}
+    - target: {fileID: 556672976932503973, guid: 58d34144b5427e54cbc057ee2d1a4625, type: 3}
+      propertyPath: _tendrilBarrageAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: ac29b2f2595af0442a0d034cb674fd03, type: 3}
     - target: {fileID: 3316622850274428530, guid: 58d34144b5427e54cbc057ee2d1a4625, type: 3}
       propertyPath: m_LocalScale.x
       value: 8
