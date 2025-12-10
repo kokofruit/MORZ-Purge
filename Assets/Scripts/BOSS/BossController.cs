@@ -90,6 +90,7 @@ public class BossController : BossBody
     private Animator _animator;
     private Transform _playerTransform;
     private BillboardController9000 _billboardController;
+    [SerializeField] private Transform _parentTr;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -202,13 +203,13 @@ public class BossController : BossBody
         // play sound
         SoundManager.instance.PlayFXAudio(_chargeAudio, transform, pitchFluctuation: 0.2f);
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
 
         // set charge damage
         _currentContactDamage = _chargeContactDamage;
 
         _billboardController.enabled = false;
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(4f);
 
         _billboardController.enabled = true;
 
@@ -242,13 +243,13 @@ public class BossController : BossBody
         // play sound
         SoundManager.instance.PlayFXAudio(_bodySlamAudio, transform, pitchFluctuation: 0.2f);
 
-        yield return new WaitForSeconds(1.2f);
+        yield return new WaitForSeconds(0.6f);
 
         // set charge damage
         _currentContactDamage = _chargeContactDamage;
 
         _billboardController.enabled = false;
-        yield return new WaitForSeconds(2.8f);
+        yield return new WaitForSeconds(3.4f);
 
         _billboardController.enabled = true;
 
@@ -292,8 +293,8 @@ public class BossController : BossBody
             // calculate direction towards player
             //this is a stupid way of fixing an even stupider problem
             //With Love, Mark and Phill(mainly phills(me) stupid brine)
-            Vector3 direction = new Vector3(_playerTransform.position.x, _playerTransform.position.y - 28, _playerTransform.position.z);
-            direction = direction - transform.position;
+            Vector3 direction = new Vector3(_playerTransform.position.x, _playerTransform.position.y, _playerTransform.position.z);
+            direction = direction - _globSource.position;
 
             // apply force
             projectile.AddForce(direction.normalized * _globForce);
@@ -475,6 +476,7 @@ public class BossController : BossBody
         if (_isDying) return;
         _isDying = true;
 
+        _parentTr.position = new Vector3(_parentTr.position.x, _parentTr.position.y - _phaseIndex * 3.1f, _parentTr.position.z);
         // Play sound on death
         SoundManager.instance.PlayFXAudio(_deathAudio, transform, pitchFluctuation: 0.2f);
 
@@ -483,7 +485,7 @@ public class BossController : BossBody
 
         // stop function executions and destroy self after 5 seconds
         StopAllCoroutines();
-        Destroy(gameObject, 4.7f);
+        Destroy(gameObject, 10f);
 
         // put here by VIN
         // if rock is rock of the cosmos, play end dialogue

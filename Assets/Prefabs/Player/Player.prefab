@@ -457,10 +457,10 @@ MonoBehaviour:
   _lookSensY: 0.1
   zoomSensDivisor: 2.5
   _health: 100
-  _walkSpeed: 4
+  _walkSpeed: 8
   _runSpeedMultiplier: 2
   stimMultiplier: 2
-  _jumpForce: 60
+  _jumpForce: 90
   _interactDistance: 5
   _minAirSpeed: 3
   _midairAcceleration: 15

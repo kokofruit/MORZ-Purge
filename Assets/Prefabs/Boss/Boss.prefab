@@ -820,19 +820,15 @@ MonoBehaviour:
   _phaseDoor: {fileID: 0}
   _chargeSpeed: 25
   _chargeContactDamage: 15
-  _chargeAudio: {fileID: 0}
-  _globForce: 1750
-  _globPrefab: {fileID: 948437041128951277, guid: 42a58116d445be245bcc1f71daa13de4, type: 3}
+  _globForce: 1500
+  _globPrefab: {fileID: 948437041128951277, guid: ed4d998063a6a224290f301c9d8a349c, type: 3}
   _globSource: {fileID: 3547350919503285041}
-  _globAudio: {fileID: 8300000, guid: 3eb5bef8f0eac894f9150c8b35d457e3, type: 3}
   _tendrilPrefab: {fileID: 360560678568311096, guid: 4449de91a213dad44892e5c460ccf330, type: 3}
   _tendrilSpawnRadius: 5
   _tendrilNavSampleRange: 3
-  _tendrilSlamAudio: {fileID: 0}
   _tendrilBarragePrefab: {fileID: 2038614137441660513, guid: 25c2ffcd085190f4ab23ca7edd016ecc, type: 3}
   _tendrilBarrageSpawnRadius: 5
   _tendrilBarrageNavSampleRange: 3
-  _tendrilBarrageAudio: {fileID: 0}
   _spawnTable: {fileID: 0}
   _SpawnerSpawnRadius: 15
   _SpawnerNavSampleRange: 3
@@ -841,11 +837,15 @@ MonoBehaviour:
   _eggSpawnRadius: 30
   _eggNavSampleRange: 3
   _eggSpawnAmount: 10
-  _attackAudio: {fileID: 0}
-  _damageAudio: {fileID: 0}
+  _phaseChangeAudio: {fileID: 0}
+  _chargeAudio: {fileID: 0}
+  _bodySlamAudio: {fileID: 0}
+  _globAudio: {fileID: 8300000, guid: 3eb5bef8f0eac894f9150c8b35d457e3, type: 3}
+  _tendrilSlamAudio: {fileID: 0}
   _deathAudio: {fileID: 0}
   _debugText: {fileID: 0}
   _spriteAnimator: {fileID: 9075252064848700652}
+  _parentTr: {fileID: 3316622850274428530}
 --- !u!114 &6282852350949116392
 MonoBehaviour:
   m_ObjectHideFlags: 0
