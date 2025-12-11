@@ -45,9 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DEBUG_MODE: 0
-  LIGHT_AMMO_CAP: 320
-  MEDIUM_AMMO_CAP: 260
-  HEAVY_AMMO_CAP: 40
+  LIGHT_AMMO_CAP: 380
+  MEDIUM_AMMO_CAP: 320
+  HEAVY_AMMO_CAP: 60
   starterGun: {fileID: 11400000, guid: 506470b813ae8674abecc9bf4451b3b4, type: 2}
   playerInventory:
     ammo: 000000000000000000000000

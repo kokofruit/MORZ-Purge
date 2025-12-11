@@ -13,7 +13,6 @@ public class PlayerController : MonoBehaviour
     public static PlayerController instance;
     // Head object that contains the first person camera
     public Transform head;
-    public Collider movementLimiter;
 
     //////////////////// Private Variables /////////////////////
     [Header("Player Variables")]
@@ -40,9 +39,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _midairAcceleration = 10;
     // Maximum slope the player can walk on
     [SerializeField] private float _maxSlopeAngle = 45;
-    [SerializeField] private AudioSource _musicSource;
+
     
-    
+    private AudioSource _musicSource;
     // Player Heads Up Display
     private HUDController HUD;
     // Player rigidbody
@@ -135,7 +134,10 @@ public class PlayerController : MonoBehaviour
             HUDController.instance.DisplayPickupNotice(false);
             Debug.Log("PickupDropped");
         }
+    }
 
+    void FixedUpdate()
+    {
         ///////////////// Move update /////////////////
         // If the player is on the ground
         RaycastHit ground;

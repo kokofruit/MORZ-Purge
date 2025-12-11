@@ -35,6 +35,11 @@ public class WeaponActionController : MonoBehaviour
             Destroy(gameObject);
     }
 
+    void Start()
+    {
+        HUDController.instance.LoadMagazineDisplay(currentWeapon);
+    }
+
     // Update is called once per frame
     void Update()
     {

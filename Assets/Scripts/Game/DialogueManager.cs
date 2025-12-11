@@ -82,7 +82,7 @@ public class DialogueManager : MonoBehaviour
         CubeOfWinning = FindAnyObjectByType<CubeOfWinning>();
 
         // Reset bug death tracker each time scene loads
-        HUDController.SetBugDeathCount(bugDeathCount, bugDeathCap);
+        HUDController?.SetBugDeathCount(bugDeathCount, bugDeathCap);
     }
 
     // Send the dialogue option to the coroutine to be displayed
